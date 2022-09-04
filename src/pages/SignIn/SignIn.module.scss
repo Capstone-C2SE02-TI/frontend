@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     background-color: #001a2c;
+    min-height: 100vh;
 }
 
 .body {
@@ -69,6 +70,13 @@
         background-color: #2e6e98;
         border-color: #2b678e;
     }
+}
+
+.forgot-password {
+    color: #78d3f8;
+    font-size: 1.2rem;
+    float: right;
+    margin-bottom: 4px;
 }
 
 .navigate {
