@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './Home.module.scss';
+import styles from '../../Home.module.scss';
 import { faStar, faMagnifyingGlass, faChartSimple, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
