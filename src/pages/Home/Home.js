@@ -12,11 +12,11 @@ const cx = classNames.bind(styles);
 
 function Home() {
     return (
-        <div>
+        <div className={cx('wrapper')}>
             <header className={cx('header')}>
                 <section className={cx('header-section')}>
                     <div className={cx('header-box')}>
-                        <Image width="150" src={images.logo} alt="logo" />
+                        <Image width="150" className={cx('header-image')} src={images.logoSvg} alt="logo" />
                         <NavHeader />
                         <div className={cx('header-group')}>
                             <button className={cx('btn')}>Sign in</button>
@@ -28,16 +28,29 @@ function Home() {
             <Banner />
             <Ads />
             <Letter />
-            <footer className={cx('footer')}>
-                <section className={cx('col3')}>
-
-                </section>
-                <section className={cx('col3')}>
-
-                </section>
-                <section className={cx('col3')}>
-
-                </section>
+            <footer className={cx('container')}>
+                <div className={cx('footer')}>
+                    <section className={cx('col3')}>
+                        <Image width="150" className={cx('header-image')} src={images.logoSvg} alt="logo" />
+                    </section>
+                    <section className={cx('col3')}>
+                        <ul>
+                            <li>Document</li>
+                            <li>Getting Started</li>
+                            <li>FAQ</li>
+                            <li>Upgrade & payment</li>
+                        </ul>
+                    </section>
+                    <section className={cx('col3')}>
+                        <ul>
+                            <li>Contact</li>
+                            <li>Privacy Policy</li>
+                            <li>FAQ</li>
+                            <li>Terms Of Use</li>
+                        </ul>
+                    </section>
+                </div>
+                <p className={cx('footer-copyright')}>© 2022 • Trackscan.io</p>
             </footer>
         </div>
     )
