@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 
 function App() {
-    console.log(process.env.REACT_APP_BASE_URL);
-
     return (
         <Router>
             <Routes>

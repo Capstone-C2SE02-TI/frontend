@@ -1,12 +1,15 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+
 import Image from '~/components/Image/Image';
 import styles from './SignIn.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { authService } from '~/services';
 
 const cx = classNames.bind(styles);
 
@@ -17,14 +20,40 @@ function SignIn() {
     };
     const [formValues, setFormValues] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false)
 
     const handleChange = (e) => {
         const { value, name } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
 
+    const deleteKeyObject = (formErrors) => {
+        delete formErrors.phoneNumber;
+        delete formErrors.confirmPassword;
+        delete formErrors.email;
+    };
+
+    useEffect(() => {
+        deleteKeyObject(formErrors)
+
+         if (Object.keys(formErrors).length === 0 && isSubmit) {
+             const fetchApi = async () => {
+                 const response = await authService.signIn(formValues, {
+                     headers: {
+                         'Content-Type': 'application/json',
+                         'Authorization': Cookies.get('TI_AUTH_COOKIE')
+                     },
+                 });
+                console.log({response});
+             }
+             fetchApi();
+         }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+     }, [isSubmit,formErrors]);
+
     const handleSubmit = () => {
         setFormErrors(validate(formValues));
+        setIsSubmit(true)
     };
 
     return (
@@ -34,7 +63,7 @@ function SignIn() {
             </div>
             <div className={cx('body')}>
                 <div className={cx('form-group')}>
-                    <label className={cx('label')}>Email Or UserName:</label>
+                    <label className={cx('label')}>UserName:</label>
                     <div className={cx('input-group')}>
                         <div className={cx('input-group__addon')}>
                             <FontAwesomeIcon icon={faUser} />

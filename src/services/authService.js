@@ -1,16 +1,21 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const signUp = async (body) => {
+export const signUp = async (body, options={}) => {
     try {
-        console.log(body);
-        const response = await httpRequest.post('/auth/signup', body);
+        const response = await httpRequest.post('/auth/signup', body, options);
         return response.data;
     } catch (error) {
         return error.response.data;
     }
-    //  console.log(body);
-    //  const response = await httpRequest.post('/auth/signup', body);
-    //  return response.data;
+};
+
+export const signIn = async (body, options = {}) => {
+    try {
+        const response = await httpRequest.post('/auth/signin', body, options);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
 };
 
 export const getUsers = async () => {
@@ -22,18 +27,3 @@ export const getUsers = async () => {
     }
 };
 
-// export const signIn = async (data) => {
-//     try {
-//         console.log(data);
-//         const response = await httpRequest.post('/auth/signin', {
-//             method: 'POST',
-//             body: JSON.stringify(data)  ,
-//             headers: {
-//                 X_Authorization: 'Bearer'
-//             }
-//         });
-//         return response.data;
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };

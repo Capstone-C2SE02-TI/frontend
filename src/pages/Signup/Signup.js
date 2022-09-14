@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 
 import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Image from '~/components/Image/Image';
 import styles from './Signup.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
 import { authService } from '~/services';
-
 
 const cx = classNames.bind(styles);
 
@@ -35,8 +35,13 @@ function Signup() {
 
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
+            //submit data signUp
             const fetchApi = async () => {
-                const result = await authService.signUp(formValues);
+                const requestOptions = {
+                    headers: { 'Content-Type': 'application/json' },
+                };
+
+                const result = await authService.signUp(formValues, requestOptions);
                 console.log({ result });
             };
             fetchApi();
