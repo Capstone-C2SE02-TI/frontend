@@ -1,13 +1,16 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
 import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Image from '~/components/Image/Image';
 import styles from './Signup.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
+import { authService } from '~/services';
 
 const cx = classNames.bind(styles);
 
@@ -15,20 +18,39 @@ function Signup() {
     const initialValue = {
         username: '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         password: '',
         confirmPassword: '',
     };
     const [formValues, setFormValues] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    const inputRef = useRef(null);
 
     const handleChange = (e) => {
         const { value, name } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
 
+    useEffect(() => {
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            //submit data signUp
+            const fetchApi = async () => {
+                const requestOptions = {
+                    headers: { 'Content-Type': 'application/json' },
+                };
+
+                const result = await authService.signUp(formValues, requestOptions);
+                console.log({ result });
+            };
+            fetchApi();
+        }
+    }, [formErrors, isSubmit]);
+
     const handleSubmit = () => {
         setFormErrors(validate(formValues));
+        setIsSubmit(true);
     };
 
     return (
@@ -79,13 +101,13 @@ function Signup() {
                         </div>
                         <input
                             type="number"
-                            name="phone"
+                            name="phoneNumber"
                             placeholder="Enter your phone number"
-                            value={formValues.phone}
+                            value={formValues.phoneNumber}
                             onChange={handleChange}
                         />
                     </div>
-                    <p className={cx('error')}>{formErrors.phone}</p>
+                    <p className={cx('error')}>{formErrors.phoneNumber}</p>
                 </div>
 
                 <div className={cx('form-group')}>
@@ -112,6 +134,7 @@ function Signup() {
                             <FontAwesomeIcon icon={faLock} />
                         </div>
                         <input
+                            ref={inputRef}
                             type="password"
                             name="confirmPassword"
                             placeholder="Enter your password"

@@ -12,8 +12,8 @@ const validate = (values) => {
         errors.email = 'This is not a valid email address';
     }
 
-    if (!values.phone) {
-        errors.phone = 'Phone is required';
+    if (!values.phoneNumber) {
+        errors.phoneNumber = 'Phone is required';
     }
     if (!values.password) {
         errors.password = 'Password is required';
@@ -30,6 +30,11 @@ const validate = (values) => {
     } else if (values.confirmPassword.length > 10) {
         errors.confirmPassword = 'PassConfirm Password cannot exceed more than 10 characters';
     }
+
+    if (values.confirmPassword !== values.password) {
+        errors.confirmPassword = "Password don't match!";
+    }
+
     return errors;
 };
 
