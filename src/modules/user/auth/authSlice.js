@@ -20,6 +20,9 @@ const authSlice = createSlice({
         builder.addCase(fetchAuth.fulfilled, (state, action) => {
             console.log(action.payload);
         });
+        builder.addCase(fetchAuth.pending, (state, action) => {
+            state.isLoggedIn = true;
+        });
     },
 });
 
