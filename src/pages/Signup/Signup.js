@@ -56,7 +56,7 @@ function Signup() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
-                <Image width="310" alt="logo" src={images.logo} />
+                <Image width="250" alt="logo" src={images.logoSvg} />
             </div>
             <div className={cx('body')}>
                 <div className={cx('form-group')}>

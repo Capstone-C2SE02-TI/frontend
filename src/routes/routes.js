@@ -1,4 +1,4 @@
-import Home, { Signup, SignIn } from '~/pages';
+import Home, { Signup, SignIn, DisplayCoin } from '~/pages';
 
 import configs from '~/configs';
 
@@ -14,6 +14,10 @@ const publicRoutes = [
     {
         path: configs.routes.home,
         component: Home,
+    },
+    {
+        path: configs.routes.displayCoin,
+        component: DisplayCoin,
     },
 ];
 
