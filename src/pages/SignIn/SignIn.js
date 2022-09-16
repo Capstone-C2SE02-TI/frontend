@@ -7,9 +7,9 @@ import Image from '~/components/Image/Image';
 import styles from './SignIn.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
+import { authService } from '~/services';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { authService } from '~/services';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +32,8 @@ function SignIn() {
         delete formErrors.confirmPassword;
         delete formErrors.email;
     };
+
+console.log(Cookies.get());
 
     useEffect(() => {
         deleteKeyObject(formErrors)
@@ -69,6 +71,7 @@ function SignIn() {
                             <FontAwesomeIcon icon={faUser} />
                         </div>
                         <input type="text" name="username" placeholder="Enter user name" onChange={handleChange} />
+                        f
                     </div>
                     <p className={cx('error')}>{formErrors.username}</p>
                 </div>

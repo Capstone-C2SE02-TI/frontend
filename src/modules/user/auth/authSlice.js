@@ -17,12 +17,13 @@ const authSlice = createSlice({
     },
 
     extraReducers: (builder) => {
+         builder.addCase(fetchAuth.pending, (state, action) => {
+             state.isLoggedIn = false;
+         });
         builder.addCase(fetchAuth.fulfilled, (state, action) => {
             console.log(action.payload);
         });
-        builder.addCase(fetchAuth.pending, (state, action) => {
-            state.isLoggedIn = true;
-        });
+       
     },
 });
 

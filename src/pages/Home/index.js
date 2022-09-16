@@ -1,5 +1,7 @@
+import Loading from "~/components/Loading";
+
 function Home() {
-    return <h2>Home page</h2>
+    return <Loading />;
 }
 
 export default Home;
