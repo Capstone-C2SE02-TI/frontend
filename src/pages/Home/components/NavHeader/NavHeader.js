@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from '../../Home.module.scss';
 
 const cx = classNames.bind(styles);
-
 function NavHeader() {
     return (
         <nav className={cx('NavHeader')}>
