@@ -6,5 +6,6 @@ const images = {
     twitter: require('./twitter.svg').default,
     banner: require('./banner.svg').default,
     noImage: require('./no-image.png'),
+    etherium: require('./etherium.svg').default,
 };
 export default images;
