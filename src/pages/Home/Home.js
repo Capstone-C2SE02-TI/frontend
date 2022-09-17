@@ -21,10 +21,10 @@ function Home() {
                         </Link>
                         <NavHeader />
                         <div className={cx('header-group')}>
-                            <Link to={''}>
+                            <Link to="/sign-in">
                                 <button className={cx('btn')}>Sign in</button>
                             </Link>
-                            <Link to={''}>
+                            <Link to='/sign-up'>
                                 <button className={cx('btn')}>Sign up</button>
                             </Link>
                         </div>
