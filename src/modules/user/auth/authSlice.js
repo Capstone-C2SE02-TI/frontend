@@ -5,7 +5,7 @@ import { authService } from '~/services';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isLoggedIn: false,
+        status: 'idle',
         user: {},
     },
 
@@ -17,20 +17,20 @@ const authSlice = createSlice({
     },
 
     extraReducers: (builder) => {
-         builder.addCase(fetchAuth.pending, (state, action) => {
-             state.isLoggedIn = false;
-         });
-        builder.addCase(fetchAuth.fulfilled, (state, action) => {
-            console.log(action.payload);
-        });
-       
+        builder
+            .addCase(fetchAuth.pending, (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchAuth.fulfilled, (state, action) => {
+                state.user = action.payload.user;
+                state.status = 'idle';
+            });
     },
 });
 
-const fetchAuth = createAsyncThunk('/auth/signin', async (body, options) => {
-    const response = await authService.signIn(body, options);
-    console.log({ response });
-
+export const fetchAuth = createAsyncThunk('/auth/signin', async (body) => {
+    const response = await authService.signIn(body);
+    console.log({response});
     return response;
 });
 

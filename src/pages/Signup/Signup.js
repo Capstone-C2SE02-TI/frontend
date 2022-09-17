@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
-import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faEye, faEyeSlash, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from '~/components/Image/Image';
@@ -25,6 +25,9 @@ function Signup() {
     const [formValues, setFormValues] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
+    const [loading, setLoading] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(true);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
 
     const inputRef = useRef(null);
 
@@ -35,14 +38,15 @@ function Signup() {
 
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
-            //submit data signUp
             const fetchApi = async () => {
+                setLoading(true);
                 const requestOptions = {
                     headers: { 'Content-Type': 'application/json' },
                 };
 
                 const result = await authService.signUp(formValues, requestOptions);
                 console.log({ result });
+                setLoading(false);
             };
             fetchApi();
         }
@@ -52,7 +56,12 @@ function Signup() {
         setFormErrors(validate(formValues));
         setIsSubmit(true);
     };
-
+    const toggleShowPassword = () => {
+     setIsShowPassword(!isShowPassword);
+    };
+     const toggleShowConfirmPassword = () => {
+         setIsShowConfirmPassword(!isShowConfirmPassword);
+     };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -117,12 +126,25 @@ function Signup() {
                             <FontAwesomeIcon icon={faLock} />
                         </div>
                         <input
-                            type="password"
+                            type={isShowPassword ? 'password' : 'text'}
                             name="password"
                             placeholder="Enter your password"
                             value={formValues.password}
                             onChange={handleChange}
                         />
+                        {isShowPassword ? (
+                            <FontAwesomeIcon
+                                className={cx('input-group__eye-icon')}
+                                icon={faEyeSlash}
+                                onClick={() => toggleShowPassword()}
+                            />
+                        ) : (
+                            <FontAwesomeIcon
+                                className={cx('input-group__eye-icon')}
+                                icon={faEye}
+                                onClick={() => toggleShowPassword()}
+                            />
+                        )}
                     </div>
                     <p className={cx('error')}>{formErrors.password}</p>
                 </div>
@@ -135,12 +157,25 @@ function Signup() {
                         </div>
                         <input
                             ref={inputRef}
-                            type="password"
+                            type={isShowConfirmPassword ? 'password' : 'text'}
                             name="confirmPassword"
                             placeholder="Enter your password"
                             value={formValues.confirmPassword}
                             onChange={handleChange}
                         />
+                        {isShowConfirmPassword ? (
+                            <FontAwesomeIcon
+                                className={cx('input-group__eye-icon')}
+                                icon={faEyeSlash}
+                                onClick={() => toggleShowConfirmPassword()}
+                            />
+                        ) : (
+                            <FontAwesomeIcon
+                                className={cx('input-group__eye-icon')}
+                                icon={faEye}
+                                onClick={() => toggleShowConfirmPassword()}
+                            />
+                        )}
                     </div>
                     <p className={cx('error')}>{formErrors.confirmPassword}</p>
                 </div>
