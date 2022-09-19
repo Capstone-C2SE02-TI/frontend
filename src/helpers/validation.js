@@ -17,18 +17,18 @@ const validate = (values) => {
     }
     if (!values.password) {
         errors.password = 'Password is required';
-    } else if (values.password.length < 4) {
-        errors.password = 'Password must be more than 4 characters';
-    } else if (values.password.length > 10) {
-        errors.password = 'Password cannot exceed more than 10 characters';
+    } else if (values.password.length < 8) {
+        errors.password = 'Password must be more than 8 characters';
+    } else if (values.password.length > 16) {
+        errors.password = 'Password cannot exceed more than 16 characters';
     }
 
     if (!values.confirmPassword) {
         errors.confirmPassword = 'Confirm Password is required';
-    } else if (values.confirmPassword.length < 4) {
-        errors.confirmPassword = 'Confirm Password must be more than 4 characters';
-    } else if (values.confirmPassword.length > 10) {
-        errors.confirmPassword = 'PassConfirm Password cannot exceed more than 10 characters';
+    } else if (values.confirmPassword.length < 8) {
+        errors.confirmPassword = 'Confirm Password must be more than 8 characters';
+    } else if (values.confirmPassword.length > 16) {
+        errors.confirmPassword = 'PassConfirm Password cannot exceed more than 16 characters';
     }
 
     if (values.confirmPassword !== values.password) {

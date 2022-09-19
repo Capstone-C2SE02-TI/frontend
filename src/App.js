@@ -12,7 +12,6 @@ function App() {
                 <Route path={configs.routes.displayCoin} element={<PublicRoute element={<DisplayCoin />} />} />
                 <Route path={configs.routes.p2p} element={<PrivateRoute element={<P2P />} />} />
 
-
                 {/* Authentication router */}
                 <Route path={configs.routes.signIn} element={<SignIn />} />
                 <Route path={configs.routes.signUp} element={<Signup />} />
