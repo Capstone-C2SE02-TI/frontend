@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { faEnvelope, faEye, faEyeSlash, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +12,7 @@ import styles from './Signup.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
 import { authService } from '~/services';
+import { Spin } from 'antd';
 
 const cx = classNames.bind(styles);
 
@@ -26,14 +28,39 @@ function Signup() {
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
-  const [isShowPassword, setIsShowPassword] = useState(true);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
+    const [isShowPassword, setIsShowPassword] = useState(true);
+    const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
+    // const [successfully, setIsShowConfirmPassword] = useState(true);
 
+
+    const navigate = useNavigate()
     const inputRef = useRef(null);
 
     const handleChange = (e) => {
         const { value, name } = e.target;
         setFormValues({ ...formValues, [name]: value });
+    };
+
+    const handleExceptions = (message) => {
+        switch (message) {
+            case 'username-existed':
+                setFormErrors({ username: 'Username already exists' });
+                break;
+            case 'email-existed':
+                setFormErrors({ email: 'Email already exists' });
+                break;
+            case 'email-name-must-6-30-characters':
+                setFormErrors({ successfully: 'Successfully' });
+                navigate('/sign-in');
+                break;
+
+            case 'successfully':
+                setFormErrors({ successfully: 'Successfully' });
+                navigate('/sign-in');
+                break;
+            default:
+                break;
+        }
     };
 
     useEffect(() => {
@@ -46,6 +73,7 @@ function Signup() {
 
                 const result = await authService.signUp(formValues, requestOptions);
                 console.log({ result });
+                handleExceptions(result.message);
                 setLoading(false);
             };
             fetchApi();
@@ -57,17 +85,19 @@ function Signup() {
         setIsSubmit(true);
     };
     const toggleShowPassword = () => {
-     setIsShowPassword(!isShowPassword);
+        setIsShowPassword(!isShowPassword);
     };
-     const toggleShowConfirmPassword = () => {
-         setIsShowConfirmPassword(!isShowConfirmPassword);
-     };
+    const toggleShowConfirmPassword = () => {
+        setIsShowConfirmPassword(!isShowConfirmPassword);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <Image width="250" alt="logo" src={images.logoSvg} />
             </div>
             <div className={cx('body')}>
+                {loading && <Spin tip="Loading..."> </Spin>}
+
                 <div className={cx('form-group')}>
                     <label className={cx('label')}>UserName:</label>
                     <div className={cx('input-group')}>
@@ -189,6 +219,7 @@ function Signup() {
                     <span>Do you already have an account? </span>
                     <Link to="/sign-in">Sign In</Link>
                 </div>
+                <p className={cx('success')}>{formErrors.successfully}</p>
             </div>
         </div>
     );
