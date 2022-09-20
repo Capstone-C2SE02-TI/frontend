@@ -12,6 +12,7 @@ import styles from './Signup.module.scss';
 import validate from '~/helpers/validation';
 import images from '~/assets/images';
 import { authService } from '~/services';
+import { Spin } from 'antd';
 
 const cx = classNames.bind(styles);
 
@@ -29,6 +30,7 @@ function Signup() {
     const [loading, setLoading] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(true);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
+    // const [successfully, setIsShowConfirmPassword] = useState(true);
 
 
     const navigate = useNavigate()
@@ -47,8 +49,14 @@ function Signup() {
             case 'email-existed':
                 setFormErrors({ email: 'Email already exists' });
                 break;
+            case 'email-name-must-6-30-characters':
+                setFormErrors({ successfully: 'Successfully' });
+                navigate('/sign-in');
+                break;
+
             case 'successfully':
-                navigate('/');
+                setFormErrors({ successfully: 'Successfully' });
+                navigate('/sign-in');
                 break;
             default:
                 break;
@@ -88,6 +96,8 @@ function Signup() {
                 <Image width="250" alt="logo" src={images.logoSvg} />
             </div>
             <div className={cx('body')}>
+                {loading && <Spin tip="Loading..."> </Spin>}
+
                 <div className={cx('form-group')}>
                     <label className={cx('label')}>UserName:</label>
                     <div className={cx('input-group')}>
@@ -209,6 +219,7 @@ function Signup() {
                     <span>Do you already have an account? </span>
                     <Link to="/sign-in">Sign In</Link>
                 </div>
+                <p className={cx('success')}>{formErrors.successfully}</p>
             </div>
         </div>
     );

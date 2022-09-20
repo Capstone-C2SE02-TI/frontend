@@ -1,17 +1,18 @@
 const validate = (values) => {
     const errors = {};
     const regexPhoneNumber = /(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/;
+    /* eslint-disable no-useless-escape */
     const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const regexSpecialCharacters = /^([a-zA-Z0-9\u0600-\u06FF\u0660-\u0669\u06F0-\u06F9 _.-]+)$/;
-    const regexSpace = /\s/;
+    const regexSpaceLetter = /\s/;
 
     if (!values.username) {
         errors.username = 'Username is required';
     } else if (values.username.length < 5 || values.username.length > 16) {
         errors.username = 'Username is between 5 to 16 characters';
     } else if (!regexSpecialCharacters.test(values.username)) {
-        errors.username = "Username must haven't special characters";
-    } else if (regexSpace.test(values.username)) {
+        errors.username = 'Username must be contain alphabet';
+    } else if (regexSpaceLetter.test(values.username)) {
         errors.username = "Username must haven't white space";
     }
     if (!values.email) {
@@ -19,6 +20,8 @@ const validate = (values) => {
         /* eslint-disable no-useless-escape */
     } else if (!regexEmail.test(values.email)) {
         errors.email = 'This is not a valid email address';
+    } else if (values.email.length < 16 || values.email.length > 40) {
+        errors.email = 'Email name must 6 30 characters';
     }
 
     if (!values.phoneNumber) {
