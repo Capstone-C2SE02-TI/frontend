@@ -6,29 +6,27 @@ import images from '~/assets/images';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import Pagination from './Pagination';
-import axios from 'axios';
+import PaginationCoin from './Pagination';
+import { Pagination } from 'antd';
 
 const cx = classNames.bind(styles);
 
 function MarketOverview() {
-    const [coins, setCoins] = useState([]);
+    // const [coins, setCoins] = useState([]);
     // const [loading, setLoading] = useState(false);
     // const [currentPage, setCurrentPage] = useState(1);
     // const [coinsPerPage, setCoinsPerPage] = useState(10);
 
-    useEffect(() => {
-        const fetchCoin = async () => {
-            // setLoading(true);
-            const response = await axios.get('http://localhost:4000/display/coins');
-            console.log(response.data.coins)
-            setCoins(response.data.coins)
-            // setLoading(false)
-        }
-        fetchCoin();
-    }, []);
-
-
+    // useEffect(() => {
+    //     const fetchCoin = async () => {
+    //         // setLoading(true);
+    //         const response = await axios.get('http://localhost:4000/display/coins');
+    //         console.log(response.data.coins)
+    //         setCoins(response.data.coins)
+    //         // setLoading(false)
+    //     }
+    //     fetchCoin();
+    // }, []);
 
     return (
         <section className={cx('colMiddle')}>
@@ -54,7 +52,7 @@ function MarketOverview() {
                             <option>Filter by alphabet</option>
                         </select>
                     </div>
-                    <div>
+                    <div className={cx('talbeScroll')}>
                         <table>
                             <thead>
                                 <tr>
@@ -71,35 +69,16 @@ function MarketOverview() {
                                 </tr>
                             </thead>
                             <tbody className={cx("listCoin")}>
-                                {
-                                    coins.map((coin, index) => (
-                                        
-                                        <tr key={index}>
-                                            <td>
-                                                {index+1}
-                                            </td>
-                                            <td className={cx('priceCoin')}>
-                                                <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                                <span>{coin.name}{coin.symbol}</span>
-                                            </td>
-                                            <td>$1,454.91</td>
-                                            <td>{coin.usd.percentChange24h}</td>
-                                            <td>{coin.usd.percentChange7d}</td>
-                                            <td>{coin.usd.volume24h}</td>
-                                            <td>{coin.marketCap}</td>
-                                            <td>{coin.circulatingSupply}</td>
-                                            <td>...</td>
-                                            <td>
-                                                <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
-
+                                <PaginationCoin />
                             </tbody>
                         </table>
                     </div>
-                    {/* <Pagination coinsPerPage={coinsPerPage} totalCoins={coins.length}/> */}
+                    <Pagination
+                        total={85}
+                        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+                        defaultPageSize={20}
+                        defaultCurrent={1}
+                    />
                 </div>
             </nav>
         </section>

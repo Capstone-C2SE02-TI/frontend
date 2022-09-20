@@ -1,29 +1,40 @@
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './MarketOverview.module.scss';
+import CoinItem from './CoinItem';
+import * as request from '~/utils/httpRequest';
 const cx = classNames.bind(styles);
 
-function Pagination({coinsPerPage, totalCoins}) {
-    const pageNumbers = [];
-
-    for(let i=1; i <= Math.ceil(totalCoins/coinsPerPage); i++) {
-        pageNumbers.push(i);
-    }
-
+function PaginationCoin() {
+    const [coins, setCoins] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
+    useEffect(() => {
+        const fetchCoin = async () => {
+            // setLoading(true);
+            try {
+                const response = await request.get('http://localhost:4000/display/coins', {
+                    params: {
+                        page: currentPage,
+                    },
+                });
+                console.log(response.data);
+                setCoins(response.data.coins);
+                setTotalPage(response.data.totalPage);
+            } catch (error) {
+                console.warn(error);
+            }
+        };
+        fetchCoin();
+    }, []);
     return (
-        <nav>
-            <ul className={cx('pagination')}>
-                {
-                    pageNumbers.map(number => (
-                        <li key={number} className={cx('page-item')}>
-                            <a href='#' className={cx('page-link')}>
-                                {number}
-                            </a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
-    )
+        <>
+            {coins.map((coin, index) => (
+                <CoinItem key={index} index={index} coin={coin}/>
+            ))}
+
+        </>
+    );
 }
-export default Pagination;
+
+export default PaginationCoin;
