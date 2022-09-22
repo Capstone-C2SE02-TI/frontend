@@ -58,11 +58,20 @@
 
 .listItem {
     border-bottom: 1px solid #ffff;
-    transition: 0.5s;
+    transition: 1s;
+    transform: 2s ease-in-out;
     &:hover {
         background-color: azure;
         color: aquamarine;
         cursor: pointer;
+    }
+    .iconDropdown {
+        color: aquamarine;
+
+        &--active {
+            transform: rotate(-180deg);
+            transition:transform 0.2s ease-in-out;
+        }
     }
 }
 

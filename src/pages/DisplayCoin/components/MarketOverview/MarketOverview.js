@@ -5,10 +5,29 @@ import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
+import PaginationCoin from './Pagination';
+import { Pagination } from 'antd';
 
 const cx = classNames.bind(styles);
 
 function MarketOverview() {
+    // const [coins, setCoins] = useState([]);
+    // const [loading, setLoading] = useState(false);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [coinsPerPage, setCoinsPerPage] = useState(10);
+
+    // useEffect(() => {
+    //     const fetchCoin = async () => {
+    //         // setLoading(true);
+    //         const response = await axios.get('http://localhost:4000/display/coins');
+    //         console.log(response.data.coins)
+    //         setCoins(response.data.coins)
+    //         // setLoading(false)
+    //     }
+    //     fetchCoin();
+    // }, []);
+
     return (
         <section className={cx('colMiddle')}>
             <nav className={cx('statisticsOverview')}>
@@ -33,7 +52,7 @@ function MarketOverview() {
                             <option>Filter by alphabet</option>
                         </select>
                     </div>
-                    <div>
+                    <div className={cx('talbeScroll')}>
                         <table>
                             <thead>
                                 <tr>
@@ -50,180 +69,16 @@ function MarketOverview() {
                                 </tr>
                             </thead>
                             <tbody className={cx("listCoin")}>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td className={cx('priceCoin')}>
-                                        <Image width="20" className={cx('imageCoin')} src={images.etherium} alt="logo" />
-                                        <span>Ethereum(ETH)</span>
-                                    </td>
-                                    <td>$1,454.91</td>
-                                    <td>11.65%</td>
-                                    <td>11.07%</td>
-                                    <td>$24,502,130,688</td>
-                                    <td>$177,577,773,364</td>
-                                    <td>120,529,924 ETH</td>
-                                    <td>...</td>
-                                    <td>
-                                        <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-                                    </td>
-                                </tr>
+                                <PaginationCoin />
                             </tbody>
                         </table>
                     </div>
+                    <Pagination
+                        total={85}
+                        showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
+                        defaultPageSize={20}
+                        defaultCurrent={1}
+                    />
                 </div>
             </nav>
         </section>

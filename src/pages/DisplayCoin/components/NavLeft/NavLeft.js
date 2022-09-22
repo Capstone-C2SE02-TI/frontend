@@ -5,13 +5,42 @@ import { Link } from 'react-router-dom';
 import styles from './NavLeft.module.scss';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
-import { faHouse, faMagnifyingGlass, faChartSimple, faFlag, faCaretDown, faQuestion} from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faMagnifyingGlass, faChartSimple, faFlag, faCaretDown, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import ItemSubNav from './ItemSubNav';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { subnavDiscover } from './NavLeftData';
 
 const cx = classNames.bind(styles);
 
+const listItem = [
+    {
+        title: 'Home page',
+        icon: faHouse
+    },
+    {
+        title: 'Discover',
+        icon: faMagnifyingGlass,
+        iconDropdown: true,
+        children: ['Update premium','Market overview','Gain chart','Shark wallet']
+    },
+    {
+        title: 'Analyze',
+        icon: faChartSimple,
+        iconDropdown: true,
+        children: ['Update Ranking projects','Invest with shark']
 
+    },
+    {
+        title: 'Support',
+        icon: faQuestion,
+        iconDropdown: true,
+        children: ['Guide','Chat with us','Give a feedback']
+    },
+    {
+        title: 'Report',
+        icon: faFlag,
+    }
+]
 
 function NavLeft() {
 
@@ -22,50 +51,14 @@ function NavLeft() {
             </div>
             <nav className={cx('listMenu')}>
                 <ul>
-                    <li className={cx('listItem')}>
-                        <Link to="">
-                            <div className={cx('iconBox')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faHouse} />
-                                <span>Home page</span>
-                            </div>
-                        </Link>
-                    </li>
-                    <li className={cx('listItem')}>
-                        <Link to="">
-                            <div className={cx('iconBox')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faMagnifyingGlass} />
-                                <span>Discover</span>
-                            </div>
-                            <FontAwesomeIcon className={cx('iconDropdown')} icon={faCaretDown} />
-                        </Link>
+                    {
+                        listItem.map((item, index) => {
+                            return (
+                                <ItemSubNav key={index} item={item} index={index}/>
+                            )
+                        })
+                    }
 
-                    </li>
-                    <li className={cx('listItem')}>  
-                        <Link to="">
-                            <div className={cx('iconBox')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faChartSimple} />
-                                <span>Analyze</span>
-                            </div>
-                            <FontAwesomeIcon className={cx('iconDropdown')} icon={faCaretDown} />
-                        </Link>
-                    </li> 
-                    <li className={cx('listItem')}>  
-                        <Link to="">
-                            <div className={cx('iconBox')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faQuestion} />
-                                <span>Support</span>
-                            </div>
-                            <FontAwesomeIcon className={cx('iconDropdown')} icon={faCaretDown} />
-                        </Link>
-                    </li>      
-                    <li className={cx('listItem')}>
-                        <Link to="">
-                            <div className={cx('iconBox')}>
-                                <FontAwesomeIcon className={cx('icon')} icon={faFlag} />
-                                <span>Report</span>
-                            </div>
-                        </Link>
-                    </li>
                 </ul>
             </nav>
         </section>

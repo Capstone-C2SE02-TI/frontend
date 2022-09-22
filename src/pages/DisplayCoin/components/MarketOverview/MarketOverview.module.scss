@@ -95,16 +95,28 @@ td {
     :nth-child(2) {
         color: antiquewhite;
     }
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
 }
 .iconFollow {
     cursor: pointer;
 }
 
 .listCoin {
+    img {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
     .priceCoin {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: start;
         align-items: center;
+       
     }
 
+}
+
+.talbeScroll {
+    overflow-y: auto;
+    height: 850px;
 }
