@@ -7,23 +7,24 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const cx = classNames.bind(styles);
 
-function CoinItem({ index, coin }) {
+function coinItem({ index, data }) {
+
     return (
         <tr key={index}>
             <td>{index + 1}</td>
-            <td className={cx('priceCoin')}>
-                <Image width="20" className={cx('imageCoin')} src={coin.iconURL} alt="logo" />
+            <td className={cx('pricedata')}>
+                <Image width="20" className={cx('imagedata')} src={data.iconURL} alt="logo" />
                 <span>
-                    {coin.name}
-                    ({coin.symbol})
+                    {data.name}
+                    ({data.symbol})
                 </span>
             </td>
             <td>$1,454.91</td>
-            <td>{Math.round((coin.usd.percentChange24h) * 100) / 100}%</td>
-            <td>{Math.round((coin.usd.percentChange7d) * 100) / 100 }%</td>
-            <td>${coin.usd.volume24h.toFixed(0)}</td>
-            <td>${coin.marketCap.toFixed(0)}</td>
-            <td>{coin.circulatingSupply.toFixed(0)}{' '}{coin.symbol}</td>
+            <td>{Math.round((data.usd.percentChange24h) * 100) / 100}%</td>
+            <td>{Math.round((data.usd.percentChange7d) * 100) / 100 }%</td>
+            <td>${data.usd.volume24h.toFixed(0)}</td>
+            <td>${data.marketCap.toFixed(0)}</td>
+            <td>{data.circulatingSupply.toFixed(0)}{' '}{data.symbol}</td>
             <td>...</td>
             <td>
                 <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
@@ -32,4 +33,4 @@ function CoinItem({ index, coin }) {
     );
 }
 
-export default CoinItem;
+export default coinItem;

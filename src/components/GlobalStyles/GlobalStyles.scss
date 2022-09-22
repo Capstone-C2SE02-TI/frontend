@@ -1,10 +1,11 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
-@import 'antd/dist/antd.css';
+// @import 'antd/dist/antd.css';
 
 :root {
     --text-white: #fff;
-    --text-black: #000;
+    --text-color: #000;
+    --primary: blue;
 }
 
 html {
@@ -26,6 +27,33 @@ body {
 }
 
 a {
-    color: var(--text-color);
+    // color: var(--text-color);
     text-decoration: none;
+}
+
+
+//pagination
+
+.pagination {
+		display: inline-block;
+		margin-bottom: 0;
+		padding-left: 15px;
+		padding-right: 15px;
+
+	.next,
+	.previous {
+		background-color: transparent !important;
+		color: var(--text-color) !important;
+		font-size: 1.4rem !important;
+	}
+
+	.active {
+		background-color: var(--primary) !important;
+		color: #fff !important;
+	}
+
+	.disabled {
+		cursor: default;
+	}
+
 }
