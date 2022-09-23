@@ -1,4 +1,4 @@
-import { Alert, Spin } from 'antd';
+import {  Spin } from 'antd';
 
 function P2P() {
     return (

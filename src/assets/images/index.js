@@ -7,5 +7,6 @@ const images = {
     banner: require('./banner.svg').default,
     noImage: require('./no-image.png'),
     etherium: require('./etherium.svg').default,
+    logoRobot: require('./logo-robot.png'),
 };
 export default images;

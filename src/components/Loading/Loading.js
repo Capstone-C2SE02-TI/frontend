@@ -1,25 +1,22 @@
 import React from 'react';
 import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import LoadingGif from 'assets/images/loading.gif';
+import classNames from 'classnames/bind';
+import styles from './Loading.module.scss'
 
-// import { ListPost } from "";
-const Icon = <LoadingOutlined style={{ fontSize: 35 }} spin />;
+const cx = classNames.bind(styles);
 
+function Loading({ className }) {
 
-function Loading ({ align = 'center', cover = 'inline', style }) {
+    const classNames = cx('container', {
+        [className]: className,
+    });
+
     return (
-        <div
-            style={{
-                ...style,
-            }}
-            className={`loading text-${align} cover-${cover ? cover : 'content'}`}
-        >
-            <img
-                src={LoadingGif}
-                alt={'loading'}
-                style={{ borderRadius: '50%', width: '150px', objectFit: 'cover' }}
-            ></img>
+        <div className={cx('wrapper')}>
+            <div className={cx('overlay')}></div>
+            <div className={classNames}>
+                <Spin> </Spin>
+            </div>
         </div>
     );
 };

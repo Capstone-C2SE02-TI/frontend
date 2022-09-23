@@ -1,0 +1,23 @@
+.wrapper {
+    position: fixed;
+    inset: 0px;
+    z-index: 100;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0px;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    border-radius: 8px;
+    padding-top: 48px;
+}
