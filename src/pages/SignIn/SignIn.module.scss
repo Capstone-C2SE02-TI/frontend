@@ -53,7 +53,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        margin-top: 10px;
+        margin-top: 55px;
 
         h3 {
             color: #344054;
@@ -66,6 +66,7 @@
             color: #667085;
             font-size: 14px;
             line-height: 24px;
+            font-style: italic;
         }
     }
 
@@ -74,7 +75,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-       margin-top: 8px;
+        margin-top: 16px;
 
         &__form-control {
             position: relative;
@@ -101,9 +102,8 @@
                 }
             }
 
-            ::placeholder {
-                text-align: left;
-                font-size: 14px;
+            input:not(:placeholder-shown) ~ .clear {
+                color: var(--primary-color);
             }
 
             svg {
