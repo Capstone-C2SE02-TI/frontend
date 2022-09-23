@@ -1,19 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-import { faEnvelope, faEye, faEyeSlash, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import Image from '~/components/Image/Image';
-import styles from './Signup.module.scss';
-import validate from '~/helpers/validation';
-import images from '~/assets/images';
-import { authService } from '~/services';
 import { Spin } from 'antd';
 
+import { LogoIcon } from '~/components/Icons/Icons';
+import { authService } from '~/services';
+import styles from './Signup.module.scss';
+import validate from '~/helpers/validation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import images from '~/assets/images';
+import 'antd/dist/antd.css';
 const cx = classNames.bind(styles);
 
 function Signup() {
@@ -32,9 +29,10 @@ function Signup() {
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
     // const [successfully, setIsShowConfirmPassword] = useState(true);
 
-
-    const navigate = useNavigate()
-    const inputRef = useRef(null);
+    const navigate = useNavigate();
+    const inputUserRef = useRef();
+    const inputEmailRef = useRef();
+    const inputPhoneNumberRef = useRef();
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -90,103 +88,96 @@ function Signup() {
     const toggleShowConfirmPassword = () => {
         setIsShowConfirmPassword(!isShowConfirmPassword);
     };
+
+    const handleClear = (keyName, inputRef) => {
+        setFormValues({
+            ...formValues,
+            [keyName]: '',
+        });
+        inputRef.current.focus();
+    };
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('header')}>
-                <Image width="250" alt="logo" src={images.logoSvg} />
-            </div>
-            <div className={cx('body')}>
-                {loading && <Spin tip="Loading..."> </Spin>}
+            <div className={cx('login-left')}>
+                <LogoIcon />
 
-                <div className={cx('form-group')}>
-                    <label className={cx('label')}>UserName:</label>
-                    <div className={cx('input-group')}>
-                        <div className={cx('input-group__addon')}>
-                            <FontAwesomeIcon icon={faUser} />
-                        </div>
+                <h3 className={cx('login-left__heading')}>
+                    <span>Enjoy the world's largest cryptocurrency exchange at your fingertips.</span>
+                </h3>
+                <img src={images.logoRobot} alt="logo" />
+            </div>
+            <div className={cx('login-right')}>
+                <div className={cx('login-right__language')}>
+                    <FontAwesomeIcon icon={faCaretDown} />
+                    <span>Language</span>
+                </div>
+                <div className={cx('login-right__header')}>
+                    <h3>Create Account</h3>
+                    <span>Please fill in your details to create your account.</span>
+                </div>
+                <div className={cx('login-right__form-login')}>
+                    {true && <Spin></Spin>}
+                    <div className={cx('login-right__form-login__form-control')}>
+                        <label>Username</label>
                         <input
+                            ref={inputUserRef}
                             type="text"
                             name="username"
-                            placeholder="Enter user name"
-                            value={formValues.username}
                             onChange={handleChange}
+                            value={formValues.username}
+                            placeholder="Eg. Abagnale"
                         />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClear('username', inputUserRef)} />
+                        <p className={cx('error-message')}>{formErrors.username}</p>
                     </div>
-                    <p className={cx('error')}>{formErrors.username}</p>
-                </div>
-
-                <div className={cx('form-group')}>
-                    <label className={cx('label')}>Email:</label>
-                    <div className={cx('input-group')}>
-                        <div className={cx('input-group__addon')}>
-                            <FontAwesomeIcon icon={faEnvelope} />
-                        </div>
+                    <div className={cx('login-right__form-login__form-control')}>
+                        <label>Email</label>
                         <input
+                            ref={inputEmailRef}
                             type="text"
                             name="email"
-                            placeholder="Enter your email"
-                            value={formValues.email}
                             onChange={handleChange}
+                            value={formValues.email}
+                            placeholder="Eg. Abagnale@example.com"
                         />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClear('email', inputEmailRef)} />
+                        <p className={cx('error-message')}>{formErrors.email}</p>
                     </div>
-                    <p className={cx('error')}>{formErrors.email}</p>
-                </div>
-
-                <div className={cx('form-group')}>
-                    <label className={cx('label')}>Mobile phone:</label>
-                    <div className={cx('input-group')}>
-                        <div className={cx('input-group__addon')}>
-                            <FontAwesomeIcon icon={faPhone} />
-                        </div>
+                    <div className={cx('login-right__form-login__form-control')}>
+                        <label>Phone number</label>
                         <input
+                            ref={inputPhoneNumberRef}
                             type="number"
                             name="phoneNumber"
-                            placeholder="Enter your phone number"
-                            value={formValues.phoneNumber}
+                            placeholder="+84********************************"
                             onChange={handleChange}
+                            value={formValues.phoneNumber}
                         />
+                        <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            onClick={() => handleClear('phoneNumber', inputPhoneNumberRef)}
+                        />
+                        <p className={cx('error-message')}>{formErrors.phoneNumber}</p>
                     </div>
-                    <p className={cx('error')}>{formErrors.phoneNumber}</p>
-                </div>
-
-                <div className={cx('form-group')}>
-                    <label className={cx('label')}>Password:</label>
-                    <div className={cx('input-group')}>
-                        <div className={cx('input-group__addon')}>
-                            <FontAwesomeIcon icon={faLock} />
-                        </div>
+                    <div className={cx('login-right__form-login__form-control')}>
+                        <label>Password</label>
                         <input
                             type={isShowPassword ? 'password' : 'text'}
-                            name="password"
-                            placeholder="Enter your password"
                             value={formValues.password}
+                            placeholder="Enter your password"
                             onChange={handleChange}
+                            name="password"
                         />
                         {isShowPassword ? (
-                            <FontAwesomeIcon
-                                className={cx('input-group__eye-icon')}
-                                icon={faEyeSlash}
-                                onClick={() => toggleShowPassword()}
-                            />
+                            <FontAwesomeIcon icon={faEyeSlash} onClick={() => toggleShowPassword()} />
                         ) : (
-                            <FontAwesomeIcon
-                                className={cx('input-group__eye-icon')}
-                                icon={faEye}
-                                onClick={() => toggleShowPassword()}
-                            />
+                            <FontAwesomeIcon icon={faEye} onClick={() => toggleShowPassword()} />
                         )}
+                        <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
-                    <p className={cx('error')}>{formErrors.password}</p>
-                </div>
-
-                <div className={cx('form-group')}>
-                    <label className={cx('label')}>Confirm Password:</label>
-                    <div className={cx('input-group')}>
-                        <div className={cx('input-group__addon')}>
-                            <FontAwesomeIcon icon={faLock} />
-                        </div>
+                    <div className={cx('login-right__form-login__form-control')}>
+                        <label>Confirm password</label>
                         <input
-                            ref={inputRef}
                             type={isShowConfirmPassword ? 'password' : 'text'}
                             name="confirmPassword"
                             placeholder="Enter your password"
@@ -206,20 +197,15 @@ function Signup() {
                                 onClick={() => toggleShowConfirmPassword()}
                             />
                         )}
+                        <p className={cx('error-message')}>{formErrors.confirmPassword}</p>
                     </div>
-                    <p className={cx('error')}>{formErrors.confirmPassword}</p>
+                    <div className={cx('login-right__form-login__submit')}>
+                        <button onClick={handleSubmit}>Sign In</button>
+                    </div>
+                    <span className={cx('login-right__form-login__already-account')}>
+                        Already have an account? <Link to="/sign-in">Sign in</Link>
+                    </span>
                 </div>
-
-                <div className={cx('form-group')}>
-                    <button className={cx('btn-submit')} onClick={handleSubmit}>
-                        Sign up
-                    </button>
-                </div>
-                <div className={cx('navigate')}>
-                    <span>Do you already have an account? </span>
-                    <Link to="/sign-in">Sign In</Link>
-                </div>
-                <p className={cx('success')}>{formErrors.successfully}</p>
             </div>
         </div>
     );

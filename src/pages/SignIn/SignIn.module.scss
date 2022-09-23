@@ -1,9 +1,9 @@
 .wrapper {
-
-    --height-input: 46px;
+    --height-input: 40px;
     --primary-color: #53c79e;
 
     display: flex;
+    height: 100%;
     justify-content: space-between;
     background: linear-gradient(154.9deg, #53c79d 13.55%, rgba(142, 231, 199, 0) 78.38%);
 }
@@ -22,7 +22,7 @@
 .login-right {
     display: flex;
     flex-direction: column;
-    min-width: 712px;
+    min-width: 934px;
     background: #ffffff;
     border-radius: 55px 0px 0px 55px;
 
@@ -30,11 +30,11 @@
         flex-flow: row-reverse;
         display: flex;
         align-items: center;
-        margin-top: 30px;
+        margin-top: 4px;
 
         span {
-            font-weight: 400;
-            font-size: 18px;
+            font-weight: 500;
+            font-size: 16px;
             color: #454545;
             margin-right: 4px;
         }
@@ -53,17 +53,18 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        margin-top: 40px;
+        margin-top: 10px;
 
         h3 {
             color: #344054;
             font-weight: 700;
-            font-size: 40px;
+            font-size: 30px;
+            margin-bottom: 0;
         }
 
         span {
             color: #667085;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 24px;
         }
     }
@@ -73,18 +74,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 30px;
+       margin-top: 8px;
 
         &__form-control {
             position: relative;
             display: flex;
             flex-direction: column;
-        
 
             label {
                 font-size: 14px;
                 color: #344054;
-                padding: 6px 0;
+                padding: 4px 0;
                 font-weight: 500;
             }
 
@@ -104,7 +104,7 @@
             ::placeholder {
                 text-align: left;
                 font-size: 14px;
-                }
+            }
 
             svg {
                 position: absolute;
@@ -116,7 +116,7 @@
         }
 
         &__submit {
-            padding: 30px 0;
+            padding: 12px 0;
 
             button {
                 width: 360px;
@@ -125,7 +125,7 @@
                 border-color: transparent;
                 color: #ffffff;
                 font-weight: 400;
-                font-size: 24px;
+                font-size: 16px;
                 padding: 6px 0;
                 cursor: pointer;
 
@@ -136,7 +136,7 @@
         }
 
         &__already-account {
-            font-size: 16px;
+            font-size: 14px;
 
             a {
                 color: var(--primary-color);
@@ -151,9 +151,11 @@
 }
 
 .error-message {
-      font-size: 1.2rem;
-  line-height: 1.6rem;
-  padding: 4px 0 0;
-  color: #f33a58;
-  margin-top: 4px;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 4px 0 0;
+    color: #f33a58;
+}
+
+.signin-loading {
 }

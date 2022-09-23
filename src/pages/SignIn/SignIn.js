@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 import Cookies from 'js-cookie';
 import { Spin } from 'antd';
 
-import {  LogoIcon } from "./Icons";
+import {LogoIcon} from "~/components/Icons/Icons";
 import { authService } from '~/services';
 import styles from './SignIn.module.scss'
 import validate from "~/helpers/validation";
@@ -24,7 +24,6 @@ function SignIn() {
          username: '',
          password: '',
      };
-
 
      const [formValues, setFormValues] = useState(initialValue);
      const [formErrors, setFormErrors] = useState({});
@@ -102,7 +101,6 @@ function SignIn() {
     };
     
     const handleClear = () => {
-        
         setFormValues({
             ...formValues,
             username: '',
@@ -113,6 +111,7 @@ function SignIn() {
         <div className={cx('wrapper')}>
             <div className={cx('login-left')}>
                 <LogoIcon />
+
                 <h3 className={cx('login-left__heading')}>
                     <span>Enjoy the world's largest cryptocurrency exchange at your fingertips.</span>
                 </h3>
@@ -128,16 +127,16 @@ function SignIn() {
                     <span>Please fill your detail to access your account.</span>
                 </div>
                 <div className={cx('login-right__form-login')}>
-                    {true && <Spin> </Spin>}
+                {true && <Spin></Spin>}
                     <div className={cx('login-right__form-login__form-control')}>
                         <label>Username</label>
                         <input
                             ref={inputUserRef}
                             type="text"
                             name="username"
-                            placeholder="Eg. Abagnale"
                             onChange={handleChange}
                             value={formValues.username}
+                            placeholder="Eg. Abagnale"
                         />
                         <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} />
                         <p className={cx('error-message')}>{formErrors.username}</p>
