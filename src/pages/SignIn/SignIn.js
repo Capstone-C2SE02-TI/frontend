@@ -127,9 +127,9 @@ function SignIn() {
                     <span>Please fill your detail to access your account.</span>
                 </div>
                 <div className={cx('login-right__form-login')}>
-                {true && <Spin></Spin>}
+                    {true && <Spin></Spin>}
                     <div className={cx('login-right__form-login__form-control')}>
-                        <label>Username</label>
+                        <label className={cx('test')}>Username</label>
                         <input
                             ref={inputUserRef}
                             type="text"
@@ -138,7 +138,7 @@ function SignIn() {
                             value={formValues.username}
                             placeholder="Eg. Abagnale"
                         />
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('clear')} />
                         <p className={cx('error-message')}>{formErrors.username}</p>
                     </div>
                     <div className={cx('login-right__form-login__form-control')}>

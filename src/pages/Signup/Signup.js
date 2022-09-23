@@ -127,7 +127,11 @@ function Signup() {
                             value={formValues.username}
                             placeholder="Eg. Abagnale"
                         />
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClear('username', inputUserRef)} />
+                        <FontAwesomeIcon
+                            className={cx('clear')}
+                            icon={faCircleXmark}
+                            onClick={() => handleClear('username', inputUserRef)}
+                        />
                         <p className={cx('error-message')}>{formErrors.username}</p>
                     </div>
                     <div className={cx('login-right__form-login__form-control')}>
@@ -140,7 +144,11 @@ function Signup() {
                             value={formValues.email}
                             placeholder="Eg. Abagnale@example.com"
                         />
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClear('email', inputEmailRef)} />
+                        <FontAwesomeIcon
+                            className={cx('clear')}
+                            icon={faCircleXmark}
+                            onClick={() => handleClear('email', inputEmailRef)}
+                        />
                         <p className={cx('error-message')}>{formErrors.email}</p>
                     </div>
                     <div className={cx('login-right__form-login__form-control')}>
@@ -149,11 +157,12 @@ function Signup() {
                             ref={inputPhoneNumberRef}
                             type="number"
                             name="phoneNumber"
-                            placeholder="+84********************************"
+                            placeholder="+84*************"
                             onChange={handleChange}
                             value={formValues.phoneNumber}
                         />
                         <FontAwesomeIcon
+                            className={cx('clear')}
                             icon={faCircleXmark}
                             onClick={() => handleClear('phoneNumber', inputPhoneNumberRef)}
                         />

@@ -66,6 +66,8 @@
             color: #667085;
             font-size: 14px;
             line-height: 24px;
+             font-style: italic;
+
         }
     }
 
@@ -99,6 +101,10 @@
                 &:focus {
                     border-color: var(--primary-color);
                 }
+            }
+
+             input:not(:placeholder-shown) ~ .clear {
+                color: var(--primary-color);
             }
 
             ::placeholder {
