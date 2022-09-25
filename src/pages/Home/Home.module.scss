@@ -74,6 +74,7 @@
     a {
         list-style: none;
         transition: 0.5s;
+        color: aquamarine;
         &:hover {
             color: aquamarine;
         }
@@ -103,6 +104,7 @@
         padding-bottom: 16px;
         font-size: 5rem;
         font-weight: bold;
+        color: white;
     }
     p {
         font-weight: 400;

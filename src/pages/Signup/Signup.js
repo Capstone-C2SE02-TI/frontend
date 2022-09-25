@@ -116,7 +116,7 @@ function Signup() {
                     <span>Please fill in your details to create your account.</span>
                 </div>
                 <div className={cx('login-right__form-login')}>
-                    {true && <Spin></Spin>}
+                    {loading && <Spin></Spin>}
                     <div className={cx('login-right__form-login__form-control')}>
                         <label>Username</label>
                         <input
@@ -209,7 +209,7 @@ function Signup() {
                         <p className={cx('error-message')}>{formErrors.confirmPassword}</p>
                     </div>
                     <div className={cx('login-right__form-login__submit')}>
-                        <button onClick={handleSubmit}>Sign In</button>
+                        <button onClick={handleSubmit}>Sign up</button>
                     </div>
                     <span className={cx('login-right__form-login__already-account')}>
                         Already have an account? <Link to="/sign-in">Sign in</Link>

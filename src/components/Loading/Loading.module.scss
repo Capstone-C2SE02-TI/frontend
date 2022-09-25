@@ -5,6 +5,9 @@
     display: flex;
     justify-self: center;
     align-items: center;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .overlay {
@@ -17,7 +20,7 @@
     position: relative;
     z-index: 1;
     background-color: rgb(255, 255, 255);
-    margin: auto;
+    margin: 0 auto;
     border-radius: 8px;
     padding-top: 48px;
 }
