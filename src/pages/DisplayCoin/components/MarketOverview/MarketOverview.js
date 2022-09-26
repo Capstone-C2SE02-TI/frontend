@@ -6,6 +6,7 @@ import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
 import { Spin } from 'antd';
+import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,6 @@ function MarketOverview() {
     const [marketOverview, setMarketOverview] = useState([]);
     const [loading, setLoading] = useState(false);
     const [paginationState, setPaginationState] = useState(0);
-
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected);
     };
@@ -23,18 +23,15 @@ function MarketOverview() {
     useEffect(() => {
         const fetchCoin = async () => {
             setLoading(true);
-            // const response = await marketOverviewService.getCoin(paginationState + PLUS_1);
-            // // console.log({ response });
-            // setMarketOverview(response.coins);
-            setTimeout(() => {
-                
-            }, 5000);
-            // setCoins(response.data.coins)
+            const response = await marketOverviewService.getTokens(paginationState + PLUS_1);
+            console.log({ response });
+            setMarketOverview(response.datas);
+
             setLoading(false);
         };
         fetchCoin();
     }, [paginationState]);
-
+    console.log(marketOverview);
     return (
         <section className={cx('colMiddle')}>
             <nav className={cx('statisticsOverview')}>
@@ -66,8 +63,10 @@ function MarketOverview() {
                             <option>Filter by price</option>
                             <option>Filter by alphabet</option>
                         </select>
+
                     </div>
                     <div className={cx('talbeScroll')}>
+
                         <table>
                             <thead>
                                 <tr>
@@ -82,24 +81,28 @@ function MarketOverview() {
                                     <th>LAST 7 DAYS</th>
                                     <th>FOLLOW</th>
                                 </tr>
+
                             </thead>
+
                             <tbody className={cx('listCoin')}>
-                                {loading ? (
-                                    <Spin tip="Loading..."> </Spin>
-                                ) : (
-                                    marketOverview.map((coin, index) => (
-                                        <CoinItem index={index} key={coin.id} data={coin} />
-                                    ))
+
+
+                                {!loading && marketOverview.map((coin, index) => (
+                                    <CoinItem index={index} key={coin.id} data={coin} />
+                                ))}
+                                {loading && (
+                                    <Loading />
                                 )}
                             </tbody>
                         </table>
                         <div id={cx('market-table__pagination')}>
+
                             <ReactPaginate
                                 previousLabel={'<'}
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={marketOverview.totalPage || 10}
+                                pageCount={marketOverview?.totalPage || 3}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
@@ -107,6 +110,7 @@ function MarketOverview() {
                                 containerClassName={cx('pagination')}
                                 activeClassName={cx('active')}
                             />
+
                         </div>
                     </div>
                 </div>
