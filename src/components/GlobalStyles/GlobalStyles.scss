@@ -4,7 +4,11 @@
 :root {
     --text-white: #fff;
     --text-color: #000;
-    --primary: blue;
+    --primary: #9381FF;
+}
+
+body > #root > div {
+  height: 100vh;
 }
 
 html {
