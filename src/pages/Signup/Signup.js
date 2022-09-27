@@ -10,7 +10,6 @@ import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
-import 'antd/dist/antd.css';
 const cx = classNames.bind(styles);
 
 function Signup() {
@@ -76,6 +75,7 @@ function Signup() {
             };
             fetchApi();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formErrors, isSubmit]);
 
     const handleSubmit = () => {
@@ -128,7 +128,7 @@ function Signup() {
                             placeholder="Eg. Abagnale"
                         />
                         <FontAwesomeIcon
-                            className={cx('clear')}
+                            className={cx('active-value')}
                             icon={faCircleXmark}
                             onClick={() => handleClear('username', inputUserRef)}
                         />
@@ -145,7 +145,7 @@ function Signup() {
                             placeholder="Eg. Abagnale@example.com"
                         />
                         <FontAwesomeIcon
-                            className={cx('clear')}
+                            className={cx('active-value')}
                             icon={faCircleXmark}
                             onClick={() => handleClear('email', inputEmailRef)}
                         />
@@ -162,7 +162,7 @@ function Signup() {
                             value={formValues.phoneNumber}
                         />
                         <FontAwesomeIcon
-                            className={cx('clear')}
+                            className={cx('active-value')}
                             icon={faCircleXmark}
                             onClick={() => handleClear('phoneNumber', inputPhoneNumberRef)}
                         />
@@ -178,9 +178,17 @@ function Signup() {
                             name="password"
                         />
                         {isShowPassword ? (
-                            <FontAwesomeIcon icon={faEyeSlash} onClick={() => toggleShowPassword()} />
+                            <FontAwesomeIcon
+                                icon={faEyeSlash}
+                                onClick={() => toggleShowPassword()}
+                                className={cx('active-value')}
+                            />
                         ) : (
-                            <FontAwesomeIcon icon={faEye} onClick={() => toggleShowPassword()} />
+                            <FontAwesomeIcon
+                                icon={faEye}
+                                onClick={() => toggleShowPassword()}
+                                className={cx('active-value')}
+                            />
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
@@ -195,13 +203,13 @@ function Signup() {
                         />
                         {isShowConfirmPassword ? (
                             <FontAwesomeIcon
-                                className={cx('input-group__eye-icon')}
+                                className={cx('active-value')}
                                 icon={faEyeSlash}
                                 onClick={() => toggleShowConfirmPassword()}
                             />
                         ) : (
                             <FontAwesomeIcon
-                                className={cx('input-group__eye-icon')}
+                                className={cx('active-value')}
                                 icon={faEye}
                                 onClick={() => toggleShowConfirmPassword()}
                             />

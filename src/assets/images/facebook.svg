@@ -1,21 +1,21 @@
-<svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M47 23.5C47 36.4787 36.4787 47 23.5 47C10.5213 47 0 36.4787 0 23.5C0 10.5213 10.5213 0 23.5 0C36.4787 0 47 10.5213 47 23.5Z" fill="#04184B"/>
-<g opacity="0.9" filter="url(#filter0_bi_2_955)">
-<path d="M40.1152 6.88477C35.5254 2.2949 29.987 0 23.5 0C17.013 0 11.4746 2.2949 6.88477 6.88477C2.2949 11.4746 0 17.013 0 23.5C0 29.987 2.2949 35.5254 6.88477 40.1152C11.4746 44.7051 17.013 47 23.5 47C29.987 47 35.5254 44.7051 40.1152 40.1152C44.7051 35.5254 47 29.987 47 23.5C47 17.013 44.7051 11.4746 40.1152 6.88477ZM29.5586 23.5H25.7031V37.6367H20.4707V23.5H16.8906V18.6348H20.4707V15.7891C20.4707 13.6471 20.8685 12.0407 21.6641 10.9697C22.4596 9.89876 23.959 9.36328 26.1621 9.36328H30.0176V14.2285H27.6309C26.7741 14.2285 26.2386 14.3815 26.0244 14.6875C25.8102 14.9935 25.7031 15.5137 25.7031 16.248V18.6348H30.1094L29.5586 23.5Z" fill="white"/>
-</g>
-<defs>
-<filter id="filter0_bi_2_955" x="-40" y="-40" width="127" height="127" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feGaussianBlur in="BackgroundImage" stdDeviation="20"/>
-<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_2_955"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_2_955" result="shape"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feMorphology radius="1" operator="dilate" in="SourceAlpha" result="effect2_innerShadow_2_955"/>
-<feOffset dx="-4" dy="4"/>
-<feGaussianBlur stdDeviation="5"/>
-<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.7 0 0 0 0 0.986538 0 0 0 0.7 0"/>
-<feBlend mode="normal" in2="shape" result="effect2_innerShadow_2_955"/>
-</filter>
-</defs>
-</svg>
+  <svg width={47} height={47} viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M47 23.5C47 36.4787 36.4787 47 23.5 47C10.5213 47 0 36.4787 0 23.5C0 10.5213 10.5213 0 23.5 0C36.4787 0 47 10.5213 47 23.5Z" fill="#04184B" />
+        <g opacity="0.9" filter="url(#filter0_bi_2_955)">
+          <path d="M40.1152 6.88477C35.5254 2.2949 29.987 0 23.5 0C17.013 0 11.4746 2.2949 6.88477 6.88477C2.2949 11.4746 0 17.013 0 23.5C0 29.987 2.2949 35.5254 6.88477 40.1152C11.4746 44.7051 17.013 47 23.5 47C29.987 47 35.5254 44.7051 40.1152 40.1152C44.7051 35.5254 47 29.987 47 23.5C47 17.013 44.7051 11.4746 40.1152 6.88477ZM29.5586 23.5H25.7031V37.6367H20.4707V23.5H16.8906V18.6348H20.4707V15.7891C20.4707 13.6471 20.8685 12.0407 21.6641 10.9697C22.4596 9.89876 23.959 9.36328 26.1621 9.36328H30.0176V14.2285H27.6309C26.7741 14.2285 26.2386 14.3815 26.0244 14.6875C25.8102 14.9935 25.7031 15.5137 25.7031 16.248V18.6348H30.1094L29.5586 23.5Z" fill="white" />
+        </g>
+        <defs>
+          <filter id="filter0_bi_2_955" x={-40} y={-40} width={127} height={127} filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity={0} result="BackgroundImageFix" />
+            <feGaussianBlur in="BackgroundImage" stdDeviation={20} />
+            <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_2_955" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_2_955" result="shape" />
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+            <feMorphology radius={1} operator="dilate" in="SourceAlpha" result="effect2_innerShadow_2_955" />
+            <feOffset dx={-4} dy={4} />
+            <feGaussianBlur stdDeviation={5} />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2={-1} k3={1} />
+            <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.7 0 0 0 0 0.986538 0 0 0 0.7 0" />
+            <feBlend mode="normal" in2="shape" result="effect2_innerShadow_2_955" />
+          </filter>
+        </defs>
+      </svg>

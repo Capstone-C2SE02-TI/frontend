@@ -103,7 +103,7 @@
                 }
             }
 
-             input:not(:placeholder-shown) ~ .clear {
+             input:not(:placeholder-shown) ~ .active-value {
                 color: var(--primary-color);
             }
 

@@ -1,10 +1,15 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import 'antd/dist/antd.css';
 
 :root {
     --text-white: #fff;
     --text-color: #000;
-    --primary: blue;
+    --primary: #9381FF;
+}
+
+body > #root > div {
+  height: 100vh;
 }
 
 html {
@@ -32,16 +37,16 @@ a {
 
 // Remove Arrows/Spinners
 /* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+// input::-webkit-outer-spin-button,
+// input::-webkit-inner-spin-button {
+//   -webkit-appearance: none;
+//   margin: 0;
+// }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
+// /* Firefox */
+// input[type=number] {
+//   -moz-appearance: textfield;
+// }
 
 
 

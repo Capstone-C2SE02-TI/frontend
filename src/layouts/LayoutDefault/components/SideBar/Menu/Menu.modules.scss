@@ -1,0 +1,35 @@
+//menu items
+
+.menu-item {
+    --fill-color-icon:  #7665d8;
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 40px;
+
+
+    &.active {
+        .menu-item__title {
+            color: var(--fill-color-icon);
+            font-weight: 600;
+        }
+
+        svg {
+            fill: var(--fill-color-icon);
+
+            path {
+                stroke: var(--fill-color-icon);
+            }
+        }
+    }
+
+    &__title {
+        margin-left: 10px;
+        color: #352E5B;
+    }
+
+    svg {
+        margin-right: 22px;
+    }
+}

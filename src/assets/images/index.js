@@ -1,5 +1,5 @@
 const images = {
-    // logo: require('./logo.jpg'),
+    logo: require('./Layer_1_xA0_Image.png'),
     logoSvg: require('./logo.svg').default,
     facebook: require('./facebook.svg').default,
     telegram: require('./telegram.svg').default,
