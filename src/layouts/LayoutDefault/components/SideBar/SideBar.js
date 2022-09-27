@@ -14,7 +14,7 @@ function SideBar() {
                 <img src={images.logo} alt={'logo'} />
             </div>
             <Menu>
-                <MenuItem icon={<HomeIcon />} title="Home" to="/home" />
+                <MenuItem icon={<HomeIcon />} title="Home" to="/home-dashboard" />
                 <MenuItem icon={<DiscoverIcon />} title="Discover" to="/discover" />
                 <MenuItem icon={<AnalyzeIcon />} title="Analyze" to="/analyze" />
                 <MenuItem icon={<SupportIcon />} title="Support" to="/support" />

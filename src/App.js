@@ -7,6 +7,10 @@ import LayoutDefault from './layouts/LayoutDefault';
 import TokenDetail from './pages/TokenDetail';
 import Analyze from './pages/Analyze';
 import Discover from './pages/Discover/index';
+import Support from './pages/Support';
+import Report from './pages/Report';
+import Setting from './pages/Setting';
+import HomeDashboard from './pages/HomeDashboard';
 
 function App() {
     return (
@@ -46,6 +50,54 @@ function App() {
                             element={
                                 <LayoutDefault>
                                     <Discover />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path="/support"
+                    element={
+                        <PublicRoute
+                            element={
+                                <LayoutDefault>
+                                    <Support />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path="/report"
+                    element={
+                        <PublicRoute
+                            element={
+                                <LayoutDefault>
+                                    <Report />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path="/setting"
+                    element={
+                        <PublicRoute
+                            element={
+                                <LayoutDefault>
+                                    <Setting />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path="/home-dashboard"
+                    element={
+                        <PublicRoute
+                            element={
+                                <LayoutDefault>
+                                    <HomeDashboard />
                                 </LayoutDefault>
                             }
                         />
