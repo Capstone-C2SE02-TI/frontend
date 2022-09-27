@@ -11,7 +11,6 @@ import validate from "~/helpers/validation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import images  from '~/assets/images';
-import 'antd/dist/antd.css';
 
 
 const cx = classNames.bind(styles);
@@ -127,7 +126,7 @@ function SignIn() {
                     <span>Please fill your detail to access your account.</span>
                 </div>
                 <div className={cx('login-right__form-login')}>
-                    {true && <Spin></Spin>}
+                    {loading && <Spin></Spin>}
                     <div className={cx('login-right__form-login__form-control')}>
                         <label className={cx('test')}>Username</label>
                         <input
@@ -138,7 +137,7 @@ function SignIn() {
                             value={formValues.username}
                             placeholder="Eg. Abagnale"
                         />
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('clear')} />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('active-value')} />
                         <p className={cx('error-message')}>{formErrors.username}</p>
                     </div>
                     <div className={cx('login-right__form-login__form-control')}>
@@ -151,9 +150,17 @@ function SignIn() {
                             name="password"
                         />
                         {isShowPassword ? (
-                            <FontAwesomeIcon icon={faEyeSlash} onClick={() => toggleShowPassword()} />
+                            <FontAwesomeIcon
+                                icon={faEyeSlash}
+                                onClick={() => toggleShowPassword()}
+                                className={cx('active-value')}
+                            />
                         ) : (
-                            <FontAwesomeIcon icon={faEye} onClick={() => toggleShowPassword()} />
+                            <FontAwesomeIcon
+                                icon={faEye}
+                                onClick={() => toggleShowPassword()}
+                                className={cx('active-value')}
+                            />
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
@@ -161,7 +168,6 @@ function SignIn() {
                     <div className={cx('login-right__form-login__submit')}>
                         <button onClick={handleSubmit}>Sign In</button>
                     </div>
-
                     <span className={cx('login-right__form-login__already-account')}>
                         Don't have an account? <Link to="/sign-up">Sign up</Link>
                     </span>

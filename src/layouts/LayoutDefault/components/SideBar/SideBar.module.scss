@@ -16,14 +16,15 @@
         &__btn {
             width: 160px;
             padding: 8px 0;
-            background-color: #9381ff;
+            background-color: #644de7;
             border: transparent;
-            border-radius: 8px;
+            border-radius: 16px;
             color: #fff;
             cursor: pointer;
+            transition: opacity 0.2s ease;
 
             &:hover {
-                background-color: #644de7;
+                opacity: 0.8;
             }
         }
     }

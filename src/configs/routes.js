@@ -4,6 +4,6 @@ const routes = {
     signIn: '/sign-in',
     displayCoin: '/display-coin',
     p2p: '/p2p',
-    tokenDetailL:'/tokens/:token'
+    tokenDetailL:'/analyze/tokens/:token'
 };
 export default routes;

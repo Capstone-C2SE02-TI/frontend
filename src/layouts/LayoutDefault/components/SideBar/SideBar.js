@@ -14,7 +14,7 @@ function SideBar() {
                 <img src={images.logo} alt={'logo'} />
             </div>
             <Menu>
-                <MenuItem icon={<HomeIcon />} title="Home" to="/" />
+                <MenuItem icon={<HomeIcon />} title="Home" to="/home" />
                 <MenuItem icon={<DiscoverIcon />} title="Discover" to="/discover" />
                 <MenuItem icon={<AnalyzeIcon />} title="Analyze" to="/analyze" />
                 <MenuItem icon={<SupportIcon />} title="Support" to="/support" />
@@ -25,6 +25,7 @@ function SideBar() {
             <div className={cx('sidebar-guide')}>
                 <button className={cx('sidebar-guide__btn')}>Guide</button>
             </div>
+
             <div className={cx('sidebar-copy-right')}>
                 <span>@Copyright by TI team</span>
             </div>

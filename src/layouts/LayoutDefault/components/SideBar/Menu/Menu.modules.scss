@@ -1,34 +1,35 @@
 //menu items
 
 .menu-item {
+    --fill-color-icon:  #7665d8;
+    
     display: flex;
     align-items: center;
-    padding: 12px;
-    margin-left: 22px;
+    justify-content: flex-start;
+    padding: 14px 40px;
 
-    
+
     &.active {
-      
-        
         .menu-item__title {
-             color: var(--primary);
+            color: var(--fill-color-icon);
+            font-weight: 600;
         }
 
-        .menu-item__icon {
-            svg {
-                 color: var(--primary);
+        svg {
+            fill: var(--fill-color-icon);
+
+            path {
+                stroke: var(--fill-color-icon);
             }
         }
     }
 
     &__title {
         margin-left: 10px;
-        color: #A5A2B8;
+        color: #352E5B;
     }
 
-    &__icon {
-        svg {
-            margin-right: 22px;
-        }
+    svg {
+        margin-right: 22px;
     }
 }

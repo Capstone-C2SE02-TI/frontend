@@ -81,6 +81,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
+             width: 360px;
 
             label {
                 font-size: 14px;
@@ -92,7 +93,7 @@
             input {
                 border: 1px solid #d0d5dd;
                 border-radius: 8px;
-                width: 360px;
+                width: 100%;
                 padding: 12px 16px;
                 outline: none;
                 height: var(--height-input);
@@ -102,7 +103,7 @@
                 }
             }
 
-            input:not(:placeholder-shown) ~ .clear {
+            input:not(:placeholder-shown) ~ .active-value {
                 color: var(--primary-color);
             }
 
@@ -155,7 +156,4 @@
     line-height: 1.6rem;
     padding: 4px 0 0;
     color: #f33a58;
-}
-
-.signin-loading {
 }
