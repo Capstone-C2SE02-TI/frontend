@@ -32,7 +32,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/analyze"
+                    path="/analyze/tokens/:token"
                     element={
                         <PublicRoute
                             element={

@@ -5,11 +5,11 @@
 :root {
     --text-white: #fff;
     --text-color: #000;
-    --primary: #9381FF;
+    --primary: #9381ff;
 }
 
 body > #root > div {
-  height: 100vh;
+    height: 100vh;
 }
 
 html {
@@ -31,7 +31,7 @@ body {
 }
 
 a {
-    // color: var(--text-color);
+    color: #352e5b;
     text-decoration: none;
 }
 
@@ -47,8 +47,6 @@ a {
 // input[type=number] {
 //   -moz-appearance: textfield;
 // }
-
-
 
 //scrollbar
 html *::-webkit-scrollbar {
@@ -66,28 +64,26 @@ html *::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
 }
 
-
 //pagination
 .pagination {
-		display: inline-block;
-		margin-bottom: 0;
-		padding-left: 15px;
-		padding-right: 15px;
+    display: inline-block;
+    margin-bottom: 0;
+    padding-left: 15px;
+    padding-right: 15px;
 
-	.next,
-	.previous {
-		background-color: transparent !important;
-		color: var(--text-color) !important;
-		font-size: 1.4rem !important;
-	}
+    .next,
+    .previous {
+        background-color: transparent !important;
+        color: var(--text-color) !important;
+        font-size: 1.4rem !important;
+    }
 
-	.active {
-		background-color: var(--primary) !important;
-		color: #fff !important;
-	}
+    .active {
+        background-color: var(--primary) !important;
+        color: #fff !important;
+    }
 
-	.disabled {
-		cursor: default;
-	}
-
+    .disabled {
+        cursor: default;
+    }
 }

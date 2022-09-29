@@ -16,10 +16,11 @@ function SideBar() {
             <Menu>
                 <MenuItem icon={<HomeIcon />} title="Home" to="/home-dashboard" />
                 <MenuItem icon={<DiscoverIcon />} title="Discover" to="/discover" />
-                <MenuItem icon={<AnalyzeIcon />} title="Analyze" to="/analyze" />
+                <MenuItem icon={<AnalyzeIcon />} title="Analyze" to="/analyze/tokens/:token" />
                 <MenuItem icon={<SupportIcon />} title="Support" to="/support" />
                 <MenuItem icon={<ReportIcon />} title="Reports" to="/report" />
                 <MenuItem icon={<SettingIcon />} title="Setting" to="/setting" />
+                {/*  */}
             </Menu>
 
             <div className={cx('sidebar-guide')}>

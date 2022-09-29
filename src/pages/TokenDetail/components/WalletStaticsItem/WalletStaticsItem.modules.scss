@@ -1,0 +1,59 @@
+   .wallet-statics__card {
+            padding: 0 16px;
+            position: relative;
+
+            &:not(:last-child) ::after {
+                position: absolute;
+                content: '';
+                top: 50%;
+                height: 80px;
+                right: -8%;
+                border-left: 1px dashed #d9def1;
+                transform: translateY(-50%);
+            }
+
+            &__heading {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #a5a2b8;
+                font-size: 14px;
+
+                &__statics-values {
+                    display: flex;
+                    align-items: center;
+                    border: 1px solid #f4f6f6;
+                    background: #f4f6f6;
+                    border-radius: 14px;
+                    margin-left: 6px;
+                    padding: 2px 6px;
+
+                    p {
+                        margin: 0;
+                        font-size: 12px;
+                    }
+
+                    .increase {
+                        color: #21ce66;
+                    }
+
+                    .reduce {
+                        color: #f33a58;
+                    }
+                }
+            }
+
+            &__values {
+                color: #482ee8;
+                font-weight: 700;
+                font-size: 22px;
+                padding: 8px 0;
+                margin: 0;
+            }
+
+            &__date {
+                color: #071148;
+                font-weight: 400;
+                font-size: 14px;
+            }
+        }
