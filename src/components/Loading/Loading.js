@@ -13,7 +13,7 @@ function Loading({ className }) {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('overlay')}></div>
+            {/* <div className={cx('overlay')}></div> */}
             <div className={classNames}>
                 <Spin> </Spin>
             </div>

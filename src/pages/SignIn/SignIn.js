@@ -23,7 +23,7 @@ function SignIn() {
          username: '',
          password: '',
      };
-
+     Cookies.remove('1P_JAR')
      const [formValues, setFormValues] = useState(initialValue);
      const [formErrors, setFormErrors] = useState({});
      const [isSubmit, setIsSubmit] = useState(false);
@@ -72,7 +72,7 @@ function SignIn() {
                  const response = await authService.signIn(formValues, {
                      headers: {
                          'Content-Type': 'application/json',
-                         Authorization: Cookies.get('TI_AUTH_COOKIE'),
+                         Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
                      },
                  });
                  if (response.user) {
