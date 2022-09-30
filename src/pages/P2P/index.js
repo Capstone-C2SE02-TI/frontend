@@ -28,7 +28,6 @@ function P2P() {
 // };
     return (
         <div style={{ height: '100%', padding: '16px' }}>
-            
             <Line
                 // height={'900px'}
                 data={{
@@ -63,7 +62,25 @@ function P2P() {
                     plugins: {
                         legend: false, // Hide legend
                     },
-                    showLine: false,
+                    showLine: true,
+
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            grid: {
+                                borderWidth: 1,
+                                borderDash: [3],
+                                circular: true,
+                                drawBorder: false,
+                                lineWidth: 1,
+                                major:true
+                            },
+                        },
+                    },
 
                     // scales: {
                     //     y: {

@@ -1,6 +1,8 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import 'antd/dist/antd.css';
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
 
 :root {
     --text-white: #fff;
@@ -35,18 +37,6 @@ a {
     text-decoration: none;
 }
 
-// Remove Arrows/Spinners
-/* Chrome, Safari, Edge, Opera */
-// input::-webkit-outer-spin-button,
-// input::-webkit-inner-spin-button {
-//   -webkit-appearance: none;
-//   margin: 0;
-// }
-
-// /* Firefox */
-// input[type=number] {
-//   -moz-appearance: textfield;
-// }
 
 //scrollbar
 html *::-webkit-scrollbar {
@@ -80,10 +70,16 @@ html *::-webkit-scrollbar-track {
 
     .active {
         background-color: var(--primary) !important;
-        color: #fff !important;
+        color: var(--text-color) !important;
     }
 
     .disabled {
         cursor: default;
     }
+}
+
+// slick slider
+.slick-active {
+    width: 25% !important;
+    border-right: 1px dashed #d9def1 !important;
 }

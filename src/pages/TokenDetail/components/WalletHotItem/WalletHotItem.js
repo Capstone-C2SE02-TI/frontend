@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import { ArrowDown, ArrowUp } from '~/components/Icons';
-import styles from './WalletStaticsItem.modules.scss';
+import styles from './WalletHotItem.modules.scss';
 const cx = classNames.bind(styles);
 
-function WalletStaticsItem({ increaseCoin = false, reduceCoin = false }) {
+function WalletHotItem({ increaseCoin = false, reduceCoin = false, index  }) {
     const classNamesStatusCoin = cx({
         increase: increaseCoin,
         reduce: reduceCoin,
@@ -12,7 +12,7 @@ function WalletStaticsItem({ increaseCoin = false, reduceCoin = false }) {
     return (
         <div className={cx('wallet-statics__card')}>
             <span className={cx('wallet-statics__card__heading')}>
-                Price Change (1h)
+                Price Change ({index}h)
                 <div className={cx('wallet-statics__card__heading__statics-values')}>
                     {increaseCoin && <ArrowUp />}
                     {reduceCoin && <ArrowDown />}
@@ -25,4 +25,4 @@ function WalletStaticsItem({ increaseCoin = false, reduceCoin = false }) {
     );
 }
 
-export default WalletStaticsItem;
+export default WalletHotItem;

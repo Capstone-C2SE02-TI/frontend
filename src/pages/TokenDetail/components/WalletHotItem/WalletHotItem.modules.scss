@@ -1,20 +1,20 @@
    .wallet-statics__card {
-            padding: 0 16px;
+            padding: 0 26px;
             position: relative;
 
-            &:not(:last-child) ::after {
-                position: absolute;
-                content: '';
-                top: 50%;
-                height: 80px;
-                right: -8%;
-                border-left: 1px dashed #d9def1;
-                transform: translateY(-50%);
-            }
+            // &:not(:last-child) ::after {
+            //     position: absolute;
+            //     content: '';
+            //     top: 50%;
+            //     height: 80px;
+            //     right: -8%;
+            //     border-left: 1px dashed #d9def1;
+            //     transform: translateY(-50%);
+            // }
 
             &__heading {
                 display: flex;
-                justify-content: center;
+                justify-content: space-between;
                 align-items: center;
                 color: #a5a2b8;
                 font-size: 14px;
