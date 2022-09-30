@@ -29,36 +29,11 @@ function AssetCoins() {
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                             <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
+                                <p>Loss</p>
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                             <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
-                                <p className={cx('asset-percent')}>+2.87%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('asset-coin--box')}>
-                        <div className={cx('asset-chart--box')}>
-                            <div className={cx('asset-dolar')}>
-                                <p>$</p>
-                                <h4>1,820</h4>
-                            </div>
-                            <div className={cx('asset-chart')}>
-                                chart
-                            </div>
-                        </div>
-                        <div className={cx('asset-gain')}>
-                            <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
-                                <p className={cx('asset-percent')}>+2.87%</p>
-                            </div>
-                            <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
-                                <p className={cx('asset-percent')}>+2.87%</p>
-                            </div>
-                            <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
+                                <p>Netral</p>
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                         </div>
@@ -79,11 +54,36 @@ function AssetCoins() {
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                             <div className={cx('asset-gain-box')}>
+                                <p>Loss</p>
+                                <p className={cx('asset-percent')}>+2.87%</p>
+                            </div>
+                            <div className={cx('asset-gain-box')}>
+                                <p>Netral</p>
+                                <p className={cx('asset-percent')}>+2.87%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={cx('asset-coin--box')}>
+                        <div className={cx('asset-chart--box')}>
+                            <div className={cx('asset-dolar')}>
+                                <p>$</p>
+                                <h4>1,820</h4>
+                            </div>
+                            <div className={cx('asset-chart')}>
+                                chart
+                            </div>
+                        </div>
+                        <div className={cx('asset-gain')}>
+                            <div className={cx('asset-gain-box')}>
                                 <p>Profit</p>
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                             <div className={cx('asset-gain-box')}>
-                                <p>Profit</p>
+                                <p>Loss</p>
+                                <p className={cx('asset-percent')}>+2.87%</p>
+                            </div>
+                            <div className={cx('asset-gain-box')}>
+                                <p>Netral</p>
                                 <p className={cx('asset-percent')}>+2.87%</p>
                             </div>
                         </div>

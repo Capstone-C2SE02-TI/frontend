@@ -8,5 +8,6 @@ const images = {
     noImage: require('./no-image.png'),
     etherium: require('./etherium.svg').default,
     logoRobot: require('./logo-robot.png'),
+    vth: require('./vth.svg').default,
 };
 export default images;

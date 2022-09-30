@@ -5,8 +5,10 @@
     align-items: center;
     background-color: #001a2c;
     height: 100vh;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(6,29,33,0.8995973389355743) 100%);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(6, 29, 33, 0.8995973389355743) 100%);
 }
+
+
 
 .body {
     padding: 36px;
@@ -16,7 +18,7 @@
 }
 
 .colMiddle {
-    width: 85%;
+    width: 100%;
     float: right;
 }
 
@@ -24,80 +26,56 @@
     max-width: 1150px;
     margin: 0 auto;
     color: white;
-    padding-top: 20px;
     ul {
         display: flex;
         justify-content: space-around;
         align-items: center;
+
         li {
             list-style: none;
+
             span {
-                color:aquamarine
+                color: aquamarine
             }
         }
     }
 }
 
-.row {
-    border: 1px solid aquamarine;
-    .headFilter {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid aquamarine;
-    }
-}
-
-.search {
-    input {
-        width: 200px;
-        height: 30px;
-        border-radius: 4px;
-        border-color: aquamarine;
-    }
-}
-
-input:focus-visible, select:focus {
-    outline: none;
-}
-
-input::placeholder {
-    font-weight: bold;
-    opacity: .5;
-    padding-left: 15px;
-    color: #133752;
-}
-
-.filter {
-    width: 200px;
-    height: 30px;
-    margin-right: 10px;
-}
-
 table {
     width: 100%;
+    background-color: #A496FF;
+    border-radius: 8px;
     thead {
-        text-transform: uppercase;
         font-size: 1.5rem;
-        border: 1px solid aquamarine;
+        border-bottom: 1px solid #fff;
         th {
-            padding: 5px;
-            border-bottom: 1px solid aquamarine;
-            border-right: 1px solid aquamarine;
+            padding: 20px 0 10px 0;
+            &:nth-child(2) {
+                text-align: start;
+            }
         }
-        
     }
-   
 }
+
 td {
     text-align: start;
-    padding: 20px 0;
-    :nth-child(2) {
-        color: antiquewhite;
+    padding: 20px 0 20px 20px;
+    &:nth-child(2) {
+        text-align: start;
+        padding: 20px 20px 0 0;
     }
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
 }
+
+.pricedata {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    img {
+        margin-right: 5px;
+        margin-left: 0 !important;
+    }
+}
+
 .iconFollow {
     cursor: pointer;
 }
@@ -107,11 +85,11 @@ td {
         margin-right: 10px;
         margin-left: 10px;
     }
+
     .priceCoin {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-       
     }
 
 }
@@ -125,42 +103,43 @@ td {
 // pagination
 
 #market-table__pagination {
-	background: #fff;
-	padding: 10px 0 10px 0;
-	width: 100%;
+    background: #fff;
+    padding: 10px 0 10px 0;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(6,29,33,0.8995973389355743) 100%);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(6, 29, 33, 0.8995973389355743) 100%);
 
-	ul {
-		display: inline-block;
-		margin-bottom: 0;
-		padding-left: 15px;
-		padding-right: 15px;
-	}
+    ul {
+        display: inline-block;
+        margin-bottom: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 
-	ul > li {
-		border: none;
-		border-radius: 50%;
-		color: #838383;
-		cursor: pointer;
-		display: inline-block;
-		font-size: 1.2rem;
-		height: 32px;
-		margin: 0 5px;
-		outline: none;
-		outline-style: initial;
-		padding: 0.5rem;
-		text-align: center;
-		width: 32px;
+    ul>li {
+        border: none;
+        border-radius: 50%;
+        color: #838383;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1.2rem;
+        height: 32px;
+        margin: 0 5px;
+        outline: none;
+        outline-style: initial;
+        padding: 0.5rem;
+        text-align: center;
+        width: 32px;
 
         a {
             padding: 8px;
             color: aquamarine;
         }
-	}
+    }
 }
+
 .headFilterH2 {
     h2 {
         color: aquamarine;
@@ -169,5 +148,30 @@ td {
         margin-right: 10px;
         margin-top: 10px;
         margin-left: 10px;
+    }
+}
+
+//market-content
+.market-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 36px;
+        color: #352E5B;
+        margin-top: 50px;
+        margin-bottom: 28px;
+    }
+
+    p {
+        margin-top: 45px;
+        margin-bottom: 0;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        color: #A69ED6;
     }
 }

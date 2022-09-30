@@ -25,10 +25,6 @@ function coinItem({ index, data }) {
             <td>${data.usd.volume24h.toFixed(0)}</td>
             <td>${data.marketCap.toFixed(0)}</td>
             <td>{data.circulatingSupply.toFixed(0)}{' '}{data.symbol}</td>
-            <td>...</td>
-            <td>
-                <FontAwesomeIcon className={cx('iconFollow')} icon={faStar} />
-            </td>
         </tr>
     );
 }
