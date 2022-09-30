@@ -2,9 +2,6 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import styles from './MarketOverview.module.scss';
 import Image from '~/components/Image/Image';
-import images from '~/assets/images';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const cx = classNames.bind(styles);
 
 function coinItem({ index, data }) {
