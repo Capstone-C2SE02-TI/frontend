@@ -1,15 +1,17 @@
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
 @import 'antd/dist/antd.css';
+@import 'slick-carousel/slick/slick.css';
+@import 'slick-carousel/slick/slick-theme.css';
 
 :root {
     --text-white: #fff;
     --text-color: #000;
-    --primary: #9381FF;
+    --primary: #9381ff;
 }
 
 body > #root > div {
-  height: 100vh;
+    height: 100vh;
 }
 
 html {
@@ -31,23 +33,9 @@ body {
 }
 
 a {
-    // color: var(--text-color);
+    color: #352e5b;
     text-decoration: none;
 }
-
-// Remove Arrows/Spinners
-/* Chrome, Safari, Edge, Opera */
-// input::-webkit-outer-spin-button,
-// input::-webkit-inner-spin-button {
-//   -webkit-appearance: none;
-//   margin: 0;
-// }
-
-// /* Firefox */
-// input[type=number] {
-//   -moz-appearance: textfield;
-// }
-
 
 
 //scrollbar
@@ -66,28 +54,32 @@ html *::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
 }
 
-
 //pagination
 .pagination {
-		display: inline-block;
-		margin-bottom: 0;
-		padding-left: 15px;
-		padding-right: 15px;
+    display: inline-block;
+    margin-bottom: 0;
+    padding-left: 15px;
+    padding-right: 15px;
 
-	.next,
-	.previous {
-		background-color: transparent !important;
-		color: var(--text-color) !important;
-		font-size: 1.4rem !important;
-	}
+    .next,
+    .previous {
+        background-color: transparent !important;
+        color: var(--text-color) !important;
+        font-size: 1.4rem !important;
+    }
 
-	.active {
-		background-color: antiquewhite !important;
-		color: #fff !important;
-	}
+    .active {
+        background-color: var(--primary) !important;
+        color: var(--text-color) !important;
+    }
 
-	.disabled {
-		cursor: default;
-	}
+    .disabled {
+        cursor: default;
+    }
+}
 
+// slick slider
+.slick-active {
+    width: 25% !important;
+    border-right: 1px dashed #d9def1 !important;
 }

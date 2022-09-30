@@ -11,6 +11,8 @@ import Support from './pages/Support';
 import Report from './pages/Report';
 import Setting from './pages/Setting';
 import HomeDashboard from './pages/HomeDashboard';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 function App() {
     return (
@@ -32,7 +34,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/analyze"
+                    path="/analyze/tokens/:token"
                     element={
                         <PublicRoute
                             element={
