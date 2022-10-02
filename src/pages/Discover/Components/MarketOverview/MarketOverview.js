@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
+import ReactPaginate from 'react-paginate';
 import { Spin } from 'antd';
 import Loading from '~/components/Loading';
 const cx = classNames.bind(styles);
@@ -33,7 +34,6 @@ function MarketOverview() {
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
-                <p>More Assets --&gt;</p>
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
@@ -49,6 +49,7 @@ function MarketOverview() {
                                     <th>Market Cap</th>
                                     <th>Volume(24h)</th>
                                     <th>Circulating Supply</th>
+                                    <th>Last 1 day</th>
                                 </tr>
 
                             </thead>
@@ -64,6 +65,22 @@ function MarketOverview() {
                                 )}
                             </tbody>
                         </table>
+                        <div id={cx('market-table__pagination')}>
+
+                            <ReactPaginate
+                                previousLabel={'<'}
+                                nextLabel={'>'}
+                                breakLabel={'...'}
+                                breakClassName={cx('break-me')}
+                                pageCount={marketOverview?.totalPage || 3}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={handlePageClick}
+                                forcePage={paginationState}
+                                containerClassName={cx('pagination')}
+                                activeClassName={cx('active')}
+                            />
+                        </div>
                     </div>
                 </div>
             </nav>
