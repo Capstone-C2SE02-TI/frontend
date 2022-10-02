@@ -3,7 +3,7 @@
 @import 'antd/dist/antd.css';
 @import 'slick-carousel/slick/slick.css';
 @import 'slick-carousel/slick/slick-theme.css';
-
+@import 'tippy.js/dist/tippy.css';
 :root {
     --text-white: #fff;
     --text-color: #000;
@@ -82,4 +82,10 @@ html *::-webkit-scrollbar-track {
 .slick-active {
     width: 25% !important;
     border-right: 1px dashed #d9def1 !important;
+}
+
+
+//antd selector 
+.ant-select-selector {
+    border-color: var(--primary) !important ;
 }
