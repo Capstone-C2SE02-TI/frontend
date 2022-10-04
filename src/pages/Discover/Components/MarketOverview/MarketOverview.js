@@ -14,7 +14,6 @@ function MarketOverview() {
     const [marketOverview, setMarketOverview] = useState([]);
     const [loading, setLoading] = useState(false);
     const [paginationState, setPaginationState] = useState(0);
-    
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected);
     };
@@ -30,13 +29,11 @@ function MarketOverview() {
         };
         fetchCoin();
     }, [paginationState]);
-    
     console.log(marketOverview);
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
-                <p>More Assets --&gt;</p>
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
@@ -52,6 +49,7 @@ function MarketOverview() {
                                     <th>Market Cap</th>
                                     <th>Volume(24h)</th>
                                     <th>Circulating Supply</th>
+                                    <th>Last 1 day</th>
                                 </tr>
 
                             </thead>
@@ -67,6 +65,22 @@ function MarketOverview() {
                                 )}
                             </tbody>
                         </table>
+                        <div id={cx('market-table__pagination')}>
+
+                            <ReactPaginate
+                                previousLabel={'<'}
+                                nextLabel={'>'}
+                                breakLabel={'...'}
+                                breakClassName={cx('break-me')}
+                                pageCount={marketOverview?.totalPage || 3}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={handlePageClick}
+                                forcePage={paginationState}
+                                containerClassName={cx('pagination')}
+                                activeClassName={cx('active')}
+                            />
+                        </div>
                     </div>
                 </div>
             </nav>

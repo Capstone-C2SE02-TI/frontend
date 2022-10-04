@@ -1,0 +1,137 @@
+.profile {
+    text-align: center;
+    margin-bottom: 36px;
+
+    h4 {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        color: #352E5B;
+        margin-bottom: 36px;
+    }
+
+    .profile-image {
+        width: 69px;
+        border-radius: 50%;
+        border: 1px solid #C4C4C4;
+        margin-bottom: 18px;
+    }
+
+    h5 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        margin-bottom: 16px;
+        color: #352E5B
+    }
+
+    h6 {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        color: #9381FF;
+    }
+}
+
+.profile-account {
+    padding: 0 24px 64px 24px;
+
+    h4 {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        color: #352E5B;
+        margin-bottom: 24px;
+    }
+
+    .profile-account--text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        h5 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            color: #352E5B;
+        }
+
+        h6 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0.05em;
+            color: #A69ED6;
+        }
+    }
+}
+
+.profile-assets {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    color: #352E5B;
+    margin-bottom: 24px;
+    padding: 0 24px 120px 24px;
+
+    .more-assets {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+    }
+
+    h4 {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        color: #352E5B;
+        margin-bottom: 24px;
+    }
+
+    .profile-assets--text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        h5 {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            color: #A69ED6;
+        }
+
+        span {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0.05em;
+            color: #A69ED6;
+        }
+
+        h6 {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: 0.05em;
+            color: #352E5B;
+        }
+    }
+}
+
+.btn-portfolio {
+    display: flex;
+    margin: 0 auto;
+    border: 0;
+    p {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 21px;
+        color: #FFFFFF;
+        padding: 18px 80px;
+        background: linear-gradient(276.21deg, #9381FF 4.18%, rgba(147, 129, 255, 0.7) 97.48%);
+        border-radius: 4px;
+        margin-bottom: 0;
+    }
+}

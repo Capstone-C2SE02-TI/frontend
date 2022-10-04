@@ -10,7 +10,7 @@
     --primary: #9381ff;
 }
 
-body > #root > div {
+body>#root>div {
     height: 100vh;
 }
 
@@ -61,20 +61,32 @@ html *::-webkit-scrollbar-track {
     padding-left: 15px;
     padding-right: 15px;
 
-    .next,
     .previous {
-        background-color: transparent !important;
+        border-radius: 4 !important;
         color: var(--text-color) !important;
         font-size: 1.4rem !important;
+        border: 1px solid #4200FF !important;
+    }
+
+    .next {
+        border-radius: 4 !important;
+        color: var(--text-color) !important;
+        font-size: 1.4rem !important;
+        border: 1px solid #4200FF !important;
     }
 
     .active {
-        background-color: var(--primary) !important;
-        color: var(--text-color) !important;
+        background: #A090FF !important;
+        border: 1px solid #4200FF !important;
+        border-radius: 4px;
+        a {
+            color: #4200FF !important;
+        }
     }
 
     .disabled {
         cursor: default;
+        background: #DFE3E8;
     }
 }
 
@@ -83,9 +95,6 @@ html *::-webkit-scrollbar-track {
     width: 25% !important;
     border-right: 1px dashed #d9def1 !important;
 }
-
-
-//antd selector 
 .ant-select-selector {
     border-color: var(--primary) !important ;
 }
