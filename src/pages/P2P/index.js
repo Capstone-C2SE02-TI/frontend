@@ -27,7 +27,7 @@ function P2P() {
 //     console.log(value);
 // };
     return (
-        <div style={{ height: '100%', padding: '16px' }}>
+        <div style={{ height: '650px', padding: '16px' }}>
             <Line
                 // height={'900px'}
                 data={{
