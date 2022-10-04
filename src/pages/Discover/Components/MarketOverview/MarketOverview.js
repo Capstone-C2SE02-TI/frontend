@@ -5,23 +5,24 @@ import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
 import Loading from '~/components/Loading';
+import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
 
 function MarketOverview() {
-    const [marketOverview, setMarketOverview] = useState([]);
+    const [marketOverviews, setMarketOverviews] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [paginationState, setPaginationState] = useState(0);
+    const [paginationState, setPaginationState] = useState(1);
     const handlePageClick = (selectedItem) => {
-        setPaginationState(selectedItem.selected);
+        setPaginationState(selectedItem.selected + 1);
     };
 
     useEffect(() => {
         const fetchCoin = async () => {
             setLoading(true);
             const response = await marketOverviewService.getCoins();
-            setMarketOverview(response.datas);
+            setMarketOverviews(response.datas);
             setLoading(false);
         };
         fetchCoin();
@@ -52,11 +53,7 @@ function MarketOverview() {
 
                             <tbody className={cx('listCoin')}>
                                 {!loading &&
-                                    marketOverview
-                                        .slice(
-                                            paginationState * NUMBER_ITEM_DISPLAY,
-                                            paginationState * NUMBER_ITEM_DISPLAY + NUMBER_ITEM_DISPLAY,
-                                        )
+                                        sliceArrayToPagination(marketOverviews, paginationState, NUMBER_ITEM_DISPLAY)
                                         .map((coin, index) => <CoinItem index={index} key={coin.id} data={coin} />)}
                                 {loading && <Loading />}
                             </tbody>
@@ -67,11 +64,11 @@ function MarketOverview() {
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={7 || marketOverview.length / NUMBER_ITEM_DISPLAY}
+                                pageCount={ marketOverviews.length / NUMBER_ITEM_DISPLAY}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
-                                forcePage={paginationState}
+                                forcePage={paginationState - 1}
                                 containerClassName={cx('pagination')}
                                 activeClassName={cx('active')}
                             />

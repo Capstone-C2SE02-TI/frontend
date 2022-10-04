@@ -4,6 +4,8 @@
 @import 'slick-carousel/slick/slick.css';
 @import 'slick-carousel/slick/slick-theme.css';
 @import 'tippy.js/dist/tippy.css';
+@import 'react-loading-skeleton/dist/skeleton.css';
+
 :root {
     --text-white: #fff;
     --text-color: #000;
@@ -76,11 +78,12 @@ html *::-webkit-scrollbar-track {
     }
 
     .active {
+       
         background: #A090FF !important;
         border: 1px solid #4200FF !important;
         border-radius: 4px;
         a {
-            color: #4200FF !important;
+           color: var(--text-white) !important;
         }
     }
 
