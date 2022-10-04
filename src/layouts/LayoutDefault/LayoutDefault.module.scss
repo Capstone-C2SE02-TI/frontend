@@ -9,6 +9,7 @@
         transition: all 0.5s ease;
     }
 
+
     .sidebar {
         position: fixed;
         left: 0;
@@ -37,3 +38,10 @@
         left: calc(0px - var(--sidebar-width));
     }
 }
+
+//sidebar navigation
+// .sidebar
+.hideSidebar {
+    display: none !important;
+}
+

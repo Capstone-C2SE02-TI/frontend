@@ -6,8 +6,11 @@ import P2P from '../P2P';
 import Slider from 'react-slick';
 import WalletHotItem from './components/WalletHotItem';
 import { Option } from 'antd/lib/mentions';
+
 import { useEffect, useState } from 'react';
 import SkeletonReferent from './components/ReferentItem/SkeletonReferent';
+
+
 
 const MARKET_SHOW = 4;
 
@@ -91,8 +94,13 @@ function TokenDetail() {
     };
 
     const handleFilterChart = (time) => {
+
         console.log({ time });
     };
+
+console.log({time});
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-top-container')}>{renderWalletHot()}</div>
@@ -101,7 +109,11 @@ function TokenDetail() {
                     <Row>
                         <Col span={17}>
                             <div className={cx('wallet-chart')}>
+
                                 <div style={{ textAlign: 'right', padding: '16px' }}>
+
+                                <div style={{ textAlign: 'right', padding:"16px" }}>
+
                                     <Select
                                         defaultValue={FILTERS_CHART_DATA[0]}
                                         style={{ width: 120 }}
