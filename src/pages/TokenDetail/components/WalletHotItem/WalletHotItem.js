@@ -19,7 +19,7 @@ function WalletHotItem({ increaseCoin = false, reduceCoin = false, index  }) {
                     <p className={classNamesStatusCoin}>10.0%</p>
                 </div>
             </span>
-            <h3 className={cx('wallet-statics__card__values')}>$$2,914.45</h3>
+            <h3 className={cx('wallet-statics__card__values')}>$2,914.45</h3>
             <span className={cx('wallet-statics__card__date')}>Wed, May 20</span>
         </div>
     );

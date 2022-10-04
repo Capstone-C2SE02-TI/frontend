@@ -1,13 +1,18 @@
 import classNames from 'classnames/bind';
 import styles from './AssetCoin.module.scss';
+
+import AssetCoinItem from './AssetCoinsItem';
+
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import AssetCoinItem from './AssetCoinsItem';
 import { useSelector } from 'react-redux';
 import Slider from 'react-slick';
+
 const cx = classNames.bind(styles);
 const MARKET_SHOW = 3;
 
 function AssetCoins() {
+
    const settingsSlider = {
        dots: false,
        infinite: 8 > MARKET_SHOW,
@@ -34,6 +39,7 @@ function AssetCoins() {
    };
  const statusSidebarSelector = useSelector(SidebarSelector);
 
+
     return (
         <section className={cx('asset')}>
             <span>Dashboard &gt; Home</span>
@@ -47,8 +53,12 @@ function AssetCoins() {
                     <AssetCoinItem />
                     <AssetCoinItem />
                     <AssetCoinItem />
+
+                   <AssetCoinItem />
+
              
                     {!statusSidebarSelector && <AssetCoinItem />}
+
                 </div>
             </div>
         </section>
