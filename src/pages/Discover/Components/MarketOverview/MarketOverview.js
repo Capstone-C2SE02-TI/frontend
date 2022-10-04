@@ -4,11 +4,10 @@ import styles from './MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
-import { Spin } from 'antd';
 import Loading from '~/components/Loading';
 const cx = classNames.bind(styles);
 
-const PLUS_1 = 1;
+const NUMBER_ITEM_DISPLAY = 10;
 
 function MarketOverview() {
     const [marketOverview, setMarketOverview] = useState([]);
@@ -21,15 +20,13 @@ function MarketOverview() {
     useEffect(() => {
         const fetchCoin = async () => {
             setLoading(true);
-            const response = await marketOverviewService.getCoins(paginationState + PLUS_1);
-            console.log({ response });
+            const response = await marketOverviewService.getCoins();
             setMarketOverview(response.datas);
-
             setLoading(false);
         };
         fetchCoin();
-    }, [paginationState]);
-    console.log(marketOverview);
+    }, []);
+
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
@@ -51,28 +48,26 @@ function MarketOverview() {
                                     <th>Circulating Supply</th>
                                     <th>Last 1 day</th>
                                 </tr>
-
                             </thead>
 
                             <tbody className={cx('listCoin')}>
-
-
-                                {!loading && marketOverview.map((coin, index) => (
-                                    <CoinItem index={index} key={coin.id} data={coin} />
-                                ))}
-                                {loading && (
-                                    <Loading />
-                                )}
+                                {!loading &&
+                                    marketOverview
+                                        .slice(
+                                            paginationState * NUMBER_ITEM_DISPLAY,
+                                            paginationState * NUMBER_ITEM_DISPLAY + NUMBER_ITEM_DISPLAY,
+                                        )
+                                        .map((coin, index) => <CoinItem index={index} key={coin.id} data={coin} />)}
+                                {loading && <Loading />}
                             </tbody>
                         </table>
                         <div id={cx('market-table__pagination')}>
-
                             <ReactPaginate
                                 previousLabel={'<'}
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={marketOverview?.totalPage || 3}
+                                pageCount={7 || marketOverview.length / NUMBER_ITEM_DISPLAY}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
