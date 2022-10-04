@@ -1,10 +1,12 @@
 .asset {
+    --width-box: 269px;
+
     padding-bottom: 17px;
     span {
         font-size: 14px;
         line-height: 18px;
         font-weight: 400;
-        color: #A5A2B8;
+        color: #a5a2b8;
     }
 
     .asset-content {
@@ -17,7 +19,7 @@
             font-weight: 700;
             font-size: 28px;
             line-height: 36px;
-            color: #352E5B;
+            color: #352e5b;
             margin-top: 50px;
             margin-bottom: 28px;
         }
@@ -28,7 +30,7 @@
             font-weight: 500;
             font-size: 16px;
             line-height: 21px;
-            color: #A69ED6;
+            color: #a69ed6;
         }
     }
 
@@ -37,7 +39,7 @@
             font-weight: 700;
             font-size: 18px;
             line-height: 23px;
-            color: #7165BE;
+            color: #7165be;
             margin-bottom: 24px;
         }
         .asset-coin-flex {
@@ -45,8 +47,8 @@
             justify-content: space-between;
             align-items: center;
             .asset-coin--box {
-                width: 269px;
-                background: #9381FF;
+                width: calc((100% - 3%) / 3);
+                background: #9381ff;
                 border-radius: 10px;
                 padding: 13px;
                 .asset-chart--box {
@@ -59,32 +61,32 @@
                             font-weight: 500;
                             font-size: 20px;
                             line-height: 26px;
-                            color: #FFFFFF;
+                            color: #ffffff;
                             margin-bottom: 0;
                         }
-    
+
                         h4 {
                             font-weight: 500;
                             font-size: 40px;
                             line-height: 52px;
                             letter-spacing: 0.04em;
-                            color: #FFFFFF;
+                            color: #ffffff;
                             margin-bottom: 0;
                         }
                     }
                 }
-    
+
                 .asset-gain {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-    
+
                     .asset-gain-box {
                         p {
                             font-weight: 500;
                             font-size: 12px;
                             line-height: 16px;
-                            color: #FFFFFF;
+                            color: #ffffff;
                             margin: 0;
                             padding-bottom: 4px;
                         }
@@ -92,13 +94,15 @@
                             font-weight: 500;
                             font-size: 14px;
                             line-height: 18px;
-                            color: #84F3B7;
+                            color: #84f3b7;
                         }
                     }
                 }
             }
         }
-        
     }
+}
 
+.hide-box {
+    width: calc((100% - 3%) / 4) !important;
 }

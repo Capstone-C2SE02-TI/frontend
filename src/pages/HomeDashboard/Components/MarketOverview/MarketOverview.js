@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
+import ReactPaginate from 'react-paginate';
 import { Spin } from 'antd';
 import Loading from '~/components/Loading';
 const cx = classNames.bind(styles);
@@ -13,6 +14,7 @@ function MarketOverview() {
     const [marketOverview, setMarketOverview] = useState([]);
     const [loading, setLoading] = useState(false);
     const [paginationState, setPaginationState] = useState(0);
+    
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected);
     };
@@ -28,6 +30,7 @@ function MarketOverview() {
         };
         fetchCoin();
     }, [paginationState]);
+    
     console.log(marketOverview);
     return (
         <section className={cx('colMiddle')}>
