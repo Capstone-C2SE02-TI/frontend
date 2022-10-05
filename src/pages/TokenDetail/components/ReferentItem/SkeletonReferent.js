@@ -5,10 +5,9 @@ import styles from './ReferentItem.modules.scss';
 const cx = classNames.bind(styles);
 
 function SkeletonReferent({ card }) {
-    
     return Array(card)
         .fill(0)
-        .map((_ , i) => (
+        .map((_, i) => (
             <div key={i} className={cx('card-skeleton-item')}>
                 <div className={cx('card-skeleton-img')}>
                     <Skeleton circle width={40} height={40} />

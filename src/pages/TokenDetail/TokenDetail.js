@@ -13,7 +13,7 @@ const MARKET_SHOW = 4;
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
- 
+
 function TokenDetail() {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -24,7 +24,8 @@ function TokenDetail() {
             clearTimeout(sideEffects);
         };
     }, []);
-  	const settingsSlider = {
+
+    const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
         arrows: false,
@@ -72,6 +73,7 @@ function TokenDetail() {
         return (
             <div className={cx('wallet-referent')}>
                 <h3 className={cx('wallet-referent__heading')}>Trending Cryptos</h3>
+
                 {loading ? (
                     <SkeletonReferent card={6} />
                 ) : (
@@ -88,12 +90,7 @@ function TokenDetail() {
         );
     };
 
-    const handleFilterChart = (time) => {
-
-      
-    };
-
-
+    const handleFilterChart = (time) => {};
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-top-container')}>{renderWalletHot()}</div>
@@ -102,7 +99,7 @@ function TokenDetail() {
                     <Row>
                         <Col span={17}>
                             <div className={cx('wallet-chart')}>
-                                <div style={{ textAlign: 'right', padding:"16px" }}>
+                                <div style={{ textAlign: 'right', padding: '16px' }}>
                                     <Select
                                         defaultValue={FILTERS_CHART_DATA[0]}
                                         style={{ width: 120 }}
