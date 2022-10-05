@@ -6,6 +6,8 @@ import P2P from '../P2P';
 import Slider from 'react-slick';
 import WalletHotItem from './components/WalletHotItem';
 import { Option } from 'antd/lib/mentions';
+import { useEffect, useState } from 'react';
+import SkeletonReferent from './components/ReferentItem/SkeletonReferent';
 
 const MARKET_SHOW = 4;
 
@@ -13,7 +15,15 @@ const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
  
 function TokenDetail() {
-  
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const sideEffects = setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+        return () => {
+            clearTimeout(sideEffects);
+        };
+    }, []);
   	const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
@@ -62,13 +72,18 @@ function TokenDetail() {
         return (
             <div className={cx('wallet-referent')}>
                 <h3 className={cx('wallet-referent__heading')}>Trending Cryptos</h3>
-                <ReferentItem />
-                <ReferentItem />
-                <ReferentItem />
-                <ReferentItem />
-                <ReferentItem />
-                <ReferentItem />
-                <ReferentItem />
+                {loading ? (
+                    <SkeletonReferent card={6} />
+                ) : (
+                    <>
+                        <ReferentItem />
+                        <ReferentItem />
+                        <ReferentItem />
+                        <ReferentItem />
+                        <ReferentItem />
+                        <ReferentItem />
+                    </>
+                )}
             </div>
         );
     };
