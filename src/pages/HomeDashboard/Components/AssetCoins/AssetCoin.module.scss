@@ -46,15 +46,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-
             .asset-coin--box {
                 width: calc((100% - 3%) / 3);
                 background: #9381ff;
                 border-radius: 10px;
                 padding: 13px;
-                margin-top: 20px;
-
                 .asset-chart--box {
                     display: flex;
                     justify-content: space-between;

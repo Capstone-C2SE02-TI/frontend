@@ -1,4 +1,3 @@
-import  React  from 'react';
 import classNames from 'classnames/bind';
 import images from '~/assets/images';
 import { HomeIcon, DiscoverIcon, AnalyzeIcon, SupportIcon, ReportIcon, SettingIcon } from '~/components/Icons';
@@ -10,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function SideBar() {
     return (
-        <React.Fragment>
+        <div className={cx('sidebar')}>
             <div className={cx('sidebar-logo')}>
                 <img src={images.logo} alt={'logo'} />
             </div>
@@ -31,7 +30,7 @@ function SideBar() {
             <div className={cx('sidebar-copy-right')}>
                 <span>@Copyright by TI team</span>
             </div>
-        </React.Fragment>
+        </div>
     );
 }
 

@@ -1,39 +1,9 @@
 .wrapper {
-    --sidebar-width: 220px;
+    height: 100%;
+}
 
-    display: flex;
-
-    .sidebar-wrapper {
-        width: var(--sidebar-width);
-        overflow: hidden;
-        transition: all 0.5s ease;
-    }
-
-    .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        background-color: #f8f7ff;
-        height: 100%;
-        width: var(--sidebar-width);
-        flex-direction: column;
-        transition: all 0.5s ease;
-        overflow: hidden;
-    }
-
-    .container {
-        width: 100%;
-        z-index: 100;
-        display: block;
-        margin-left: 30px;
-    }
-
-    .hide-sidebar {
-        width: 0;
-    }
-
-    .hide-sidebar > .sidebar {
-        left: calc(0px - var(--sidebar-width));
-    }
+//sidebar navigation
+// .sidebar
+.hideSidebar {
+    display: none !important;
 }

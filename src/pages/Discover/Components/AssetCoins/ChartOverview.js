@@ -16,7 +16,7 @@ function ChartOverview() {
         setHistoricData(data.prices);
     };
 
-
+    console.log({ historicData });
 
     useEffect(() => {
         fetchHistoricData();

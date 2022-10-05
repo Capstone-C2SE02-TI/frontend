@@ -6,26 +6,15 @@ import P2P from '../P2P';
 import Slider from 'react-slick';
 import WalletHotItem from './components/WalletHotItem';
 import { Option } from 'antd/lib/mentions';
-import { useEffect, useState } from 'react';
-import SkeletonReferent from './components/ReferentItem/SkeletonReferent';
 
 const MARKET_SHOW = 4;
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
-
+ 
 function TokenDetail() {
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const sideEffects = setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-        return () => {
-            clearTimeout(sideEffects);
-        };
-    }, []);
-
-    const settingsSlider = {
+  
+  	const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
         arrows: false,
@@ -73,26 +62,25 @@ function TokenDetail() {
         return (
             <div className={cx('wallet-referent')}>
                 <h3 className={cx('wallet-referent__heading')}>Trending Cryptos</h3>
-
-                {loading ? (
-                    <SkeletonReferent card={6} />
-                ) : (
-                    <>
-                        <ReferentItem />
-                        <ReferentItem />
-                        <ReferentItem />
-                        <ReferentItem />
-                        <ReferentItem />
-                        <ReferentItem />
-                    </>
-                )}
+                <ReferentItem />
+                <ReferentItem />
+                <ReferentItem />
+                <ReferentItem />
+                <ReferentItem />
+                <ReferentItem />
+                <ReferentItem />
             </div>
         );
     };
 
     const handleFilterChart = (time) => {
+
       
     };
+
+console.log({time});
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-top-container')}>{renderWalletHot()}</div>
@@ -101,7 +89,7 @@ function TokenDetail() {
                     <Row>
                         <Col span={17}>
                             <div className={cx('wallet-chart')}>
-                                <div style={{ textAlign: 'right', padding: '16px' }}>
+                                <div style={{ textAlign: 'right', padding:"16px" }}>
                                     <Select
                                         defaultValue={FILTERS_CHART_DATA[0]}
                                         style={{ width: 120 }}
