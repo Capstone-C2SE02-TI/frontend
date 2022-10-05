@@ -30,7 +30,7 @@ const authSlice = createSlice({
 
 export const fetchAuth = createAsyncThunk('/auth/signin', async (body) => {
     const response = await authService.signIn(body);
-    console.log({response});
+  
     return response;
 });
 

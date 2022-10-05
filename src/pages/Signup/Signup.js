@@ -69,7 +69,7 @@ function Signup() {
                 };
 
                 const result = await authService.signUp(formValues, requestOptions);
-                console.log({ result });
+              
                 handleExceptions(result.message);
                 setLoading(false);
             };

@@ -43,7 +43,7 @@ function SignIn() {
          delete formErrors.email;
      };
      const handleExceptions = (message) => {
-         console.log(message);
+        
          switch (message) {
              case 'username-invalid':
                  setFormErrors({ username: 'Username could not be found' });

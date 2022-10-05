@@ -91,7 +91,7 @@ function TokenDetail() {
     };
 
     const handleFilterChart = (time) => {
-        console.log({ time });
+      
     };
     return (
         <div className={cx('wrapper')}>

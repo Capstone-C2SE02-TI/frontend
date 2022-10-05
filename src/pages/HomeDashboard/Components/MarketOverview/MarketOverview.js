@@ -23,7 +23,7 @@ function MarketOverview() {
         const fetchCoin = async () => {
             setLoading(true);
             const response = await marketOverviewService.getCoins(paginationState + PLUS_1);
-            console.log({ response });
+        
             setMarketOverview(response.datas);
 
             setLoading(false);
@@ -31,7 +31,7 @@ function MarketOverview() {
         fetchCoin();
     }, [paginationState]);
     
-    console.log(marketOverview);
+    
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
