@@ -28,8 +28,14 @@ function MarketOverview() {
             setLoading(false);
         };
         fetchCoin();
+
+    }, []);
+
+    console.log("test");
+
     }, [paginationState]);
     console.log(marketOverview);
+
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>

@@ -17,7 +17,7 @@ function P2P() {
         setHistoricData(data.prices);
     };
 
-    console.log({ historicData });
+  
 
     useEffect(() => {
         fetchHistoricData();

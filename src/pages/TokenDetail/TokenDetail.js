@@ -74,8 +74,13 @@ function TokenDetail() {
     };
 
     const handleFilterChart = (time) => {
+
+      
+    };
+
 console.log({time});
     }
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-top-container')}>{renderWalletHot()}</div>
