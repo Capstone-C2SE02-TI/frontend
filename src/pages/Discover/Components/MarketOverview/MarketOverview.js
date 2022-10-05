@@ -28,6 +28,7 @@ function MarketOverview() {
         fetchCoin();
     }, []);
 
+    console.log("test");
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
