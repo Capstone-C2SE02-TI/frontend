@@ -78,8 +78,6 @@ function TokenDetail() {
       
     };
 
-console.log({time});
-    }
 
     return (
         <div className={cx('wrapper')}>
