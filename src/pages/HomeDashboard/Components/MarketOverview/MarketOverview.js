@@ -3,34 +3,29 @@ import { useEffect, useState } from 'react';
 import styles from '../MarketOverview/MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
-import ReactPaginate from 'react-paginate';
-import { Spin } from 'antd';
+
 import Loading from '~/components/Loading';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-const PLUS_1 = 1;
+const PAGE_SIZE = 1;
 
 function MarketOverview() {
     const [marketOverview, setMarketOverview] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [paginationState, setPaginationState] = useState(0);
-    
-    const handlePageClick = (selectedItem) => {
-        setPaginationState(selectedItem.selected);
-    };
+
 
     useEffect(() => {
         const fetchCoin = async () => {
             setLoading(true);
-            const response = await marketOverviewService.getCoins(paginationState + PLUS_1);
+            const response = await marketOverviewService.getCoins(PAGE_SIZE);
         
             setMarketOverview(response.datas);
 
             setLoading(false);
         };
         fetchCoin();
-    }, [paginationState]);
+    }, []);
     
     
     return (

@@ -7,7 +7,7 @@ import NavHeader from './components/NavHeader/NavHeader';
 import Banner from './components/Banner/Banner';
 import Ads from './components/Ads/Ads';
 import Letter from './components/Letter/Letter';
-import {Animated} from "react-animated-css";
+// import {Animated} from "react-animated-css";
 
 const cx = classNames.bind(styles);
 

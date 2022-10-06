@@ -3,9 +3,6 @@ import React from 'react';
 import styles from './MarketOverviewDetail.module.scss';
 import Image from '~/components/Image/Image';
 import ChartOverview from '../AssetCoins/ChartOverview';
-import images from '~/assets/images';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const cx = classNames.bind(styles);
 
 function coinItem({ index, data }) {
