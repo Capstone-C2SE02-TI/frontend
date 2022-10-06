@@ -26,7 +26,7 @@ function HomeDashboard() {
                 </button>
             </Tippy>
             <Row>
-                <Col span={18}>
+                <Col span={17} className={cx('asset-container')}>
                     <AssetCoins />
                     <MarketOverview />
                 </Col>

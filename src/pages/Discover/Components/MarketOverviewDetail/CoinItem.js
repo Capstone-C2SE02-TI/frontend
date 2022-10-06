@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import React from 'react';
-import styles from './MarketOverview.module.scss';
+import styles from './MarketOverviewDetail.module.scss';
 import Image from '~/components/Image/Image';
 import ChartOverview from '../AssetCoins/ChartOverview';
 import images from '~/assets/images';

@@ -1,10 +1,10 @@
 import AssetCoins from "./Components/AssetCoins/AssetCoins";
-import MarketOverview from "./Components/MarketOverview/MarketOverview";
+import MarketOverviewDetail from "./Components/MarketOverviewDetail/MarketOverviewDetail";
 function Discover() {
     return (
         <section style={{ marginLeft: '30px' }}>
             <AssetCoins />
-            <MarketOverview />
+            <MarketOverviewDetail />
         </section>
     );
 }

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './AssetCoin.module.scss';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
+import ChartOverview from '~/pages/Discover/Components/AssetCoins/ChartOverview';
 const cx = classNames.bind(styles);
 function AssetCoinItem() {
 
@@ -18,7 +19,7 @@ function AssetCoinItem() {
                     <p>$</p>
                     <h4>1,820</h4>
                 </div>
-                <div className={cx('asset-chart')}>chart</div>
+                <div className={cx('asset-chart')}><ChartOverview/></div>
             </div>
             <div className={cx('asset-gain')}>
                 <div className={cx('asset-gain-box')}>

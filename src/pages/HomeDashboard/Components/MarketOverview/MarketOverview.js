@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import styles from './MarketOverview.module.scss';
+import styles from '../MarketOverview/MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
 import { Spin } from 'antd';
 import Loading from '~/components/Loading';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const PLUS_1 = 1;
@@ -36,7 +37,7 @@ function MarketOverview() {
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
-                <p>More Assets --&gt;</p>
+                <Link to="/discover"><p>More token --&gt;</p></Link>
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
