@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 function AssetCoins() {
     return (
         <section className={cx('asset')}>
-            <span>Dashboard &gt; Home</span>
+            <span>Dashboard &gt; Market overview</span>
             <marquee>
                 <ul className={cx('asset-notification')}>
                     <li>

@@ -39,10 +39,9 @@ function AssetCoins() {
             <span>Dashboard &gt; Home</span>
             <div className={cx('asset-content')}>
                 <h2>assets</h2>
-                <p>More Assets --&gt; </p>
             </div>
             <div className={cx('asset-coin')}>
-                <p>Ethereum</p>
+                <p>Trending coins</p>
                 <div className={cx('asset-coin-flex')}>
                     <AssetCoinItem />
                     <AssetCoinItem />

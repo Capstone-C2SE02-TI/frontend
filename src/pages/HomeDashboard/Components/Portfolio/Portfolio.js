@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Portfolio.module.scss';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +13,7 @@ function Portfolio() {
                 <h4>My portfolio</h4>
                 <Image width="150" className={cx('profile-image')} src={images.vth} alt="logo" />
                 <h5>Vo Trung Hieu</h5>
-                <h6>Edit Profile</h6>
+                <Link to="#"><h6>Edit Profile</h6></Link>
             </div>
             <div className={cx('profile-account')}>
                 <h4>Account</h4>

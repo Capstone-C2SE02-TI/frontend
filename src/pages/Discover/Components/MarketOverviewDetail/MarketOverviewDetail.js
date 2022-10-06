@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import styles from './MarketOverview.module.scss';
+import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
 import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
 
-function MarketOverview() {
+function MarketOverviewDetail() {
     const [marketOverviews, setMarketOverviews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [paginationState, setPaginationState] = useState(1);
@@ -81,4 +81,4 @@ function MarketOverview() {
     );
 }
 
-export default MarketOverview;
+export default MarketOverviewDetail;

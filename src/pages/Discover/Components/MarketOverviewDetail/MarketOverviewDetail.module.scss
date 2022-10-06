@@ -45,24 +45,45 @@ table {
     background-color: #A496FF;
     border-radius: 8px;
     thead {
+        tr {
+            position: sticky;
+            z-index: 0;
+            top: 0;
+            background: #7a6bdb;
+            &:hover {
+                background-color: #7a6bdb;
+                cursor: pointer;
+            }
+        }
+        
         font-size: 1.5rem;
         border-bottom: 1px solid #fff;
         th {
-            padding: 20px 10px 10px 0;
+            padding: 10px 10px 10px 0;
         }
+    }
+}
+
+tr {
+
+    &:hover {
+        background-color:rgba(255, 238, 221, 0.36);
+        cursor:pointer;
     }
 }
 
 td {
     text-align: start;
-    padding: 0px 0 0px 20px;
+    padding: 0px 0 0px 20px !important;
 }
 
 .pricedata {
+    padding: 0px 20px 0 0 !important;
     img {
         margin-right: 5px;
         margin-left: 0 !important;
     }
+    
 }
 
 .iconFollow {
@@ -82,12 +103,6 @@ td {
     }
 
 }
-
-.talbeScroll {
-    overflow-y: auto;
-    height: 850px;
-}
-
 
 // pagination
 

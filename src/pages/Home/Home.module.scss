@@ -1,13 +1,12 @@
 .wrapper {
     width: 100%;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(6,29,33,0.8995973389355743) 100%);
 }
 
 .container {
     max-width: 1400px;
     margin: 0 auto;
     background-color: transparent;
-    margin-bottom: 130px;
+    margin-bottom: 10px;
     margin-top: 130px;
 }
 
@@ -31,19 +30,20 @@
 }
 
 .btn {
-    padding: 12px 24px;
+    padding: 8px 30px;
     color: #333;
-    background-color: aquamarine;
-    border: 1px solid #3333;
+    background-color: #B8B8FF;
+    border: 1px solid rgba(51, 51, 51, 0.2);
     border-radius: 4px;
     font-size: 16px;
     font-weight: 600;
+    transition: 0.5s;
     &:first-child {
         margin-right: 8px;
     }
     &:hover {
-        background-color: azure;
-        color: aquamarine;
+        background-color: #B8B8FF;
+        color: #FFD8BE;
         cursor: pointer;
     }
 }
@@ -74,9 +74,9 @@
     a {
         list-style: none;
         transition: 0.5s;
-        color: aquamarine;
+        color: #6B53F8;
         &:hover {
-            color: aquamarine;
+            color: #FFD8BE;
         }
     }
 }
@@ -85,7 +85,7 @@
 .banner {
     position: relative;
     margin-bottom: 64px;
-    height: 720px;
+    min-height: 540px;
 }
 
 .banner-image {
@@ -116,14 +116,15 @@
         padding: 12px 24px;
         margin-top: 24px;
         color: #333;
-        background-color: aquamarine;
+        background-color: #B8B8FF;
         border: 1px solid #3333;
         border-radius: 8px;
         font-size: 2rem;
         font-weight: 600;
+        transition: 0.5s;
         &:hover {
-            background-color: azure;
-            color: aquamarine;
+            background-color: #B8B8FF;
+            color: #FFD8BE;
             cursor: pointer;
         }
     }
@@ -142,24 +143,24 @@
     h3 {
         font-size: 3.5rem;
         font-weight: bold;
-        color: aquamarine;
+        color: #6B53F8;
     }
     p { 
         font-size: 1.75rem;
         font-weight: 300;
-        color: wheat;
+        color: #344054;
     }
 }
 
 .ads2 {
-    padding: 110px 0 80px 0;
+    padding: 0px 0 0px 0;
     h1 {
         font-size: 4rem;
         font-weight: bold;
-        color: aquamarine;
+        color: #6B53F8;
         text-align: center;
         text-transform: uppercase;
-        padding-bottom: 60px;
+        padding-bottom: 40px;
     }
 }
 
@@ -175,11 +176,11 @@
         font-size: 50px;
         margin-left: calc((100% - 135px) / 2);
         padding-bottom: 20px;
-        color: aqua;
+        color: #6B53F8;
     }
     p {
         font-size: 2rem;
-        color: wheat;
+        color: #344054;
         font-weight: 500;
     }
 }
@@ -192,13 +193,13 @@
         text-align: center;
         font-size: 4rem;
         font-weight: bold;
-        color: aquamarine;
+        color: #6B53F8;
         text-transform: uppercase;
         padding-bottom: 4px;
     }
     p {
         font-size: 1.5rem;
-        color: wheat;
+        color: #344054;
         font-weight: 500;
         text-align: center;
         width: 600px;
@@ -209,7 +210,7 @@
         padding: 14px 384px 14px 10px;
         border-radius: 24px;
         margin-left: calc((100% - 40%) / 2);
-        background-color: azure;
+        background-color: #B8B8FF;
         border: none;
         &:focus-visible {
             outline: none;
@@ -226,13 +227,13 @@
         color: antiquewhite;
         li {
             padding: 5px 0;
-            border-bottom: 1px solid #fff;
-            color:antiquewhite;
-            font-size: 1.5rem;
+            border-bottom: 1px solid #B8B8FF;
+            color:#B8B8FF;
+            font-size: 1.75rem;
             font-weight: 300;
             &:first-child {
                 padding-bottom: 8px;
-                color: aquamarine;
+                color: #6B53F8;
                 font-size: 2rem;
                 font-weight: 500;
                 border-bottom: none;
@@ -248,7 +249,7 @@
 // Footer
 
 #footer {
-    border-top: 1px solid aquamarine;
+    border-top: 1px solid #6B53F8;
 }
 
 .footer-container {

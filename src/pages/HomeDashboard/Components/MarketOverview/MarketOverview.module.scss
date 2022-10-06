@@ -50,9 +50,12 @@ table {
         border-bottom: 1px solid #fff;
         th {
             padding: 20px 0 10px 0;
-            &:nth-child(2) {
+            &:not(:nth-child(1)) {
                 text-align: start;
             }
+            // &:nth-child(2) {
+            //     text-align: start;
+            // }
         }
     }
 }
@@ -60,10 +63,18 @@ table {
 td {
     text-align: start;
     padding: 20px 0 20px 20px;
+    &:not(:nth-child(1)) {
+        text-align: start;
+        padding: 0px 0 0px 0px !important;
+    }
     &:nth-child(2) {
         text-align: start;
-        padding: 20px 20px 0 0;
+        padding: 20px 0 20px 0px !important;
     }
+}
+
+tr {
+    border-bottom: 1px solid #eff2f5;
 }
 
 .pricedata {
@@ -173,5 +184,9 @@ td {
         font-size: 16px;
         line-height: 21px;
         color: #A69ED6;
+        transition: 0.5s;
+        &:hover {
+            color: #A496FF;
+        }
     }
 }

@@ -7,6 +7,7 @@ import NavHeader from './components/NavHeader/NavHeader';
 import Banner from './components/Banner/Banner';
 import Ads from './components/Ads/Ads';
 import Letter from './components/Letter/Letter';
+import {Animated} from "react-animated-css";
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,7 @@ function Home() {
                 <section className={cx('header-section')}>
                     <div className={cx('header-box')}>
                         <Link to={'/'}>
-                            <Image width="150" className={cx('header-image')} src={images.logoSvg} alt="logo" />
+                            <Image width="100" className={cx('header-image')} src={images.logo} alt="logo" />
                         </Link>
                         <NavHeader />
                         <div className={cx('header-group')}>
@@ -38,7 +39,7 @@ function Home() {
                 <div className={cx('footer-container')}>
                     <div className={cx('footer')}>
                         <section className={cx('col3')}>
-                            <Image width="150" className={cx('footer-image')} src={images.logoSvg} alt="logo" />
+                            <Image width="150" className={cx('footer-image')} src={images.logo} alt="logo" />
                             <div className={cx('footer-social')}>
                                 <Link to={''}>
                                     <Image width='30px' src={images.facebook} />
