@@ -11,6 +11,7 @@ import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-ic
 import { useDispatch, useSelector } from 'react-redux';
 import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
 import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
+import { Nodata } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
@@ -18,6 +19,7 @@ const NUMBER_ITEM_DISPLAY = 10;
 function MarketOverviewDetail() {
     const [searchText, setSearchText] = useState('');
     const [paginationState, setPaginationState] = useState(1);
+    const [noData, setNodata] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -27,10 +29,17 @@ function MarketOverviewDetail() {
 
     const coinsList = useSelector(coinsRemainingSelector);
     const status = useSelector(statusCoinsSelector);
+    const viewListCoinsPagination = sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY);
 
     useEffect(() => {
         dispatch(fetchCoinsDiscover());
+      
     }, [dispatch]);
+
+    useEffect(() => {
+          renderCoinsList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[searchText])
 
     const inputUserRef = useRef();
 
@@ -43,6 +52,12 @@ function MarketOverviewDetail() {
         inputUserRef.current.value = '';
         setSearchText('');
         dispatch(discoverSlice.actions.searchFilterChange(''));
+    };
+
+    const renderCoinsList = () => {
+        if (searchText && viewListCoinsPagination.length === 0) {
+            setNodata(true);
+        }
     };
 
     return (
@@ -83,12 +98,23 @@ function MarketOverviewDetail() {
 
                             <tbody className={cx('listCoin')}>
                                 {status === 'idle' &&
-                                    sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY).map(
-                                        (coin, index) => <CoinItem index={index} key={coin.id} data={coin} />,
-                                    )}
+                                    viewListCoinsPagination.map((coin, index) => (
+                                        <CoinItem index={index} key={coin.id} data={coin} />
+                                    ))}
+
                                 {status === 'loading' && <Loading />}
                             </tbody>
                         </table>
+
+                        {noData && (
+                            <div className={cx('no-data')}>
+                                <Nodata className={cx('no-data__icon')} />
+                                <div className={cx('no-data__title')}>
+                                    Không có kết quả nào cho <span>"{searchText}"</span>
+                                </div>
+                            </div>
+                        )}
+
                         <div id={cx('market-table__pagination')}>
                             <ReactPaginate
                                 previousLabel={'<'}
@@ -99,7 +125,7 @@ function MarketOverviewDetail() {
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
-                                forcePage={searchText? 0 : paginationState - 1}
+                                forcePage={searchText ? 0 : paginationState - 1}
                                 containerClassName={cx('pagination')}
                                 activeClassName={cx('active')}
                             />
