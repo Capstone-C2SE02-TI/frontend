@@ -16,8 +16,6 @@ function ChartOverview() {
         setHistoricData(data.prices);
     };
 
-    console.log({ historicData });
-
     useEffect(() => {
         fetchHistoricData();
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import styles from './HomeDashboard.module.scss';
 import { MenuIcon } from "~/components/Icons";
 import { useDispatch } from "react-redux";
-import HomeDashboardSlice from '~/modules/HomeDashboard/HomeDashboardSlice';
+import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 const cx = classNames.bind(styles);
 function HomeDashboard() {
     const dispatch = useDispatch()

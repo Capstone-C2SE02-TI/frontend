@@ -12,12 +12,12 @@ function Loading({ className }) {
     });
 
     return (
-        <div className={cx('wrapper')}>
+        <tr className={cx('wrapper')}>
             {/* <div className={cx('overlay')}></div> */}
-            <div className={classNames}>
+            <td className={classNames}>
                 <Spin> </Spin>
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 };
 

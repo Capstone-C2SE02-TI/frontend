@@ -1,37 +1,67 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { useRef } from 'react';
 import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
-import { marketOverviewService } from '~/services';
 import CoinItem from './CoinItem';
 import ReactPaginate from 'react-paginate';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
+import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
 const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
 
 function MarketOverviewDetail() {
-    const [marketOverviews, setMarketOverviews] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [searchText, setSearchText] = useState('');
     const [paginationState, setPaginationState] = useState(1);
+
+    const dispatch = useDispatch();
+
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected + 1);
     };
 
+    const coinsList = useSelector(coinsRemainingSelector);
+    const status = useSelector(statusCoinsSelector);
+
     useEffect(() => {
-        const fetchCoin = async () => {
-            setLoading(true);
-            const response = await marketOverviewService.getCoins();
-            setMarketOverviews(response.datas);
-            setLoading(false);
-        };
-        fetchCoin();
-    }, []);
+        dispatch(fetchCoinsDiscover());
+    }, [dispatch]);
+
+    const inputUserRef = useRef();
+
+    const handleChange = (e) => {
+        setSearchText(e.target.value);
+        dispatch(discoverSlice.actions.searchFilterChange(e.target.value));
+    };
+
+    const handleClear = () => {
+        inputUserRef.current.value = '';
+        setSearchText('');
+        dispatch(discoverSlice.actions.searchFilterChange(''));
+    };
 
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
+                <div className={cx('market-content__search')}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
+                    <input
+                        ref={inputUserRef}
+                        type="text"
+                        onChange={handleChange}
+                        value={searchText}
+                        placeholder="Search your coin"
+                    />
+                    {searchText && (
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('active-value')} />
+                    )}
+                </div>
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
@@ -52,11 +82,11 @@ function MarketOverviewDetail() {
                             </thead>
 
                             <tbody className={cx('listCoin')}>
-                                {!loading &&
-                                    sliceArrayToPagination(marketOverviews, paginationState, NUMBER_ITEM_DISPLAY).map(
+                                {status === 'idle' &&
+                                    sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY).map(
                                         (coin, index) => <CoinItem index={index} key={coin.id} data={coin} />,
                                     )}
-                                {loading && <Loading />}
+                                {status === 'loading' && <Loading />}
                             </tbody>
                         </table>
                         <div id={cx('market-table__pagination')}>
@@ -65,11 +95,11 @@ function MarketOverviewDetail() {
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={marketOverviews.length / NUMBER_ITEM_DISPLAY}
+                                pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
-                                forcePage={paginationState - 1}
+                                forcePage={searchText? 0 : paginationState - 1}
                                 containerClassName={cx('pagination')}
                                 activeClassName={cx('active')}
                             />
