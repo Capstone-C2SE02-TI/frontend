@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const HomeDashboardSlice = createSlice({
-    name: 'auth',
+const homeDashboardSlice = createSlice({
+    name: 'homeDashboard',
     initialState: {
         showSidebar: true,
     },
@@ -11,9 +11,8 @@ const HomeDashboardSlice = createSlice({
             state.showSidebar = !state.showSidebar;
         },
     },
-    
 });
 
 
 
-export default HomeDashboardSlice;
+export default homeDashboardSlice;
