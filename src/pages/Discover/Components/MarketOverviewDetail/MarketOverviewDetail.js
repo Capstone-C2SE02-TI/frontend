@@ -1,17 +1,17 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { useRef } from 'react';
-import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
-import CoinItem from './CoinItem';
+import { useEffect, useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
-import Loading from '~/components/Loading';
-import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
+import CoinItem from './CoinItem';
+import Loading from '~/components/Loading';
+import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
 import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
 import { Nodata } from '~/components/Icons';
+import useDebounced from '~/hooks';
 const cx = classNames.bind(styles);
 
 const NUMBER_ITEM_DISPLAY = 10;
@@ -21,11 +21,10 @@ function MarketOverviewDetail() {
     const [paginationState, setPaginationState] = useState(1);
     const [noData, setNodata] = useState(false);
 
-    const dispatch = useDispatch();
+    const inputUserRef = useRef();
 
-    const handlePageClick = (selectedItem) => {
-        setPaginationState(selectedItem.selected + 1);
-    };
+    const dispatch = useDispatch();
+    const textSearchDebounced = useDebounced(searchText, 500);
 
     const coinsList = useSelector(coinsRemainingSelector);
     const status = useSelector(statusCoinsSelector);
@@ -33,31 +32,37 @@ function MarketOverviewDetail() {
 
     useEffect(() => {
         dispatch(fetchCoinsDiscover());
-      
     }, [dispatch]);
 
     useEffect(() => {
-          renderCoinsList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[searchText])
+        statusSearchData();
 
-    const inputUserRef = useRef();
+        if (textSearchDebounced) {
+            dispatch(discoverSlice.actions.searchFilterChange(textSearchDebounced));
+        } else dispatch(discoverSlice.actions.searchFilterChange(''));
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [textSearchDebounced, coinsList]);
 
     const handleChange = (e) => {
         setSearchText(e.target.value);
-        dispatch(discoverSlice.actions.searchFilterChange(e.target.value));
     };
 
     const handleClear = () => {
         inputUserRef.current.value = '';
         setSearchText('');
-        dispatch(discoverSlice.actions.searchFilterChange(''));
     };
 
-    const renderCoinsList = () => {
-        if (searchText && viewListCoinsPagination.length === 0) {
+    const statusSearchData = () => {
+        if (textSearchDebounced && coinsList.length === 0) {
             setNodata(true);
+        } else {
+            setNodata(false);
         }
+    };
+
+    const handlePageClick = (selectedItem) => {
+        setPaginationState(selectedItem.selected + 1);
     };
 
     return (
