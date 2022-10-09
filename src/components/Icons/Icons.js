@@ -261,3 +261,65 @@ export const MenuIcon = ({ width = 20, height = 23 }) => {
         </svg>
     );
 }
+
+export const Nodata = ({ width = 20, height = 23, className }) => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" className={className}>
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M64 8H26v80h58V28L64 8zM36 37h38v4H36v-4zm0 9h38v4H36v-4zm38 9H36v4h38v-4z"
+                fill="url(#not-found-data-light_svg__paint0_linear)"
+            />
+            <path d="M62 71l4-4 4 4-4 4-4-4z" fill="#fff" />
+            <path d="M86 50l3-3 3 3-3 3-3-3zM47 21l3-3 3 3-3 3-3-3zM84 28H64V8l20 20z" fill="#E6E8EA" />
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M4.171 73.171l14.5-14.5 5.657 5.658-14.5 14.5-5.657-5.657z"
+                fill="url(#not-found-data-light_svg__paint1_linear)"
+            />
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M51 48c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zm4 0c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20z"
+                fill="url(#not-found-data-light_svg__paint2_linear)"
+            />
+            <defs>
+                <linearGradient
+                    id="not-found-data-light_svg__paint0_linear"
+                    x1={84}
+                    y1="10.162"
+                    x2={84}
+                    y2={88}
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#F5F5F5" />
+                    <stop offset={1} stopColor="#E6E8EA" />
+                </linearGradient>
+                <linearGradient
+                    id="not-found-data-light_svg__paint1_linear"
+                    x1="4.171"
+                    y1="68.75"
+                    x2="24.328"
+                    y2="68.75"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#929AA5" />
+                    <stop offset={1} stopColor="#76808F" />
+                </linearGradient>
+                <linearGradient
+                    id="not-found-data-light_svg__paint2_linear"
+                    x1={15}
+                    y1={48}
+                    x2={55}
+                    y2={48}
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#929AA5" />
+                    <stop offset={1} stopColor="#76808F" />
+                </linearGradient>
+            </defs>
+        </svg>
+    );
+}
