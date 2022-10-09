@@ -24,7 +24,7 @@ function MarketOverviewDetail() {
     const inputUserRef = useRef();
 
     const dispatch = useDispatch();
-    const textSearchDebounced = useDebounced(searchText, 500);
+    const textSearchDebounced = useDebounced(searchText, 200);
 
     const coinsList = useSelector(coinsRemainingSelector);
     const status = useSelector(statusCoinsSelector);
@@ -104,13 +104,17 @@ function MarketOverviewDetail() {
                             <tbody className={cx('listCoin')}>
                                 {status === 'idle' &&
                                     viewListCoinsPagination.map((coin, index) => (
-                                        <CoinItem index={index} key={coin.id} data={coin} />
+                                        <CoinItem
+                                            index={index}
+                                            key={coin.id}
+                                            data={coin}
+                                            increaseStatus={coin.usd.percentChange24h > 0 ? true : false}
+                                        />
                                     ))}
 
                                 {status === 'loading' && <Loading />}
                             </tbody>
                         </table>
-
                         {noData && (
                             <div className={cx('no-data')}>
                                 <Nodata className={cx('no-data__icon')} />
@@ -127,7 +131,7 @@ function MarketOverviewDetail() {
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
                                 pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
-                                marginPagesDisplayed={2}
+                                marginPagesDisplayed={3}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
                                 forcePage={searchText ? 0 : paginationState - 1}
