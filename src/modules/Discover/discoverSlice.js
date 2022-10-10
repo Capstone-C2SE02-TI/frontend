@@ -3,7 +3,9 @@ import { marketOverviewService } from '~/services';
 
 const discoverSlice = createSlice({
     name: 'discoverCoins',
-    initialState: { status: 'idle', coinsList: [], searchText: '' },
+    initialState: { status: 'idle', coinsList: [], searchText: '', filters:{
+        category: ''
+    } },
     reducers: {
         searchFilterChange: (state, action) => {
             state.searchText = action.payload
@@ -24,8 +26,10 @@ const discoverSlice = createSlice({
 
 export const fetchCoinsDiscover = createAsyncThunk('coins/fetchCoinsDiscover', async () => {
     const response = await marketOverviewService.getCoins();
+    console.log(response)
     return response.datas;
 });
+
 
 // => coins/fetchCoins/pending
 // => coins/fetchCoins/fulfilled

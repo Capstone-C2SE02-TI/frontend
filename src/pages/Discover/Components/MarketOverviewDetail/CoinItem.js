@@ -18,7 +18,7 @@ function coinItem({ index, data, increaseStatus }) {
                     {data.name}({data.symbol})
                 </span>
             </td>
-            <td>$1,454.91</td>
+            <td>${data.usd.price}</td>
             <td className={classNamesStatusCoin}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
             <td className={classNamesStatusCoin}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
             <td>${data.usd.volume24h.toFixed(0)}</td>

@@ -7,6 +7,7 @@ export const searchTextSelector = (state) => state.discoverCoins.searchText;
 
 
 export const coinsRemainingSelector = createSelector(coinsListSelector, searchTextSelector, (coinsList, searchText) => {
+
     return coinsList.filter((coin) => {
         return (
             coin.name.toLowerCase().includes(searchText.toLowerCase()) ||

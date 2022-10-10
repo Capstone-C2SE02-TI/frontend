@@ -10,9 +10,12 @@ import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
 import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
+
 const cx = classNames.bind(styles);
+
 
 const NUMBER_ITEM_DISPLAY = 10;
 
@@ -24,6 +27,7 @@ function MarketOverviewDetail() {
     const inputUserRef = useRef();
 
     const dispatch = useDispatch();
+    //searchText a 
     const textSearchDebounced = useDebounced(searchText, 200);
 
     const coinsList = useSelector(coinsRemainingSelector);
@@ -69,6 +73,12 @@ function MarketOverviewDetail() {
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
+            </div>
+            <div className={cx('market-box')}>
+                <div className={cx('market-box__category')}>
+                    <p>Category</p>
+                    <FontAwesomeIcon icon={faCaretDown} />
+                </div>
                 <div className={cx('market-content__search')}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
                     <input
