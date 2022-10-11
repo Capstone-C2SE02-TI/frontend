@@ -21,6 +21,7 @@
 .statisticsOverview {
     max-width: 100%;
     color: white;
+
     ul {
         display: flex;
         justify-content: space-around;
@@ -38,22 +39,26 @@
 
 table {
     width: 100%;
-    background-color: #a496ff;
+    background-color: #fff !important;
     border-radius: 8px;
+    color: #333;
     thead {
         tr {
             position: sticky;
             z-index: 0;
             top: 0;
-            background: #7a6bdb;
+            background: #fff;
+            border-bottom: 1px solid #eff2f5;
+            border-top: 1px solid #eff2f5;
             &:hover {
-                background-color: #7a6bdb;
+                background-color: #f8fafd;
                 cursor: pointer;
             }
         }
 
         font-size: 1.5rem;
         border-bottom: 1px solid #fff;
+
         th {
             padding: 10px 10px 10px 0;
         }
@@ -62,7 +67,7 @@ table {
 
 tr {
     &:hover {
-        background-color: rgba(255, 238, 221, 0.36);
+        background-color: #f8fafd;
         cursor: pointer;
     }
 }
@@ -74,6 +79,7 @@ td {
 
 .pricedata {
     padding: 0px 20px 0 0 !important;
+
     img {
         margin-right: 5px;
         margin-left: 0 !important;
@@ -114,7 +120,7 @@ td {
         padding-right: 15px;
     }
 
-    ul > li {
+    ul>li {
         border: none;
         color: #838383;
         cursor: pointer;
@@ -125,6 +131,7 @@ td {
         outline-style: initial;
         padding: 0.5rem 0rem;
         text-align: center;
+
         a {
             padding: 6px 12px;
             border-radius: 4px;
@@ -220,7 +227,7 @@ td {
     }
 }
 
-input:not(:placeholder-shown) ~ .search--icon {
+input:not(:placeholder-shown)~.search--icon {
     fill: red;
 }
 
@@ -257,4 +264,26 @@ input:not(:placeholder-shown) ~ .search--icon {
 
 .reduce {
     color: #f33a58;
+}
+
+.market-box {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.market-box__category {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 28px;
+    padding: 0px 34px;
+    background: #eff2f5;
+    p {
+        color: #303031;
+        font-weight: 500;
+        font-size: 14px;
+        margin-right: 10px;
+        margin-bottom: 0px;
+    }
 }

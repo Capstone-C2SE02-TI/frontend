@@ -2,31 +2,26 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import styles from '../MarketOverview/MarketOverview.module.scss';
 import { marketOverviewService } from '~/services';
+import { useDispatch, useSelector } from 'react-redux';
+import { statusCoinsSelector, coinsListSelector } from '~/modules/HomeDashboard/selector'
 import CoinItem from './CoinItem';
-
+import { fetchCoinsHomeDashboard } from '~/modules/HomeDashboard/homeDashboardSlice';
 import Loading from '~/components/Loading';
 import { Link } from 'react-router-dom';
+import { CoinList } from '~/configs/api';
 const cx = classNames.bind(styles);
 
 const PAGE_SIZE = 1;
 
 function MarketOverview() {
-    const [marketOverview, setMarketOverview] = useState([]);
-    const [loading, setLoading] = useState(false);
 
+    const dispatch = useDispatch();
+    const coinsList = useSelector(coinsListSelector);
+    const status = useSelector(statusCoinsSelector);
 
     useEffect(() => {
-        const fetchCoin = async () => {
-            setLoading(true);
-            const response = await marketOverviewService.getCoins(PAGE_SIZE);
-        
-            setMarketOverview(response.datas);
-
-            setLoading(false);
-        };
-        fetchCoin();
-    }, []);
-    
+        dispatch(fetchCoinsHomeDashboard(PAGE_SIZE));
+    }, [dispatch]);
     
     return (
         <section className={cx('colMiddle')}>
@@ -53,14 +48,17 @@ function MarketOverview() {
                             </thead>
 
                             <tbody className={cx('listCoin')}>
+                            {status === 'idle' &&
+                                    coinsList.map((coin, index) => (
+                                        <CoinItem
+                                            index={index}
+                                            key={coin.id}
+                                            data={coin}
+                                            increaseStatus={coin.usd.percentChange24h > 0 ? true : false}
+                                        />
+                                    ))}
 
-
-                                {!loading && marketOverview.map((coin, index) => (
-                                    <CoinItem index={index} key={coin.id} data={coin} />
-                                ))}
-                                {loading && (
-                                    <Loading />
-                                )}
+                                {status === 'loading' && <Loading />}
                             </tbody>
                         </table>
                     </div>
