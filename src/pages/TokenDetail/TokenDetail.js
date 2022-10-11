@@ -1,6 +1,7 @@
 import { Col, Row, Select } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
+import TokenDetailEachCoin from './TokenDetailEachCoin';
 import ReferentItem from './components/ReferentItem/ReferentItem';
 import P2P from '../P2P';
 import Slider from 'react-slick';
@@ -98,6 +99,7 @@ function TokenDetail() {
                 <div className={cx('wallet-content-statics')}>
                     <Row>
                         <Col span={17}>
+                            <TokenDetailEachCoin/>
                             <div className={cx('wallet-chart')}>
                                 <div style={{ textAlign: 'right', padding: '16px' }}>
                                     <Select
