@@ -5,10 +5,9 @@ import Image from '~/components/Image/Image';
 import ChartOverview from '../AssetCoins/ChartOverview';
 const cx = classNames.bind(styles);
 
-function coinItem({ index, data, increaseStatus }) {
-    const classNamesStatusCoin = cx(
-        increaseStatus? 'increase' : 'reduce'
-    );
+function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
+    const classNamesStatusCoin24h = cx(increaseStatus24h ? 'increase' : 'reduce');
+    const classNamesStatusCoin7h = cx(increaseStatus7d ? 'increase' : 'reduce');
     return (
         <tr key={index}>
             <td>{index + 1}</td>
@@ -19,8 +18,8 @@ function coinItem({ index, data, increaseStatus }) {
                 </span>
             </td>
             <td>${data.usd.price}</td>
-            <td className={classNamesStatusCoin}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
-            <td className={classNamesStatusCoin}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
+            <td className={classNamesStatusCoin24h}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
+            <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
             <td>${data.usd.volume24h.toFixed(0)}</td>
             <td>${data.marketCap.toFixed(0)}</td>
             <td>

@@ -3,13 +3,22 @@ import { marketOverviewService } from '~/services';
 
 const discoverSlice = createSlice({
     name: 'discoverCoins',
-    initialState: { status: 'idle', coinsList: [], searchText: '', filters:{
-        category: ''
-    } },
+    initialState: {
+        status: 'idle',
+        listTagsName: [],
+        coinsList: [],
+        searchText: '',
+        filters: {
+            category: '',
+        },
+    },
     reducers: {
         searchFilterChange: (state, action) => {
-            state.searchText = action.payload
-        }
+            state.searchText = action.payload;
+        },
+        categoryFilterChange: (state, action) => {
+            state.filters.category = action.payload;
+        },
     },
 
     extraReducers: (builder) => {
@@ -20,16 +29,21 @@ const discoverSlice = createSlice({
             .addCase(fetchCoinsDiscover.fulfilled, (state, action) => {
                 state.coinsList = action.payload;
                 state.status = 'idle';
+            })
+            .addCase(fetchListTagsName.fulfilled, (state, action) => {
+                state.listTagsName = action.payload;
             });
     },
 });
 
-export const fetchCoinsDiscover = createAsyncThunk('coins/fetchCoinsDiscover', async () => {
+export const fetchCoinsDiscover = createAsyncThunk('discover/fetchCoinsDiscover', async () => {
     const response = await marketOverviewService.getCoins();
-    console.log(response)
     return response.datas;
 });
-
+export const fetchListTagsName = createAsyncThunk('discover/fetchListTagsName', async () => {
+    const response = await marketOverviewService.getListOfTagsName();
+    return response.datas;
+});
 
 // => coins/fetchCoins/pending
 // => coins/fetchCoins/fulfilled

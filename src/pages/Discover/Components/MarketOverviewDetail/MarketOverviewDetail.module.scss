@@ -47,6 +47,7 @@ table {
             position: sticky;
             z-index: 0;
             top: 0;
+
             background: #fff;
             border-bottom: 1px solid #eff2f5;
             border-top: 1px solid #eff2f5;
@@ -120,7 +121,7 @@ td {
         padding-right: 15px;
     }
 
-    ul>li {
+    ul > li {
         border: none;
         color: #838383;
         cursor: pointer;
@@ -164,15 +165,15 @@ td {
 
     &__search {
         position: relative;
-        height: 44px;
+        height: 40px;
         width: 245px;
         display: flex;
         align-items: center;
+        justify-content: space-around;
         line-height: 1.6;
         border: 1px solid transparent;
         border-color: #eaecef;
         border-radius: 4px;
-        padding-left: 8px;
         padding-right: 8px;
         background-color: #ffffff;
 
@@ -189,16 +190,13 @@ td {
             border: none;
             background-color: inherit;
             opacity: 1;
-            padding: 8px 0;
+            padding: 6px 0;
+            font-size: 14px;
         }
 
         svg {
             color: #b7bdc6;
             cursor: pointer;
-        }
-
-        .search--icon {
-            margin-right: 8px;
         }
     }
 
@@ -227,7 +225,7 @@ td {
     }
 }
 
-input:not(:placeholder-shown)~.search--icon {
+input:not(:placeholder-shown) ~ .search--icon {
     fill: red;
 }
 
@@ -273,12 +271,21 @@ input:not(:placeholder-shown)~.search--icon {
 }
 
 .market-box__category {
+    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: 28px;
-    padding: 0px 34px;
     background: #eff2f5;
+
+    &--filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        padding: 8px 24px;
+    }
+
     p {
         color: #303031;
         font-weight: 500;
@@ -286,4 +293,24 @@ input:not(:placeholder-shown)~.search--icon {
         margin-right: 10px;
         margin-bottom: 0px;
     }
+
+    &__container {
+        position: absolute;
+        top: 110%;
+        left: 0%;
+        width: 280px;
+        // max-height: 370px;
+        border-radius: 8px;
+        animation: fadeIn .5s;
+        z-index: 100 ;
+    }
+}
+
+@keyframes fadeIn {
+	from {
+		opacity:0;
+	}
+	to {
+		opacity:1;
+	}
 }

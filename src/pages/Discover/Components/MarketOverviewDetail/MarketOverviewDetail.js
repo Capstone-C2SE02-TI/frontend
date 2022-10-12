@@ -4,37 +4,49 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
+import styles from './MarketOverviewDetail.module.scss';
 import CoinItem from './CoinItem';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
-import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
-import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
+import discoverSlice, { fetchCoinsDiscover, fetchListTagsName } from '~/modules/Discover/discoverSlice';
+import {
+    coinsRemainingSelector,
+    listTagsNameSelector,
+    statusCoinsSelector,
+    tagnameTextSelector,
+} from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
+import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
+import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
 
 const cx = classNames.bind(styles);
-
-
 const NUMBER_ITEM_DISPLAY = 10;
 
 function MarketOverviewDetail() {
     const [searchText, setSearchText] = useState('');
     const [paginationState, setPaginationState] = useState(1);
     const [noData, setNodata] = useState(false);
+    const [openFilter, setOpenFilter] = useState(false);
 
     const inputUserRef = useRef();
+    const refFilterCategory = useRef();
+    const refParenFilterCategory = useRef();
 
     const dispatch = useDispatch();
-    //searchText a 
+
     const textSearchDebounced = useDebounced(searchText, 200);
 
+    const tagname = useSelector(tagnameTextSelector);
     const coinsList = useSelector(coinsRemainingSelector);
     const status = useSelector(statusCoinsSelector);
+    const listTagsName = useSelector(listTagsNameSelector);
+
     const viewListCoinsPagination = sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY);
 
     useEffect(() => {
+        dispatch(fetchListTagsName());
         dispatch(fetchCoinsDiscover());
     }, [dispatch]);
 
@@ -46,7 +58,7 @@ function MarketOverviewDetail() {
         } else dispatch(discoverSlice.actions.searchFilterChange(''));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [textSearchDebounced, coinsList]);
+    }, [textSearchDebounced, coinsList, tagname]);
 
     const handleChange = (e) => {
         setSearchText(e.target.value);
@@ -58,7 +70,7 @@ function MarketOverviewDetail() {
     };
 
     const statusSearchData = () => {
-        if (textSearchDebounced && coinsList.length === 0) {
+        if ((textSearchDebounced && coinsList.length === 0) || (tagname && coinsList.length === 0)) {
             setNodata(true);
         } else {
             setNodata(false);
@@ -69,6 +81,20 @@ function MarketOverviewDetail() {
         setPaginationState(selectedItem.selected + 1);
     };
 
+    const handleToggleFilter = () => {
+        setOpenFilter(!openFilter);
+    };
+
+    const handleCloseFilter = () => {
+        setOpenFilter(false);
+    };
+
+    useOnClickOutside(refFilterCategory, (e) => {
+        if (!refParenFilterCategory.current.contains(e.target)) {
+            setOpenFilter(false);
+        }
+    });
+
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
@@ -76,8 +102,19 @@ function MarketOverviewDetail() {
             </div>
             <div className={cx('market-box')}>
                 <div className={cx('market-box__category')}>
-                    <p>Category</p>
-                    <FontAwesomeIcon icon={faCaretDown} />
+                    <div
+                        onClick={handleToggleFilter}
+                        ref={refParenFilterCategory}
+                        className={cx('market-box__category--filter')}
+                    >
+                        <p>Category</p>
+                        <FontAwesomeIcon icon={faCaretDown} />
+                    </div>
+                    {openFilter && (
+                        <div className={cx('market-box__category__container')} ref={refFilterCategory}>
+                            <WrapperMenu data={listTagsName} onRequestClose={handleCloseFilter} />
+                        </div>
+                    )}
                 </div>
                 <div className={cx('market-content__search')}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
@@ -118,7 +155,8 @@ function MarketOverviewDetail() {
                                             index={index}
                                             key={coin.id}
                                             data={coin}
-                                            increaseStatus={coin.usd.percentChange24h > 0 ? true : false}
+                                            increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
+                                            increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
                                         />
                                     ))}
 
@@ -129,7 +167,7 @@ function MarketOverviewDetail() {
                             <div className={cx('no-data')}>
                                 <Nodata className={cx('no-data__icon')} />
                                 <div className={cx('no-data__title')}>
-                                    Không có kết quả nào cho <span>"{searchText}"</span>
+                                    Không có kết quả nào cho <span>"{searchText || 'Category ' + tagname}"</span>
                                 </div>
                             </div>
                         )}

@@ -16,19 +16,18 @@ const homeDashboardSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchCoinsHomeDashboard.pending, (state, action) => {
-                console.log("pending",state)
+            
                 state.status = 'loading';
             })
             .addCase(fetchCoinsHomeDashboard.fulfilled, (state, action) => {
-                console.log("fullfill",state)
+              
                 state.coinsList = action.payload;
                 state.status = 'idle';
-            });
+            })
     },
 });
 
-export const fetchCoinsHomeDashboard = createAsyncThunk('coins/fetchCoinsHomeDashboard', async (pageSize) => {
-    console.log('call API')
+export const fetchCoinsHomeDashboard = createAsyncThunk('homeDashboard/fetchCoinsHomeDashboard', async (pageSize) => {
     const response = await marketOverviewService.getCoins(pageSize);
     return response.datas;
 });
