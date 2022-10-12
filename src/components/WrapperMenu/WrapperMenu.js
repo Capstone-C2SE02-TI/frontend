@@ -12,7 +12,7 @@ import { useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
-function WrapperMenu({ data, onRequestClose }) {
+function WrapperMenu({ data, onRequestClose, itemSelected }) {
     const [searchText, setSearchText] = useState('');
 
     const searchTextDebounce = useDebounced(searchText, 500);
@@ -44,7 +44,7 @@ function WrapperMenu({ data, onRequestClose }) {
         } else {
             dispatch(discoverSlice.actions.categoryFilterChange(''));
         }
-        
+
         onRequestClose();
     };
     const handleSelectAllCategories = () => {
