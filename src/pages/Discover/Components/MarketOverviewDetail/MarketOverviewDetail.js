@@ -4,37 +4,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import styles from '../MarketOverviewDetail/MarketOverviewDetail.module.scss';
+import styles from './MarketOverviewDetail.module.scss';
 import CoinItem from './CoinItem';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
-import discoverSlice, { fetchCoinsDiscover } from '~/modules/Discover/discoverSlice';
-import { coinsRemainingSelector, statusCoinsSelector } from '~/modules/Discover/selector';
+import discoverSlice, { fetchCoinsDiscover, fetchListTagsName } from '~/modules/Discover/discoverSlice';
+import {
+    coinsRemainingSelector,
+    listTagsNameSelector,
+    statusCoinsSelector,
+    tagnameTextSelector,
+} from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
+import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
+import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
+import { Fragment } from 'react';
 
 const cx = classNames.bind(styles);
-
-
 const NUMBER_ITEM_DISPLAY = 10;
 
 function MarketOverviewDetail() {
     const [searchText, setSearchText] = useState('');
     const [paginationState, setPaginationState] = useState(1);
     const [noData, setNodata] = useState(false);
+    const [openFilter, setOpenFilter] = useState(false);
 
     const inputUserRef = useRef();
+    const refFilterCategory = useRef();
+    const refParenFilterCategory = useRef();
 
     const dispatch = useDispatch();
-    //searchText a 
-    const textSearchDebounced = useDebounced(searchText, 200);
 
+    const textSearchDebounced = useDebounced(searchText, 200);
+    
+
+    const tagNameCurrent = useSelector(tagnameTextSelector);
     const coinsList = useSelector(coinsRemainingSelector);
     const status = useSelector(statusCoinsSelector);
+    const listTagsName = useSelector(listTagsNameSelector);
+
     const viewListCoinsPagination = sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY);
 
+       const selectedTagnameClassNames = cx('market-box__category--filter--container', {
+           'selected-item': tagNameCurrent,
+       });
+    
     useEffect(() => {
+        dispatch(fetchListTagsName());
         dispatch(fetchCoinsDiscover());
     }, [dispatch]);
 
@@ -46,7 +64,7 @@ function MarketOverviewDetail() {
         } else dispatch(discoverSlice.actions.searchFilterChange(''));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [textSearchDebounced, coinsList]);
+    }, [textSearchDebounced, coinsList, tagNameCurrent]);
 
     const handleChange = (e) => {
         setSearchText(e.target.value);
@@ -58,7 +76,7 @@ function MarketOverviewDetail() {
     };
 
     const statusSearchData = () => {
-        if (textSearchDebounced && coinsList.length === 0) {
+        if ((textSearchDebounced && coinsList.length === 0) || (tagNameCurrent && coinsList.length === 0)) {
             setNodata(true);
         } else {
             setNodata(false);
@@ -69,70 +87,130 @@ function MarketOverviewDetail() {
         setPaginationState(selectedItem.selected + 1);
     };
 
+    const handleToggleFilter = () => {
+        setOpenFilter(!openFilter);
+    };
+
+    const handleCloseFilter = () => {
+        setOpenFilter(false);
+    };
+
+    useOnClickOutside(refFilterCategory, (e) => {
+        if (!refParenFilterCategory.current.contains(e.target)) {
+            setOpenFilter(false);
+        }
+    });
+
+    const renderFilterCategory = () => {
+        return (
+            <div className={cx('market-box__category')}>
+                <div
+                    onClick={handleToggleFilter}
+                    ref={refParenFilterCategory}
+                    className={cx('market-box__category--filter')}
+                >
+                    {tagNameCurrent ? (
+                        <div className={selectedTagnameClassNames}>
+                            <p>{tagNameCurrent}</p>
+                            <FontAwesomeIcon icon={faCaretDown} />
+                        </div>
+                    ) : (
+                        <div className={selectedTagnameClassNames}>
+                            <p>Category</p>
+                            <FontAwesomeIcon icon={faCaretDown} />
+                        </div>
+                    )}
+                </div>
+                {openFilter && (
+                    <div className={cx('market-box__category__container')} ref={refFilterCategory}>
+                        <WrapperMenu
+                            data={listTagsName}
+                            onRequestClose={handleCloseFilter}
+                            itemSelected={tagNameCurrent}
+                        />
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    const renderSearch = () => {
+        return (
+            <div className={cx('market-content__search')}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
+                <input
+                    ref={inputUserRef}
+                    type="text"
+                    onChange={handleChange}
+                    value={searchText}
+                    placeholder="Search your coin"
+                    spellCheck="false"
+                />
+                {searchText && (
+                    <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('active-value')} />
+                )}
+            </div>
+        );
+    }
+
+    const renderTable = () => {
+        return (
+            <Fragment>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>24h %</th>
+                            <th>7d %</th>
+                            <th>Market Cap</th>
+                            <th>Volume(24h)</th>
+                            <th>Circulating Supply</th>
+                            <th>Last 1 day</th>
+                        </tr>
+                    </thead>
+
+                    <tbody className={cx('listCoin')}>
+                        {status === 'idle' &&
+                            viewListCoinsPagination.map((coin, index) => (
+                                <CoinItem
+                                    index={index}
+                                    key={coin.id}
+                                    data={coin}
+                                    increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
+                                    increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
+                                />
+                            ))}
+
+                        {status === 'loading' && <Loading />}
+                    </tbody>
+                </table>
+                {noData && (
+                    <div className={cx('no-data')}>
+                        <Nodata className={cx('no-data__icon')} />
+                        <div className={cx('no-data__title')}>
+                            Không có kết quả nào cho <span>"{searchText || 'Category ' + tagNameCurrent}"</span>
+                        </div>
+                    </div>
+                )}
+            </Fragment>
+        );
+    }
+
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
             </div>
             <div className={cx('market-box')}>
-                <div className={cx('market-box__category')}>
-                    <p>Category</p>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                </div>
-                <div className={cx('market-content__search')}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
-                    <input
-                        ref={inputUserRef}
-                        type="text"
-                        onChange={handleChange}
-                        value={searchText}
-                        placeholder="Search your coin"
-                    />
-                    {searchText && (
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={handleClear} className={cx('active-value')} />
-                    )}
-                </div>
+                {renderFilterCategory()}
+                {renderSearch()}
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
                     <div className={cx('talbeScroll')}>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>24h %</th>
-                                    <th>7d %</th>
-                                    <th>Market Cap</th>
-                                    <th>Volume(24h)</th>
-                                    <th>Circulating Supply</th>
-                                    <th>Last 1 day</th>
-                                </tr>
-                            </thead>
-
-                            <tbody className={cx('listCoin')}>
-                                {status === 'idle' &&
-                                    viewListCoinsPagination.map((coin, index) => (
-                                        <CoinItem
-                                            index={index}
-                                            key={coin.id}
-                                            data={coin}
-                                            increaseStatus={coin.usd.percentChange24h > 0 ? true : false}
-                                        />
-                                    ))}
-
-                                {status === 'loading' && <Loading />}
-                            </tbody>
-                        </table>
-                        {noData && (
-                            <div className={cx('no-data')}>
-                                <Nodata className={cx('no-data__icon')} />
-                                <div className={cx('no-data__title')}>
-                                    Không có kết quả nào cho <span>"{searchText}"</span>
-                                </div>
-                            </div>
-                        )}
+                        {renderTable()}
 
                         <div id={cx('market-table__pagination')}>
                             <ReactPaginate
