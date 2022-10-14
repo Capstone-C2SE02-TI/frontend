@@ -69,7 +69,6 @@
         justify-content: flex-start;
         align-items: center;
         margin: 10px 0 20px 0;
-        
 
         h3 {
             font-size: 18px;
@@ -113,8 +112,6 @@
             color: #482ee8;
             margin-right: 10px;
         }
-
-        
     }
 }
 
@@ -145,6 +142,63 @@
                     color: #a5a2b8;
                 }
             }
+        }
+    }
+}
+
+.detail-tippy {
+   border-radius: 6px;
+    background: #eff2f5;;
+    padding: 4px 24px;
+    white-space: nowrap;
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 55%;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #808a9d;
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+    }
+}
+
+
+.detail-tippy-container {
+    position: relative;
+}
+
+.detail-tippy-caret-down {
+    position: absolute;
+    right: 13px;
+    font-size: 16px;
+}
+
+.detail-tippy:hover ~ .detail-tippy-caret-down {
+    color: rgb(255, 255, 255);
+}
+
+.content-tippy {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: #fff;
+    z-index: 100;
+    box-shadow: 0px 1px 2px rgb(128 138 157 / 12%), 0px 8px 32px rgb(128 138 157 / 24%);
+
+    .tippy-item {
+        font-size: 14px;
+        color: #000 !important;
+        padding: 8px 18px;
+        font-weight: 700;
+
+        &:hover {
+            background-color: #f8fafd;
+        }
+
+        svg {
+            margin-left: 8px;
         }
     }
 }

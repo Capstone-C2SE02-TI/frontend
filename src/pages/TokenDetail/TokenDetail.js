@@ -8,7 +8,12 @@ import { Option } from 'antd/lib/mentions';
 import P2P from '../P2P';
 import TokenDetailEachCoin from './components/TokenDetailEachCoin';
 import { fetchCoinsDetail, fetchTrendingCoins, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
-import { coinsDetailSelector, statusCoinDetailSelector, trendingCoinsSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
+import {
+    coinsDetailSelector,
+    statusCoinDetailSelector,
+    trendingCoinsSelector,
+    trendingTokensSelector,
+} from '~/modules/CoinDetail/selector';
 import TrendingCoins from './Containers/TrendingCoins/TrendingCoins';
 import TrendingTokens from './Containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
@@ -24,27 +29,35 @@ function TokenDetail() {
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
 
+    const trendingCoins = useSelector(trendingCoinsSelector);
 
- const trendingCoins = useSelector(trendingCoinsSelector);
-
- useEffect(() => {
- }, [dispatch]);
     useEffect(() => {
+        
         dispatch(fetchCoinsDetail(symbol));
         dispatch(fetchTrendingTokens());
-     dispatch(fetchTrendingCoins());
-
+        dispatch(fetchTrendingCoins());
     }, [dispatch, symbol]);
 
     const handleFilterChart = (time) => {};
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('wallet-top-container')}>{<TrendingCoins loading={statusFetchCoinDetail} data={trendingCoins} />}</div>
+            <div className={cx('wallet-top-container')}>
+                {<TrendingCoins loading={statusFetchCoinDetail} data={trendingCoins} />}
+            </div>
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
                         <Col span={17}>
-                            {coinDetail && <TokenDetailEachCoin data={coinDetail} />}
+                            {coinDetail && (
+                                <TokenDetailEachCoin
+                                    data={coinDetail}
+                                    community={[
+                                        ...coinDetail.urls.announcement,
+                                        ...coinDetail.urls.reddit,
+                                        ...coinDetail.urls.messageBoard,
+                                    ]}
+                                />
+                            )}
                             <div className={cx('wallet-chart')}>
                                 <div style={{ textAlign: 'right', padding: '16px' }}>
                                     <Select
