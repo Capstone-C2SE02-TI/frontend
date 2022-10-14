@@ -61,8 +61,7 @@ function TokenDetail() {
                             </div>
                         </Col>
                         <Col span={7}>
-                            (
-                            <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />)
+                            <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />
                         </Col>
                     </Row>
                 </div>

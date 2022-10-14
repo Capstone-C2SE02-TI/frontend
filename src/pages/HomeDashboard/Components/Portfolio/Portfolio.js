@@ -22,27 +22,27 @@ function Portfolio() {
                     <h6>Sep 22, 2022</h6>
                 </div>
                 <div className={cx('profile-account--text')}>
-                    <h5>Assets Total</h5>
-                    <h6>$1,312,900</h6>
+                    <h5>Total follow</h5>
+                    <h6>10</h6>
                 </div>
             </div>
             <div className={cx('profile-assets')}>
                 <h4>Assets</h4>
                 <div className={cx('profile-assets--text')}>
-                    <h5>Bitcoin</h5>
-                    <h6>23.5 <span>BTC</span></h6>
+                    <h5>No.1</h5>
+                    <h6>Bitcoin<span> BTC</span></h6>
                 </div>
                 <div className={cx('profile-assets--text')}>
-                    <h5>Ethereum</h5>
-                    <h6>190.45 <span>ETH</span></h6>
+                    <h5>No.2</h5>
+                    <h6>Ethereum<span> ETH</span></h6>
                 </div>
                 <div className={cx('profile-assets--text')}>
-                    <h5>Doge</h5>
-                    <h6>200.5 <span>DOGE</span></h6>
+                    <h5>No.3</h5>
+                    <h6>Doge Coin<span> DOGE</span></h6>
                 </div>
                 <div className={cx('profile-assets--text')}>
-                    <h5>Ripple</h5>
-                    <h6>65,000 <span>XRP</span></h6>
+                    <h5>No.4</h5>
+                    <h6>Ripple<span> XRP</span></h6>
                 </div>
                 <h5 className={cx('more-assets')}>More assets...</h5>
             </div>
