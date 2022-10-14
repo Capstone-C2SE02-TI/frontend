@@ -2,13 +2,14 @@ import classNames from 'classnames/bind';
 import { memo } from 'react';
 import Image from '~/components/Image/Image';
 import styles from '../../TokenDetail.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import MenuTippy from './MenuTippy';
+import numberWithCommas from '~/helpers/numberWithCommas';
+
 const cx = classNames.bind(styles);
 
-
-function TokenDetailEachCoin({ data }) {
-   
-    console.log({detail: data});
-
+function TokenDetailEachCoin({ data, community }) {
     return (
         <section className={cx('token-container')}>
             <div>
@@ -32,11 +33,11 @@ function TokenDetailEachCoin({ data }) {
                     <ul>
                         <li>
                             <p>Market Cap</p>
-                            <p>${data.marketCap.toFixed(0)}</p>
+                            <p>${numberWithCommas(data.marketCap.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>24 hours trading vol</p>
-                            <p>${data.usd.volume24h}</p>
+                            <p>${numberWithCommas(data.usd.volume24h.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>Fully Diluted Valuation</p>
@@ -54,7 +55,7 @@ function TokenDetailEachCoin({ data }) {
                     <ul>
                         <li>
                             <p>Circulating Supply</p>
-                            <p>${data.circulatingSupply}</p>
+                            <p>${numberWithCommas(data.circulatingSupply.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>Total Supply</p>
@@ -78,17 +79,29 @@ function TokenDetailEachCoin({ data }) {
                             <p>Contract</p>
                             <p>$387,503,617,100</p>
                         </li>
-                        <li>
+                        <li className={cx('detail-tippy-container')}>
                             <p>Website</p>
-                            <p>$387,503,617,100</p>
+                            <MenuTippy data={data.urls.website}>
+                                <p className={cx('detail-tippy')}>{data.urls.website[0].split('/')[2]}</p>
+                            </MenuTippy>
+                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
                         </li>
-                        <li>
-                            <p>Explorers</p>
-                            <p>$387,503,617,100</p>
+                        <li className={cx('detail-tippy-container')}>
+                            <p>Explorer</p>
+
+                            <MenuTippy data={data.urls.explorer}>
+                                <p className={cx('detail-tippy')}>{data.urls.explorer[0].split('/')[2]}</p>
+                            </MenuTippy>
+                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
                         </li>
-                        <li>
+                        <li className={cx('detail-tippy-container')}>
                             <p>Community</p>
-                            <p>$387,503,617,100</p>
+                            <MenuTippy data={community}>
+                                <p className={cx('detail-tippy')}>
+                                    {community[0].split('/')[2]}
+                                </p>
+                            </MenuTippy>
+                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li>
                             <p>Total investment</p>

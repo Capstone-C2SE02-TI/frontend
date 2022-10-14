@@ -9,8 +9,6 @@ function WalletHotItem({ data, increaseCoin = false, reduceCoin = false, index  
         reduce: reduceCoin,
     });
 
-    console.log({data});
-
     return (
         <div className={cx('wallet-statics__card')}>
             <span className={cx('wallet-statics__card__heading')}>
