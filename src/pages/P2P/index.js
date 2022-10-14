@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ memo } from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -6,45 +6,42 @@ import { Line } from 'react-chartjs-2';
 import { HistoricalChart } from '~/configs/api';
 
 const currency = 'INR';
-const day = 7;
+const currentDay = 7;
 
-function P2P() {
+function P2P({ data }) {
+//    console.log(data);
     const [historicData, setHistoricData] = useState();
-
     const fetchHistoricData = async () => {
-        const { data } = await axios.get(HistoricalChart('bitcoin', day, currency));
+        const { data } = await axios.get(HistoricalChart('bitcoin', currentDay, currency));
 
         setHistoricData(data.prices);
     };
 
-  
-
     useEffect(() => {
         fetchHistoricData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [day]);
-// const handleChange = (value) => {
-//     console.log(value);
-// };
+    }, [7]);
+
+// console.log(historicData);
     return (
         <div style={{ height: '650px', padding: '16px' }}>
             <Line
-                // height={'900px'}
                 data={{
-                    labels: historicData?.map((coin) => {
-                        let date = new Date(coin[0]);
-                        let time =
-                            date.getHours() > 12
-                                ? `${date.getHours() - 12}:${date.getMinutes()} PM`
-                                : `${date.getHours()}:${date.getMinutes()} AM`;
-
-                        return day === 1 ? time : date.toLocaleDateString();
-                    }),
+                    labels:
+                        data.prices &&
+                        Object.values(data.prices.day)?.map((coin) => {
+                            let date = new Date(coin);
+                            let time =
+                                date.getHours() > 12
+                                    ? `${date.getHours() - 12}:${date.getMinutes()} PM`
+                                    : `${date.getHours()}:${date.getMinutes()} AM`;
+                            return currentDay === 1 ? time : date.toLocaleDateString();
+                        }),
 
                     datasets: [
                         {
                             data: historicData?.map((coin) => coin[1]),
-                            label: `Price ( Past ${day} Days ) in ${currency}`,
+                            label: `Price ( Past ${currentDay} Days ) in ${currency}`,
                             fill: true,
                             backgroundColor: 'rgba(61, 55, 241, 0.2)',
                             borderColor: 'rgba(61, 55, 241, 0.2)',
@@ -77,7 +74,7 @@ function P2P() {
                                 circular: true,
                                 drawBorder: false,
                                 lineWidth: 1,
-                                major:true
+                                major: true,
                             },
                         },
                     },
@@ -96,4 +93,4 @@ function P2P() {
     );
 }
 
-export default P2P;
+export default memo(P2P);

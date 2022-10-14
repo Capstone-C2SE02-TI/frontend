@@ -4,18 +4,6 @@
 
 .wallet-top-container {
     margin-top: 16px;
-
-    .wallet-hot-statics {
-        // display: flex;
-        // justify-content: space-around;
-        border: 1px solid #eceef7;
-        box-shadow: 0px 20px 50px rgba(220, 224, 249, 0.5);
-        border-radius: 20px;
-        padding: 24px;
-        margin: 0 20px;
-
-
-    }
 }
 
 .wallet-bottom-container {
@@ -69,7 +57,7 @@
 
     span {
         padding: 4px 10px;
-        background: #D4D9DE;
+        background: #d4d9de;
         font-size: 12px;
         font-weight: 500;
         border-radius: 20px;
@@ -80,12 +68,24 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin: 10px 0 0px 0;
+        margin: 10px 0 20px 0;
+        
 
         h3 {
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 0px;
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+            margin-right: 18px;
+        }
+
+        span {
+            color: #21ce66;
+            background-color: #f4f6f6;
         }
     }
 
@@ -98,12 +98,11 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-
         }
 
         .token-price__inf {
             h1 {
-                margin-left: 238%;c
+                margin-left: 238%;
             }
         }
 
@@ -111,14 +110,11 @@
             margin-bottom: 0px;
             font-size: 28px;
             font-weight: bold;
-            color: #482EE8;
+            color: #482ee8;
             margin-right: 10px;
         }
 
-        span {
-            color: #21ce66;
-            background-color: #F4F6F6;
-        }
+        
     }
 }
 
@@ -136,7 +132,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #A5A2B8;
+            border-bottom: 1px solid #a5a2b8;
             padding: 5px;
 
             p {
@@ -146,10 +142,9 @@
                 font-weight: 500;
 
                 &:last-child {
-                    color: #A5A2B8;
+                    color: #a5a2b8;
                 }
             }
         }
     }
-
 }
