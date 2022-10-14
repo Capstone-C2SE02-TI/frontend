@@ -19,7 +19,6 @@
         border: 2px solid #eceef7;
         box-shadow: 0px 20px 50px rgba(220, 224, 249, 0.5);
         border-radius: 20px;
-        height: 100%;
     }
 
     .wallet-referent {
@@ -54,7 +53,7 @@
     box-shadow: 0px 20px 50px rgb(220 224 249 / 50%);
     border-radius: 20px;
     padding: 24px;
-
+    margin-bottom: 24px;
     span {
         padding: 4px 10px;
         background: #d4d9de;
@@ -130,7 +129,8 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #a5a2b8;
-            padding: 5px;
+            padding: 15px 5px;
+
 
             p {
                 font-size: 14px;

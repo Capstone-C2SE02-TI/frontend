@@ -15,9 +15,7 @@ function Banner() {
             <div className={cx('banner-content')}>
                 <h2>Easy Invest With Another People</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.
+                    First-ever Crypto analyzing platform where you can track and invest following thousands of successful investors
                 </p>
                 <button
                     onClick={() => {
