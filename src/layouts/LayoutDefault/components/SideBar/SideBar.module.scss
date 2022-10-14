@@ -16,6 +16,7 @@
         color: #fff;
         cursor: pointer;
         transition: opacity 0.2s ease;
+        outline: none;
 
         &:hover {
             opacity: 0.8;
@@ -27,4 +28,45 @@
     color: #000000;
     text-align: center;
     margin-top: 60px;
+}
+
+.logout-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 280px;
+
+    &__title {
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    &__options {
+        display: flex;
+        align-items: center;
+
+        &__degree {
+            padding: 6px 10px;
+            background-color: #644de7;
+            font-size: 14px;
+            color: #fff;
+            outline: none;
+            border: none;
+            margin-right: 22px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        &__cancel {
+            font-size: 14px;
+            color: #816eeb;
+            outline: none;
+            border: none;
+            margin-left: 45px;
+            background-color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 function Setting() {
+    console.log('Setting page');
     return ( <>Setting</> );
 }
 

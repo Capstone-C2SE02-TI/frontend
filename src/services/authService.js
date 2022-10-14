@@ -18,6 +18,16 @@ export const signIn = async (body, options = {}) => {
     }
 };
 
+
+export const signOut = async () => {
+    try {
+        const response = await httpRequest.post('/auth/signout');
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
 export const getUsers = async () => {
     try {
         const response = await httpRequest.get('/users/suggested');

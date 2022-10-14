@@ -1,111 +1,123 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import classNames from "classnames/bind";
+import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
 import { Spin } from 'antd';
 
-import {LogoIcon} from "~/components/Icons/Icons";
+import { LogoIcon } from '~/components/Icons/Icons';
 import { authService } from '~/services';
-import styles from './SignIn.module.scss'
-import validate from "~/helpers/validation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import images  from '~/assets/images';
-
+import styles from './SignIn.module.scss';
+import validate from '~/helpers/validation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import images from '~/assets/images';
+import Modal from '~/components/Modal';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
 function SignIn() {
+    const navigate = useNavigate();
 
-     const navigate = useNavigate();
-
-     const initialValue = {
-         username: '',
-         password: '',
-     };
-     Cookies.remove('1P_JAR')
-     const [formValues, setFormValues] = useState(initialValue);
-     const [formErrors, setFormErrors] = useState({});
-     const [isSubmit, setIsSubmit] = useState(false);
-     const [loading, setLoading] = useState(false);
-     const [isShowPassword, setIsShowPassword] = useState(true);
-
-     const inputUserRef = useRef()
-    
-     const handleChange = (e) => {
-         const { value, name } = e.target;
-         setFormValues({ ...formValues, [name]: value });
-     };
-
-     const deleteKeyObject = (formErrors) => {
-         delete formErrors.phoneNumber;
-         delete formErrors.confirmPassword;
-         delete formErrors.email;
-     };
-     const handleExceptions = (message) => {
-        
-         switch (message) {
-             case 'username-invalid':
-                 setFormErrors({ username: 'Username could not be found' });
-                 break;
-             case 'username-notfound':
-                 setFormErrors({ username: 'Username could not be found' });
-                 break;
-
-             case 'incorrect-password':
-                 setFormErrors({ password: 'Incorrect password. try again' });
-                 break;
-
-             case 'successfully':
-                 navigate('/');
-                 break;
-             default:
-                 break;
-         }
-     };
-     useEffect(() => {
-         deleteKeyObject(formErrors);
-
-         if (Object.keys(formErrors).length === 0 && isSubmit) {
-             const fetchApi = async () => {
-                 setLoading(true);
-                 const response = await authService.signIn(formValues, {
-                     headers: {
-                         'Content-Type': 'application/json',
-                         Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
-                     },
-                 });
-                 if (response.user) {
-                     localStorage.setItem('token', JSON.stringify(response.user));
-                     navigate('/');
-                 }
-                 handleExceptions(response.message);
-
-                 setLoading(false);
-                 //  dispatch(fetchAuth((formValues)));
-             };
-             fetchApi();
-         }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-     }, [isSubmit, formErrors]);
-
-     const handleSubmit = () => {
-         setFormErrors(validate(formValues));
-         setIsSubmit(true);
-     };
-
-     const toggleShowPassword = () => {
-         setIsShowPassword(!isShowPassword);
-       
+    const initialValue = {
+        username: '',
+        password: '',
     };
-    
+    Cookies.remove('1P_JAR');
+    const [formValues, setFormValues] = useState(initialValue);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isShowPassword, setIsShowPassword] = useState(true);
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+
+    const inputUserRef = useRef();
+
+    const handleChange = (e) => {
+        const { value, name } = e.target;
+        setFormValues({ ...formValues, [name]: value });
+    };
+
+    const deleteKeyObject = (formErrors) => {
+        delete formErrors.phoneNumber;
+        delete formErrors.confirmPassword;
+        delete formErrors.email;
+    };
+    const handleExceptions = (message) => {
+        switch (message) {
+            case 'username-invalid':
+                setFormErrors({ username: 'Username could not be found' });
+                break;
+            case 'username-notfound':
+                setFormErrors({ username: 'Username could not be found' });
+                break;
+
+            case 'incorrect-password':
+                setFormErrors({ password: 'Incorrect password. try again' });
+                break;
+
+            case 'successfully':
+                navigate('/');
+                break;
+            default:
+                break;
+        }
+    };
+    useEffect(() => {
+        deleteKeyObject(formErrors);
+
+        if (Object.keys(formErrors).length === 0 && isSubmit) {
+            const fetchApi = async () => {
+                setLoading(true);
+                const response = await authService.signIn(formValues, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
+                    },
+                });
+                if (response.message === 'successfully') {
+                    localStorage.setItem('statusLogin', JSON.stringify(response.message));
+                    navigate('/');
+                }
+                handleExceptions(response.message);
+                setLoading(false);
+            };
+            fetchApi();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSubmit, formErrors]);
+
+    const handleSubmit = () => {
+        setFormErrors(validate(formValues));
+        setIsSubmit(true);
+    };
+
+    const toggleShowPassword = () => {
+        setIsShowPassword(!isShowPassword);
+    };
+
     const handleClear = () => {
         setFormValues({
             ...formValues,
             username: '',
         });
-         inputUserRef.current.focus();
+        inputUserRef.current.focus();
+    };
+
+
+    const closeModal = () => {
+        setShowForgotPassword(false)
     }
+
+    const openModal = () => {
+        setShowForgotPassword(true);
+    };
+
+    const handleFindCode = (e) => {
+        e.preventDefault();
+        console.log("submit");
+}
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('login-left')}>
@@ -164,6 +176,29 @@ function SignIn() {
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
+                    <span className={cx('login-right__form-login__forgot-password')} onClick={openModal}>
+                        Forgot your password?
+                    </span>
+
+                    {
+                        <Modal isOpen={showForgotPassword} onRequestClose={closeModal}>
+                            <div className={cx('modal-forgot-password')}>
+                                <h3 className={cx('modal-heading')}>Forgot password</h3>
+                                <span className={cx('modal-title')}>Please enter your email to find your account</span>
+                                <form onSubmit={handleFindCode}>
+                                    <div className={cx('modal-body')}>
+                                        <label>Email</label>
+                                        <input />
+                                    </div>
+                                    <div className={cx('modal-submit')}>
+                                        <Button text primary small >
+                                            Find
+                                        </Button>
+                                    </div>
+                                </form>
+                            </div>
+                        </Modal>
+                    }
 
                     <div className={cx('login-right__form-login__submit')}>
                         <button onClick={handleSubmit}>Sign In</button>
