@@ -107,7 +107,7 @@ function MarketOverviewDetail() {
                 <div
                     onClick={handleToggleFilter}
                     ref={refParenFilterCategory}
-                    className={cx('market-box__category--filter')}
+                    className={cx('market-box__category--filter', { closing: !openFilter })}
                 >
                     {tagNameCurrent ? (
                         <div className={selectedTagnameClassNames}>
@@ -121,15 +121,15 @@ function MarketOverviewDetail() {
                         </div>
                     )}
                 </div>
-                {openFilter && (
-                    <div className={cx('market-box__category__container')} ref={refFilterCategory}>
+                {openFilter &&
+                    <div className={cx('market-box-content-filter')} ref={refFilterCategory}>
                         <WrapperMenu
                             data={listTagsName}
                             onRequestClose={handleCloseFilter}
                             itemSelected={tagNameCurrent}
                         />
                     </div>
-                )}
+                }
             </div>
         );
     }

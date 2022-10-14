@@ -309,21 +309,35 @@ input:not(:placeholder-shown) ~ .search--icon {
         }
     }
 
+   
+
     .selected-item {
         color: rgb(56, 97, 251) !important;
     }
 
-    &__container {
+  
+
+   
+
+      .market-box-content-filter {
         position: absolute;
         top: 110%;
         left: 0%;
         width: 280px;
         // max-height: 370px;
         border-radius: 8px;
-        animation: fadeIn 0.5s;
+        animation: fadeIn 1s forwards;
         z-index: 100;
     }
+
+    //  .market-box__category--filter.closing  .market-box-content-filter{
+    //     animation: fadeOut 2s forwards !important;
+    //     background-color:red;
+    // }
 }
+
+
+
 
 @keyframes fadeIn {
     from {
@@ -331,5 +345,14 @@ input:not(:placeholder-shown) ~ .search--icon {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }

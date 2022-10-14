@@ -3,23 +3,28 @@ import { ArrowDown, ArrowUp } from '~/components/Icons';
 import styles from './WalletHotItem.modules.scss';
 const cx = classNames.bind(styles);
 
-function WalletHotItem({ increaseCoin = false, reduceCoin = false, index  }) {
+function WalletHotItem({ data, increaseCoin = false, reduceCoin = false, index  }) {
     const classNamesStatusCoin = cx({
         increase: increaseCoin,
         reduce: reduceCoin,
     });
 
+    console.log({data});
+
     return (
         <div className={cx('wallet-statics__card')}>
             <span className={cx('wallet-statics__card__heading')}>
-                Price Change ({index}h)
+                <div className={cx('wallet-statics__card__heading__item')}>
+                    <img src={data.iconURL} alt="logo" />
+                    {`${data.name} (${data.symbol})`}
+                </div>
                 <div className={cx('wallet-statics__card__heading__statics-values')}>
                     {increaseCoin && <ArrowUp />}
                     {reduceCoin && <ArrowDown />}
-                    <p className={classNamesStatusCoin}>10.0%</p>
+                    <p className={classNamesStatusCoin}>{data.percentChange24h.toFixed(3)}%</p>
                 </div>
             </span>
-            <h3 className={cx('wallet-statics__card__values')}>$$2,914.45</h3>
+            <h3 className={cx('wallet-statics__card__values')}>{data.price.toFixed(5)}</h3>
             <span className={cx('wallet-statics__card__date')}>Wed, May 20</span>
         </div>
     );

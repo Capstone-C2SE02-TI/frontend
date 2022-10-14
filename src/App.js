@@ -20,20 +20,9 @@ function App() {
             <Routes>
                 <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
                 <Route path={configs.routes.p2p} element={<PrivateRoute element={<P2P />} />} />
+
                 <Route
-                    path={configs.routes.tokenDetailL}
-                    element={
-                        <PublicRoute
-                            element={
-                                <LayoutDefault>
-                                    <TokenDetail />
-                                </LayoutDefault>
-                            }
-                        />
-                    }
-                />
-                <Route
-                    path="/analyze/tokens/:token"
+                    path="/analyze"
                     element={
                         <PublicRoute
                             element={
@@ -45,12 +34,24 @@ function App() {
                     }
                 />
                 <Route
-                    path="/discover"
+                    path={configs.routes.discover}
                     element={
                         <PublicRoute
                             element={
                                 <LayoutDefault>
                                     <Discover />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path={configs.routes.tokenDetailL}
+                    element={
+                        <PublicRoute
+                            element={
+                                <LayoutDefault>
+                                    <TokenDetail />
                                 </LayoutDefault>
                             }
                         />
