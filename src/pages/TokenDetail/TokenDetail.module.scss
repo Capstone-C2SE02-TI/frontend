@@ -147,16 +147,23 @@
 }
 
 .detail-tippy {
-    border-radius: 14px;
-    background: rgba(217, 217, 217, 0.67);
+   border-radius: 6px;
+    background: #eff2f5;;
     padding: 4px 24px;
     white-space: nowrap;
     width: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 55%;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #808a9d;
         cursor: pointer;
+        color: rgb(255, 255, 255);
+    }
 }
+
 
 .detail-tippy-container {
     position: relative;
@@ -168,6 +175,10 @@
     font-size: 16px;
 }
 
+.detail-tippy:hover ~ .detail-tippy-caret-down {
+    color: rgb(255, 255, 255);
+}
+
 .content-tippy {
     display: flex;
     flex-direction: column;
@@ -175,8 +186,6 @@
     background-color: #fff;
     z-index: 100;
     box-shadow: 0px 1px 2px rgb(128 138 157 / 12%), 0px 8px 32px rgb(128 138 157 / 24%);
- 
- 
 
     .tippy-item {
         font-size: 14px;
@@ -185,7 +194,7 @@
         font-weight: 700;
 
         &:hover {
-            background-color: rgba(217, 217, 217, 0.67);
+            background-color: #f8fafd;
         }
 
         svg {

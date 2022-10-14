@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import MenuTippy from './MenuTippy';
 import numberWithCommas from '~/helpers/numberWithCommas';
+import { CaretDownIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -84,7 +85,7 @@ function TokenDetailEachCoin({ data, community }) {
                             <MenuTippy data={data.urls.website}>
                                 <p className={cx('detail-tippy')}>{data.urls.website[0].split('/')[2]}</p>
                             </MenuTippy>
-                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
+                            <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li className={cx('detail-tippy-container')}>
                             <p>Explorer</p>
@@ -92,16 +93,14 @@ function TokenDetailEachCoin({ data, community }) {
                             <MenuTippy data={data.urls.explorer}>
                                 <p className={cx('detail-tippy')}>{data.urls.explorer[0].split('/')[2]}</p>
                             </MenuTippy>
-                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
+                            <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li className={cx('detail-tippy-container')}>
                             <p>Community</p>
                             <MenuTippy data={community}>
-                                <p className={cx('detail-tippy')}>
-                                    {community[0].split('/')[2]}
-                                </p>
+                                <p className={cx('detail-tippy')}>{community[0].split('/')[2]}</p>
                             </MenuTippy>
-                            <FontAwesomeIcon icon={faCaretDown} className={cx('detail-tippy-caret-down')} />
+                            <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li>
                             <p>Total investment</p>
