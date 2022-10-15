@@ -2,8 +2,6 @@ import classNames from 'classnames/bind';
 import { memo } from 'react';
 import Image from '~/components/Image/Image';
 import styles from '../../TokenDetail.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import MenuTippy from './MenuTippy';
 import numberWithCommas from '~/helpers/numberWithCommas';
 import { CaretDownIcon } from '~/components/Icons';

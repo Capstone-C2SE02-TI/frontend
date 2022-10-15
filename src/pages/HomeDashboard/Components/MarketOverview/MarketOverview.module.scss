@@ -8,8 +8,6 @@
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(6, 29, 33, 0.8995973389355743) 100%);
 }
 
-
-
 .body {
     padding: 36px;
     border: 1px solid #133752;
@@ -35,7 +33,7 @@
             list-style: none;
 
             span {
-                color: aquamarine
+                color: aquamarine;
             }
         }
     }
@@ -43,7 +41,7 @@
 
 table {
     width: 100%;
-    background-color: #A496FF;
+    background-color: #a496ff;
     border-radius: 8px;
     thead {
         font-size: 1.5rem;
@@ -103,14 +101,12 @@ tr {
         justify-content: flex-start;
         align-items: center;
     }
-
 }
 
 .talbeScroll {
     overflow-y: auto;
     height: 850px;
 }
-
 
 // pagination
 
@@ -130,7 +126,7 @@ tr {
         padding-right: 15px;
     }
 
-    ul>li {
+    ul > li {
         border: none;
         border-radius: 50%;
         color: #838383;
@@ -173,7 +169,7 @@ tr {
         font-weight: 700;
         font-size: 28px;
         line-height: 36px;
-        color: #352E5B;
+        color: #352e5b;
         margin-top: 50px;
         margin-bottom: 28px;
     }
@@ -182,12 +178,17 @@ tr {
         margin-top: 45px;
         margin-bottom: 0;
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 21px;
-        color: #5F0FC3;
+        color: #5f0fc3;
         transition: 0.5s;
         &:hover {
-            color: #A496FF;
+            color: #a496ff;
         }
+    }
+
+    .caret-next {
+        margin-left: 6px;
+        margin-bottom: -4px;
     }
 }

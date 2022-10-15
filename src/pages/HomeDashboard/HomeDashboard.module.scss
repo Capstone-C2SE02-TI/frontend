@@ -2,23 +2,11 @@
 .HomeDashboard-container {
 
     --primary-color:#9381FF;
-
-    margin: 48px 0 14px 24px;
+    margin: 48px 24px 14px 24px;
     position: relative;
 }
 
-.icon-menu {
-    position: absolute;
-    top: -35px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    color: var(--primary-color);
 
-    &:hover {
-        
-    }
-}
 
 .asset-container {
     margin-right: 30px;
