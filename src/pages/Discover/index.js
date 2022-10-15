@@ -23,7 +23,7 @@ function Discover() {
     return (
         <section style={{ marginLeft: '30px' }}>
             <h3 className={cx('trending-title')}>Top Trending Coins</h3>
-            {<TrendingCoins loading={statusFetchCoinDetail} data={trendingCoins} />}
+            { trendingCoins.length > 0 &&<TrendingCoins loading={statusFetchCoinDetail} data={trendingCoins} />}
             <MarketOverviewDetail />
         </section>
     );
