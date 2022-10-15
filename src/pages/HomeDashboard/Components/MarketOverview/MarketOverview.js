@@ -2,14 +2,13 @@ import classNames from 'classnames/bind';
 import { useEffect } from 'react';
 import styles from '../MarketOverview/MarketOverview.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { statusCoinsSelector, coinsListSelector } from '~/modules/HomeDashboard/selector'
 import CoinItem from './CoinItem';
-import { fetchCoinsHomeDashboard } from '~/modules/HomeDashboard/homeDashboardSlice';
 import Loading from '~/components/Loading';
 import { Link } from 'react-router-dom';
 import { CaretNextIcon } from '~/components/Icons';
-import { fetchTrendingCoins } from '~/modules/CoinDetail/coinDetailSlice';
-import {  statusCoinDetailSelector, trendingCoinsSelector } from '~/modules/CoinDetail/selector';
+import {  statusCoinDetailSelector } from '~/modules/CoinDetail/selector';
+import { fetchTrendingCoins } from '~/modules/Discover/discoverSlice';
+import { trendingCoinsSelector } from '~/modules/Discover/selector';
 const cx = classNames.bind(styles);
 
 

@@ -5,6 +5,7 @@ export const coinsListSelector = (state) => state.discoverCoins.coinsList;
 export const listTagsNameSelector = (state) => state.discoverCoins.listTagsName;
 export const searchTextSelector = (state) => state.discoverCoins.searchText;
 export const tagnameTextSelector = (state) => state.discoverCoins.filters.category;
+export const trendingCoinsSelector = (state) => state.discoverCoins.trendingCoins;
 
 export const coinsRemainingSelector = createSelector(
     coinsListSelector,

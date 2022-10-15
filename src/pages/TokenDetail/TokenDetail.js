@@ -4,14 +4,13 @@ import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Option } from 'antd/lib/mentions';
-
-import P2P from '../ChartCoinDetail/ChartCoinDetail';
 import TokenDetailEachCoin from './containers/TokenDetailEachCoin';
-import { fetchCoinsDetail, fetchTrendingCoins, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
+import { fetchCoinsDetail, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
 import { coinsDetailSelector, statusCoinDetailSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
 import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
 import useScrollToTop from '~/hooks/useScrollToTop';
+import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -21,15 +20,16 @@ function TokenDetail() {
     const dispatch = useDispatch();
     const { symbol } = useParams();
 
+    
     const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
-
+    
+    console.log({coinDetail});
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
         dispatch(fetchTrendingTokens());
-        dispatch(fetchTrendingCoins());
     }, [dispatch, symbol]);
 
 
@@ -65,8 +65,12 @@ function TokenDetail() {
                                     </Select>
                                 </div>
                                 <div>
-                                    {statusFetchCoinDetail === 'idle' && coinDetail && (
-                                        <P2P data={coinDetail} typeFilter={filterChartByTime} />
+                                    {coinDetail && coinDetail.prices ? (
+                                        (
+                                            <ChartCoinDetail data={coinDetail} typeFilter={filterChartByTime} />
+                                        )
+                                    ) : (
+                                        <h2>Chart</h2>
                                     )}
                                 </div>
                             </div>

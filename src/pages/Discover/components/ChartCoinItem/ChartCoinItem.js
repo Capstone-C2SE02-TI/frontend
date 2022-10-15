@@ -1,14 +1,13 @@
 import React, { memo } from 'react';
 import { Line } from 'react-chartjs-2';
 
+function ChartCoinItem({ data , theme}) {
 
-function ChartCoinDetail({ data, typeFilter = 'day' }) {
-    console.log({ data });
     return (
-        <div>
+        <div style={{ height: '80px', width: '140px' }}>
             <Line
                 data={{
-                    labels: data.prices[typeFilter].map((coin) => {
+                    labels: data.map((coin) => {
                         let date = new Date(Number(coin[0]));
 
                         let time =
@@ -23,20 +22,20 @@ function ChartCoinDetail({ data, typeFilter = 'day' }) {
                                           ? `0${date.getMinutes()}`
                                           : date.getMinutes()
                                   } AM`;
-                        return typeFilter === 'day' ? time : date.toLocaleDateString();
+                        return time;
                     }),
 
                     datasets: [
                         {
                             label: 'hello',
-                            data: data.prices[typeFilter].map((coin) => {
+                            data: data.map((coin) => {
                                 return coin[1];
                             }),
 
                             fill: true,
-                            backgroundColor: 'rgba(61, 55, 241, 0.2)',
-                            borderColor: 'rgba(61, 55, 241, 0.2)',
-                            showLine: false,
+                            backgroundColor: '#fff',
+                            borderColor: theme,
+                            showLine: true,
                         },
                     ],
                 }}
@@ -51,18 +50,18 @@ function ChartCoinDetail({ data, typeFilter = 'day' }) {
                             display: false,
                         },
                     },
-                    // scales: {
-                    //     y: {
-                    //         display: false, // Hide Y axis labels
-                    //     },
-                    //     x: {
-                    //         display: false, // Hide X axis labels
-                    //     },
-                    // },
+                    scales: {
+                        y: {
+                            display: false, // Hide Y axis labels
+                        },
+                        x: {
+                            display: false, // Hide X axis labels
+                        },
+                    },
                 }}
             />
         </div>
     );
 }
 
-export default memo(ChartCoinDetail);
+export default memo(ChartCoinItem);
