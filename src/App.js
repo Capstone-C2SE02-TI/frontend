@@ -2,7 +2,7 @@ import { BrowserRouter as Router , Route, Routes, Navigate } from 'react-router-
 import Home, { Signup, SignIn } from '~/pages';
 import configs from '~/configs';
 import { PrivateRoute, PublicRoute } from './routes/routes-v1';
-import P2P from './pages/P2P';
+import P2P from './pages/ChartCoinDetail/ChartCoinDetail';
 import LayoutDefault from './layouts/LayoutDefault';
 import TokenDetail from './pages/TokenDetail';
 import Analyze from './pages/Analyze';

@@ -39,7 +39,7 @@ const coinDetailSlice = createSlice({
 });
 export const fetchCoinsDetail = createAsyncThunk('coinDetail/fetchCoinsDetail', async (symbol) => {
     const response = await coinDetailService.getCoinDetail(symbol);
-    return response.datas;
+    return response.data;
 });
 
 export const fetchTrendingTokens = createAsyncThunk('coinDetail/fetchTrendingTokens', async () => {

@@ -10,6 +10,8 @@ const MARKET_SHOW = 4;
 const cx = classNames.bind(styles);
 
 function TrendingCoins({ data, loading }) {
+
+  
     const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
@@ -42,13 +44,7 @@ function TrendingCoins({ data, loading }) {
             })}
         </Slider>
     ) 
-    // return (
-    //     <div className={cx('wallet-hot-statics-skeleton')}>
-    //         <div>
-    //             <Skeleton circle width={40} height={40} />
-    //         </div>
-    //     </div>
-    // );
+  
 }
 
 export default memo(TrendingCoins);

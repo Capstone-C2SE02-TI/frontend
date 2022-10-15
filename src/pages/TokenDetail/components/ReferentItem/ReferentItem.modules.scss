@@ -1,13 +1,13 @@
 .referent-item {
     display: flex;
     align-items: stretch;
-    padding: 8px 20px;
+    padding: 8px 12px;
 }
 
 .referent-item-img {
     width: 30px;
     height: 30px;
-    margin-right: 18px;
+    margin-right: 8px;
 }
 
 .referent-item-name {
@@ -15,7 +15,7 @@
 
     span {
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
         color: rgba(0, 0, 0, 0.93);
         margin-bottom: 4px;
         display: block;
@@ -35,7 +35,7 @@
 
     span {
         font-weight: 500;
-        font-size: 16px;
+        font-size: 14px;
         color: rgba(0, 0, 0, 0.93);
         margin-bottom: 4px;
         display: block;
@@ -43,7 +43,7 @@
 
     p {
         font-weight: 500;
-        font-size: 14px;
+        font-size: 12px;
         color: #21ce66;
         margin: 0;
     }
