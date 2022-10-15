@@ -16,7 +16,7 @@ function AssetCoinItem() {
         <div className={boxClassName}>
             <div className={cx('coin-trending')}>
                 <div className={cx('coin-trending__box')}>
-                    <h4>Trending coin</h4>
+                    <h4>Coin loss</h4>
                     <p>More &gt;</p>
                 </div>
                 <div className={cx('coin-trending__change')}>
@@ -25,7 +25,7 @@ function AssetCoinItem() {
                         <p>Bitcoin</p>
                         <p>BTC</p>
                     </div>
-                    <p className={cx('coin-trending__percent')}>3.14%</p>
+                    <p className={cx('coin-loss__percent')}>3.14%</p>
                 </div>
                 <div className={cx('coin-trending__change')}>
                     <div className={cx('coin-trending__name')}>
@@ -33,7 +33,7 @@ function AssetCoinItem() {
                         <p>Bitcoin</p>
                         <p>BTC</p>
                     </div>
-                    <p className={cx('coin-trending__percent')}>3.14%</p>
+                    <p className={cx('coin-loss__percent')}>3.14%</p>
                 </div>
                 <div className={cx('coin-trending__change')}>
                     <div className={cx('coin-trending__name')}>
@@ -41,7 +41,7 @@ function AssetCoinItem() {
                         <p>Bitcoin</p>
                         <p>BTC</p>
                     </div>
-                    <p className={cx('coin-trending__percent')}>3.14%</p>
+                    <p className={cx('coin-loss__percent')}>3.14%</p>
                 </div>
             </div>
         </div>

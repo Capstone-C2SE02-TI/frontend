@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './AssetCoin.module.scss';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import AssetCoinItem from './AssetCoinsItem';
+import AssetCoinsItemLoss from './AssetCoinsItemLoss'
+import AssetImage from './AssetImage'
 import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
@@ -16,11 +18,10 @@ function AssetCoins() {
                 <h2>assets</h2>
             </div>
             <div className={cx('asset-coin')}>
-                <p>Trending coins</p>
                 <div className={cx('asset-coin-flex')}>
                     <AssetCoinItem />
-                    <AssetCoinItem />
-                    <AssetCoinItem />
+                    <AssetCoinsItemLoss />
+                    <AssetImage />
              
                     {!statusSidebarSelector && <AssetCoinItem />}
                 </div>

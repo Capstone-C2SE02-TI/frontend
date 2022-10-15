@@ -2,6 +2,7 @@
     --width-box: 269px;
 
     padding-bottom: 17px;
+
     span {
         font-size: 14px;
         line-height: 18px;
@@ -39,24 +40,28 @@
             font-weight: 700;
             font-size: 18px;
             line-height: 23px;
-            color: #7165be;
+            color: #333;
             margin-bottom: 24px;
         }
+
         .asset-coin-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             .asset-coin--box {
                 width: calc((100% - 3%) / 3);
-                background: #9381ff;
+                background: #fff;
                 border-radius: 10px;
                 padding: 13px;
                 box-shadow: 0px 1px 3px 0px rgb(60 64 67 / 30%), 0px 4px 8px 3px rgb(60 64 67 / 15%);
+
                 .asset-chart--box {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     padding-bottom: 16px;
+
                     .asset-dolar {
                         p {
                             font-weight: 500;
@@ -91,6 +96,7 @@
                             margin: 0;
                             padding-bottom: 4px;
                         }
+
                         .asset-percent {
                             font-weight: 500;
                             font-size: 14px;
@@ -108,3 +114,40 @@
     width: calc((100% - 3%) / 4) !important;
 }
 
+.coin-trending__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        font-weight: 700;
+        font-size: 12px !important;
+        line-height: 23px;
+        color: #7165be;
+        margin-bottom: 0px !important;
+    }
+}
+
+.coin-trending__change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .coin-trending__name {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+    p {
+        font-size: 12px !important;
+        margin-bottom: 0 !important;
+        margin-right: 5px;
+    }
+}
+
+.coin-trending__percent {
+    color: green !important;
+}
+
+.coin-loss__percent {
+    color: red !important;
+}
