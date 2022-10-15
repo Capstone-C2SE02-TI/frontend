@@ -9,18 +9,14 @@ import CoinItem from './CoinItem';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import discoverSlice, { fetchCoinsDiscover, fetchListTagsName } from '~/modules/Discover/discoverSlice';
-import {
-    coinsRemainingSelector,
-    listTagsNameSelector,
-    statusCoinsSelector,
-    tagnameTextSelector,
-} from '~/modules/Discover/selector';
+import { coinsRemainingSelector, listTagsNameSelector, tagnameTextSelector } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
 import { Fragment } from 'react';
+import useScrollToTop from '~/hooks/useScrollToTop';
 
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 10;
@@ -38,19 +34,18 @@ function MarketOverviewDetail() {
     const dispatch = useDispatch();
 
     const textSearchDebounced = useDebounced(searchText, 200);
-    
+
+    useScrollToTop();
 
     const tagNameCurrent = useSelector(tagnameTextSelector);
     const coinsList = useSelector(coinsRemainingSelector);
-    const status = useSelector(statusCoinsSelector);
     const listTagsName = useSelector(listTagsNameSelector);
 
     const viewListCoinsPagination = sliceArrayToPagination(coinsList, paginationState, NUMBER_ITEM_DISPLAY);
+    const selectedTagnameClassNames = cx('market-box__category--filter--container', {
+        'selected-item': tagNameCurrent,
+    });
 
-       const selectedTagnameClassNames = cx('market-box__category--filter--container', {
-           'selected-item': tagNameCurrent,
-       });
-    
     useEffect(() => {
         dispatch(fetchListTagsName());
         dispatch(fetchCoinsDiscover());
@@ -121,7 +116,7 @@ function MarketOverviewDetail() {
                         </div>
                     )}
                 </div>
-                {openFilter &&
+                {openFilter && (
                     <div className={cx('market-box-content-filter')} ref={refFilterCategory}>
                         <WrapperMenu
                             data={listTagsName}
@@ -129,10 +124,10 @@ function MarketOverviewDetail() {
                             itemSelected={tagNameCurrent}
                         />
                     </div>
-                }
+                )}
             </div>
         );
-    }
+    };
 
     const renderSearch = () => {
         return (
@@ -151,7 +146,7 @@ function MarketOverviewDetail() {
                 )}
             </div>
         );
-    }
+    };
 
     const renderTable = () => {
         return (
@@ -172,7 +167,7 @@ function MarketOverviewDetail() {
                     </thead>
 
                     <tbody className={cx('listCoin')}>
-                        {status === 'idle' &&
+                        {viewListCoinsPagination.length > 0 &&
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem
                                     index={index}
@@ -183,7 +178,7 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        {status === 'loading' && <Loading />}
+                        {viewListCoinsPagination.length === 0 && <Loading />}
                     </tbody>
                 </table>
                 {noData && (
@@ -196,12 +191,12 @@ function MarketOverviewDetail() {
                 )}
             </Fragment>
         );
-    }
+    };
 
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
-                <h2>ACTIVITY</h2>
+                <h2>  </h2>
             </div>
             <div className={cx('market-box')}>
                 {renderFilterCategory()}

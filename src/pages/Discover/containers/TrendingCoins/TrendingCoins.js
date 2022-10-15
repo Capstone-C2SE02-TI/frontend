@@ -1,11 +1,10 @@
 import Slider from 'react-slick';
 import WalletHotItem from '../../components/WalletHotItem';
 import classNames from 'classnames/bind';
-import styles from '../container.modules.scss';
+import styles from './TrendingCoins.module.scss';
 
 import { memo } from 'react';
-import  Skeleton  from 'react-loading-skeleton';
-import WalletHotSkeleton from '../../components/WalletHotItem/WalletHotSkeleton';
+// import  Skeleton  from 'react-loading-skeleton';
 
 const MARKET_SHOW = 4;
 const cx = classNames.bind(styles);
@@ -21,7 +20,7 @@ function TrendingCoins({ data, loading }) {
         verticalSwiping: true,
         swipeToSlide: true,
         autoplay: true,
-        autoplaySpeed: 5000000,
+        autoplaySpeed: 3000,
         speed: 2000,
         adaptiveHeight: true,
         draggable: true,

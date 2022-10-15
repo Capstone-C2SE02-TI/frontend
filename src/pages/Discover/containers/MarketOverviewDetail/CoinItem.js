@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './MarketOverviewDetail.module.scss';
 import Image from '~/components/Image/Image';
-import ChartOverview from '../AssetCoins/ChartOverview';
+import ChartOverview from '../../../Home/components/AssetCoins/ChartOverview';
 
 const cx = classNames.bind(styles);
 

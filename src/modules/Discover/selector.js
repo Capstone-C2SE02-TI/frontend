@@ -13,7 +13,7 @@ export const coinsRemainingSelector = createSelector(
     (coinsList, searchText, tagname) => {
         
         return coinsList.filter((coin) => {
-            console.log(coin);
+       
             if (tagname) {
                 return (
                     (coin.tagNames?.includes(tagname) && coin.name.toLowerCase().includes(searchText.toLowerCase())) 

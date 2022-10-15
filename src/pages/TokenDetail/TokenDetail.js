@@ -2,21 +2,16 @@ import { Col, Row, Select } from 'antd';
 import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Option } from 'antd/lib/mentions';
 
 import P2P from '../P2P';
 import TokenDetailEachCoin from './components/TokenDetailEachCoin';
 import { fetchCoinsDetail, fetchTrendingCoins, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
-import {
-    coinsDetailSelector,
-    statusCoinDetailSelector,
-    trendingCoinsSelector,
-    trendingTokensSelector,
-} from '~/modules/CoinDetail/selector';
-import TrendingCoins from './Containers/TrendingCoins/TrendingCoins';
-import TrendingTokens from './Containers/TrendingTokens/TrendingTokens';
+import { coinsDetailSelector, statusCoinDetailSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
+import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
+import useScrollToTop from '~/hooks/useScrollToTop';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -29,10 +24,8 @@ function TokenDetail() {
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
 
-    const trendingCoins = useSelector(trendingCoinsSelector);
-
+    useScrollToTop();
     useEffect(() => {
-        
         dispatch(fetchCoinsDetail(symbol));
         dispatch(fetchTrendingTokens());
         dispatch(fetchTrendingCoins());
@@ -41,9 +34,9 @@ function TokenDetail() {
     const handleFilterChart = (time) => {};
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('wallet-top-container')}>
+            {/* <div className={cx('wallet-top-container')}>
                 {<TrendingCoins loading={statusFetchCoinDetail} data={trendingCoins} />}
-            </div>
+            </div> */}
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>

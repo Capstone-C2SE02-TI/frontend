@@ -1,14 +1,13 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styles from '../MarketOverview/MarketOverview.module.scss';
-import { marketOverviewService } from '~/services';
 import { useDispatch, useSelector } from 'react-redux';
 import { statusCoinsSelector, coinsListSelector } from '~/modules/HomeDashboard/selector'
 import CoinItem from './CoinItem';
 import { fetchCoinsHomeDashboard } from '~/modules/HomeDashboard/homeDashboardSlice';
 import Loading from '~/components/Loading';
 import { Link } from 'react-router-dom';
-import { CoinList } from '~/configs/api';
+import { CaretNextIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 const PAGE_SIZE = 1;
@@ -27,7 +26,9 @@ function MarketOverview() {
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
                 <h2>ACTIVITY</h2>
-                <Link to="/discover"><p>More token --&gt;</p></Link>
+                <Link to="/discover"><p>More token
+                <CaretNextIcon className={cx('caret-next')} />
+                </p></Link>
             </div>
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
