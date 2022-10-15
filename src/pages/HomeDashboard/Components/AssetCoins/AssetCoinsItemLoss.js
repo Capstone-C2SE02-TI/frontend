@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from './AssetCoin.module.scss';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
-import ChartOverview from '~/pages/Discover/Components/AssetCoins/ChartOverview';
 const cx = classNames.bind(styles);
 function AssetCoinItem() {
 
