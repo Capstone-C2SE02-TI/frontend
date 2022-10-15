@@ -58,7 +58,8 @@ function MarketOverview() {
                                             index={index}
                                             key={coin.id}
                                             data={coin}
-                                            increaseStatus={coin.usd.percentChange24h > 0 ? true : false}
+                                            increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
+                                            increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
                                         />
                                     ))}
 
