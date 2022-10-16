@@ -1,6 +1,4 @@
-import Image from '~/components/Image/Image';
-import images from '~/assets/images';
-import styles from './SharkWallets.module.scss';
+import styles from './SharkWalletsOverview.module.scss';
 import classNames from 'classnames/bind';
 import { StarIcon } from '~/components/Icons';
 

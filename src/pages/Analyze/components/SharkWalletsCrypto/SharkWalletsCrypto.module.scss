@@ -1,0 +1,39 @@
+.shark-crypto {
+    background-color: #A697FF;
+    border-radius: 8px;
+    margin-left: 2%;
+}
+.crypto-list__choose {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 22px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #fff;
+    h6 {
+        color: #fff;
+        margin-bottom: 0;
+        margin-right: 8px;
+        transition: 0.5s;
+        &:hover {
+            color: #4200FF;
+            cursor: pointer;
+        }
+    }
+}
+
+.table-shark__crypto {
+    background: #A697FF;
+    color: #fff;
+    thead {
+        tr {
+             background: #A697FF;
+             border-bottom: 1px solid #fff;
+             border-top: 1px solid #fff;
+             th {
+                padding: 10px;
+                border-right: 1px solid #fff;
+             }
+        }
+    }
+}

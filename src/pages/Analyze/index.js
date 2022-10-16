@@ -1,4 +1,4 @@
-import SharkWallets from "./container/SharkWallets/SharkWallets";
+import SharkWallets from "./containers/SharkWallets/SharkWallets";
 function Analyze() {
     return (
         <SharkWallets/>

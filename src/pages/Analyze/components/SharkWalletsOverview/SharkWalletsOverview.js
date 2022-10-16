@@ -1,21 +1,15 @@
-import classNames from 'classnames/bind';
-import styles from './SharkWallets.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { Row, Col } from 'antd';
-import SharkWalletCoin from './SharkWalletCoin';
+import SharkWalletCoin from './SharkWalletItem';
+import classNames from 'classnames/bind';
+
+import styles from './SharkWalletsOverview.module.scss';
 
 const cx = classNames.bind(styles);
-function SharkWallets() {
+
+function SharkWalletsOverview () {
     return (
-        <section className={cx('shark-wallet')}>
-            <span>Dashboard &gt; SharkWallets</span>
-            <div className={cx('shark-wallet__content')}>
-                <h2>SHARK WALLETS</h2>
-            </div>
-            <Row>
-                <Col span={8}>
-                    <div className={cx('shark-overview')}>
+        <div className={cx('shark-overview')}>
                         <div className={cx('shark-search')}>
                             <input placeholder='Search...'></input>
                             <div className={cx('shark-category')}>
@@ -37,13 +31,7 @@ function SharkWallets() {
                             </tbody>
                         </table>
                     </div>
-                </Col>
-                <Col span={16}>
-
-                </Col>
-            </Row>
-        </section>
     );
 }
 
-export default SharkWallets;
+export default SharkWalletsOverview;
