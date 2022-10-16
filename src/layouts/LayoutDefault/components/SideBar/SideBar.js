@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import images from '~/assets/images';
 import { HomeIcon, DiscoverIcon, AnalyzeIcon, SupportIcon, ReportIcon, SettingIcon } from '~/components/Icons';
 import MenuItem from './Menu/MenuItem';
@@ -36,7 +36,10 @@ function SideBar() {
     return (
         <React.Fragment>
             <div className={cx('sidebar-logo')}>
-                <img src={images.logo} alt={'logo'} />
+                <Link to={'/home-dashboard'}>
+                    {' '}
+                    <img src={images.logo} alt={'logo'} />
+                </Link>
             </div>
             <Menu>
                 <MenuItem icon={<HomeIcon />} title="Home" to="/home-dashboard" />

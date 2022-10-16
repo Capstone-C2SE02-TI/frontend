@@ -9,13 +9,15 @@ function WalletHotItem({ data, increaseCoin = false, reduceCoin = false, index  
         reduce: reduceCoin,
     });
 
+    console.log(increaseCoin);
+    console.log(reduceCoin);
  
     return (
         <div className={cx('wallet-statics__card')}>
             <span className={cx('wallet-statics__card__heading')}>
                 <div className={cx('wallet-statics__card__heading__item')}>
                     <img src={data.iconURL} alt="logo" />
-                    {`${data.name} (${data.symbol})`}
+                    {`${data.name}`}
                 </div>
                 <div className={cx('wallet-statics__card__heading__statics-values')}>
                     {increaseCoin && <ArrowUp />}
