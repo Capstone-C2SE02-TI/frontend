@@ -7,7 +7,7 @@ const coinDetailSlice = createSlice({
         status: 'idle',
         coinDetail: '',
         trendingTokens: [],
-        trendingCoins: [],
+       
     },
     reducers: {},
 
@@ -28,13 +28,7 @@ const coinDetailSlice = createSlice({
                 state.status = 'idle';
             })
 
-            .addCase(fetchTrendingCoins.pending, (state, action) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchTrendingCoins.fulfilled, (state, action) => {
-                state.trendingCoins = action.payload;
-                state.status = 'idle';
-            });
+          
     },
 });
 export const fetchCoinsDetail = createAsyncThunk('coinDetail/fetchCoinsDetail', async (symbol) => {
@@ -47,9 +41,6 @@ export const fetchTrendingTokens = createAsyncThunk('coinDetail/fetchTrendingTok
     return response.datas;
 });
 
-export const fetchTrendingCoins = createAsyncThunk('coinDetail/fetchTrendingCoins', async () => {
-    const response = await coinDetailService.getCoinsTrending();
-    return response.datas;
-});
+
 
 export default coinDetailSlice;

@@ -81,7 +81,7 @@ function TokenDetailEachCoin({ data, community }) {
                         <li className={cx('detail-tippy-container')}>
                             <p>Website</p>
                             <MenuTippy data={data.urls.website}>
-                                <p className={cx('detail-tippy')}>{data.urls.website[0].split('/')[2]}</p>
+                                <p className={cx('detail-tippy')}>{data.urls.website[0]?.split('/')[2] || 'No link'}</p>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
@@ -89,14 +89,16 @@ function TokenDetailEachCoin({ data, community }) {
                             <p>Explorer</p>
 
                             <MenuTippy data={data.urls.explorer}>
-                                <p className={cx('detail-tippy')}>{data.urls.explorer[0].split('/')[2]}</p>
+                                <p className={cx('detail-tippy')}>
+                                    {data.urls.explorer[0]?.split('/')[2] || 'No link'}
+                                </p>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li className={cx('detail-tippy-container')}>
                             <p>Community</p>
                             <MenuTippy data={community}>
-                                <p className={cx('detail-tippy')}>{community[0].split('/')[2]}</p>
+                                <p className={cx('detail-tippy')}>{community[0]?.split('/')[2] || 'No link'}</p>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>

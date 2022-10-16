@@ -33,3 +33,13 @@ export const getListOfTagsName = async () => {
         console.log(error);
     }
 };
+
+
+export const getCoinsTrending = async () => {
+    try {
+        const response = await httpRequest.get('/display/coins/trending');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
