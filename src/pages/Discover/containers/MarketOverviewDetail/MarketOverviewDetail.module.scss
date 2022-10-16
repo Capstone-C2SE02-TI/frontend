@@ -299,7 +299,8 @@ input:not(:placeholder-shown) ~ .search--icon {
         &--container {
             display: flex;
             align-items: center;
-            color: #303031;
+          color: rgb(56, 97, 251) !important;
+          
             p {
                 font-weight: 600;
                 font-size: 12px;
@@ -335,7 +336,6 @@ input:not(:placeholder-shown) ~ .search--icon {
     //     background-color:red;
     // }
 }
-
 
 
 

@@ -22,12 +22,3 @@ export const getTokensTrending = async () => {
     }
 };
 
-
-export const getCoinsTrending = async () => {
-    try {
-        const response = await httpRequest.get('/display/coins/trending');
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};

@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 import styles from './ReferentItem.modules.scss'
+import  numberWithCommas  from '~/helpers/numberWithCommas';
 
 const cx = classNames.bind(styles);
 
@@ -8,7 +9,7 @@ function ReferentItem({data}) {
         <div className={cx('referent-item')}>
             <img
                 className={cx('referent-item-img')}
-                src={data.iconURL || 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'  }
+                src={data.iconURL || 'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png'}
                 alt={data.name}
             />
             <div className={cx('referent-item-name')}>
@@ -16,8 +17,8 @@ function ReferentItem({data}) {
                 <p>{data.symbol}</p>
             </div>
             <div className={cx('referent-item-value')}>
-                <span>$ {data.price.toFixed(5)} </span>
-                <p>+ {data.percentChange24h.toFixed(3)}%</p>
+                <span>$ {numberWithCommas(data.usd.price.toFixed(3))} </span>
+                <p>+ {numberWithCommas(data.usd.percentChange24h.toFixed(3))}%</p>
             </div>
         </div>
     );
