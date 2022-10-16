@@ -37,6 +37,7 @@
             p {
                 margin: 0;
                 font-size: 12px;
+                
             }
 
             .increase {
@@ -66,10 +67,18 @@
 
 .wallet-statics__card__heading__item {
     display: flex;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
 
     img {
         margin-right: 8px;
     }
+}
+
+.increase {
+    color: #21ce66;
+}
+
+.reduce {
+    color: #f33a58;
 }

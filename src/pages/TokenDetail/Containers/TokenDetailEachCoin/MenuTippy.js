@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
-
 import styles from '../../TokenDetail.module.scss';
-
 import Tippy from '@tippyjs/react/headless';
 
 const cx = classNames.bind(styles);
+
 function MenuTippy({ children, data }) {
+  
     const renderResult = (attrs, data) => {
         return (
             <div tabIndex="-1" {...attrs} className={cx('content-tippy')}>
@@ -38,7 +38,12 @@ function MenuTippy({ children, data }) {
     };
 
     return (
-        <Tippy delay={[0, 50]} interactive placement="bottom-end" render={(attrs) => renderResult(attrs, data)}>
+        <Tippy
+            delay={[0, 50]}
+            interactive
+            placement="bottom-end"
+            render={(attrs) => renderResult(attrs, data)}
+        >
             {children}
         </Tippy>
     );
