@@ -72,7 +72,7 @@ function App() {
                 <Route
                     path="/report"
                     element={
-                        <PublicRoute
+                        <PrivateRoute
                             element={
                                 <LayoutDefault>
                                     <Report />

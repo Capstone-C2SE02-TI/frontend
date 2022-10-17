@@ -5,7 +5,8 @@ import Loading from '~/components/Loading';
 export const PrivateRoute = (props) => {
     const { children, element } = props;
 
-    const  isLoggedIn  = true;
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+  
     return isLoggedIn ? (
            <Suspense fallback={<Loading cover='content' />}>{element || children}</Suspense>
     ) : (

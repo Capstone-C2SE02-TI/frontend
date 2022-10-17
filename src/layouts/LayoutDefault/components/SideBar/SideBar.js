@@ -27,7 +27,7 @@ function SideBar() {
          const fetchApi = async () => {        
              const response = await authService.signOut();
              if (response.message === 'successfully') {
-                 localStorage.removeItem('statusLogin');
+                 localStorage.removeItem('isLoggedIn');
                      navigate('/sign-in ');                
              }
          };
