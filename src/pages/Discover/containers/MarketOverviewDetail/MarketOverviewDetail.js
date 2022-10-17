@@ -1,10 +1,10 @@
 import classNames from 'classnames/bind';
+import styles from './MarketOverviewDetail.module.scss';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import styles from './MarketOverviewDetail.module.scss';
 import CoinItem from './CoinItem';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';

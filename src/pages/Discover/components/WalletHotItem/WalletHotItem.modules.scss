@@ -2,16 +2,6 @@
     padding: 11px 26px;
     position: relative;
 
-    // &:not(:last-child) ::after {
-    //     position: absolute;
-    //     content: '';
-    //     top: 50%;
-    //     height: 80px;
-    //     right: -8%;
-    //     border-left: 1px dashed #d9def1;
-    //     transform: translateY(-50%);
-    // }
-
     &__heading {
         display: flex;
         justify-content: space-between;
@@ -81,4 +71,9 @@
 
 .reduce {
     color: #f33a58;
+}
+
+.slick-active {
+    width: 25% !important;
+    border-right: 1px dashed #d9def1 !important;
 }
