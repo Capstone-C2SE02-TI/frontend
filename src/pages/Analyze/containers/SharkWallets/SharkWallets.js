@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 function SharkWallets() {
     return (
         <section className={cx('shark-wallet')}>
-            <span>Dashboard &gt; SharkWallets</span>
             <div className={cx('shark-wallet__content')}>
                 <h2>SHARK WALLETS</h2>
             </div>
