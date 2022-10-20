@@ -21,7 +21,7 @@
 }
 
 .statisticsOverview {
-    max-width: 1150px;
+
     margin: 0 auto;
     color: white;
     ul {
@@ -39,9 +39,9 @@
     }
 }
 
-table {
+.table-home__dashboard {
     width: 100%;
-    background-color: #a496ff;
+    background-color: #fff;
     border-radius: 8px;
     thead {
         font-size: 1.5rem;
@@ -58,23 +58,23 @@ table {
     }
 }
 
-td {
-    text-align: start;
-    padding: 20px 0 20px 20px;
-    &:not(:nth-child(1)) {
+.tr-home__dashboard {
+    border-bottom: 1px solid #eff2f5;
+    font-size: 14px;
+    td {
         text-align: start;
-        padding: 0px 0 0px 0px !important;
-    }
-    &:nth-child(2) {
-        text-align: start;
-        padding: 20px 0 20px 0px !important;
+        padding: 20px 0 20px 20px;
+        &:not(:nth-child(1)) {
+            text-align: start;
+            padding: 0px 0 0px 0px !important;
+        }
+        &:nth-child(2) {
+            text-align: start;
+            padding: 20px 0 20px 0px !important;
+        }
     }
 }
 
-tr {
-    border-bottom: 1px solid #eff2f5;
-    font-size: 14px;
-}
 
 .pricedata {
     display: flex;

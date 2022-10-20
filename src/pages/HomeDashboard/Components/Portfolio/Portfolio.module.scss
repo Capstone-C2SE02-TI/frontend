@@ -1,6 +1,6 @@
 .profile {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 20px;
 
     h4 {
         font-weight: 700;
@@ -24,7 +24,7 @@
         margin-bottom: 16px;
         color: #352E5B;
         transition: 0.5s;
-        
+
     }
 
     h6 {
@@ -33,6 +33,7 @@
         line-height: 18px;
         color: #9381FF;
         transition: 0.5s;
+
         &:hover {
             color: #FFD8BE;
         }
@@ -130,6 +131,7 @@
     display: flex;
     margin: 0 auto;
     border: 0;
+
     p {
         font-weight: 700;
         font-size: 14px;
@@ -140,6 +142,7 @@
         border-radius: 4px;
         margin-bottom: 0;
         transition: 0.5s;
+
         &:hover {
             color: #FFD8BE;
             background-color: rgba(255, 238, 221, 0.36);
@@ -150,6 +153,19 @@
 
 .portfolio-container {
     padding: 20px 0;
- 
-   
+    width: 200px;
+}
+
+.account {
+    list-style: none;
+    li {
+        padding: 8px;
+        border-top: 1px solid #333;
+        transition: 0.6s;
+        &:hover {
+            background: #9381FF;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
 }

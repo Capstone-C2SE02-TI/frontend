@@ -37,7 +37,7 @@ function MarketOverview() {
             <nav className={cx('statisticsOverview')}>
                 <div className={cx('row')}>
                     <div className={cx('talbeScroll')}>
-                        <table>
+                        <table className={cx('table-home__dashboard')}>
                             <thead>
                                 <tr>
                                     <th>#</th>

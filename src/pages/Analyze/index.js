@@ -1,5 +1,10 @@
+import SharkWallets from "./containers/SharkWallets/SharkWallets";
 function Analyze() {
-    return <>Analyze</>
+    return (
+        <>
+            <SharkWallets/>
+        </>
+    )
 }
 
 export default Analyze;

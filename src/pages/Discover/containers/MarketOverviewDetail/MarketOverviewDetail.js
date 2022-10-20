@@ -152,7 +152,7 @@ function MarketOverviewDetail() {
     const renderTable = () => {
         return (
             <Fragment>
-                <table>
+                <table className={cx('tableDiscover')}>
                     <thead>
                         <tr>
                             <th>#</th>

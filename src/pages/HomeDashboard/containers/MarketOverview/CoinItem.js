@@ -10,7 +10,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
     const classNamesStatusCoin24h = cx(increaseStatus24h ? 'increase' : 'reduce');
     const classNamesStatusCoin7h = cx(increaseStatus7d ? 'increase' : 'reduce');
     return (
-        <tr key={index}>
+        <tr className={cx('tr-home__dashboard')} key={index}>
             <td>{index + 1}</td>
             <td className={cx('pricedata')}>
                 <Image width="20" className={cx('imagedata')} src={data.iconURL} alt="logo" />
