@@ -7,6 +7,7 @@ import NavHeader from './components/NavHeader/NavHeader';
 import Banner from './components/Banner/Banner';
 import Ads from './components/Ads/Ads';
 import Letter from './components/Letter/Letter';
+import { FacebookIcon, TelegramIcon, TwitterIcon } from '~/components/Icons';
 // import {Animated} from "react-animated-css";
 
 const cx = classNames.bind(styles);
@@ -25,7 +26,7 @@ function Home() {
                             <Link to="/sign-in">
                                 <button className={cx('btn')}>Sign in</button>
                             </Link>
-                            <Link to='/sign-up'>
+                            <Link to="/sign-up">
                                 <button className={cx('btn')}>Sign up</button>
                             </Link>
                         </div>
@@ -41,15 +42,19 @@ function Home() {
                         <section className={cx('col3')}>
                             <Image width="150" className={cx('footer-image')} src={images.logo} alt="logo" />
                             <div className={cx('footer-social')}>
-                                <Link to={''}>
-                                    <Image width='30px' src={images.facebook} />
-                                </Link>
-                                <Link to={''}>
-                                    <Image width='30px' src={images.telegram} />
-                                </Link>
-                                <Link to={''}>
-                                    <Image width='30px' src={images.twitter} />
-                                </Link>
+                                <a href="https://t.me/+Wd1VrbUCQtU2NmFl" rel="noopener noreferrer" target="_blank">
+                                    <TelegramIcon />
+                                </a>
+                                <a
+                                    href="https://www.facebook.com/huynhducthanhtuan"
+                                    rel="noopener noreferrer"
+                                    target="_blank"
+                                >
+                                    <FacebookIcon />
+                                </a>
+                                <a href="https://twitter.com/Cristiano" rel="noopener noreferrer" target="_blank">
+                                    <TwitterIcon />
+                                </a>
                             </div>
                         </section>
                         <section className={cx('col3')}>
@@ -74,7 +79,7 @@ function Home() {
                 <p className={cx('footer-copyright')}>© 2022 • Trackscan.io</p>
             </footer>
         </div>
-    )
+    );
 }
 
 export default Home
