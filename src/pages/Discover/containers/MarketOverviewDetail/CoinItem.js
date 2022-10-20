@@ -26,7 +26,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
                     {data.name}({data.symbol})
                 </span>
             </td>
-            <td>${numberWithCommas(data.usd.price.toFixed(5))}</td>
+            <td>${numberWithCommas(data.usd.price.toFixed(3))}</td>
 
             <td className={classNamesStatusCoin24h}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
             <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
@@ -37,13 +37,14 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td>
                 {data.pricesLast1Day ? (
                     <ChartCoinItem
+                        labelTitle={"Last 1 day"}
+                        symbol={data.symbol}
                         data={data.pricesLast1Day}
                         theme={data.usd.percentChange24h > data.usd.percentChange7d ? REDUCING_COLOR : INCREASING_COLOR}
                     />
                 ) : (
                     <h2>Chart</h2>
                 )}
-                {/* <ChartOverview /> */}
             </td>
         </tr>
     );

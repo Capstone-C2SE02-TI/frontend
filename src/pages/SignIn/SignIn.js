@@ -23,7 +23,7 @@ function SignIn() {
         username: '',
         password: '',
     };
-    Cookies.remove('1P_JAR');
+
     const [formValues, setFormValues] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -57,7 +57,8 @@ function SignIn() {
                 break;
 
             case 'successfully':
-                navigate('/');
+                 localStorage.setItem('isLoggedIn', true);
+                 navigate('/home-dashboard');
                 break;
             default:
                 break;
@@ -75,10 +76,7 @@ function SignIn() {
                         Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
                     },
                 });
-                if (response.message === 'successfully') {
-                    localStorage.setItem('statusLogin', JSON.stringify(response.message));
-                    navigate('/');
-                }
+    
                 handleExceptions(response.message);
                 setLoading(false);
             };

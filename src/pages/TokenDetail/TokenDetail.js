@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Option } from 'antd/lib/mentions';
 import TokenDetailEachCoin from './containers/TokenDetailEachCoin';
 import { fetchCoinsDetail, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
 import { coinsDetailSelector, statusCoinDetailSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
@@ -11,6 +10,7 @@ import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
 import useScrollToTop from '~/hooks/useScrollToTop';
 import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
+import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -25,7 +25,6 @@ function TokenDetail() {
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
     
-    console.log({coinDetail});
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
@@ -36,13 +35,16 @@ function TokenDetail() {
     const handleFilterChart = (time) => {
         setFilterChartByTime(time)
     };
+
+
+  
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
                         <Col span={17}>
-                            {coinDetail && (
+                            {coinDetail ? (
                                 <TokenDetailEachCoin
                                     data={coinDetail}
                                     community={[
@@ -51,6 +53,8 @@ function TokenDetail() {
                                         ...coinDetail.urls.messageBoard,
                                     ]}
                                 />
+                            ) : (
+                                <DetailEachCoinSkeleton />
                             )}
                             <div className={cx('wallet-chart')}>
                                 <div style={{ textAlign: 'right', padding: '16px' }}>
@@ -60,15 +64,18 @@ function TokenDetail() {
                                         onChange={handleFilterChart}
                                     >
                                         {FILTERS_CHART_DATA.map((time) => (
-                                            <Option key={time.toLowerCase()}>{time}</Option>
+                                            <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
                                         ))}
                                     </Select>
                                 </div>
                                 <div>
                                     {coinDetail && coinDetail.prices ? (
-                                        (
-                                            <ChartCoinDetail data={coinDetail} typeFilter={filterChartByTime} />
-                                        )
+                                        <ChartCoinDetail
+                                            time={filterChartByTime.toLowerCase()}
+                                            symbol={coinDetail.symbol}
+                                            data={coinDetail}
+                                            typeFilter={filterChartByTime}
+                                        />
                                     ) : (
                                         <h2>Chart</h2>
                                     )}

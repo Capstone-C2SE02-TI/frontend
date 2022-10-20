@@ -299,8 +299,8 @@ input:not(:placeholder-shown) ~ .search--icon {
         &--container {
             display: flex;
             align-items: center;
-          color: rgb(56, 97, 251) !important;
-          
+            color: rgb(56, 97, 251) !important;
+
             p {
                 font-weight: 600;
                 font-size: 12px;
@@ -310,34 +310,21 @@ input:not(:placeholder-shown) ~ .search--icon {
         }
     }
 
-   
-
     .selected-item {
         color: rgb(56, 97, 251) !important;
     }
 
-  
-
-   
-
-      .market-box-content-filter {
+    .market-box-content-filter {
         position: absolute;
         top: 110%;
         left: 0%;
         width: 280px;
         // max-height: 370px;
         border-radius: 8px;
-        animation: fadeIn 1s forwards;
+        animation: fadeIn 0.4s forwards;
         z-index: 100;
     }
-
-    //  .market-box__category--filter.closing  .market-box-content-filter{
-    //     animation: fadeOut 2s forwards !important;
-    //     background-color:red;
-    // }
 }
-
-
 
 @keyframes fadeIn {
     from {
@@ -356,3 +343,12 @@ input:not(:placeholder-shown) ~ .search--icon {
         opacity: 0;
     }
 }
+
+@keyframes leaves {
+        0% {
+            transform: scale(1.0);
+        }
+        100% {
+            transform: scale(0,1);
+        }
+    }

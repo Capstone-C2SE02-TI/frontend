@@ -43,3 +43,12 @@ export const getCoinsTrending = async () => {
         console.log(error);
     }
 };
+
+export const getCoinsAndTokensLoss = async () => {
+    try {
+        const response = await httpRequest.get('/display/coins-and-tokens/reducing');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

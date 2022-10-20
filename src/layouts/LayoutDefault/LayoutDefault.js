@@ -48,15 +48,17 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    <Tippy content={<Portfolio />} {...defaultPropsTippy}>
-                        <div className={cx('user-profile')}>
-                            <img src={images.userAvatar} alt="avatar" />
-                            <div>
-                                <span>Andrew</span>
-                                <p>Investor</p>
+                    {localStorage.getItem('isLoggedIn') && (
+                        <Tippy content={<Portfolio />} {...defaultPropsTippy}>
+                            <div className={cx('user-profile')}>
+                                <img src={images.userAvatar} alt="avatar" />
+                                <div>
+                                    <span>Andrew</span>
+                                    <p>Investor</p>
+                                </div>
                             </div>
-                        </div>
-                    </Tippy>
+                        </Tippy>
+                    )}
                 </div>
                 {children}
             </div>

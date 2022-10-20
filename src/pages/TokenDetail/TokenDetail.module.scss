@@ -48,106 +48,10 @@
     margin: 0 20px;
 }
 
-.token-container {
-    border: 1px solid #eceef7;
-    box-shadow: 0px 20px 50px rgb(220 224 249 / 50%);
-    border-radius: 20px;
-    padding: 24px;
-    margin-bottom: 24px;
-    span {
-        padding: 4px 10px;
-        background: #d4d9de;
-        font-size: 12px;
-        font-weight: 500;
-        border-radius: 20px;
-        color: white;
-    }
 
-    .token-content__name {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        margin: 10px 0 20px 0;
-
-        h3 {
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 0px;
-        }
-
-        img {
-            width: 30px;
-            height: 30px;
-            margin-right: 18px;
-        }
-
-        span {
-            color: #21ce66;
-            background-color: #f4f6f6;
-        }
-    }
-
-    .token-content__price {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-
-        .token-price__box {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        .token-price__inf {
-            h1 {
-                margin-left: 238%;
-            }
-        }
-
-        h1 {
-            margin-bottom: 0px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #482ee8;
-            margin-right: 10px;
-        }
-    }
-}
-
-.token-content__inf {
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    ul {
-        width: calc((100% - 20px) / 3);
-
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #a5a2b8;
-            padding: 15px 5px;
-
-
-            p {
-                font-size: 14px;
-                margin-bottom: 0;
-                color: #333;
-                font-weight: 500;
-
-                &:last-child {
-                    color: #a5a2b8;
-                }
-            }
-        }
-    }
-}
 
 .detail-tippy {
-   border-radius: 6px;
+     border-radius: 6px;
     background: #eff2f5;;
     padding: 4px 24px;
     white-space: nowrap;
@@ -156,6 +60,7 @@
     text-overflow: ellipsis;
     width: 55%;
     cursor: pointer;
+    
 
     &:hover {
         background-color: #808a9d;
@@ -169,11 +74,6 @@
     position: relative;
 }
 
-.detail-tippy-caret-down {
-    position: absolute;
-    right: 13px;
-    font-size: 16px;
-}
 
 .detail-tippy:hover ~ .detail-tippy-caret-down {
     color: rgb(255, 255, 255);

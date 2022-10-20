@@ -344,20 +344,20 @@ export const CaretDownIcon = ({ width = 20, height = 23, className }) => {
     );
 };
 
-export const CaretNextIcon = ({ width = 20, height = 23, className }) => {
+export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            height="16"
-            width="14"
+            height={height}
+            width={width}
             viewBox="0 0 6 8"
             style={{ marginLeft: '6px' }}
             className={className}
         >
             <path
                 d="M1.5 1L4.5 4L1.5 7"
-                stroke="#7665d8"
+                stroke="rgb(56, 97, 251)"
                 strokeWidth={2}
                 strokeMiterlimit={10}
                 strokeLinecap="round"
