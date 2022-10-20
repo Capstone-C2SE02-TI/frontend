@@ -1,16 +1,14 @@
 import styles from './SharkWalletsCrypto.module.scss'
 import classNames from 'classnames/bind';
 import SharkWalletCryptoItem from './SharkWalletCryptoItem';
+import NavBarSharkWalletsCrypto from '../NavBarSharkWalletsCrypto';
+
 const cx = classNames.bind(styles);
 
 function SharkWalletsCrypto() {
     return (
         <div className={cx('shark-crypto')}>
-            <div className={cx('crypto-list__choose')}>
-                <h6>Crypto</h6>
-                <h6>Transaction history</h6>
-                <h6>Detail info</h6>
-            </div>
+            <NavBarSharkWalletsCrypto/>
             <table className={cx('table-shark__crypto')}>
                 <thead>
                     <tr>

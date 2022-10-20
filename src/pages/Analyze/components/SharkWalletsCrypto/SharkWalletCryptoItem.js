@@ -1,17 +1,18 @@
 import styles from '././SharkWalletsCrypto.module.scss';
 import classNames from 'classnames/bind';
-import { StarIcon } from '~/components/Icons';
+import CryptoItem from './CryptoItem';
 
 const cx = classNames.bind(styles);
+
 
 function SharkWalletCryptoItem () {
     
     return (
         <tr className={cx('tr-crypto__item')}>
-            <td>icon</td>
-            <td>$600,000,000</td>
-            <td>2.36%</td>
-            <td><StarIcon/></td>
+            <td>#1</td>
+            <CryptoItem/>
+            <td>450,000</td>
+            <td>$450,000(100%)</td>
         </tr>
         
     );

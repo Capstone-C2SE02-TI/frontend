@@ -6,6 +6,7 @@ import SharkWalletsCrypto from '../../components/SharkWalletsCrypto/SharkWallets
 
 const cx = classNames.bind(styles);
 function SharkWallets() {
+    
     return (
         <section className={cx('shark-wallet')}>
             <div className={cx('shark-wallet__content')}>

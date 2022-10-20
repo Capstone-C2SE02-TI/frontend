@@ -1,19 +1,35 @@
 import styles from './SharkWalletsOverview.module.scss';
 import classNames from 'classnames/bind';
 import { StarIcon } from '~/components/Icons';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { sharkListSelector } from '~/modules/SharkWallet/selector';
 
 const cx = classNames.bind(styles);
 
-function SharkWalletCoin () {
-    
+function SharkWalletCoin() {
+    const dispatch = useDispatch();
+
+    const sharkCoin = useSelector(sharkListSelector);
+
+    useEffect(() => {
+        dispatch(fetchSharkWallet());
+    }, [dispatch]);
+    console.log(sharkCoin)
     return (
-        <tr>
-            <td>shark1</td>
-            <td>$600,000,000</td>
-            <td>2.36%</td>
-            <td><StarIcon/></td>
-        </tr>
-        
+        <>
+            {
+                sharkCoin.map((wallet) => 
+                <tr key={wallet.id}>
+                    <td>#Shark{' '}{wallet.id}</td>
+                    <td>$600,000,000</td>
+                    <td>2.36%</td>
+                    <td><StarIcon/></td>
+                </tr>
+                )
+            }
+        </>
     );
 }
 

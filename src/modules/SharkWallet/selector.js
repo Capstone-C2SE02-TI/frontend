@@ -1,0 +1,1 @@
+export const sharkListSelector = (state) => state.sharkWallet.sharkList;

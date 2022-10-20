@@ -10,6 +10,7 @@ const images = {
     logoRobot: require('./logo-robot.png'),
     vth: require('./vth.svg').default,
     star: require('./star.svg').default,
+    people: require('./people.svg').default,
     userAvatar: require('./avatar-user.png'),
 };
 export default images;
