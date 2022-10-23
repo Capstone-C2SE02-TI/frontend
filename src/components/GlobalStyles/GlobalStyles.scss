@@ -115,6 +115,10 @@ html *::-webkit-scrollbar-track {
     flex-direction: column;
 }
 
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
 .justify-content-center {
     justify-content: center;
 }
@@ -131,7 +135,18 @@ html *::-webkit-scrollbar-track {
     align-items: center;
 }
 
+.mt-16 {
+    margin-top: 16px;
+}
 
+.mt-8 {
+    margin-top: 8px;
+}
+
+.py-8 {
+    padding: 8px 0;
+
+}
 
 //disable input number arrow
 /* Chrome, Safari, Edge, Opera */

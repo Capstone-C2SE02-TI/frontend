@@ -94,8 +94,14 @@
 }
 
 .error-message {
-     font-size: 1.4rem;
+    font-size: 1.4rem;
     line-height: 1.6rem;
     padding: 4px 0 0;
     color: #f33a58;
+}
+
+.times-icon {
+    cursor: pointer;
+    padding: 8px;
+    margin-bottom: 3px;
 }
