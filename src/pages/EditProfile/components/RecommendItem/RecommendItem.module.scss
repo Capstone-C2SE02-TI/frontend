@@ -1,0 +1,42 @@
+.recommend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f8fafd;
+    }
+}
+
+.recommend-item-info {
+    display: flex;
+    align-items: center;
+
+    .icon-coin {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.recommend-item-name {
+    margin-left: 20px;
+
+    span {
+        color: #000;
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 8px;
+
+        img {
+            padding-left: 16px;
+        }
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 14px;
+        color: #808a9d;
+    }
+}

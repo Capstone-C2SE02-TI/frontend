@@ -7,19 +7,32 @@ import { MenuIcon } from '~/components/Icons';
 import { useDispatch } from 'react-redux';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import  images  from '~/assets/images';
 import Portfolio from '~/pages/HomeDashboard/components/Portfolio/Portfolio';
+import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
+import { userInfoSelector } from '~/modules/user/auth/selectors';
+import { useEffect } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 const cx = classNames.bind(styles);
 
 function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
+    const dispatch = useDispatch();
+
+    // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const { userId } = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = useSelector(userInfoSelector);
+    // console.log({ userInfo });
+     useEffect(() => {
+         if (userId) {
+             dispatch(fetchGetUserInfo(userId));
+         }
+     }, [dispatch, userId]);
 
     const sidebarClassName = cx({
         'sidebar-wrapper': true,
         'hide-sidebar': !statusSidebarSelector,
     });
-    const dispatch = useDispatch();
 
     const toggleMenu = () => {
         dispatch(HomeDashboardSlice.actions.actionSidebar());
@@ -34,6 +47,7 @@ function LayoutDefault({ children }) {
         placement: 'bottom',
         delay: [1, 200],
     };
+    console.log({ userInfo });
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
@@ -48,13 +62,22 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    {localStorage.getItem('isLoggedIn') && (
-                        <Tippy content={<Portfolio />} {...defaultPropsTippy}>
+                    {userInfo && (
+                        <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
                             <div className={cx('user-profile')}>
-                                <img src={images.userAvatar} alt="avatar" />
+                                {userInfo.avatar ? (
+                                    <img
+                                        src={userInfo.avatar}
+                                        alt="avatar"
+                                        width={' 50px '}
+                                        className={cx('user-profile-avatar')}
+                                    />
+                                ) : (
+                                    <Skeleton circle width={50} height={50} />
+                                )}
                                 <div>
-                                    <span>Andrew</span>
-                                    <p>Investor</p>
+                                    <span>Hi, {userInfo.username || 'Investor'}</span>
+                                    <p>{userInfo.email || 'Investor'}</p>
                                 </div>
                             </div>
                         </Tippy>

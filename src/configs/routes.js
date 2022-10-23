@@ -6,5 +6,9 @@ const routes = {
     p2p: '/p2p',
     discover: '/discover',
     tokenDetailL: '/discover/detail/:symbol',
+    homeDashboard: '/home-dashboard',
+    analyze: '/analyze',
+    editProfile: '/edit-profile',
+    profile: '/profile'
 };
 export default routes;

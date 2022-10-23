@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Skeleton from 'react-loading-skeleton';
-import styles from './TokenDetailEachCoin.modules.scss';
+import styles from './TokenDetailEachCoin.module.scss';
 
 const cx = classNames.bind(styles);
 

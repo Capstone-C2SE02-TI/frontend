@@ -28,12 +28,26 @@ export const signOut = async () => {
     }
 };
 
-export const getUsers = async () => {
+export const getUserInfo = async (userId) => {
     try {
-        const response = await httpRequest.get('/users/suggested');
+        const response = await httpRequest.get('/user/profile', {
+            params: {
+                userId,
+            },
+        });
         return response.data;
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const updateUserInfo = async (body, userId, options = {}) => {
+    try {
+    
+        const response = await httpRequest.post(`/user/profile/update?userId=${userId}`, body, options);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
     }
 };
 

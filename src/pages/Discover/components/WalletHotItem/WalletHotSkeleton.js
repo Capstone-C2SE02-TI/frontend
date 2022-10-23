@@ -1,6 +1,6 @@
 
 import classNames from 'classnames/bind';
-import styles from './WalletHotItem.modules.scss';
+import styles from './WalletHotItem.module.scss';
 import Skeleton from 'react-loading-skeleton';
 
 const cx = classNames.bind(styles);

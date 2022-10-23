@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from './ReferentItem.modules.scss'
+import styles from './ReferentItem.module.scss'
 import  numberWithCommas  from '~/helpers/numberWithCommas';
 
 const cx = classNames.bind(styles);

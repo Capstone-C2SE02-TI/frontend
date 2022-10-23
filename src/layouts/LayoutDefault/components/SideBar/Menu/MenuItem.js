@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import styles from './Menu.modules.scss';
+import styles from './Menu.module.scss';
 const cx = classNames.bind(styles);
 
 function MenuItem({ icon, title, to }) {

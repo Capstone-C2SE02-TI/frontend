@@ -18,20 +18,22 @@ const authSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAuth.pending, (state, action) => {
+            .addCase(fetchGetUserInfo.pending, (state, action) => {
                 state.status = 'loading';
             })
-            .addCase(fetchAuth.fulfilled, (state, action) => {
-                state.user = action.payload.user;
+            .addCase(fetchGetUserInfo.fulfilled, (state, action) => {
+                state.user = action.payload;
                 state.status = 'idle';
             });
     },
 });
 
-export const fetchAuth = createAsyncThunk('/auth/signin', async (body) => {
-    const response = await authService.signIn(body);
-  
-    return response;
+
+
+export const fetchGetUserInfo = createAsyncThunk('auth/fetchGetUserInfo', async (userId) => {
+    const response = await authService.getUserInfo(userId);
+
+    return response.data;
 });
 
 export default authSlice;

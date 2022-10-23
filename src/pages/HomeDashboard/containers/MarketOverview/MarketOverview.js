@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styles from '../MarketOverview/MarketOverview.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import CoinItem from './CoinItem';
-import Loading from '~/components/Loading';
+import Loading from '~/components/LoadingCustomize';
 import { Link } from 'react-router-dom';
 import { CaretNextIcon } from '~/components/Icons';
 import {  statusCoinDetailSelector } from '~/modules/CoinDetail/selector';

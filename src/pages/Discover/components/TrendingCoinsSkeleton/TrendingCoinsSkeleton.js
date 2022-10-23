@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import classNames from 'classnames/bind';
-import styles from './TrendingCoinsSkeleton.modules.scss'
+import styles from './TrendingCoinsSkeleton.module.scss'
 
 const cx = classNames.bind(styles);
 

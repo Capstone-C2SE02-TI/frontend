@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
-import Loading from '~/components/Loading';
+import Loading from '~/components/LoadingCustomize';
 
 export const PrivateRoute = (props) => {
     const { children, element } = props;
 
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const isLoggedIn = localStorage.getItem('userInfo');
   
     return isLoggedIn ? (
            <Suspense fallback={<Loading cover='content' />}>{element || children}</Suspense>
