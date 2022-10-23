@@ -11,6 +11,7 @@ import { authService } from '~/services';
 import { useNavigate } from 'react-router-dom';
 import { Spin } from 'antd';
 import LoadingCustomize from '~/components/LoadingCustomize';
+import images  from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
@@ -122,7 +123,10 @@ function EditProfile() {
 
                     <div className={cx('edit-profile-avatar')}>
                         <span>Your avatar</span>
-                        <img src={selectedAvatarImage || userInfoDetail.avatar} alt={cx('edit-profile-avatar')} />
+                        <img
+                            src={selectedAvatarImage || userInfoDetail.avatar || images.userAvatar}
+                            alt={cx('edit-profile-avatar')}
+                        />
                         <span className={cx('upload-avatar-btn')}>
                             <UploadIcon className={cx('upload-icon')} />
                             <Button primary onClick={onEditBackgroundButtonClick} className={cx('upload-text')}>
