@@ -17,14 +17,11 @@
     }
 
     &:hover {
-        color: var(--fill-color-icon);
+        background-color: #eff2f5;
+    }
 
-        // svg {
-        //     fill: var(--fill-color-icon);
-        //     path {
-        //         stroke: var(--fill-color-icon);
-        //     }
-        // }
+    &:hover ~ .menu-item__title {
+        color: red;
     }
 
     &.active {

@@ -8,6 +8,7 @@ import Menu from './Menu';
 import styles from './SideBar.module.scss';
 import Modal from '~/components/Modal';
 import { authService } from '~/services';
+import  configs  from '~/configs';
 
 const cx = classNames.bind(styles);
 
@@ -42,9 +43,9 @@ function SideBar() {
                 </Link>
             </div>
             <Menu>
-                <MenuItem icon={<HomeIcon />} title="Home" to="/home-dashboard" />
-                <MenuItem icon={<DiscoverIcon />} title="Discover" to="/discover" />
-                <MenuItem icon={<AnalyzeIcon />} title="Analyze" to="/analyze" />
+                <MenuItem icon={<HomeIcon />} title="Home" to={configs.routes.homeDashboard} />
+                <MenuItem icon={<DiscoverIcon />} title="Discover" to={configs.routes.discover} />
+                <MenuItem icon={<AnalyzeIcon />} title="Analyze" to={configs.routes.analyze} />
                 <MenuItem icon={<SupportIcon />} title="Support" to="/support" />
                 <MenuItem icon={<ReportIcon />} title="Reports" to="/report" />
                 <MenuItem icon={<SettingIcon />} title="Setting" to="/setting" />

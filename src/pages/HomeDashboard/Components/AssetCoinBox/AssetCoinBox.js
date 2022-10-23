@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
-import styles from './AssetCoinBox.modules.scss';
+import styles from './AssetCoinBox.module.scss';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { CaretNextIcon } from '~/components/Icons';
 import WrapperBox from './../WrapperBox/WrapperBox';

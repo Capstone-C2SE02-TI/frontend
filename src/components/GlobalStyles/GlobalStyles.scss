@@ -14,7 +14,7 @@
     --primary: #9381ff;
 }
 
-body>#root>div {
+body > #root > div {
     height: 100vh;
 }
 
@@ -40,7 +40,6 @@ a {
     color: #352e5b;
     text-decoration: none;
 }
-
 
 //scrollbar
 html *::-webkit-scrollbar {
@@ -69,29 +68,28 @@ html *::-webkit-scrollbar-track {
         border-radius: 4 !important;
         color: var(--text-color) !important;
         font-size: 1.4rem !important;
-        border: 1px solid #4200FF !important;
+        border: 1px solid #4200ff !important;
     }
 
     .next {
         border-radius: 4 !important;
         color: var(--text-color) !important;
         font-size: 1.4rem !important;
-        border: 1px solid #4200FF !important;
+        border: 1px solid #4200ff !important;
     }
 
     .active {
-       
-        background: #A090FF !important;
-        border: 1px solid #4200FF !important;
+        background: #a090ff !important;
+        border: 1px solid #4200ff !important;
         border-radius: 4px;
         a {
-           color: var(--text-white) !important;
+            color: var(--text-white) !important;
         }
     }
 
     .disabled {
         cursor: default;
-        background: #DFE3E8;
+        background: #dfe3e8;
     }
 }
 
@@ -99,24 +97,14 @@ html *::-webkit-scrollbar-track {
     border-color: var(--primary) !important ;
 }
 
-
-
-.sidebar-active {
-    left: -220px !important;
-}
-
-.sidebar {
-    display: block;
-    animation: fadeIn ease-in 0.5;
-    height: 100vh;
-      transition: 0.3s ease-in-out;
-        -webkit-transition: 0.3s ease-in-out;
+.slick-active {
+    width: 25% !important;
+    border-right: 1px dashed #d9def1 !important;
 }
 
 .ant-row {
     flex-flow: none !important;
 }
-
 
 // customize css flex
 .d-flex {
@@ -141,4 +129,19 @@ html *::-webkit-scrollbar-track {
 
 .align-items-center {
     align-items: center;
+}
+
+
+
+//disable input number arrow
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

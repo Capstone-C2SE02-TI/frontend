@@ -8,6 +8,7 @@ function Button({
     outlineBrow = false,
     outline = false,
     primary = false,
+    dark= false,
     large = false,
     small = false,
     medium = false,
@@ -36,6 +37,7 @@ function Button({
 
     const classes = cx('wrapper', {
         primary,
+        dark,
         outlineBrow,
         outline,
         rounded,

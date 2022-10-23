@@ -1,5 +1,5 @@
 
-import styles from './WrapperBox.modules.scss';
+import styles from './WrapperBox.module.scss';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 

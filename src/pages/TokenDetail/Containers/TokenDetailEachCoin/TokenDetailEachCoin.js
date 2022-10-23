@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { memo } from 'react';
 import Image from '~/components/Image/Image';
-import styles from './TokenDetailEachCoin.modules.scss';
+import styles from './TokenDetailEachCoin.module.scss';
 import MenuTippy from './MenuTippy';
 import numberWithCommas from '~/helpers/numberWithCommas';
 import { CaretDownIcon } from '~/components/Icons';

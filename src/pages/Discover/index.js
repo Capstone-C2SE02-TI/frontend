@@ -5,7 +5,7 @@ import TrendingCoins from './containers/TrendingCoins';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { statusCoinDetailSelector } from '~/modules/CoinDetail/selector';
-import styles from './Discover.modules.scss';
+import styles from './Discover.module.scss';
 import TrendingCoinsSkeleton from './components/TrendingCoinsSkeleton/TrendingCoinsSkeleton';
 import { fetchTrendingCoins } from '~/modules/Discover/discoverSlice';
 import { trendingCoinsSelector } from '~/modules/Discover/selector';

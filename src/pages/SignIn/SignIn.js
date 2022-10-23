@@ -43,7 +43,7 @@ function SignIn() {
         delete formErrors.confirmPassword;
         delete formErrors.email;
     };
-    const handleExceptions = (message) => {
+    const handleExceptions = (message, user) => {
         switch (message) {
             case 'username-invalid':
                 setFormErrors({ username: 'Username could not be found' });
@@ -57,7 +57,7 @@ function SignIn() {
                 break;
 
             case 'successfully':
-                 localStorage.setItem('isLoggedIn', true);
+                 localStorage.setItem('userInfo', JSON.stringify(user));
                  navigate('/home-dashboard');
                 break;
             default:
@@ -77,7 +77,7 @@ function SignIn() {
                     },
                 });
     
-                handleExceptions(response.message);
+                handleExceptions(response.message, response.user);
                 setLoading(false);
             };
             fetchApi();

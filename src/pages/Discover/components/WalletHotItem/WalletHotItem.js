@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { ArrowDown, ArrowUp } from '~/components/Icons';
-import styles from './WalletHotItem.modules.scss';
+import styles from './WalletHotItem.module.scss';
 const cx = classNames.bind(styles);
 
 function WalletHotItem({ data, increaseCoin = false, reduceCoin = false, index  }) {
@@ -8,10 +8,6 @@ function WalletHotItem({ data, increaseCoin = false, reduceCoin = false, index  
         increase: increaseCoin,
         reduce: reduceCoin,
     });
-
-    console.log(increaseCoin);
-    console.log(reduceCoin);
- 
     return (
         <div className={cx('wallet-statics__card')}>
             <span className={cx('wallet-statics__card__heading')}>
