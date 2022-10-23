@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Button from '~/components/Button';
+import  images  from '~/assets/images';
 
 const cx = classNames.bind(styles);
 function Profile() {
@@ -28,7 +29,7 @@ function Profile() {
                 <div className={cx('profile')}>
                     <div className={cx('profile-avatar')}>
                         <div className={cx('profile-avatar-detail')}>
-                            <img src={userInfoDetail.avatar} alt="" />
+                            <img src={userInfoDetail.avatar || images.userAvatar} alt="" />
                         </div>
                         <span>Joined 2022 October</span>
                     </div>

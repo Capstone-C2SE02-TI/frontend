@@ -12,17 +12,16 @@ import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import  images  from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
 function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
     const dispatch = useDispatch();
-
-    // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const { userId } = JSON.parse(localStorage.getItem('userInfo'));
+ 
+    const { userId } = JSON.parse(localStorage.getItem('userInfo')) || 5;
     const userInfo = useSelector(userInfoSelector);
-    // console.log({ userInfo });
      useEffect(() => {
          if (userId) {
              dispatch(fetchGetUserInfo(userId));
@@ -47,7 +46,7 @@ function LayoutDefault({ children }) {
         placement: 'bottom',
         delay: [1, 200],
     };
-    console.log({ userInfo });
+ 
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
@@ -62,12 +61,12 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    {userInfo && (
+                    {userInfo.username && (
                         <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
                             <div className={cx('user-profile')}>
-                                {userInfo.avatar ? (
+                                {userInfo ? (
                                     <img
-                                        src={userInfo.avatar}
+                                        src={userInfo.avatar || images.userAvatar}
                                         alt="avatar"
                                         width={' 50px '}
                                         className={cx('user-profile-avatar')}
