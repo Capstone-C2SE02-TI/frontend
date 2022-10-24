@@ -9,6 +9,7 @@ const routes = {
     homeDashboard: '/home-dashboard',
     analyze: '/analyze',
     editProfile: '/edit-profile',
+    changePassword: '/change-password',
     profile: '/profile'
 };
 export default routes;

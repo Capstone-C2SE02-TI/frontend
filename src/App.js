@@ -14,6 +14,7 @@ import HomeDashboard from './pages/HomeDashboard';
 import { Chart, registerables } from 'chart.js';
 import EditProfile from './pages/EditProfile';
 import Profile from './pages/Profile/Profile';
+import ChangePassword from './pages/ChangePassword';
 Chart.register(...registerables);
 
 function App() {
@@ -126,6 +127,18 @@ function App() {
                             element={
                                 <LayoutDefault>
                                     <EditProfile />
+                                </LayoutDefault>
+                            }
+                        />
+                    }
+                />
+                <Route
+                    path={configs.routes.changePassword}
+                    element={
+                        <PrivateRoute
+                            element={
+                                <LayoutDefault>
+                                    <ChangePassword />
                                 </LayoutDefault>
                             }
                         />

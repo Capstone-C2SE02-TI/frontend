@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
-import Loading from '~/components/LoadingCustomize';
+import LoadingCustomize from '~/components/LoadingCustomize';
 
 export const PrivateRoute = (props) => {
     const { children, element } = props;
@@ -8,7 +8,7 @@ export const PrivateRoute = (props) => {
     const isLoggedIn = localStorage.getItem('userInfo');
   
     return isLoggedIn ? (
-           <Suspense fallback={<Loading cover='content' />}>{element || children}</Suspense>
+        <Suspense fallback={<LoadingCustomize cover="content" />}>{element || children}</Suspense>
     ) : (
         <Navigate to="/sign-in" />
     );
@@ -16,5 +16,5 @@ export const PrivateRoute = (props) => {
 
 export const PublicRoute = (props) => {
     const { children, element } = props;
-    return    <Suspense fallback={<Loading cover='content' />}>{element || children}</Suspense>;
+    return <Suspense fallback={<LoadingCustomize cover="content" />}>{element || children}</Suspense>;
 };

@@ -6,16 +6,17 @@
         font-weight: 700;
         font-size: 18px;
         line-height: 23px;
-        color: #352E5B;
+        color: #352e5b;
         margin-bottom: 36px;
     }
 
     .profile-image {
-        width: 50px;
-        width: 50px;
-        border-radius: 50%;
-        border: 1px solid #C4C4C4;
         margin-bottom: 18px;
+
+        border-radius: 50%;
+        object-fit: cover;
+        width: 50px;
+        height: 50px;
     }
 
     h5 {
@@ -23,20 +24,19 @@
         font-size: 16px;
         line-height: 21px;
         margin-bottom: 16px;
-        color: #352E5B;
+        color: #352e5b;
         transition: 0.5s;
-
     }
 
     h6 {
         font-weight: 400;
         font-size: 14px;
         line-height: 18px;
-        color: #9381FF;
+        color: #9381ff;
         transition: 0.5s;
 
         &:hover {
-            color: #FFD8BE;
+            color: #ffd8be;
         }
     }
 }
@@ -48,7 +48,7 @@
         font-weight: 700;
         font-size: 18px;
         line-height: 23px;
-        color: #352E5B;
+        color: #352e5b;
         margin-bottom: 24px;
     }
 
@@ -62,7 +62,7 @@
             font-weight: 700;
             font-size: 14px;
             line-height: 18px;
-            color: #352E5B;
+            color: #352e5b;
         }
 
         h6 {
@@ -70,7 +70,7 @@
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.05em;
-            color: #A69ED6;
+            color: #a69ed6;
         }
     }
 }
@@ -79,7 +79,7 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 23px;
-    color: #352E5B;
+    color: #352e5b;
     margin-bottom: 24px;
     padding: 0 24px 120px 24px;
 
@@ -93,7 +93,7 @@
         font-weight: 700;
         font-size: 18px;
         line-height: 23px;
-        color: #352E5B;
+        color: #352e5b;
         margin-bottom: 24px;
     }
 
@@ -107,7 +107,7 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 18px;
-            color: #A69ED6;
+            color: #a69ed6;
         }
 
         span {
@@ -115,7 +115,7 @@
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.05em;
-            color: #A69ED6;
+            color: #a69ed6;
         }
 
         h6 {
@@ -123,7 +123,7 @@
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0.05em;
-            color: #352E5B;
+            color: #352e5b;
         }
     }
 }
@@ -137,15 +137,15 @@
         font-weight: 700;
         font-size: 14px;
         line-height: 21px;
-        color: #FFFFFF;
+        color: #ffffff;
         padding: 12px 50px;
-        background: linear-gradient(276.21deg, #9381FF 4.18%, rgba(147, 129, 255, 0.7) 97.48%);
+        background: linear-gradient(276.21deg, #9381ff 4.18%, rgba(147, 129, 255, 0.7) 97.48%);
         border-radius: 4px;
         margin-bottom: 0;
         transition: 0.5s;
 
         &:hover {
-            color: #FFD8BE;
+            color: #ffd8be;
             background-color: rgba(255, 238, 221, 0.36);
             cursor: pointer;
         }
@@ -164,8 +164,49 @@
         border-top: 1px solid #333;
         transition: 0.6s;
         &:hover {
-            background: #9381FF;
+            background: #9381ff;
             color: #fff;
+            cursor: pointer;
+        }
+    }
+}
+
+.logout-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 280px;
+
+    &__title {
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    &__options {
+        display: flex;
+        align-items: center;
+
+        &__degree {
+            padding: 6px 10px;
+            background-color: #644de7;
+            font-size: 14px;
+            color: #fff;
+            outline: none;
+            border: none;
+            margin-right: 22px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        &__cancel {
+            font-size: 14px;
+            color: #816eeb;
+            outline: none;
+            border: none;
+            margin-left: 45px;
+            background-color: #fff;
+            font-weight: 600;
             cursor: pointer;
         }
     }

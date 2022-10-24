@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import Button from '~/components/Button';
-import  images  from '~/assets/images';
+import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 function Profile() {
@@ -31,11 +31,13 @@ function Profile() {
                         <div className={cx('profile-avatar-detail')}>
                             <img src={userInfoDetail.avatar || images.userAvatar} alt="" />
                         </div>
-                        <span>Joined 2022 October</span>
+                        <span>{userInfoDetail.fullName || ''}</span>
                     </div>
 
                     <div className={cx('profile-info')}>
-                        <span className={cx('profile-info-username')}> {userInfoDetail.username}</span>
+                        <span className={cx('profile-info-username')}>
+                            Username: <span className="font-italic">{userInfoDetail.username}</span>
+                        </span>
                         <p className={cx('profile-info-email')}> {userInfoDetail.email}</p>
                         <div className="d-flex justify-content-between">
                             <div className={cx('profile-info-follow')} style={{ cursor: 'pointer' }}>
@@ -56,6 +58,44 @@ function Profile() {
                         <span>Edit</span>
                     </div>
                 </div>
+                <div className="mt-8 p-8" style={{ marginLeft: '36px', marginTop: '50px' }}>
+                    <p className={cx('profile-detail-title')}>
+                        Phone number:
+                        <span className={cx('profile-detail-value')}>{userInfoDetail.phoneNumber}</span>
+                    </p>
+
+                    <p className={cx('profile-detail-title')}>
+                        Created date:
+                        <span className={cx('profile-detail-value')}>
+                            {new Date(userInfoDetail.createdDate?._nanoseconds)?.toLocaleDateString() || ''}
+                        </span>
+                    </p>
+                    <p className={cx('profile-detail-title')}>
+                        Updated date:
+                        <span className={cx('profile-detail-value')}>
+                            {new Date(userInfoDetail.updatedDate?._nanoseconds)?.toLocaleDateString() || ''}
+                        </span>
+                    </p>
+                    <p className={cx('profile-detail-title')}>
+                        My website:
+                        <span className={cx('profile-detail-value')}>
+                            <a
+                                href={userInfoDetail.website || ''}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                style={{ color: '#1890ff' }}
+                            >
+                                {userInfoDetail.website?.split('/')[2] || ''}
+                            </a>
+                        </span>
+                    </p>
+                </div>
+                <div style={{marginLeft: "40px"}}>
+                    {' '}
+                    <Button primary onClick={() => navigate('/change-password')}>
+                        Change Password
+                    </Button>
+                </div>
                 <div className={cx('d-flex flex-column align-items-center')}>
                     <img
                         width="216"
@@ -68,7 +108,7 @@ function Profile() {
                     <p style={{ color: 'rgb(128, 138, 157)' }}>
                         You can post your first tweet, or discover and follow accounts you are interested in!
                     </p>
-                    <Button primary>Create new Post</Button>
+                    {/* <Button primary>Create new Post</Button> */}
                 </div>
             </div>
         );

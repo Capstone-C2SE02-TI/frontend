@@ -16,8 +16,8 @@
     }
 
     &.disabled {
-        pointer-events: none;
         opacity: 0.5;
+        cursor: not-allowed !important;
     }
 }
 .title {
@@ -74,7 +74,7 @@
 
     &:hover {
         border-color: currentColor;
-        background-color: rgba(254, 44, 85, 0.06);
+           background: rgb(248, 250, 253);
     }
 }
 
