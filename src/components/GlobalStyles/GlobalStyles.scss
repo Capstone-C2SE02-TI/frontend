@@ -135,28 +135,42 @@ html *::-webkit-scrollbar-track {
     align-items: center;
 }
 
-.mt-16 {
-    margin-top: 16px;
+.mt-4 {
+    margin-top: 4px;
 }
 
 .mt-8 {
     margin-top: 8px;
 }
 
-.py-8 {
-    padding: 8px 0;
-
+.mt-16 {
+    margin-top: 16px;
 }
 
+.py-8 {
+    padding: 8px 0;
+}
+
+.px-8 {
+      padding: 0 8px;
+}
+
+.p-8 {
+      padding: 0 8px;
+}
+
+.font-italic {
+    font-style: italic;
+}
 //disable input number arrow
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+    -moz-appearance: textfield;
 }

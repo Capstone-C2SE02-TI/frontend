@@ -13,15 +13,20 @@ import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import  images  from '~/assets/images';
+import Button from '~/components/Button';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
     const dispatch = useDispatch();
- 
-    const { userId } = JSON.parse(localStorage.getItem('userInfo')) || 5;
+    const navigate = useNavigate();
+    
+    
+    const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const userInfo = useSelector(userInfoSelector);
+    console.log('userId', userId);
      useEffect(() => {
          if (userId) {
              dispatch(fetchGetUserInfo(userId));
@@ -61,7 +66,7 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    {userInfo.username && (
+                    {userId ? (
                         <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
                             <div className={cx('user-profile')}>
                                 {userInfo ? (
@@ -75,11 +80,20 @@ function LayoutDefault({ children }) {
                                     <Skeleton circle width={50} height={50} />
                                 )}
                                 <div>
-                                    <span>Hi, {userInfo.username || 'Investor'}</span>
+                                    <span>Hi, {userInfo.fullName || userInfo.username || 'Investor'}</span>
                                     <p>{userInfo.email || 'Investor'}</p>
                                 </div>
                             </div>
                         </Tippy>
+                    ) : (
+                        <div>
+                            <Button outline onClick={() => navigate('/sign-in')}>
+                                Sign In
+                            </Button>
+                            <Button primary onClick={() => navigate('/sign-up')}>
+                                Sign Up
+                            </Button>
+                        </div>
                     )}
                 </div>
                 {children}

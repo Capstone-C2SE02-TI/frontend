@@ -22,7 +22,7 @@ function EditProfile() {
         email: '',
         phoneNumber: '',
         avatar: '',
-        username: '',
+        fullName: '',
         website: '',
     };
     const [formValues, setFormValues] = useState(initialValue);
@@ -201,16 +201,17 @@ function EditProfile() {
                     </div>
                     <form onSubmit={onSubmitProfile}>
                         <div className={cx('edit-profile-control')}>
-                            <label>User Name</label>
+                            <label>Full name</label>
                             <input
-                                defaultValue={userInfoDetail.username}
+                                defaultValue={userInfoDetail.fullName}
                                 ref={inputUserRef}
                                 type="text"
-                                name="username"
+                                name="fullName"
                                 onChange={handleChange}
                                 onFocus={handleFocus}
+                                placeholder="Enter your full name"
                             />
-                            <p className={cx('error-message')}>{formErrors?.username}</p>
+                            <p className={cx('error-message')}>{formErrors?.fullName}</p>
                         </div>
                         <div className={cx('edit-profile-control')}>
                             <label>Email</label>
