@@ -51,3 +51,13 @@ export const updateUserInfo = async (body, userId, options = {}) => {
     }
 };
 
+export const changePassword = async (body) => {
+    try {
+        console.log({body});
+        const response = await httpRequest.post(`/change-password`, body);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+

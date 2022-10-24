@@ -90,6 +90,12 @@ function Profile() {
                         </span>
                     </p>
                 </div>
+                <div style={{marginLeft: "40px"}}>
+                    {' '}
+                    <Button primary onClick={() => navigate('/change-password')}>
+                        Change Password
+                    </Button>
+                </div>
                 <div className={cx('d-flex flex-column align-items-center')}>
                     <img
                         width="216"
