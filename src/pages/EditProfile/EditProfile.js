@@ -105,9 +105,10 @@ function EditProfile() {
                 setLoading(false);
 
                 if (data.error) {
+                    console.log({data});
                     const errors = {};
-                    if (data.error.toLowerCase().startsWith('user')) {
-                        errors.username = data.error;
+                    if (data.error.toLowerCase().startsWith('fullname')) {
+                        errors.fullName = data.error;
                     } else if (data.error.toLowerCase().startsWith('email')) {
                         errors.email = data.error;
                     } else if (data.error.toLowerCase().startsWith('website')) {
