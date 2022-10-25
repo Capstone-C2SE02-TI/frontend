@@ -113,3 +113,42 @@
 .hide-box {
     width: calc((100% - 3%) / 4) !important;
 }
+
+.coin-asset__news-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.coin-asset__box--more-link {
+    display: flex;
+    align-items: center;
+
+    h5 {
+        margin: 0;
+    }
+}
+
+.coin-asset__news-body {
+    display: flex;
+    margin-top: 18px;
+}
+
+.news-title {
+    margin: 0;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.news-desc {
+    font-size: 16px !important;
+    margin: 0 !important;
+    padding: 10px 0;
+}
+
+.news-coins-related {
+    border-radius: 14px;
+
+    padding: 2px 8px;
+    background: #eff2f5;
+}
