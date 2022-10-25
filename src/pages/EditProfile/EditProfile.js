@@ -123,7 +123,7 @@ function EditProfile() {
                 } else {
                     setFormErrors({});
                     navigate('/profile');
-                   toast.success('Update profile successfully', {
+                    toast.success('Update profile successfully', {
                        position: 'top-center',
                        autoClose: 1000,
                        hideProgressBar: false,
