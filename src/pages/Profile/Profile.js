@@ -67,13 +67,13 @@ function Profile() {
                     <p className={cx('profile-detail-title')}>
                         Created date:
                         <span className={cx('profile-detail-value')}>
-                            {new Date(userInfoDetail.createdDate?._nanoseconds)?.toLocaleDateString() || ''}
+                            {/* {new Date(userInfoDetail.createdDate?._nanoseconds)?.toLocaleDateString() || ''} */}
                         </span>
                     </p>
                     <p className={cx('profile-detail-title')}>
                         Updated date:
                         <span className={cx('profile-detail-value')}>
-                            {new Date(userInfoDetail.updatedDate?._nanoseconds)?.toLocaleDateString() || ''}
+                            {/* {new Date(userInfoDetail.updatedDate?._nanoseconds)?.toLocaleDateString() || ''} */}
                         </span>
                     </p>
                     <p className={cx('profile-detail-title')}>

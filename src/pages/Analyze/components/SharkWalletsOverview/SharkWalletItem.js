@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import { sharkListSelector } from '~/modules/SharkWallet/selector';
+import numberWithCommas from '~/helpers/numberWithCommas';
 
 const cx = classNames.bind(styles);
 
@@ -19,16 +20,16 @@ function SharkWalletCoin() {
     console.log(sharkCoin)
     return (
         <>
-            {
-                sharkCoin.map((wallet) => 
+            {sharkCoin.map((wallet) => (
                 <tr key={wallet.id}>
-                    <td>#Shark{' '}{wallet.id}</td>
-                    <td>$600,000,000</td>
+                    <td>#Shark {wallet.id}</td>
+                    <td>${numberWithCommas(wallet.totalAsset)}</td>
                     <td>2.36%</td>
-                    <td><StarIcon/></td>
+                    <td>
+                        <StarIcon />
+                    </td>
                 </tr>
-                )
-            }
+            ))}
         </>
     );
 }
