@@ -11,3 +11,5 @@ export { default as EditProfile } from './EditProfile';
 export { default as Discover } from './Discover';
 export { default as ChangePassword } from './ChangePassword';
 export { default as Analyze } from './Analyze';
+export { default as BuyToken } from './BuyToken'
+export { default as SwapToken } from './SwapToken'

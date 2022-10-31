@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';
+import { Parallax } from 'react-parallax';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import styles from '../../Home.module.scss';
@@ -11,20 +12,22 @@ function Banner() {
 
     return (
         <section className={cx('banner')}>
-            <Image className={cx('banner-image')} src={images.banner} alt="banner" />
-            <div className={cx('banner-content')}>
-                <h2>Easy Invest With Another People</h2>
-                <p>
-                    First-ever Crypto analyzing platform where you can track and invest following thousands of successful investors
-                </p>
-                <button
-                    onClick={() => {
-                        navigate('/home-dashboard');
-                    }}
-                >
-                    Start with us
-                </button>
-            </div>
+            <Parallax className={cx('banner-parallax')} bgImage={images.banner} bgImageAlt="the cat" strength={800}>
+                <div className={cx('banner-content')}>
+                    <h2>Easy Invest With Another People</h2>
+                    <p>
+                        First-ever Crypto analyzing platform where you can track and invest following thousands of successful investors
+                    </p>
+                    <button
+                        onClick={() => {
+                            navigate('/home-dashboard');
+                        }}
+                    >
+                        Start with us
+                    </button>
+                </div>
+            </Parallax>
+
         </section>
     );
 }

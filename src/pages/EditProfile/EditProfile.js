@@ -14,6 +14,8 @@ import LoadingCustomize from '~/components/LoadingCustomize';
 import images from '~/assets/images';
 import Axios from 'axios';
 import Modal from '~/components/Modal';
+import { toast } from 'react-toastify';
+
 
 const cx = classNames.bind(styles);
 
@@ -121,6 +123,17 @@ function EditProfile() {
                 } else {
                     setFormErrors({});
                     navigate('/profile');
+                    toast.success('Update profile successfully', {
+                       position: 'top-center',
+                       autoClose: 1000,
+                       hideProgressBar: false,
+                       closeOnClick: true,
+                       pauseOnHover: true,
+                       draggable: true,
+                       progress: undefined,
+                       theme: 'dark',
+                       icon: '🦄',
+                   });
                 }
             };
 

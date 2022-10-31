@@ -179,7 +179,7 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        {statusFetchListCoins === "loading" && viewListCoinsPagination.length === 0 && <Loading />}
+                        {/* {statusFetchListCoins === "loading" && viewListCoinsPagination.length === 0 && <Loading />} */}
                     </tbody>
                 </table>
                 {noData && (

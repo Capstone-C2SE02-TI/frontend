@@ -1,4 +1,4 @@
-import Home, { Signup, SignIn, DisplayCoin } from '~/pages';
+import Home, { Signup, SignIn, DisplayCoin, BuyToken, SwapToken } from '~/pages';
 
 import configs from '~/configs';
 
@@ -12,12 +12,20 @@ const publicRoutes = [
         component: SignIn,
     },
     {
-        path: configs.routes.home,
-        component: Home,
+        path: configs.routes.buyToken,
+        component: BuyToken,
+    },
+    {
+        path: configs.routes.swapToken,
+        component: SwapToken,
     },
     {
         path: configs.routes.displayCoin,
         component: DisplayCoin,
+    },
+    {
+        path: configs.routes.home,
+        component: Home,
     },
 ];
 

@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './ChangePassword.module.scss';
-
 import RecommendAccountFollow from '../EditProfile/containers/RecommendAccountFollow';
 import { useState } from 'react';
 import Button from '~/components/Button';
@@ -12,6 +11,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { authService } from '~/services';
 import LoadingCustomize from '~/components/LoadingCustomize';
 import { Spin } from 'antd';
+import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 function ChangePassword() {
@@ -76,7 +76,7 @@ function ChangePassword() {
             if (data.error) {
               
                 const errors = {};
-                console.log({ data });
+               
                 switch (data.error.toLowerCase()) {
                     case 'incorrect-oldpassword':
                         errors.oldPassword = data.error;
@@ -118,6 +118,17 @@ function ChangePassword() {
                 setFormErrors(errors);
             } else {
                 navigate('/profile');
+                toast.success('Change password successfully', {
+                    position: 'top-center',
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'dark',
+                    icon: '🦄',
+                });
             }
         };
 

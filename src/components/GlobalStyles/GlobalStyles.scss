@@ -7,6 +7,7 @@
 @import 'tippy.js/animations/scale.css';
 @import 'tippy.js/themes/light.css';
 @import 'react-loading-skeleton/dist/skeleton.css';
+@import 'react-toastify/dist/ReactToastify.css';
 
 :root {
     --text-white: #fff;
@@ -18,8 +19,13 @@ body > #root > div {
     height: 100vh;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 * {
@@ -147,6 +153,14 @@ html *::-webkit-scrollbar-track {
     margin-top: 16px;
 }
 
+.ml-8 {
+    margin-left: 8px;
+}
+
+.mr-8 {
+    margin-right: 8px;
+}
+
 .py-8 {
     padding: 8px 0;
 }
@@ -173,4 +187,13 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
     -moz-appearance: textfield;
+}
+
+
+.increase {
+    color: #21ce66;
+}
+
+.reduce {
+    color: #f33a58;
 }
