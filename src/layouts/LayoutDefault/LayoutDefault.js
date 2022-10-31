@@ -53,33 +53,10 @@ function LayoutDefault({ children }) {
         delay: [1, 200],
     };
 
-    // 
-    async function requestAccount() {
-        //Check if mestamask extension exists
-        if (window.ethereum) {
-            console.log('detected')
-            navigate('/BuyToken')
+    const connectWallet = () => {
+        navigate('/buy-token')
+    }
 
-            try {
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                });
-                console.log(accounts)
-                setWalletAddress(accounts[0])
-            } catch (error) {
-                console.log('Error connecting')
-            }
-        } else {
-            console.log("metamask not detected")
-        }
-    }
-    //interact with smartcontract
-    async function connectWallet() {
-        if (typeof window.ethereum !== 'undefined') {
-            await requestAccount();
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
-    }
     //
     return (
         <div className={cx('wrapper')}>
@@ -95,8 +72,7 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    <button onClick={requestAccount}>Update Premium</button>
-                    <button onClick={connectWallet}>Connect Premium</button>
+                    <Button primary onClick={connectWallet}>Upgrade Premium</Button>
                     {userId ? (
                         <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
                             <div className={cx('user-profile')}>

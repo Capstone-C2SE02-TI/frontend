@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function BuyToken() {
     let navigate = useNavigate();
     function navigateSwap() {
-        navigate('/swapToken')
+        navigate('/swap-token')
     }
     return (
         <section className={cx('container-banner')}>

@@ -1,11 +1,13 @@
-
-
-.swap-currency__text {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.swap-text__token {
-    display: flex;
+.swap-text {
+    text-align: center;
+    padding: 6px;
+    background-color: #6B53F8;
+    width: 96%;
+    margin: 0 auto;
+    border-radius: 30px;
+    h1 {
+        color: #fff;
+        font-size: 20px;
+        font-weight: 500px;
+    }
 }
