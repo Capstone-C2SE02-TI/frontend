@@ -6,8 +6,11 @@
     max-width: 1400px;
     margin: 0 auto;
     background-color: transparent;
-    margin-bottom: 10px;
-    margin-top: 130px;
+    margin-top: 40px;
+}
+
+.container-fluid {
+    width: 100vw;
 }
 
 .header {
@@ -15,7 +18,7 @@
 }
 
 .header-image {
-    margin: 15px 0;
+    margin: 5px 0;
 }
 
 .header-section {
@@ -25,25 +28,48 @@
 
 .header-box {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #B8f8;
 }
 
 .btn {
-    padding: 8px 30px;
-    color: #333;
-    background-color: #B8B8FF;
+    padding: 5px 20px;
+    color: #fff;
+    background-color: rgb(56, 97, 251);
     border: 1px solid rgba(51, 51, 51, 0.2);
     border-radius: 4px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     transition: 0.5s;
-    &:first-child {
-        margin-right: 8px;
-    }
+
     &:hover {
         background-color: #B8B8FF;
-        color: #FFD8BE;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+}
+
+.btn-signIn {
+    padding: 5px 20px;
+    background: #fff;
+    border: 1px solid #B8B8FF;
+    border-radius: 4px;
+    font-size: 14px;
+    color: blue;
+    font-weight: 500;
+    margin-right: 8px;
+    transition: 0.5s;
+
+    &:hover {
+        background-color: #B8B8FF;
+        opacity: 0.5;
         cursor: pointer;
     }
 }
@@ -55,13 +81,43 @@
 
 .NavHeader-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: wheat;
+    margin-bottom: 0;
+
     li {
+        position: relative;
         margin-right: 8px;
+        transition: 0.5s linear;
+        list-style: none;
+        border-bottom: 1px solid transparent;
+
+        a {
+            color: #6B53F8;
+            padding: 20px;
+        }
+
+        &:hover {
+            &::before {
+                transform: scale(1);
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            height: 2px;
+            width: 100%;
+            background-color: #C1F8FF;
+            transform: scale(0);
+            transition: 0.5s linear;
+        }
+
         &:first-child {
             margin-right: 0;
         }
@@ -69,22 +125,18 @@
         &:last-child {
             margin-right: 0;
         }
+
+
+
+
     }
 
-    a {
-        list-style: none;
-        transition: 0.5s;
-        color: #6B53F8;
-        &:hover {
-            color: #FFD8BE;
-        }
-    }
 }
 
 // banner 
 .banner {
     position: relative;
-    margin-bottom: 64px;
+    margin-bottom: 32px;
     min-height: 540px;
 }
 
@@ -97,31 +149,37 @@
 .banner-content {
     position: absolute;
     z-index: 3;
-    color: #ffff;
-    left: 10%;
-    margin-top: 170px;
+    color: white;
+    left: 50%;
+    margin-top: 20%;
+    transform: translateX(-50%);
+    text-align: center;
+
     h2 {
         padding-bottom: 16px;
         font-size: 5rem;
         font-weight: bold;
         color: white;
     }
+
     p {
         font-weight: 400;
         font-size: 2.5rem;
         width: 900px;
         color: floralwhite;
     }
+
     button {
-        padding: 12px 24px;
+        padding: 8px 40px;
         margin-top: 24px;
-        color: #333;
-        background-color: #B8B8FF;
-        border: 1px solid #3333;
+        color: #fff;
+        background-color: rgb(56, 97, 251);
+        border: 1px solid rgba(51, 51, 51, 0.2);
         border-radius: 8px;
         font-size: 2rem;
-        font-weight: 600;
+        font-weight: 500;
         transition: 0.5s;
+
         &:hover {
             background-color: #B8B8FF;
             color: #FFD8BE;
@@ -132,6 +190,8 @@
 
 // Ads
 .ads {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -140,12 +200,14 @@
 
 .col {
     width: 30%;
+
     h3 {
         font-size: 3.5rem;
         font-weight: bold;
         color: #6B53F8;
     }
-    p { 
+
+    p {
         font-size: 1.75rem;
         font-weight: 300;
         color: #344054;
@@ -154,10 +216,12 @@
 
 .ads2 {
     padding: 0px 0 0px 0;
+    transform: translateY(50%);
+    margin-top: 12%;
     h1 {
         font-size: 4rem;
         font-weight: bold;
-        color: #6B53F8;
+        color: rgb(56, 97, 251);
         text-align: center;
         text-transform: uppercase;
         padding-bottom: 40px;
@@ -172,15 +236,17 @@
 
 .col2 {
     width: 22.5%;
+
     .icon {
         font-size: 50px;
         margin-left: calc((100% - 135px) / 2);
         padding-bottom: 20px;
-        color: #6B53F8;
+        color: rgb(56, 97, 251);
     }
+
     p {
         font-size: 2rem;
-        color: #344054;
+        color: floralwhite;
         font-weight: 500;
     }
 }
@@ -189,6 +255,7 @@
 // letter 
 .letter {
     padding-bottom: 40px;
+
     h1 {
         text-align: center;
         font-size: 4rem;
@@ -197,6 +264,7 @@
         text-transform: uppercase;
         padding-bottom: 4px;
     }
+
     p {
         font-size: 1.5rem;
         color: #344054;
@@ -206,31 +274,36 @@
         margin: 0 auto;
         padding-bottom: 14px;
     }
+
     input {
         padding: 14px 384px 14px 10px;
         border-radius: 24px;
         margin-left: calc((100% - 40%) / 2);
         background-color: #B8B8FF;
         border: none;
+
         &:focus-visible {
             outline: none;
         }
     }
-    
+
 }
- 
+
 .col3 {
     width: 25%;
+
     ul {
         list-style: none;
         font-size: 14px;
         color: antiquewhite;
+
         li {
             padding: 5px 0;
             border-bottom: 1px solid #B8B8FF;
-            color:#B8B8FF;
+            color: #B8B8FF;
             font-size: 1.75rem;
             font-weight: 300;
+
             &:first-child {
                 padding-bottom: 8px;
                 color: #6B53F8;
@@ -238,6 +311,7 @@
                 font-weight: 500;
                 border-bottom: none;
             }
+
             a {
                 text-decoration: none;
 
@@ -277,7 +351,7 @@
 
 .footer-social a {
     margin: 0 15px;
- 
+
 }
 
 .footer-copyright {
@@ -285,4 +359,9 @@
     font-size: 1.5rem;
     font-weight: 300;
     color: #fff;
+}
+
+.banner-parallax {
+    height: 100vh;
+    width: 100vw;
 }

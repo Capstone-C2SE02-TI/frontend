@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import styles from './ChangePassword.module.scss';
-
 import RecommendAccountFollow from '../EditProfile/containers/RecommendAccountFollow';
 import { useState } from 'react';
 import Button from '~/components/Button';

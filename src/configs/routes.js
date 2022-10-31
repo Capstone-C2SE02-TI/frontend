@@ -10,6 +10,8 @@ const routes = {
     analyze: '/analyze',
     editProfile: '/edit-profile',
     changePassword: '/change-password',
-    profile: '/profile'
+    profile: '/profile',
+    buyToken: '/buyToken',
+    swapToken: '/swapToken',
 };
 export default routes;
