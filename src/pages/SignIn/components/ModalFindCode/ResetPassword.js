@@ -7,8 +7,10 @@ import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCreateNewPassword, fetchSubmitCodeOTP } from '~/modules/user/auth/authSlice';
-import { statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
+import { resetPasswordStatusSelector, statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
 import { SignIn } from '~/pages';
+import { toast } from 'react-toastify';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +20,10 @@ function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const statusLoading = useSelector(statusLoadingSelector);
+    const resetPasswordStatus = useSelector(resetPasswordStatusSelector);
 
+
+    console.log({ resetPasswordStatus })
     const emailForgot = JSON.parse(localStorage.getItem('emailForgot'));
 
     const dispatch = useDispatch();
@@ -26,6 +31,15 @@ function ResetPassword() {
     const buttonLoadingFindCodeClassNames = cx('modal-submit-btn', {
         'loading-find-code': statusLoading === 'loading',
     });
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (resetPasswordStatus.successfully === 'successfully') {
+            toast.success(resetPasswordStatus.successfully)
+            navigate('/sign-in')
+        }
+    }, [navigate, resetPasswordStatus.successfully])
 
     const handleResetPassword = (e) => {
         e.preventDefault();
@@ -59,7 +73,7 @@ function ResetPassword() {
                                 type="password"
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            {/* <p className={cx('error-message')}>{statusSubmitCodeOTP?.failed || ''}</p> */}
+                            <p className={cx('error-message')}>{resetPasswordStatus.failed || ''}</p>
                         </div>
                         <div className={cx('modal-body')}>
                             <label>Confirm password</label>
@@ -70,7 +84,7 @@ function ResetPassword() {
                                 type="password"
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            {/* <p className={cx('error-message')}>{statusSubmitCodeOTP?.failed || ''}</p> */}
+                            <p className={cx('error-message')}>{resetPasswordStatus.failed || ''}</p>
                         </div>
                         <div className={cx('modal-submit')}>
                             {statusLoading === 'loading' ? (

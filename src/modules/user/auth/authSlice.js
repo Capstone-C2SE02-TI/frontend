@@ -9,6 +9,7 @@ const authSlice = createSlice({
         user: {},
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
+        statusRestPassword: {},
         emailForgotPassword: '',
     },
 
@@ -63,6 +64,13 @@ const authSlice = createSlice({
             })
             .addCase(fetchCreateNewPassword.fulfilled, (state, action) => {
                 state.status = 'idle';
+                if (action.payload === 'successfully') {
+                    state.statusRestPassword.successfully = action.payload;
+                }
+                else
+                    state.statusRestPassword.failed = action.payload
+
+
             });
     },
 });
@@ -87,7 +95,6 @@ export const fetchSubmitCodeOTP = createAsyncThunk('auth/fetchSubmitCodeOTP', as
 
 export const fetchCreateNewPassword = createAsyncThunk('auth/fetchCreateNewPassword', async (data) => {
     const response = await authService.createNewPassword(data);
-    console.log({ response });
     return response.message;
 });
 export default authSlice;
