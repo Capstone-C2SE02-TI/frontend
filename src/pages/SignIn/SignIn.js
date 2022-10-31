@@ -3,16 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import Cookies from 'js-cookie';
 import { Spin } from 'antd';
-
 import { LogoIcon } from '~/components/Icons/Icons';
 import { authService } from '~/services';
 import styles from './SignIn.module.scss';
 import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCircleXmark, faEye, faEyeSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import Modal from '~/components/Modal';
 import Button from '~/components/Button';
+import ModalFindCode from './components/ModalFindCode/ModalFindCode';
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +29,6 @@ function SignIn() {
     const [isSubmit, setIsSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(true);
-    const [showForgotPassword, setShowForgotPassword] = useState(false);
 
     const inputUserRef = useRef();
 
@@ -103,19 +102,6 @@ function SignIn() {
     };
 
 
-    const closeModal = () => {
-        setShowForgotPassword(false)
-    }
-
-    const openModal = () => {
-        setShowForgotPassword(true);
-    };
-
-    const handleFindCode = (e) => {
-        e.preventDefault();
-        console.log("submit");
-}
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('login-left')}>
@@ -174,29 +160,11 @@ function SignIn() {
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
-                    <span className={cx('login-right__form-login__forgot-password')} onClick={openModal}>
+                    <span className={cx('login-right__form-login__forgot-password')} onClick={() => navigate('/forgot-password')}>
                         Forgot your password?
                     </span>
 
-                    {
-                        <Modal isOpen={showForgotPassword} onRequestClose={closeModal}>
-                            <div className={cx('modal-forgot-password')}>
-                                <h3 className={cx('modal-heading')}>Forgot password</h3>
-                                <span className={cx('modal-title')}>Please enter your email to find your account</span>
-                                <form onSubmit={handleFindCode}>
-                                    <div className={cx('modal-body')}>
-                                        <label>Email</label>
-                                        <input />
-                                    </div>
-                                    <div className={cx('modal-submit')}>
-                                        <Button text primary small >
-                                            Find
-                                        </Button>
-                                    </div>
-                                </form>
-                            </div>
-                        </Modal>
-                    }
+                  
 
                     <div className={cx('login-right__form-login__submit')}>
                         <button onClick={handleSubmit}>Sign In</button>

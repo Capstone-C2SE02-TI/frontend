@@ -160,52 +160,10 @@
     }
 }
 
-.modal-forgot-password {
-    padding: 30px;
-
-    .modal-heading {
-        color: rgba(0, 0, 0, 0.6);
-        font-size: 18px;
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 22px;
-    }
-
-    .modal-title {
-        display: block;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 21px;
-        color: rgba(0, 0, 0, 0.6);
-        margin-bottom: 10px;
-    }
-
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-
-        input {
-            border: 1px solid #d0d5dd;
-            border-radius: 8px;
-            width: 100%;
-            padding: 6px;
-            outline: none;
-        }
-
-        &:focus {
-            border-color: var(--primary-color);
-        }
-    }
-
-    .modal-submit {
-        text-align: center;
-        margin-top: 13px;
-    }
-}
-
 .error-message {
     font-size: 1.2rem;
     line-height: 1.6rem;
     padding: 4px 0 0;
     color: #f33a58;
 }
+

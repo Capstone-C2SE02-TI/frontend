@@ -1,34 +1,40 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Home, { Signup, SignIn } from '~/pages';
-import configs from '~/configs';
 import { PrivateRoute, PublicRoute } from './routes/routes-v1';
-import P2P from './pages/ChartCoinDetail/ChartCoinDetail';
-import LayoutDefault from './layouts/LayoutDefault';
-import TokenDetail from './pages/TokenDetail';
-import Analyze from './pages/Analyze';
-import Discover from './pages/Discover/index';
-import Support from './pages/Support';
-import Report from './pages/Report';
-import Setting from './pages/Setting';
-import HomeDashboard from './pages/HomeDashboard';
+import Home, {
+    Signup,
+    SignIn,
+    ChangePassword,
+    Profile,
+    EditProfile,
+    HomeDashboard,
+    Setting,
+    Report,
+    Support,
+    Discover,
+    Analyze,
+    TokenDetail,
+} from './pages';
+
 import { Chart, registerables } from 'chart.js';
-import EditProfile from './pages/EditProfile';
-import Profile from './pages/Profile/Profile';
-import ChangePassword from './pages/ChangePassword';
+import ModalSubmitCode from './pages/SignIn/components/ModalFindCode/ModalSubmitCode';
+import ResetPassword from './pages/SignIn/components/ModalFindCode/ResetPassword';
+import ModalFindCode from './pages/SignIn/components/ModalFindCode/ModalFindCode';
 import BuyToken from './pages/BuyToken';
 import SwapToken from './pages/SwapToken';
 import { ToastContainer } from 'react-toastify';
+import configs from './configs';
+import LayoutDefault from './layouts/LayoutDefault';
 
 Chart.register(...registerables);
 
 function App() {
     return (
+      
         <div className="app">
             <ToastContainer />
             <Router>
                 <Routes>
                     <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
-                    <Route path={configs.routes.p2p} element={<PrivateRoute element={<P2P />} />} />
 
                     <Route
                         path={configs.routes.analyze}
@@ -186,6 +192,10 @@ function App() {
                             />
                         }
                     />
+     <Route path={'/resend-code'} element={<ModalSubmitCode />} />
+                <Route path={'/reset-password'} element={<ResetPassword />} />
+                <Route path={'/forgot-password'} element={<ModalFindCode />} />
+                        
                     {/* Authentication router */}
                     <Route path={configs.routes.signIn} element={<SignIn />} />
                     <Route path={configs.routes.signUp} element={<Signup />} />
