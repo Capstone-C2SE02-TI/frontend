@@ -1,4 +1,4 @@
-import { BrowserRouter as Router , Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home, { Signup, SignIn } from '~/pages';
 import configs from '~/configs';
 import { PrivateRoute, PublicRoute } from './routes/routes-v1';
@@ -15,6 +15,8 @@ import { Chart, registerables } from 'chart.js';
 import EditProfile from './pages/EditProfile';
 import Profile from './pages/Profile/Profile';
 import ChangePassword from './pages/ChangePassword';
+import BuyToken from './pages/BuyToken';
+import SwapToken from './pages/SwapToken';
 import { ToastContainer } from 'react-toastify';
 
 Chart.register(...registerables);
@@ -107,6 +109,30 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <HomeDashboard />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.buyToken}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <BuyToken />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.swapToken}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <SwapToken />
                                     </LayoutDefault>
                                 }
                             />

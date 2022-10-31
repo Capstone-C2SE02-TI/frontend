@@ -12,5 +12,7 @@ const images = {
     star: require('./star.svg').default,
     people: require('./people.svg').default,
     userAvatar: require('./avatar-user.png'),
+    introduction2: require('./introduction2.jpg'),
+    introduction3: require('./space3.jpg'),
 };
 export default images;
