@@ -11,11 +11,13 @@ import { statusFindCodeOTPSelector, statusLoadingSelector } from '~/modules/user
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, ArrowRightIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import { SignIn } from '~/pages';
 
 const cx = classNames.bind(styles);
 
-function ModalFindCode({ isShowModalFindCode, closeModalFindCode }) {
+function ModalFindCode() {
     const [textEmailFindCode, setTextEmailFindCode] = useState('');
+    const [isShowForgotPassword, setIsShowForgotPassword] = useState(true);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -45,9 +47,16 @@ function ModalFindCode({ isShowModalFindCode, closeModalFindCode }) {
     };
 
 
+    const openModalFindCode = () => {
+        setIsShowForgotPassword(true);
+    };
+    const closeModalFindCode = () => {
+        setIsShowForgotPassword(false);
+    };
+
     const renderFindCode = () => {
         return (
-            <Modal isOpen={isShowModalFindCode} onRequestClose={closeModalFindCode}>
+            <Modal isOpen={isShowForgotPassword} onRequestClose={closeModalFindCode}>
                 <div className={cx('modal-forgot-password')}>
                     <h3 className={cx('modal-heading')}>Forgot password</h3>
                     <span className={cx('modal-title')}>Please enter your email to find your account</span>
@@ -86,6 +95,7 @@ function ModalFindCode({ isShowModalFindCode, closeModalFindCode }) {
     };
     return (
         <Fragment>
+            <SignIn />
             {renderFindCode()}
         </Fragment>
     );

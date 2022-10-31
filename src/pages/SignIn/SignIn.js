@@ -29,7 +29,6 @@ function SignIn() {
     const [isSubmit, setIsSubmit] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isShowPassword, setIsShowPassword] = useState(true);
-    const [isShowForgotPassword, setIsShowForgotPassword] = useState(false);
 
     const inputUserRef = useRef();
 
@@ -102,13 +101,6 @@ function SignIn() {
         inputUserRef.current.focus();
     };
 
-    const openModal = () => {
-        setIsShowForgotPassword(true);
-    };
-     const closeModal = () => {
-         setIsShowForgotPassword(false);
-     };
-
 
     return (
         <div className={cx('wrapper')}>
@@ -168,11 +160,11 @@ function SignIn() {
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
-                    <span className={cx('login-right__form-login__forgot-password')} onClick={openModal}>
+                    <span className={cx('login-right__form-login__forgot-password')} onClick={() => navigate('/forgot-password')}>
                         Forgot your password?
                     </span>
 
-                    {<ModalFindCode isShowModalFindCode={isShowForgotPassword} closeModalFindCode={closeModal} />}
+                  
 
                     <div className={cx('login-right__form-login__submit')}>
                         <button onClick={handleSubmit}>Sign In</button>

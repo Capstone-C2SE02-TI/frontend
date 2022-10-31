@@ -6,7 +6,7 @@ import styles from './ModalFindCode.module.scss';
 import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSubmitCodeOTP } from '~/modules/user/auth/authSlice';
+import { fetchCreateNewPassword, fetchSubmitCodeOTP } from '~/modules/user/auth/authSlice';
 import { statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
 import { SignIn } from '~/pages';
 
@@ -27,8 +27,15 @@ function ResetPassword() {
         'loading-find-code': statusLoading === 'loading',
     });
 
-    const handleSubmitCodeOTP = (e) => {
+    const handleResetPassword = (e) => {
         e.preventDefault();
+        console.log({ password, confirmPassword });
+        const body = {
+            email: emailForgot,
+            password,
+            confirmPassword
+        };
+        dispatch(fetchCreateNewPassword(body));
     };
 
     const closeModalResetPassword = () => {
@@ -42,7 +49,7 @@ function ResetPassword() {
                 <div className={cx('modal-forgot-password')}>
                     <h3 className={cx('modal-heading')}>Reset Password</h3>
                     <span className={cx('modal-title')}>Create a new password</span>
-                    <form onSubmit={handleSubmitCodeOTP}>
+                    <form onSubmit={handleResetPassword}>
                         <div className={cx('modal-body')}>
                             <label>New password</label>
                             <input

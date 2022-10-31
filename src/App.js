@@ -20,6 +20,7 @@ import Home, {
 import { Chart, registerables } from 'chart.js';
 import ModalSubmitCode from './pages/SignIn/components/ModalFindCode/ModalSubmitCode';
 import ResetPassword from './pages/SignIn/components/ModalFindCode/ResetPassword';
+import ModalFindCode from './pages/SignIn/components/ModalFindCode/ModalFindCode';
 Chart.register(...registerables);
 
 function App() {
@@ -152,6 +153,7 @@ function App() {
 
                 <Route path={'/resend-code'} element={<ModalSubmitCode />} />
                 <Route path={'/reset-password'} element={<ResetPassword />} />
+                <Route path={'/forgot-password'} element={<ModalFindCode />} />
 
                 {/* Authentication router */}
                 <Route path={configs.routes.signIn} element={<SignIn />} />

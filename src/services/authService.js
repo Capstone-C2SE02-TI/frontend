@@ -75,3 +75,13 @@ export const submitCodeOTP = async (body) => {
         return error.response.data;
     }
 };
+
+export const createNewPassword = async (body) => {
+    try {
+        const response = await httpRequest.post(`/forgot-password/create-new-password`, body);
+        return response.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
