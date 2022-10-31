@@ -6,7 +6,7 @@ import ReactPaginate from 'react-paginate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import CoinItem from './CoinItem';
-import Loading from '~/components/LoadingCustomize';
+import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import discoverSlice, { fetchCoinsDiscover, fetchListTagsName } from '~/modules/Discover/discoverSlice';
 import { coinsRemainingSelector, listTagsNameSelector, statusCoinsSelector, tagnameTextSelector } from '~/modules/Discover/selector';
@@ -179,7 +179,7 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        {/* {statusFetchListCoins === "loading" && viewListCoinsPagination.length === 0 && <Loading />} */}
+                        {statusFetchListCoins === "loading" && viewListCoinsPagination.length === 0 && <Loading />}
                     </tbody>
                 </table>
                 {noData && (

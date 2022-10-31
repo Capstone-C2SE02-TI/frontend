@@ -4,12 +4,12 @@ import NavItem from './Nav/NavItem';
 import Nav from './Nav';
 const cx = classNames.bind(styles);
 
-function NavBar() {
+function NavBar({onChangeTab}) {
     return (
         <Nav>
-            <NavItem title="Crypto" to="/analyze"/>
-            <NavItem title="Transaction history" to="/analyze1111" />
-            <NavItem title="Detail info" to="/analyze1111" />
+            <NavItem title="Crypto" to="/analyze" onClick={() => onChangeTab('crypto')} />
+            <NavItem title="Transaction history" to="/analyze" onClick={() => onChangeTab('transaction-history')} />
+            <NavItem title="Detail info" to="/analyze" onClick={() => onChangeTab('detail-info')} />
         </Nav>
     );
 }
