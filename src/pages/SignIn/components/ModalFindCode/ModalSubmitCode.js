@@ -24,14 +24,12 @@ function ModalSubmitCode() {
 
     const navigate = useNavigate();
 
-    console.log({ statusSubmitCodeOTP });
-
-    // useEffect(() => {
-    //     if (statusSubmitCodeOTP.successfully) {
-    //         navigate('/reset-password');
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [statusSubmitCodeOTP.successfully]);
+    useEffect(() => {
+        if (statusSubmitCodeOTP.successfully === 'successfully') {
+            navigate('/reset-password');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [statusSubmitCodeOTP.successfully]);
 
     const dispatch = useDispatch();
 
