@@ -1,0 +1,15 @@
+.wrapper {
+    position: fixed;
+    inset: 0px;
+    z-index: 100;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    border-radius: 8px;
+}
