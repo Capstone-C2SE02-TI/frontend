@@ -57,6 +57,12 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 12px;
+    h3 {
+        font-size: 30px;
+        font-weight: 500;
+        color: #9381ff;
+        cursor: pointer;
+    }
 }
 
 .user-profile {
@@ -64,21 +70,19 @@
     justify-content: space-between;
     align-items: center;
     margin-right: 80px;
-    margin-top: 12px;
     cursor: pointer;
 
     img {
         border-radius: 50%;
         object-fit: cover;
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         margin-right: 10px;
     }
 
     span {
-        font-weight: 600;
+        color: #fff;
         font-size: 14px;
-        color: #404040;
     }
 
     p {
@@ -87,4 +91,24 @@
         font-size: 14px;
         color: #aeaeae;
     }
+}
+
+.user-profile__text {
+    span {
+        font-weight: 600;
+        font-size: 14px;
+        color: #404040;
+    }
+    p {
+        white-space: nowrap; 
+        width: 50px; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+}
+
+.user-profile__right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

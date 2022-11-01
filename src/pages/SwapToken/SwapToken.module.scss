@@ -1,13 +1,26 @@
+.app-body {
+    width: 100%;
+}
+
+.swap-container {
+    width: 35%;
+    background: blanchedalmond;
+    margin: 0 auto;
+    padding: 15px;
+    border-radius: 8px;
+}
+
 .swap-text {
     text-align: center;
-    padding: 6px;
-    background-color: #6B53F8;
-    width: 96%;
-    margin: 0 auto;
     border-radius: 30px;
+    background-color: rgb(99 147 190 / 20%);
     h1 {
-        color: #fff;
-        font-size: 20px;
-        font-weight: 500px;
+        color: #3b25b0;
     }
+}
+
+.swap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
