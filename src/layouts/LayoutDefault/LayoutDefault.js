@@ -27,7 +27,7 @@ function LayoutDefault({ children }) {
 
     const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const userInfo = useSelector(userInfoSelector);
-    console.log('userId', userId);
+
     useEffect(() => {
         if (userId) {
             dispatch(fetchGetUserInfo(userId));

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Analyze.module.scss';
 import { Row, Col } from 'antd';
 import SharkWalletsOverview from './containers/SharkWalletsOverview';
-import SharkWalletsCrypto from './containers/SharkWalletsCrypto/SharkWalletsCrypto';
+import SharkWalletsDetail from './containers/SharkWalletsDetail';
 
 const cx = classNames.bind(styles);
 function Analyze() {
@@ -16,7 +16,7 @@ function Analyze() {
                     <SharkWalletsOverview />
                 </Col>
                 <Col span={15}>
-                    <SharkWalletsCrypto />
+                    <SharkWalletsDetail />
                 </Col>
             </Row>
         </section>

@@ -1,37 +1,50 @@
 import { StarIcon } from '~/components/Icons';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import sharkWalletSlide, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
-import { sharkListSelector } from '~/modules/SharkWallet/selector';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import classNames from 'classnames/bind';
+import styles from './SharkWalletOverviewItem.module.scss';
+import sharkWalletSlide from '~/modules/SharkWallet/sharkWalletSlice';
 import numberWithCommas from '~/helpers/numberWithCommas';
+import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
+import { useRef } from 'react';
 
-function SharkWalletsOverviewItem() {
+const cx = classNames.bind(styles);
+
+function SharkWalletsOverviewItem({ data }) {
     const dispatch = useDispatch();
-
-    const sharkCoin = useSelector(sharkListSelector);
-
-    useEffect(() => {
-        dispatch(fetchSharkWallet());
-    }, [dispatch]);
 
     const handleSelectSharkAndSharkAddress = (sharkId, address) => {
         dispatch(sharkWalletSlide.actions.actionSelectedSharkWalletId(sharkId));
         dispatch(sharkWalletSlide.actions.actionSelectedSharkWalletAddress(address));
     };
 
+    const [isActiveShark, setIsActiveShark] = useState(false);
+
+    const parentRef = useRef();
+    const childrenRef = useRef();
+
+    useOnClickOutside(childrenRef, (e) => {
+        if (!parentRef.current.contains(e.target)) {
+            setIsActiveShark(false);
+        }
+    });
+// isActiveShark ? 'shark-active' : '';
     return (
-        <>
-            {sharkCoin.map((wallet) => (
-                <tr key={wallet.id} onClick={() => handleSelectSharkAndSharkAddress(wallet.id, wallet.walletAddress)}>
-                    <td>#Shark {wallet.id}</td>
-                    <td>${numberWithCommas(wallet.totalAsset)}</td>
-                    <td>{wallet.percent24h || '2.36%'}</td>
-                    <td>
-                        <StarIcon />
-                    </td>
-                </tr>
-            ))}
-        </>
+        <tr
+            className={cx({ 'shark-active': isActiveShark })}
+            onClick={() => {
+                handleSelectSharkAndSharkAddress(data.id, data.walletAddress);
+                setIsActiveShark(!isActiveShark);
+            }}
+            ref={parentRef}
+        >
+            <td ref={childrenRef}>#Shark {data.id}</td>
+            <td>${numberWithCommas(data.totalAsset)}</td>
+            <td>{data.percent24h || '0%'}</td>
+            <td>
+                <StarIcon />
+            </td>
+        </tr>
     );
 }
 
