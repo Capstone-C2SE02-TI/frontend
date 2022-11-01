@@ -2,7 +2,7 @@ import styles from './SharkTransactionHistory.module.scss';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchCryptoSharkWallet, fetchTransactionHistorySharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import {  fetchTransactionHistorySharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import {
     sharkCryptoStatusSelector,
     sharkTransactionHistorySelector,
@@ -22,7 +22,7 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
     const sharkTransactionHistory = useSelector(sharkTransactionHistorySelector);
 
     useEffect(() => {
-        dispatch(fetchCryptoSharkWallet(sharkIdSelected));
+        dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
     return (
