@@ -1,1 +1,1 @@
-export { default } from './SharkWalletsDetail'
+export { default } from './SharkWalletsDetail';
