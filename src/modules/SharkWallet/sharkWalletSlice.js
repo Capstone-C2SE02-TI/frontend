@@ -59,7 +59,7 @@ export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet',
 
 export const fetchCryptoSharkWallet = createAsyncThunk('sharkWallet/fetchCryptoSharkWallet', async (sharkId) => {
     const response = await sharkWalletService.getCryptoSharkWallet(sharkId);
-    return response.data;
+    return response.datas;
 });
 
 

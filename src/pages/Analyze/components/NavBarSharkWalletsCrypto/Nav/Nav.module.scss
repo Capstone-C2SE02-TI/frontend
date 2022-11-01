@@ -6,22 +6,15 @@
     font-weight: 800;
     padding: 8px 10px;
     border-bottom: 1px solid #fff;
+}
 
-    .nav-item__title {
-        color: #fff;
-        margin-bottom: 0;
-        margin-right: 8px;
-        font-size: 18px;
-        transition: 0.5s;
-        &:hover {
-            color: #482EE8;
-        }
-    }
-    .active {
-        span {
-            color: #482EE8;
-            font-weight: 600;
-        }
-        
+
+.nav-item__title {
+    margin-bottom: 0;
+    margin-right: 8px;
+    font-size: 18px;
+    transition: 0.5s;
+    &:hover {
+        color: #482ee8;
     }
 }

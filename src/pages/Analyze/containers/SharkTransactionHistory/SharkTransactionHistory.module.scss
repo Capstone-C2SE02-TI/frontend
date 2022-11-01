@@ -1,0 +1,23 @@
+.table-shark__crypto {
+    background: #A697FF;
+    color: #fff;
+
+    thead {
+        tr {
+            background: #A697FF;
+            border-bottom: 1px solid #fff;
+            border-top: 1px solid #fff;
+
+            &:hover {
+                background: none;
+                cursor: default;
+            }
+
+            th {
+                padding: 10px;
+                border-right: 1px solid #fff;
+            }
+        }
+    }
+}
+

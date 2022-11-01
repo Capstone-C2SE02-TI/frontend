@@ -4,10 +4,23 @@ import classNames from 'classnames/bind';
 
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
+import { useSelector, useDispatch } from 'react-redux';
+import { sharkListSelector } from '~/modules/SharkWallet/selector';
+import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
 function SharkWalletsOverview() {
+
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+       dispatch(fetchSharkWallet());
+   }, [dispatch]);
+
+   const sharksCoin = useSelector(sharkListSelector);
+
     return (
         <div className={cx('shark-overview')}>
             <div className={cx('shark-search')}>
@@ -27,7 +40,9 @@ function SharkWalletsOverview() {
                     </tr>
                 </thead>
                 <tbody>
-                    <SharkWalletsOverviewItem />
+                    {sharksCoin.map((sharkCoin) => (
+                        <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.id} />
+                    ))}
                 </tbody>
             </table>
         </div>

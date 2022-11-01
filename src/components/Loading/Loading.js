@@ -9,7 +9,8 @@ function Loading({ className, children }) {
     return (
         <div className={cx('wrapper')}>
             
-            <div className={cx('container')}><Spin></Spin></div>
+            <div className={cx('container')}><Spin>
+                { children}</Spin></div>
         </div>
     );
 }
