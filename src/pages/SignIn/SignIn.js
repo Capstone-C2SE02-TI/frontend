@@ -84,7 +84,8 @@ function SignIn() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSubmit, formErrors]);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
     };
@@ -112,7 +113,7 @@ function SignIn() {
                 </h3>
                 <img src={images.logoRobot} alt="logo" />
             </div>
-            <div className={cx('login-right')}>
+            <form className={cx('login-right')} onSubmit={handleSubmit}>
                 <div className={cx('login-right__language')}>
                     <FontAwesomeIcon icon={faCaretDown} />
                     <span>Language</span>
@@ -160,11 +161,12 @@ function SignIn() {
                         )}
                         <p className={cx('error-message')}>{formErrors.password}</p>
                     </div>
-                    <span className={cx('login-right__form-login__forgot-password')} onClick={() => navigate('/forgot-password')}>
+                    <span
+                        className={cx('login-right__form-login__forgot-password')}
+                        onClick={() => navigate('/forgot-password')}
+                    >
                         Forgot your password?
                     </span>
-
-                  
 
                     <div className={cx('login-right__form-login__submit')}>
                         <button onClick={handleSubmit}>Sign In</button>
@@ -173,7 +175,7 @@ function SignIn() {
                         Don't have an account? <Link to="/sign-up">Sign up</Link>
                     </span>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }
