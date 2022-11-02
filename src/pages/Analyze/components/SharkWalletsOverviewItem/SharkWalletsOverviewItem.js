@@ -18,7 +18,7 @@ function SharkWalletsOverviewItem({ data }) {
         dispatch(sharkWalletSlide.actions.actionSelectedSharkWalletAddress(address));
     };
 
-    const [isActiveShark, setIsActiveShark] = useState(false);
+    const [isActiveShark, setIsActiveShark] = useState(data.id ===1 ? true: false);
 
     const parentRef = useRef();
     const childrenRef = useRef();
@@ -40,7 +40,7 @@ function SharkWalletsOverviewItem({ data }) {
         >
             <td ref={childrenRef}>#Shark {data.id}</td>
             <td>${numberWithCommas(data.totalAsset)}</td>
-            <td>{data.percent24h || '0%'}</td>
+            <td>{data.percent24h.toFixed(3)+'%' || '0%'}</td>
             <td>
                 <StarIcon />
             </td>

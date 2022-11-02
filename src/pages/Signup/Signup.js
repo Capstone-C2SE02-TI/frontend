@@ -78,7 +78,8 @@ function Signup() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formErrors, isSubmit]);
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
     };
@@ -106,7 +107,7 @@ function Signup() {
                 </h3>
                 <img src={images.logoRobot} alt="logo" />
             </div>
-            <div className={cx('login-right')}>
+            <form className={cx('login-right')} onSubmit={handleSubmit}>
                 <div className={cx('login-right__language')}>
                     <FontAwesomeIcon icon={faCaretDown} />
                     <span>Language</span>
@@ -223,7 +224,7 @@ function Signup() {
                         Already have an account? <Link to="/sign-in">Sign in</Link>
                     </span>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }
