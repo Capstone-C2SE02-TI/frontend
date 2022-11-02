@@ -7,13 +7,13 @@ const cx = classNames.bind(styles);
 
 function ConnectButton(props) {
     const { isConnected, signerAddress, getSigner, provider } = props
-    const displayAddress = `${signerAddress}`
+    const displayAddress = signerAddress?.slice(0, 10) + '...'
 
     return (
         <>
             {isConnected() ? (
                 <div className={cx('btn-connect__success')}>
-                    <Button white>{displayAddress}</Button>
+                    <Button linearGradientPrimary>{displayAddress}</Button>
                 </div>
             ) : (
                 <div
