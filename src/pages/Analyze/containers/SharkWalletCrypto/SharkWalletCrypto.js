@@ -2,7 +2,7 @@ import styles from './SharkWalletCrypto.module.scss';
 import classNames from 'classnames/bind';
 import SharkWalletCryptoItem from '../../components/SharkWalletCryptoItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { fetchCryptoSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import {
     sharkCryptoSelector,
