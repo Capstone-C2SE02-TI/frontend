@@ -33,6 +33,7 @@
     align-items: center;
     padding: 12px 0;
     font-size: 14px;
+
     input {
         padding: 5px 8px;
         border-radius: 8px;
@@ -45,14 +46,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px 8px;
-        border-radius: 8px;
-        background: #F2F4F8;
-        font-size: 14px;
+    border-radius: 8px;
+    background: #F2F4F8;
+    font-size: 14px;
+
     p {
         margin-bottom: 0;
         margin-right: 5px;
 
-        
+
     }
 }
 
@@ -60,19 +62,24 @@
 .table-shark {
     background-color: #A697FF;
     color: #fff;
+
     thead {
         th {
-            padding: 20px 0 10px 0;
+            padding: 11px 0 10px 0;
             background-color: #A697FF;
-           text-align: center !important;
+            text-align: center !important;
+            color: #473d85;
+            text-transform: uppercase;
         }
     }
+
     tbody {
         tr {
             td {
-                padding: 20px 0 20px 0px !important;
-                text-align: center;  
+                padding: 10px 0 10px 0px !important;
+                text-align: center;
             }
+
             &:hover {
                 opacity: 0.5;
                 background: cornflowerblue;

@@ -1,10 +1,11 @@
 .tr-crypto__item {
     text-align: center;
-
+    border-bottom: 1px solid #fff;
     td {
         padding: 8px 0 8px 0;
         text-align: center;
         border-right: 1px solid #fff;
+
     }
 
     &:hover {
@@ -20,9 +21,10 @@
     margin: 0px 0px 0px 5px;
     border-right: 1px solid #fff;
     padding: 5px;
+
     .cryto-item__info {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
     }
 
@@ -44,4 +46,9 @@
     li {
         list-style: none;
     }
+}
+
+.crypto-item__Text {
+    display: flex;
+    justify-content: flex-start;
 }

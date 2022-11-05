@@ -31,7 +31,7 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Logo</th>
+                            <th>Crypto</th>
                             <th>Quantity</th>
                             <th>Value</th>
                         </tr>
