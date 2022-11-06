@@ -11,7 +11,7 @@ const routes = {
     editProfile: '/edit-profile',
     changePassword: '/change-password',
     profile: '/profile',
-    buyToken: '/buyToken',
-    swapToken: '/swapToken',
+    buyToken: '/buy-token',
+    swapToken: '/swap-token',
 };
 export default routes;

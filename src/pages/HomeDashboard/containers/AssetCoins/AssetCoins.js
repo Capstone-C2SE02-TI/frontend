@@ -52,7 +52,6 @@ function AssetCoins() {
 
     return (
         <section className={cx('asset')}>
-            <span>Dashboard &gt; Home</span>
             <div className={cx('asset-content')}>
                 <h2>assets</h2>
             </div>

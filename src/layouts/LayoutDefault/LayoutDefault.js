@@ -15,7 +15,6 @@ import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
-import { ethers } from 'ethers';
 
 const cx = classNames.bind(styles);
 
@@ -23,11 +22,8 @@ function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [walletAddress, setWalletAddress] = useState("");
-
     const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const userInfo = useSelector(userInfoSelector);
-
     useEffect(() => {
         if (userId) {
             dispatch(fetchGetUserInfo(userId));
@@ -54,32 +50,12 @@ function LayoutDefault({ children }) {
     };
 
     // 
-    async function requestAccount() {
-        //Check if mestamask extension exists
-        if (window.ethereum) {
-            console.log('detected')
-            navigate('/BuyToken')
 
-            try {
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                });
-                console.log(accounts)
-                setWalletAddress(accounts[0])
-            } catch (error) {
-                console.log('Error connecting')
-            }
-        } else {
-            console.log("metamask not detected")
-        }
+
+    const connectWallet = () => {
+        navigate('/buy-token')
     }
-    //interact with smartcontract
-    async function connectWallet() {
-        if (typeof window.ethereum !== 'undefined') {
-            await requestAccount();
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-        }
-    }
+
     //
     return (
         <div className={cx('wrapper')}>
@@ -95,28 +71,30 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    <button onClick={requestAccount}>Update Premium</button>
-                    <button onClick={connectWallet}>Connect Premium</button>
+                    <h3 onClick={connectWallet}>Upgrade Premium</h3>
                     {userId ? (
-                        <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
-                            <div className={cx('user-profile')}>
-                                {userInfo ? (
-                                    <img
-                                        src={userInfo.avatar || images.userAvatar}
-                                        alt="avatar"
-                                        width={' 50px '}
-                                        className={cx('user-profile-avatar')}
-                                    />
-                                ) : (
-                                    <Skeleton circle width={50} height={50} />
-                                )}
-                                <div>
-                                    <span>Hi, {userInfo.fullName || userInfo.username || 'Investor'}</span>
-                                    <p>{userInfo.email || 'Investor'}</p>
-                                    <p>{walletAddress || "Default"}</p>
+                        <div className={cx('user-profile__right')}>
+                            <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
+                                <div className={cx('user-profile')}>
+                                    {userInfo ? (
+                                        <img
+                                            src={userInfo.avatar || images.userAvatar}
+                                            alt="avatar"
+                                            width={' 50px '}
+                                            className={cx('user-profile-avatar')}
+                                        />
+
+                                    ) : (
+                                        <Skeleton circle width={50} height={50} />
+                                    )}
+                                    <div className={cx('user-profile__text')}>
+                                        <span>Hi, {userInfo.fullName || userInfo.username || 'Investor'}</span>
+                                        <p>{userInfo.email || 'Investor'}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Tippy>
+                            </Tippy>
+                        </div>
+
                     ) : (
                         <div>
                             <Button outline onClick={() => navigate('/sign-in')}>

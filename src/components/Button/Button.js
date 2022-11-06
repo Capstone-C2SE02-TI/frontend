@@ -8,6 +8,7 @@ function Button({
     outlineBrow = false,
     outline = false,
     primary = false,
+    linearGradientPrimary=false,
     dark= false,
     large = false,
     small = false,
@@ -41,7 +42,7 @@ function Button({
         outlineBrow,
         outline,
         rounded,
-
+        linearGradientPrimary,
         small,
         medium,
         large,
