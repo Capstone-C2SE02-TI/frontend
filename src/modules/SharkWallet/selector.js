@@ -4,3 +4,5 @@ export const sharkCryptoStatusSelector = (state) => state.sharkWallet.status;
 export const sharkTransactionHistorySelector = (state) => state.sharkWallet.sharkTransactionHistory;
 export const sharkWalletIdSelector = (state) => state.sharkWallet.sharkWalletId;
 export const sharkWalletAddressSelector = (state) => state.sharkWallet.sharkWalletAddress;
+export const sharkWalletTotalAssetsSelector = (state) => state.sharkWallet.sharkWalletTotalAssets;
+export const sharkInfoSelector = (state) => state.sharkWallet.sharkInfo;

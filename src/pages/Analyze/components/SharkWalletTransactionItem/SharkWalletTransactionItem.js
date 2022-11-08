@@ -2,7 +2,7 @@
 import styles from './SharkWalletTransactionItem.module.scss';
 import classNames from 'classnames/bind';
 import { useCallback } from 'react';
-import { convertUnixtimeToTimeCurrent,numberWithCommas}  from '~/helpers';
+import { convertStringToTimeCurrent,numberWithCommas}  from '~/helpers';
 const cx = classNames.bind(styles);
 
 function SharkWalletTransactionItem({ data, sharkAddress }) {
@@ -18,7 +18,7 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
 
     return (
         <tr className={cx('tr-crypto__item')}>
-            <td>{convertUnixtimeToTimeCurrent(data.timeStamp)}</td>
+            <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
             <td>
                 <a href={`https://etherscan.io/tx/${data.hash}`} rel="noopener noreferrer" target="_blank">
                     {handleTransactionTo()}

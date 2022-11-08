@@ -26,9 +26,8 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
     }, [dispatch, sharkIdSelected]);
 
     return (
-        currentTabSharkWallet === 'transaction-history' &&
-        (sharkCryptoStatus === 'loading' ? (
-            <Spin>
+        currentTabSharkWallet === 'transaction-history' && (
+            <Spin spinning={sharkCryptoStatus === 'loading'? true: false}>
                 <table className={cx('table-shark__crypto')}>
                     <thead>
                         <tr>
@@ -39,8 +38,14 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {sharkTransactionHistory.map((transaction, index) => {
-                            if (Object.keys(transaction).length !== 0) {
+                        {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>}
+                        {sharkTransactionHistory
+                            .slice()
+                            .filter((transaction) => transaction.presentPrice)
+                            .sort((prev, next) => {
+                                return next?.presentPrice - prev?.presentPrice;
+                            })
+                            .map((transaction, index) => {
                                 return (
                                     <SharkWalletTransactionItem
                                         data={transaction}
@@ -49,38 +54,11 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                                         sharkAddress={sharkAddressSelected}
                                     />
                                 );
-                            }
-                        })}
+                            })}
                     </tbody>
                 </table>
             </Spin>
-        ) : (
-            <table className={cx('table-shark__crypto')}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Logo</th>
-                        <th>Quantity</th>
-                        <th>Value</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>}
-                    {sharkTransactionHistory.map((transaction, index) => {
-                        if (Object.keys(transaction).length !== 0) {
-                            return (
-                                <SharkWalletTransactionItem
-                                    data={transaction}
-                                    index={index}
-                                    key={index}
-                                    sharkAddress={sharkAddressSelected}
-                                />
-                            );
-                        }
-                    })}
-                </tbody>
-            </table>
-        ))
+        )
     );
 }
 
