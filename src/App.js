@@ -13,6 +13,7 @@ import Home, {
     Discover,
     Analyze,
     TokenDetail,
+    TransactionShark,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -29,7 +30,7 @@ Chart.register(...registerables);
 
 function App() {
     return (
-      
+
         <div className="app">
             <ToastContainer />
             <Router>
@@ -169,6 +170,18 @@ function App() {
                         }
                     />
                     <Route
+                        path={configs.routes.transactionShark}
+                        element={
+                            <PrivateRoute
+                                element={
+                                    <LayoutDefault>
+                                        <TransactionShark />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
                         path={configs.routes.changePassword}
                         element={
                             <PrivateRoute
@@ -192,10 +205,10 @@ function App() {
                             />
                         }
                     />
-     <Route path={'/resend-code'} element={<ModalSubmitCode />} />
-                <Route path={'/reset-password'} element={<ResetPassword />} />
-                <Route path={'/forgot-password'} element={<ModalFindCode />} />
-                        
+                    <Route path={'/resend-code'} element={<ModalSubmitCode />} />
+                    <Route path={'/reset-password'} element={<ResetPassword />} />
+                    <Route path={'/forgot-password'} element={<ModalFindCode />} />
+
                     {/* Authentication router */}
                     <Route path={configs.routes.signIn} element={<SignIn />} />
                     <Route path={configs.routes.signUp} element={<Signup />} />

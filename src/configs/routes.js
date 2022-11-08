@@ -13,5 +13,6 @@ const routes = {
     profile: '/profile',
     buyToken: '/buy-token',
     swapToken: '/swap-token',
+    transactionShark: '/transaction-shark'
 };
 export default routes;
