@@ -6,7 +6,7 @@ import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
 import { sharkListSelector } from '~/modules/SharkWallet/selector';
-import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
@@ -18,9 +18,17 @@ function SharkWalletsOverview() {
    useEffect(() => {
        dispatch(fetchSharkWallet());
    }, [dispatch]);
-
+    
    const sharksCoin = useSelector(sharkListSelector);
 
+    useEffect(() => {
+        if (sharksCoin.length > 0) {
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(sharksCoin[0].id));
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(sharksCoin[0].walletAddress));
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(sharksCoin[0].totalAsset));
+            dispatch(sharkWalletSlice.actions.actionSharkInfo(sharksCoin[0]));
+        }
+    }, [sharksCoin]);
     return (
         <div className={cx('shark-overview')}>
             <div className={cx('shark-search')}>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { sharkWalletService } from '~/services';
 
-const sharkWalletSlide = createSlice({
+const sharkWalletSlice = createSlice({
     name: 'sharkWallet',
     initialState: {
         status: 'idle',
@@ -11,6 +11,8 @@ const sharkWalletSlide = createSlice({
         sharkTransactionHistory: [],
         sharkWalletId: 1,
         sharkWalletAddress: '',
+        sharkWalletTotalAssets: 0,
+        sharkInfo: '',
     },
 
     reducers: {
@@ -19,6 +21,12 @@ const sharkWalletSlide = createSlice({
         },
         actionSelectedSharkWalletAddress: (state, action) => {
             state.sharkWalletAddress = action.payload;
+        },
+        actionSelectedSharkWalletTotalAssets: (state, action) => {
+            state.sharkWalletTotalAssets = action.payload;
+        },
+        actionSharkInfo: (state, action) => {
+            state.sharkInfo = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -71,4 +79,4 @@ export const fetchTransactionHistorySharkWallet = createAsyncThunk(
     },
 );
 
-export default sharkWalletSlide;
+export default sharkWalletSlice;
