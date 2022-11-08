@@ -1,0 +1,1 @@
+export const transactionSharkSelector = (state) => state.transactionShark.transactionSharkList;

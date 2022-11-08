@@ -23,6 +23,8 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
         dispatch(fetchCryptoSharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
+
+    console.log(cryptosSharkWallet)
     return (
         currentTabSharkWallet === 'crypto' &&
         (sharkCryptoStatus === 'loading' ? (

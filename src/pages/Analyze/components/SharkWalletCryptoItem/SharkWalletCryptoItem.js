@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './SharkWalletCryptoItem.module.scss';
 import classNames from 'classnames/bind';
 import numberWithCommas from '~/helpers/numberWithCommas';
@@ -6,6 +7,7 @@ const cx = classNames.bind(styles);
 
 
 function SharkWalletCryptoItem({ data, index }) {
+
 
     return (
         <tr className={cx('tr-crypto__item')}>
