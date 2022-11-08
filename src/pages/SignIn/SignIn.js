@@ -10,9 +10,6 @@ import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCircleXmark, faEye, faEyeSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
-import Modal from '~/components/Modal';
-import Button from '~/components/Button';
-import ModalFindCode from './components/ModalFindCode/ModalFindCode';
 
 const cx = classNames.bind(styles);
 
@@ -56,8 +53,8 @@ function SignIn() {
                 break;
 
             case 'successfully':
-                 localStorage.setItem('userInfo', JSON.stringify(user));
-                 navigate('/home-dashboard');
+                localStorage.setItem('userInfo', JSON.stringify(user));
+                navigate('/home-dashboard');
                 break;
             default:
                 break;
@@ -75,7 +72,7 @@ function SignIn() {
                         Authorization: Cookies.get('TI_AUTH_COOKIE') || '',
                     },
                 });
-    
+
                 handleExceptions(response.message, response.user);
                 setLoading(false);
             };
