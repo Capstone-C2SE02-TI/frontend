@@ -29,6 +29,9 @@ import LayoutDefault from './layouts/LayoutDefault';
 Chart.register(...registerables);
 
 function App() {
+
+
+    
     return (
 
         <div className="app">
