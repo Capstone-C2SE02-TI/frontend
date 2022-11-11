@@ -1,1 +1,1 @@
-export { default } from './Analyze'
+export { default } from './Analyze';
