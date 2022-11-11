@@ -89,3 +89,22 @@
         }
     }
 }
+
+.range {
+    height: 24px;
+}
+
+.search-shark {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    text-transform: uppercase;
+    h4 {
+        margin-right: 10px;
+        font-weight: 500;
+    }
+    input {
+        width: 100%;
+    }
+}

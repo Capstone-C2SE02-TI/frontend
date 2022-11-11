@@ -2,14 +2,15 @@
 import styles from './SharkWalletTransactionItem.module.scss';
 import classNames from 'classnames/bind';
 import { useCallback } from 'react';
-import { convertStringToTimeCurrent,numberWithCommas}  from '~/helpers';
+import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
+
 const cx = classNames.bind(styles);
 
 function SharkWalletTransactionItem({ data, sharkAddress }) {
 
     const handleTransactionTo = useCallback(() => {
         if (sharkAddress === data.to) {
-            return  `${data.from} → Wallet`;
+            return `${data.from} → Wallet`;
         }
         else {
             return `Wallet → ${data.to}  `;

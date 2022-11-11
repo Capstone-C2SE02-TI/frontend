@@ -13,13 +13,13 @@ const cx = classNames.bind(styles);
 
 function SharkWalletsOverview() {
 
-   const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-   useEffect(() => {
-       dispatch(fetchSharkWallet());
-   }, [dispatch]);
-    
-   const sharksCoin = useSelector(sharkListSelector);
+    useEffect(() => {
+        dispatch(fetchSharkWallet());
+    }, [dispatch]);
+
+    const sharksCoin = useSelector(sharkListSelector);
 
     useEffect(() => {
         if (sharksCoin.length > 0) {
@@ -32,10 +32,14 @@ function SharkWalletsOverview() {
     return (
         <div className={cx('shark-overview')}>
             <div className={cx('shark-search')}>
-                <input placeholder="Search..."></input>
                 <div className={cx('shark-category')}>
-                    <p>All categories</p>
-                    <FontAwesomeIcon icon={faCaretDown} />
+                    <div className="range">
+                        <input name="range" type="range" min="1000000" max="1000000000" />
+                    </div>
+                </div>
+                <div className={cx('search-shark')}>
+                    <h4>Total:</h4>
+                    <input placeholder="1M..."></input>
                 </div>
             </div>
             <table className={cx('table-shark')}>
