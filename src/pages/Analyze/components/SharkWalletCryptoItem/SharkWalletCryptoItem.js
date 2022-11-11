@@ -3,12 +3,14 @@ import styles from './SharkWalletCryptoItem.module.scss';
 import classNames from 'classnames/bind';
 import numberWithCommas from '~/helpers/numberWithCommas';
 import Image from '~/components/Image/Image';
+import { useSelector } from 'react-redux';
+import { sharkWalletTotalAssetsSelector } from '~/modules/SharkWallet/selector';
 const cx = classNames.bind(styles);
 
 
-function SharkWalletCryptoItem({ data, index }) {
-
-
+function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
+    // const totalAssetSharkWallet = useSelector(sharkWalletTotalAssetsSelector);
+    // console.log({ totalAssetSharkWallet, total: data.total });
     return (
         <tr className={cx('tr-crypto__item')}>
             <td>#{index + 1}</td>
@@ -34,7 +36,9 @@ function SharkWalletCryptoItem({ data, index }) {
                 </ul>
             }
             <td>{numberWithCommas(data.quantity)}</td>
-            <td>${numberWithCommas(data.total)}(100%)</td>
+            <td>
+                ${numberWithCommas(data.total)}({(data.total / totalAssetCrypto*100).toFixed(3)}%)
+            </td>
         </tr>
     );
 }
