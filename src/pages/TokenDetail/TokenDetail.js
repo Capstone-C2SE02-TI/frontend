@@ -3,14 +3,14 @@ import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import TokenDetailEachCoin from './containers/TokenDetailEachCoin';
+import TokenDetailEachCoin from './ccontainers/TokenDetailEachCoin';
 import { fetchCoinsDetail, fetchTrendingTokens } from '~/modules/CoinDetail/coinDetailSlice';
 import { coinsDetailSelector, statusCoinDetailSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
-import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
+import TrendingTokens from './ccontainers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
 import useScrollToTop from '~/hooks/useScrollToTop';
 import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
-import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
+import DetailEachCoinSkeleton from './ccontainers/TokenDetailEachCoin/DetailEachCoinSkeleton';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
