@@ -45,13 +45,15 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
                             backgroundColor: '#fff',
                             borderColor: theme,
                             showLine: true,
+                            pointBackgroundColor: theme,
                         },
                     ],
                 }}
                 options={{
                     elements: {
                         point: {
-                            radius: 1,
+                            radius: 3,
+                            hoverRadius: 4,
                         },
                     },
                     plugins: {
