@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
 import styles from './AssetCoin.module.scss';
-import AssetCoinBox from '../../ccomponents/AssetCoinBox';
+import AssetCoinBox from '../../components/AssetCoinBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { trendingCoinsSelector } from '~/modules/Discover/selector';
-import { fetchCoinsAndTokensLoss } from '~/modules/HomeDashboard/hhomeDashboardSlice';
+import { fetchCoinsAndTokensLoss } from '~/modules/HomeDashboard/homeDashboardSlice';
 import { useEffect } from 'react';
 import { coinsAndTokensLossSelector } from '~/modules/HomeDashboard/selector';
 import Slider from 'react-slick';
-import WrapperBox from '../../ccomponents/WrapperBox/WrapperBox';
+import WrapperBox from '../../components/WrapperBox/WrapperBox';
 import { CaretNextIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
