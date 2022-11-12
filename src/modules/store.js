@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './user/auth/authSlice';
-import homeDashboardSlice from './HomeDashboard/homeDashboardSlice';
+import homeDashboardSlice from './HomeDashboard/hhomeDashboardSlice';
 import discoverSlice from './Discover/discoverSlice';
 import coinDetailSlice from './CoinDetail/coinDetailSlice';
 import sharkWalletSlice from './SharkWallet/sharkWalletSlice';
