@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import styles from './ConnectButton.module.scss';
@@ -11,7 +11,7 @@ function ConnectButton(props) {
 
     return (
         <>
-            {isConnected() ? (
+            {isConnected ? (
                 <div className={cx('btn-connect__success')}>
                     <Button linearGradientPrimary>{displayAddress}</Button>
                 </div>
@@ -29,4 +29,4 @@ function ConnectButton(props) {
     );
 }
 
-export default ConnectButton;
+export default memo(ConnectButton);
