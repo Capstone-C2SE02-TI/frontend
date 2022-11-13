@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
+import { useMemo } from 'react';
 import { useCallback, useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
     const canvasRef = useRef()
   let delayed;
-    const getLabelsCoinsDetailSorted = useCallback(() => {
+    const getLabelsCoinsDetailSorted = useMemo(() => {
         return data.prices[typeFilter]
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
@@ -18,12 +19,15 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                           } PM`
                         : `${date.getHours()}:${
                               date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                          } AM`;
-                return typeFilter === 'day' ? time : date.toLocaleDateString();
+                        } AM`;
+                if (typeFilter === 'month') {
+                    return date.toLocaleDateString().split('/',2).join('/') 
+                } else
+                    return typeFilter === 'day' ? time : date.toLocaleDateString();
             });
     }, [data.prices, typeFilter]);
 
-    const getDataCoinsDetailSorted = useCallback(() => {
+    const getDataCoinsDetailSorted = useMemo(() => {
         return data.prices[typeFilter]
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
@@ -37,12 +41,12 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
             <Line
                 ref={canvasRef}
                 data={{
-                    labels: getLabelsCoinsDetailSorted(),
+                    labels: getLabelsCoinsDetailSorted,
 
                     datasets: [
                         {
                             label: `Price (${time}) in ${symbol} `,
-                            data: getDataCoinsDetailSorted(),
+                            data: getDataCoinsDetailSorted,
                             fill: true,
                             backgroundColor: function (context) {
                                 const chart = context.chart;
