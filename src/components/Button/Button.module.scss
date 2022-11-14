@@ -11,9 +11,9 @@
     background-color: transparent;
     border: 1px solid transparent;
 
-    +.wrapper {
-        margin-left: 16px;
-    }
+    // +.wrapper {
+    //     margin-left: 16px;
+    // }
 
     &.disabled {
         opacity: 0.5;

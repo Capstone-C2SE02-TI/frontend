@@ -3,7 +3,7 @@ import styles from './LayoutDefault.module.scss';
 import SideBar from './components/SideBar';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { useSelector } from 'react-redux';
-import { MenuIcon } from '~/components/Icons';
+import { AvatarIcon, DolarIcon, MenuIcon } from '~/components/Icons';
 import { useDispatch } from 'react-redux';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
@@ -15,8 +15,21 @@ import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
+import MenuProfile from './components/MenuProfile';
 
 const cx = classNames.bind(styles);
+
+const userMenu = [
+    {
+        icon: <AvatarIcon />,
+        title: 'Your Profile',
+    },
+    {
+        icon: <DolarIcon />,
+        title: 'Upgrade Premium',
+    },
+];
+
 
 function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
@@ -24,6 +37,8 @@ function LayoutDefault({ children }) {
     const navigate = useNavigate();
     const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const userInfo = useSelector(userInfoSelector);
+
+    const [resize, setResize] = useState(false)
     useEffect(() => {
         if (userId) {
             dispatch(fetchGetUserInfo(userId));
@@ -32,12 +47,32 @@ function LayoutDefault({ children }) {
 
     const sidebarClassName = cx({
         'sidebar-wrapper': true,
-        'hide-sidebar': !statusSidebarSelector,
+        'hide-sidebar': resize || !statusSidebarSelector,
     });
 
+    const containerClassName = cx('container', {
+        mr: resize || !statusSidebarSelector,
+    });
     const toggleMenu = () => {
         dispatch(HomeDashboardSlice.actions.actionSidebar());
     };
+
+    useEffect(() => {
+        const handleResize = (e) => {
+            if (window.innerWidth < 1200) {
+               setResize(true)
+            }
+            else setResize(false)
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => 
+             window.removeEventListener('resize', handleResize);
+        
+    }, []);
+
+
 
     const defaultPropsTippy = {
         animateFill: false,
@@ -49,22 +84,33 @@ function LayoutDefault({ children }) {
         delay: [1, 200],
     };
 
-    // 
-
+    //
 
     const connectWallet = () => {
-        navigate('/buy-token')
-    }
+        navigate('/buy-token');
+    };
 
-    //
+  
+    const handleOnChange = (menuItem) => {
+        console.log('menuItem', menuItem);
+        switch (menuItem.title) {
+            case 'Your Profile':
+                navigate('/profile');
+                break;
+            case 'Upgrade Premium':
+                  navigate('/buy-token');
+                break;
+            default:
+                break;
+        }
+      
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
-                <div className={cx('sidebar')}>
-                    <SideBar />
-                </div>
+                <SideBar />
             </div>
-            <div className={cx('container')}>
+            <div className={containerClassName}>
                 <div className={cx('header-menu')}>
                     <Tippy content="Menu" {...defaultPropsTippy}>
                         <button onClick={toggleMenu} className={cx('icon-menu')}>
@@ -74,7 +120,7 @@ function LayoutDefault({ children }) {
                     <h3 onClick={connectWallet}>Upgrade Premium</h3>
                     {userId ? (
                         <div className={cx('user-profile__right')}>
-                            <Tippy content={<Portfolio data={userInfo} />} {...defaultPropsTippy}>
+                            <MenuProfile items={userMenu} onChange={handleOnChange}>
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
                                         <img
@@ -83,18 +129,30 @@ function LayoutDefault({ children }) {
                                             width={' 50px '}
                                             className={cx('user-profile-avatar')}
                                         />
-
                                     ) : (
                                         <Skeleton circle width={50} height={50} />
                                     )}
                                     <div className={cx('user-profile__text')}>
-                                        <span>Hi, {userInfo.fullName || userInfo.username || 'Investor'}</span>
-                                        <p>{userInfo.email || 'Investor'}</p>
+                                        <span>Hi, </span>
+                                        <p>{userInfo.fullName || userInfo.username || 'Investor'}</p>
+                                        <svg
+                                            stroke="currentColor"
+                                            fill="currentColor"
+                                            stroke-width="0"
+                                            viewBox="0 0 24 24"
+                                            class="text-gray-400 text-14"
+                                            height="1em"
+                                            width="1em"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                                        </svg>
                                     </div>
+                                    
                                 </div>
-                            </Tippy>
+                            </MenuProfile>
                         </div>
-
                     ) : (
                         <div>
                             <Button outline onClick={() => navigate('/sign-in')}>

@@ -80,8 +80,22 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                         },
                         delay: (context) => {
                             let delay = 0;
-                            if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                                delay = context.dataIndex * 30 + context.datasetIndex * 10;
+                            if (
+                                context.type === 'data' &&
+                                context.mode === 'default' &&
+                                !delayed &&
+                                typeFilter === 'day'
+                            ) {
+                                delay = context.dataIndex * 160 + context.datasetIndex * 50;
+                            } else if (
+                                context.type === 'data' &&
+                                context.mode === 'default' &&
+                                !delayed &&
+                                typeFilter === 'month'
+                            ) {
+                                delay = context.dataIndex * 50 + context.datasetIndex * 10;
+                            } else {
+                                delay = context.dataIndex * 10 + context.datasetIndex * 3;
                             }
                             return delay;
                         },
@@ -91,7 +105,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                         y: {
                             ticks: {
                                 callback: function (value) {
-                                    return '$' + value;
+                                    return '$' + value.toFixed(3);
                                 },
                             },
                         },
@@ -107,6 +121,15 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                             display: false,
                             labels: {
                                 usePointStyle: true,
+                            },
+                        },
+                        title: {
+                            display: true,
+                            text: 'Trading chart',
+                            color: '#482ee8',
+                            fullSize: true,
+                            font: {
+                                size: 20,
                             },
                         },
                     },
