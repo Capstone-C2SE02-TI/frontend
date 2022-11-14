@@ -1,0 +1,157 @@
+//menu item
+.menu-list {
+    width: 290px;
+
+    .menu-item {
+        margin-left: 0;
+        line-height: 20px;
+
+        &:hover {
+            background-color: rgba(22, 24, 35, 0.03);
+            color: var(--text-color);
+        }
+    }
+}
+
+.menu-popper {
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-body {
+    overflow-y: auto;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 16px 0px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    font-weight: 500;
+    padding: 12px 16px;
+    line-height: 1.8px;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+        color: var(--text-color);
+    }
+
+    &.separate {
+        border-top: 1px solid rgba(22, 24, 35, 0.12);
+    }
+}
+
+//header
+
+.header {
+    position: relative;
+    height: 50px;
+    margin-top: -8px;
+    flex-shrink: 0;
+}
+
+.back-btn {
+    width: 50px;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+}
+
+.menu-profile-detail {
+     padding: 16px 16px 33px 16px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.button-close {
+    color: rgb(153, 171, 180);
+    border-radius: 50%;
+    border: none;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+    cursor: pointer;
+}
+
+.user-heading {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.user-avatar {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.user-role {
+    color: rgb(107 114 128);
+    font-size: 14px;
+}
+
+.user-email {
+    color: rgb(107 114 128);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+
+
+//modal singouts
+
+.logout-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    width: 280px;
+
+    &__title {
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    &__options {
+        display: flex;
+        align-items: center;
+
+        &__degree {
+            padding: 6px 10px;
+            background-color: #644de7;
+            font-size: 14px;
+            color: #fff;
+            outline: none;
+            border: none;
+            margin-right: 22px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        &__cancel {
+            font-size: 14px;
+            color: #816eeb;
+            outline: none;
+            border: none;
+            margin-left: 45px;
+            background-color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    }
+}

@@ -43,7 +43,7 @@ function TokenDetail() {
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
-                        <Col span={17}>
+                        <Col span={18}>
                             {coinDetail ? (
                                 <TokenDetailEachCoin
                                     data={coinDetail}
@@ -82,7 +82,7 @@ function TokenDetail() {
                                 </div>
                             </div>
                         </Col>
-                        <Col span={7}>
+                        <Col span={6}>
                             <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />
                         </Col>
                     </Row>
