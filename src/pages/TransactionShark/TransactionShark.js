@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect} from 'react';
+import React, { useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 import classNames from 'classnames/bind';
 import styles from './TransactionShark.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,16 +7,18 @@ import { fetchTransactionShark } from '~/modules/TransactionShark/transactionSha
 import { transactionSharkSelector } from '~/modules/TransactionShark/selector';
 import Button from '~/components/Button';
 import TransactionSharkItem from './components/TransactionSharkItem.js/TransactionSharkItem';
-
+import { sharkWalletAddressSelector } from '~/modules/SharkWallet/selector';
 const cx = classNames.bind(styles);
 function TransactionShark() {
     const dispatch = useDispatch();
     const transactionShark = useSelector(transactionSharkSelector);
+    const sharkAddress = useSelector(sharkWalletAddressSelector);
+
     useEffect(() => {
-        dispatch(fetchTransactionShark());
+        dispatch(fetchTransactionShark(1));
     }, [dispatch]);
 
-    console.log(transactionShark)
+    console.log("trans", transactionShark.length)
     return (
         <div className={cx('transaction-container')}>
             <div className={cx('transaction-search')}>
@@ -34,14 +37,29 @@ function TransactionShark() {
                     </tr>
                 </thead>
                 <tbody>
-                    {TransactionSharkItem.length === 0 && <div className="text-center">No data</div>}
-                    {TransactionSharkItem.map((trans, index) => {
+                    {transactionShark.length === 0 && <div className="text-center">No data</div>}
+                    {transactionShark.map((trans, index) => {
                         if (Object.keys(trans).length !== 0) {
-                            return <TransactionSharkItem data={trans} index={index} key={index} />;
+                            return <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />;
                         }
                     })}
                 </tbody>
             </table>
+            <div id={cx('market-table__pagination')}>
+                {/* <ReactPaginate
+                    previousLabel={'<'}
+                    nextLabel={'>'}
+                    breakLabel={'...'}
+                    breakClassName={cx('break-me')}
+                    pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
+                    marginPagesDisplayed={3}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    forcePage={searchText ? 0 : paginationState - 1}
+                    containerClassName={cx('pagination')}
+                    activeClassName={cx('active')}
+                /> */}
+            </div>
         </div>
     );
 }
