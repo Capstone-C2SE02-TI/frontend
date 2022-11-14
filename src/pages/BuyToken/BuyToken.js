@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { ethers } from 'ethers';
 import Button from '~/components/Button';
-import { logWithIn } from '@syncfusion/ej2-react-charts';
+// import { logWithIn } from '@syncfusion/ej2-react-charts';
 import ConnectButton from '../SwapToken/ConnectButton';
 import {
     DEX_ABI,
@@ -94,7 +94,7 @@ function BuyToken() {
         });
     };
 
-   //side Effect handle get address
+    //side Effect handle get address
     useEffect(() => {
         if (signer) getWalletAddress();
     }, [signer]);
