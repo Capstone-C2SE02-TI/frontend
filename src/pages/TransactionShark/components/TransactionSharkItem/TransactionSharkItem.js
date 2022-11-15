@@ -19,7 +19,7 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
     return (
         <tr className={cx('transaction-shark__tr')}>
             <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
-            <td>shark #1</td>
+            <td>shark #{data.sharkId}</td>
             <td>
                 <a href={`https://etherscan.io/tx/${data.hash}`} rel="noopener noreferrer" target="_blank">
                     {handleTransactionTo()}

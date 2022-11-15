@@ -62,14 +62,52 @@
         .transaction-shark__tr {
             text-align: center;
             border-bottom: 1px solid #fff;
+
             &:hover {
                 opacity: 0.5;
                 background-color: cornflowerblue;
             }
+
             td {
                 padding: 12px 0 12px 0;
                 text-align: center;
                 border-right: 1px solid #fff;
+            }
+        }
+    }
+}
+
+#transaction-table__pagination {
+    background: #fff;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ul {
+        display: inline-block;
+        margin-bottom: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+        list-style: none;
+
+        li {
+            border: none;
+            color: #838383;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1.2rem;
+            margin: 0 5px;
+            outline: none;
+            outline-style: initial;
+            padding: 0.5rem 0rem;
+            text-align: center;
+
+            a {
+                padding: 6px 12px;
+                border-radius: 4px;
+                color: #4200ff;
             }
         }
     }
