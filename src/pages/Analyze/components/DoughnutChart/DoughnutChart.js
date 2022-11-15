@@ -15,9 +15,7 @@ const data = {
 
 const cx = classNames.bind(styles);
 
-
 function DoughnutChart({ cryptosSharkWallet }) {
-
     const totalAssetCrypto = useMemo(() => {
         const total = cryptosSharkWallet?.reduce((totalAsset, crypto) => {
             return crypto?.total ? totalAsset + crypto.total : totalAsset;
@@ -26,40 +24,56 @@ function DoughnutChart({ cryptosSharkWallet }) {
     }, [cryptosSharkWallet]);
 
     const dataDoughnut = useMemo(() => {
-        return cryptosSharkWallet
-            .slice()
+        let otherPercent = 0;
+        let cryptosSharkWalletAcc = cryptosSharkWallet
             .filter((crypto) => crypto.total)
             .sort((prev, next) => {
                 return next?.total - prev?.total;
-            })
-            .map((crypto) => (crypto.total / totalAssetCrypto) * 100);
+            });
+        if (cryptosSharkWallet.length > 20) {
+            otherPercent = cryptosSharkWalletAcc.slice(21, cryptosSharkWallet.length).reduce((percent, crypto) => {
+                return (crypto.total / totalAssetCrypto) * 100 + percent;
+            }, 0);
+        }
+        const dataPercent = cryptosSharkWalletAcc.slice(0, 20).map((crypto) => (crypto.total / totalAssetCrypto) * 100);
+        return otherPercent !== 0 ? [...dataPercent, otherPercent] : dataPercent;
     }, [cryptosSharkWallet, totalAssetCrypto]);
-
 
     const labelsDoughnut = useMemo(() => {
-        return cryptosSharkWallet
-            .slice()
+        let otherPercentLabel = 0;
+        let cryptosSharkWalletAcc = cryptosSharkWallet
             .filter((crypto) => crypto.total)
             .sort((prev, next) => {
                 return next?.total - prev?.total;
-            })
-            .map((crypto) => {
-                const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(2)
-                return ` ${crypto.symbol} ${percent}%`
             });
+
+        if (cryptosSharkWallet.length > 20) {
+            otherPercentLabel = cryptosSharkWalletAcc.slice(21, cryptosSharkWallet.length).reduce((percent, crypto) => {
+                return (crypto.total / totalAssetCrypto) * 100 + percent;
+            }, 0).toFixed(2)
+            otherPercentLabel = `Other ${otherPercentLabel}%`;
+        }
+
+        const labelPercent = cryptosSharkWalletAcc.slice(0, 20).map((crypto) => {
+            const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(2);
+            return ` ${crypto.symbol} ${percent}%`;
+        });
+
+        return otherPercentLabel !== 0 ? [...labelPercent, otherPercentLabel] : labelPercent;
         // ${crypto.name}
     }, [cryptosSharkWallet, totalAssetCrypto]);
-
+    console.log(labelsDoughnut);
+    console.log(dataDoughnut);
 
     return (
         <div className={cx('chart-circle')}>
             <Doughnut
                 data={{
-                    labels: labelsDoughnut.length > 20 ? labelsDoughnut.slice(0, 10) : labelsDoughnut,
+                    labels: labelsDoughnut,
                     datasets: [
                         {
                             // label: `Price (${time}) in ${symbol} `,
-                            data: dataDoughnut.length > 20 ? dataDoughnut.slice(0, 10) : dataDoughnut,
+                            data: dataDoughnut,
                             // fill: true,
                             backgroundColor: dataDoughnut.map((_, i) => {
                                 const randomColor = Math.floor(Math.random() * 16777215).toString(16);
