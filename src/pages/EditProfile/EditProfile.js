@@ -107,7 +107,7 @@ function EditProfile() {
                 setLoading(false);
 
                 if (data.error) {
-                    console.log({data});
+                    // console.log({data});
                     const errors = {};
                     if (data.error.toLowerCase().startsWith('fullname')) {
                         errors.fullName = data.error;

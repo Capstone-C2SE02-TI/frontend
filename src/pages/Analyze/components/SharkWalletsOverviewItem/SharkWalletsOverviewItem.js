@@ -32,7 +32,7 @@ function SharkWalletsOverviewItem({ data }) {
             ref={parentRef}
         >
             <td ref={childrenRef}>#Shark {data.id}</td>
-            <td>${numberWithCommas(data.totalAsset)}</td>
+            <td>${numberWithCommas(data.totalAssets)}</td>
             <td>{data.percent24h.toFixed(3) + '%' || '0%'}</td>
             <td>
                 <StarIcon />

@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames/bind';
-import styles from './TransactionSharkItem.module.scss'
-import Button from '~/components/Button';
-import { convertUnixtimeToTimeCurrent,numberWithCommas}  from '~/helpers';
+import styles from './TransactionSharkItem.module.scss';
+import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 
 const cx = classNames.bind(styles);
 
-function TransactionSharkItem({ data, index }) {
+function TransactionSharkItem({ data, index, sharkAddress }) {
+    const handleTransactionTo = useCallback(() => {
+        if (sharkAddress === data.to) {
+            return `${data.from} → Wallet`;
+        } else {
+            return `Wallet → ${data.to}  `;
+        }
+    }, [data.from, data.to, sharkAddress]);
+
     return (
         <tr className={cx('transaction-shark__tr')}>
-            <td>17/10/2022 05:32: 23 AM</td>
+            <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
             <td>shark #1</td>
-            <td>0x1ec8568a537fd469b4a8f765c817e992253d471b → Wallet</td>
             <td>
-                -700,000.00 USDC
-                @1.00 $699,885.90
+                <a href={`https://etherscan.io/tx/${data.hash}`} rel="noopener noreferrer" target="_blank">
+                    {handleTransactionTo()}
+                </a>
             </td>
             <td>
-                -700,000.00 USDC
-                @1.00 $699,885.90
+                {numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}
+                <p>{data.pastPrice === 0 ? 0 : data.pastPrice.toFixed(3)}</p>
             </td>
+            <td>{data.presentPrice === 0 ? 0 : data.presentPrice.toFixed(3)}</td>
         </tr>
-    )
+    );
 }
 export default TransactionSharkItem;

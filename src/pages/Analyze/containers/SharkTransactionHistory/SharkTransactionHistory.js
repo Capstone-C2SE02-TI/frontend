@@ -11,6 +11,7 @@ import {
 } from '~/modules/SharkWallet/selector';
 import { Spin } from 'antd';
 import SharkWalletTransactionItem from './../../components/SharkWalletTransactionItem';
+import NoData  from '~/components/NoData';
 const cx = classNames.bind(styles);
 
 function SharkTransactionHistory({ currentTabSharkWallet }) {
@@ -21,13 +22,15 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
     const sharkAddressSelected = useSelector(sharkWalletAddressSelector);
     const sharkTransactionHistory = useSelector(sharkTransactionHistorySelector);
 
+    console.log({ sharkIdSelected });
+
     useEffect(() => {
         dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
     return (
         currentTabSharkWallet === 'transaction-history' && (
-            <Spin spinning={sharkCryptoStatus === 'loading'? true: false}>
+            <Spin spinning={sharkCryptoStatus === 'loading' ? true : false}>
                 <table className={cx('table-shark__crypto')}>
                     <thead>
                         <tr>
@@ -38,7 +41,7 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>}
+                        {/* {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>} */}
                         {sharkTransactionHistory
                             .slice()
                             .filter((transaction) => transaction.presentPrice)
@@ -57,6 +60,7 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                             })}
                     </tbody>
                 </table>
+                {sharkCryptoStatus !== 'loading' && sharkTransactionHistory.length === 0 && <NoData />}
             </Spin>
         )
     );

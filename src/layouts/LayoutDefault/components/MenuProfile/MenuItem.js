@@ -9,7 +9,7 @@ function MenuItem({ data, onClick }) {
         separate: data.separate,
     });
     
-        console.log({data});
+        // console.log({data});
     return (
         <Button className={classNames} leftIcon={data.icon} onClick={onClick} to={data.to}>
             {data.title}

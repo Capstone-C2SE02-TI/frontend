@@ -108,3 +108,41 @@
         width: 100%;
     }
 }
+
+
+//shark filter  range
+
+.shark-range-filter {
+    min-width: 80%;
+    padding: 12px;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.shark-filter-range-container {
+        font-size: 14px;
+    font-weight: 500;
+    display: flex;
+}
+
+.range-dollar {
+margin-right: 6px;
+    font-weight: 300;
+}
+
+.range-start {
+        font-size: 14px;
+    font-weight: 500;
+
+}
+
+.range-spread {
+    margin: 0px 6px;
+}
+
+.current-average {
+    color: rgb(156, 163, 175);
+    font-size: 12px;
+        margin-top: 14px;
+    display: block;
+}

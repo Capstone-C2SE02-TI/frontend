@@ -1,1 +1,1 @@
-export {default} from './TransactionShark'
+export { default } from './TransactionShark';

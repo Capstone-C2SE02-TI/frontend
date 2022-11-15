@@ -10,6 +10,7 @@ import images from '~/assets/images';
 import ConnectButton from './ConnectButton';
 import Button from '~/components/Button';
 import axios from 'axios';
+import { log } from '@uniswap/smart-order-router';
 
 const cx = classNames.bind(styles);
 
@@ -52,6 +53,7 @@ function SwapToken() {
     };
 
     const getWalletAddress = () => {
+        console.log("get Address");
         signer.getAddress().then((address) => {
             setSignerAddress(address);
         });
