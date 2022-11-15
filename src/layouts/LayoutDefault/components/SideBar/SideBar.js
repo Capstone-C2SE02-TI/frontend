@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-import {  Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import images from '~/assets/images';
 import { HomeIcon, DiscoverIcon, AnalyzeIcon, SupportIcon, ReportIcon, SettingIcon } from '~/components/Icons';
 import MenuItem from './Menu/MenuItem';
@@ -24,7 +24,7 @@ function SideBar() {
                 <MenuItem icon={<HomeIcon />} title="Home" to={configs.routes.homeDashboard} />
                 <MenuItem icon={<DiscoverIcon />} title="Discover" to={configs.routes.discover} />
                 <MenuItem icon={<AnalyzeIcon />} title="Analyze" to={configs.routes.analyze} />
-                <MenuItem icon={<SupportIcon />} title="Support" to="/support" />
+                <MenuItem icon={<SupportIcon />} title="Trading" to={configs.routes.transactionShark} />
                 <MenuItem icon={<ReportIcon />} title="Reports" to="/report" />
                 <MenuItem icon={<SettingIcon />} title="Setting" to="/setting" />
                 {/*  */}

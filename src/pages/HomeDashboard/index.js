@@ -14,7 +14,7 @@ function HomeDashboard() {
                 <Col span={24} className={cx('asset-container')}>
                     <AssetCoins />
                     <MarketOverview />
-                </Col>s
+                </Col>
             </Row>
         </section>
     );

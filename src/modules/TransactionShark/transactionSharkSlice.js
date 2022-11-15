@@ -22,8 +22,8 @@ const transactionSharkSlice = createSlice({
     },
 });
 
-export const fetchTransactionShark = createAsyncThunk('transactionShark/fetchTransactionShark', async () => {
-    const response = await transactionSharkService.getTransactionShark();
+export const fetchTransactionShark = createAsyncThunk('transactionShark/fetchTransactionShark', async (pageNum) => {
+    const response = await transactionSharkService.getTransactionShark(pageNum);
     return response.datas;
 });
 

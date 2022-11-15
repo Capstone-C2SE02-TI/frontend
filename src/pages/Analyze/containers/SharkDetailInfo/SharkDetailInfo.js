@@ -50,45 +50,45 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
 
     return (
         currentTabSharkWallet === 'detail-info' && (
-            <div>
+            <div className={cx('detail-info__container')}>
+                <DoughnutChart className={cx('chart-circle')} cryptosSharkWallet={sharkCrypto} />
                 <h3>Token holders chart</h3>
-                <DoughnutChart cryptosSharkWallet={sharkCrypto} />
-                <div className="d-flex flex-column">
-                    <div className="d-flex justify-content-evenly">
-                        <h4>ITEM</h4>
-                        <h4>DETAIL INFO</h4>
-                    </div>
-                    <div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Name</span>
-                            <p>Shark {sharkInfoCurrent.id}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Address</span>
-                            <p>{sharkAddressSelected}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Total transactions</span>
-                            <p>{sharkTransactionHistory.length}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>First transaction</span>
-                            <p>{firstTransactionTime ? convertStringToTimeCurrent(firstTransactionTime) : 0}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Total assets ($)</span>
-                            <p>{numberWithCommas(sharkInfoCurrent.totalAsset)}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Total value in ($)</span>
-                            <p>{numberWithCommas(totalValueIn)}</p>
-                        </div>
-                        <div className="d-flex justify-content-evenly">
-                            <span>Total value out ($)</span>
-                            <p>{numberWithCommas(totalValueOut)}</p>
-                        </div>
-                    </div>
-                </div>
+                <table className={cx('detail-info__table')}>
+                    <thead>
+                        <tr>
+                            <th className={cx('detail-info__th')}>Item</th>
+                            <th className={cx('detail-info__th')}>Detail info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Name</td>
+                            <td className={cx('detail-info__td')}>Shark {sharkInfoCurrent.id}</td>
+                        </tr>
+                        <tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Address</td>
+                            <td className={cx('detail-info__td')}>{sharkAddressSelected}</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Total transactions</td>
+                            <td className={cx('detail-info__td')}>{sharkTransactionHistory.length}</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>First transaction</td>
+                            <td className={cx('detail-info__td')}>{firstTransactionTime ? convertStringToTimeCurrent(firstTransactionTime) : 0}</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Total assets ($)</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(sharkInfoCurrent.totalAsset)} $</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Total value in ($)</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueIn)} $</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Total value out ($)</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueOut)} $</td>
+                        </tr><tr className={cx('detail-info__tr')}>
+                            <td className={cx('detail-info__td')}>Actual growth ($)</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueIn - totalValueOut)} $</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     );

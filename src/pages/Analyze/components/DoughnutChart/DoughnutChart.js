@@ -1,5 +1,8 @@
 import { memo, useMemo } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import classNames from 'classnames/bind';
+import styles from './DoughnutChart.module.scss';
+
 const data = {
     datasets: [
         {
@@ -9,6 +12,9 @@ const data = {
     ],
     labels: ['Red', 'Yellow', 'Blue'],
 };
+
+const cx = classNames.bind(styles);
+
 
 function DoughnutChart({ cryptosSharkWallet }) {
 
@@ -29,7 +35,7 @@ function DoughnutChart({ cryptosSharkWallet }) {
             .map((crypto) => (crypto.total / totalAssetCrypto) * 100);
     }, [cryptosSharkWallet, totalAssetCrypto]);
 
-   
+
     const labelsDoughnut = useMemo(() => {
         return cryptosSharkWallet
             .slice()
@@ -38,14 +44,15 @@ function DoughnutChart({ cryptosSharkWallet }) {
                 return next?.total - prev?.total;
             })
             .map((crypto) => {
-                const percent = (crypto.total / totalAssetCrypto).toFixed(3)
-                return `${crypto.name} (${crypto.symbol}) ${percent}%`
+                const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(2)
+                return ` ${crypto.symbol} ${percent}%`
             });
+        // ${crypto.name}
     }, [cryptosSharkWallet, totalAssetCrypto]);
 
-   
+
     return (
-        <div style={{ width: '70%', height: '70%' }}>
+        <div className={cx('chart-circle')}>
             <Doughnut
                 data={{
                     labels: labelsDoughnut.length > 20 ? labelsDoughnut.slice(0, 10) : labelsDoughnut,
