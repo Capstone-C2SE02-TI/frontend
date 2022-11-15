@@ -16,34 +16,31 @@ const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
 
 function TokenDetail() {
-    const [filterChartByTime, setFilterChartByTime] = useState('day')
+    const [filterChartByTime, setFilterChartByTime] = useState('day');
     const dispatch = useDispatch();
     const { symbol } = useParams();
 
-    
     const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
-    
+
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
         dispatch(fetchTrendingTokens());
     }, [dispatch, symbol]);
 
-
     const handleFilterChart = (time) => {
-        setFilterChartByTime(time)
+        setFilterChartByTime(time);
     };
 
-
-  
+    //    sm={8} xs={12}
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
-                        <Col span={18}>
+                        <Col xl={18} lg={18} md={24}>
                             {coinDetail ? (
                                 <TokenDetailEachCoin
                                     data={coinDetail}
@@ -82,7 +79,7 @@ function TokenDetail() {
                                 </div>
                             </div>
                         </Col>
-                        <Col span={6}>
+                        <Col xl={6} lg={6} md={0}>
                             <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />
                         </Col>
                     </Row>

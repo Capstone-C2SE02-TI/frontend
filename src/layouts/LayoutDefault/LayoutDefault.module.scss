@@ -107,8 +107,10 @@
         margin-left: 6px;
         white-space: nowrap;
         width: 50px;
-        color: rgb(156 163 175);
-        margin-right: 6px;
+        color: rgb(156, 163, 175);
+        min-width: 85px;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 
@@ -117,4 +119,3 @@
     justify-content: center;
     align-items: center;
 }
-

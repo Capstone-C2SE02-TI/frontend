@@ -9,7 +9,12 @@ import CoinItem from './CoinItem';
 import Loading from '~/components/Loading';
 import sliceArrayToPagination from '~/helpers/sliceArrayToPagination';
 import discoverSlice, { fetchCoinsDiscover, fetchListTagsName } from '~/modules/Discover/discoverSlice';
-import { coinsRemainingSelector, listTagsNameSelector, statusCoinsSelector, tagnameTextSelector } from '~/modules/Discover/selector';
+import {
+    coinsRemainingSelector,
+    listTagsNameSelector,
+    statusCoinsSelector,
+    tagnameTextSelector,
+} from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
@@ -17,6 +22,7 @@ import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
 import { Fragment } from 'react';
 import useScrollToTop from '~/hooks/useScrollToTop';
+import NoData from '~/components/NoData';
 
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 10;
@@ -179,17 +185,10 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        {statusFetchListCoins === "loading" && viewListCoinsPagination.length === 0 && <Loading />}
+                        {statusFetchListCoins === 'loading' && viewListCoinsPagination.length === 0 && <Loading />}
                     </tbody>
                 </table>
-                {noData && (
-                    <div className={cx('no-data')}>
-                        <Nodata className={cx('no-data__icon')} />
-                        <div className={cx('no-data__title')}>
-                            Không có kết quả nào cho <span>"{searchText || 'Category ' + tagNameCurrent}"</span>
-                        </div>
-                    </div>
-                )}
+                {noData && <NoData searchText={searchText} tagNameCurrent={tagNameCurrent} type={'Category '} />}
             </Fragment>
         );
     };
@@ -197,7 +196,7 @@ function MarketOverviewDetail() {
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>
-                <h2>  </h2>
+                <h2> </h2>
             </div>
             <div className={cx('market-box')}>
                 {renderFilterCategory()}

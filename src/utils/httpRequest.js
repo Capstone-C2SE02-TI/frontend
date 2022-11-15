@@ -5,8 +5,6 @@ const httpRequest = axios.create({
 });
 
 export const get = async (path, options = {}) => {
-    console.log({ url: process.env.REACT_APP_BASE_URL });
-
     const response = await httpRequest.get(path, options);
     return response;
 };
