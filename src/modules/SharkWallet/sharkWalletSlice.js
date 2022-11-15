@@ -14,6 +14,7 @@ const sharkWalletSlice = createSlice({
         sharkWalletTotalAssets: 0,
         sharkInfo: '',
         filterSharkTotalAssets: '',
+        searchFilterChange: '',
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -35,6 +36,9 @@ const sharkWalletSlice = createSlice({
             state.sharkCrypto = action.payload;
             state.sharkInfo = action.payload;
             state.sharkTransactionHistory = action.payload;
+        },
+        searchFilterChange: (state, action) => {
+            state.searchFilterChange = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -69,7 +73,7 @@ const sharkWalletSlice = createSlice({
 
 export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async () => {
     const response = await sharkWalletService.getSharkWallet();
- 
+
     return response.datas;
 });
 
@@ -77,7 +81,6 @@ export const fetchCryptoSharkWallet = createAsyncThunk('sharkWallet/fetchCryptoS
     const response = await sharkWalletService.getCryptoSharkWallet(sharkId);
     return response.datas;
 });
-
 
 export const fetchTransactionHistorySharkWallet = createAsyncThunk(
     'sharkWallet/fetchTransactionHistorySharkWallet',
