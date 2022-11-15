@@ -22,7 +22,6 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
     const sharkAddressSelected = useSelector(sharkWalletAddressSelector);
     const sharkTransactionHistory = useSelector(sharkTransactionHistorySelector);
 
-    console.log({ sharkIdSelected });
 
     useEffect(() => {
         dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));

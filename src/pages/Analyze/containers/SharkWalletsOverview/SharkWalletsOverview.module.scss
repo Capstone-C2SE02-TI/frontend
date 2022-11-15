@@ -22,7 +22,7 @@
 }
 
 .shark-overview {
-    background-color: #A697FF;
+    background-color: #a697ff;
     padding: 5px 0px;
     border-radius: 12px;
     height: 100vh;
@@ -30,10 +30,11 @@
 
 .shark-search {
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
     align-items: center;
     padding: 12px 0;
     font-size: 14px;
+    margin-left: 12px;
 
     input {
         padding: 5px 8px;
@@ -48,26 +49,23 @@
     align-items: center;
     padding: 5px 8px;
     border-radius: 8px;
-    background: #F2F4F8;
+    background: #f2f4f8;
     font-size: 14px;
 
     p {
         margin-bottom: 0;
         margin-right: 5px;
-
-
     }
 }
 
-
 .table-shark {
-    background-color: #A697FF;
+    background-color: #a697ff;
     color: #fff;
 
     thead {
         th {
             padding: 11px 0 10px 0;
-            background-color: #A697FF;
+            background-color: #a697ff;
             text-align: center !important;
             color: #473d85;
             text-transform: uppercase;
@@ -109,40 +107,38 @@
     }
 }
 
+//search
 
-//shark filter  range
+.container__search {
+    --color-primary-white: #fff;
+    position: relative;
 
-.shark-range-filter {
-    min-width: 80%;
-    padding: 12px;
-    border-radius: 4px;
-    background: #fff;
-}
-
-.shark-filter-range-container {
+    input {
+        width: 100%;
+        outline: none;
+        border: none;
+        font-weight: 500;
         font-size: 14px;
-    font-weight: 500;
-    display: flex;
-}
+        color: rgb(0, 0, 0);
+        padding: 8px;
+        background-color: var(--color-primary-white);
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 8px;
+        padding-inline-start: 32px;
 
-.range-dollar {
-margin-right: 6px;
-    font-weight: 300;
-}
+        &:hover {
+            background-color: var(--color-primary-white);
+        }
+        &:focus-within {
+            background-color: var(--color-primary-white);
+        }
+    }
 
-.range-start {
+    .search--icon {
+        color: rgb(166, 176, 195);
         font-size: 14px;
-    font-weight: 500;
-
-}
-
-.range-spread {
-    margin: 0px 6px;
-}
-
-.current-average {
-    color: rgb(156, 163, 175);
-    font-size: 12px;
-        margin-top: 14px;
-    display: block;
+        position: absolute;
+        left: 5%;
+        top: 32%;
+    }
 }
