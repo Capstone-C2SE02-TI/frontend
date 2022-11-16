@@ -44,12 +44,11 @@ function BuyToken() {
             );
 
             const isPremiumUser = await contractPremium.isPremiumUser(signerAddress);
-            console.log({ isPremiumUser });
-
             if (isPremiumUser) {
-                toast.success('User is premium va k can mua');
-            } else {
-                toast.success('User is not premium  va mua dum t cai');
+                toast.success('User is premium ')
+            }
+            else {
+                toast.success('User is not premium ');
             }
         };
         onLoad();
