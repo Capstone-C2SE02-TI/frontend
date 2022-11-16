@@ -10,7 +10,7 @@ import images from '~/assets/images';
 import ConnectButton from './ConnectButton';
 import Button from '~/components/Button';
 import axios from 'axios';
-import { log } from '@uniswap/smart-order-router';
+
 
 const cx = classNames.bind(styles);
 
@@ -62,6 +62,7 @@ function SwapToken() {
     //side Effect handle get address
     useEffect(() => {
         if (signer) getWalletAddress();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[signer])
 
 
@@ -74,6 +75,7 @@ function SwapToken() {
             //have ratio to convert eth to TI
             loadRatio();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
 
 
@@ -84,7 +86,7 @@ function SwapToken() {
 
     const handleSwap = async () => {
         let ABI = ['function buy(uint amount)'];
-        let ABITEST = ['function updatePrice(uint _newPrice)'];
+        // let ABITEST = ['function updatePrice(uint _newPrice)'];
     
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);

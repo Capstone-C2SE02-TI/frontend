@@ -5,8 +5,6 @@ import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-   
-    searchFilterChangeSelector,
     sharkCryptoStatusSelector,
     sharkRemainingSelector,
 } from '~/modules/SharkWallet/selector';
@@ -37,7 +35,8 @@ function SharkWalletsOverview() {
         } else {
             dispatch(sharkWalletSlice.actions.actionSharkNoData(sharksCoin));
         }
-    }, [sharksCoin]);
+        
+    }, [dispatch, sharksCoin]);
     const [searchText, setSearchText] = useState('');
 
     const searchTextShark = useRef();
@@ -54,7 +53,7 @@ function SharkWalletsOverview() {
     }, [textSearchDebounced]);
 
 
-    const searchTextt = useSelector(searchFilterChangeSelector);
+    // const searchTextt = useSelector(searchFilterChangeSelector);
 
     return (
         <div className={cx('shark-overview')}>

@@ -3,16 +3,6 @@ import { Doughnut } from 'react-chartjs-2';
 import classNames from 'classnames/bind';
 import styles from './DoughnutChart.module.scss';
 
-const data = {
-    datasets: [
-        {
-            data: [10, 20, 30],
-            backgroundColor: ['red', 'blue', 'yellow'],
-        },
-    ],
-    labels: ['Red', 'Yellow', 'Blue'],
-};
-
 const cx = classNames.bind(styles);
 
 function DoughnutChart({ cryptosSharkWallet }) {

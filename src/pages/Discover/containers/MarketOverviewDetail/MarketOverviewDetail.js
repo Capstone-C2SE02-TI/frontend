@@ -16,7 +16,7 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { Nodata } from '~/components/Icons';
+// import { Nodata } from '~/components/Icons';
 import useDebounced from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { useOnClickOutside } from '~/hooks/useOnclickOutSide';

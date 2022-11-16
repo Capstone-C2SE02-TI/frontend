@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useMemo } from 'react';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {

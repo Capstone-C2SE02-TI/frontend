@@ -7,7 +7,6 @@ import { AvatarIcon, DolarIcon, MenuIcon } from '~/components/Icons';
 import { useDispatch } from 'react-redux';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import Portfolio from '~/pages/HomeDashboard/components/Portfolio/Portfolio';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';

@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import styles from './AssetCoinBox.module.scss';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { CaretNextIcon } from '~/components/Icons';
-import WrapperBox from './../WrapperBox/WrapperBox';
 import { faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Skeleton from 'react-loading-skeleton';

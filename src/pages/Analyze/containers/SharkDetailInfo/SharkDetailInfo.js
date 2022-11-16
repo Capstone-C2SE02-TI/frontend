@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
-import { useEffect } from 'react';
-import { Doughnut } from 'react-chartjs-2';
 import classNames from 'classnames/bind';
 import styles from './SharkDetailInfo.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 import {
     sharkCryptoSelector,

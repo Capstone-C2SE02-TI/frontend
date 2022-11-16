@@ -1,12 +1,9 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './BuyToken.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ethers } from 'ethers';
-import Button from '~/components/Button';
-// import { logWithIn } from '@syncfusion/ej2-react-charts';
 import ConnectButton from '../SwapToken/ConnectButton';
 import {
     DEX_ABI,
@@ -26,9 +23,8 @@ function BuyToken() {
     const [ratio, setRatio] = useState('');
     const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
-    const [ethValues, setEthValues] = useState(0);
-    const [ethChange, setEthChange] = useState(0);
-    const [statusSwapToken, setStatusSwapToken] = useState('');
+    // const [ethValues, setEthValues] = useState(0);
+    // const [ethChange, setEthChange] = useState(0);
     const [premiumPrice, setPremiumPrice] = useState('');
 
     useEffect(() => {
@@ -50,16 +46,14 @@ function BuyToken() {
             const isPremiumUser = await contractPremium.isPremiumUser(signerAddress);
             console.log({ isPremiumUser });
 
-
             if (isPremiumUser) {
-                toast.success('User is premium va k can mua')
-            }
-            else {
+                toast.success('User is premium va k can mua');
+            } else {
                 toast.success('User is not premium  va mua dum t cai');
-
             }
         };
         onLoad();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
     const loadBalance = async () => {
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
@@ -97,6 +91,7 @@ function BuyToken() {
     //side Effect handle get address
     useEffect(() => {
         if (signer) getWalletAddress();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signer]);
 
     //side Effect handle loadBalance and loadRatio when have signer address
@@ -109,6 +104,7 @@ function BuyToken() {
             //have ratio to convert eth to TI
             loadRatio();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
 
     const handleBuyNow = async () => {
@@ -124,7 +120,7 @@ function BuyToken() {
             },
         ];
 
-        const result = await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
+         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
             console.log({ res });
             //     checkTransactionConfirm(txhash).then((result) => {
             //        console.log({resultTransaction: result});
@@ -132,15 +128,15 @@ function BuyToken() {
         });
     };
 
-    const handleChange = (e) => {
-        setEthValues(e.target.value);
-        setEthChange(e.target.value / ratio);
-    };
+    // const handleChange = (e) => {
+    //     setEthValues(e.target.value);
+    //     setEthChange(e.target.value / ratio);
+    // };
     return (
         <section className={cx('container-banner')}>
             <div className={cx('popup-buy')}>
                 <h1>Start your plan following sharks: balance {balance}</h1>
-                <h2>Yearly</h2>
+                <h2>Yearly{ratio}</h2>
                 <div className={cx('popup-buy__content')}>
                     <div className={cx('box-content')}>
                         <h4>
