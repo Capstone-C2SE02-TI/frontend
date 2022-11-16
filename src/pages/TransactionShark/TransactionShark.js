@@ -49,7 +49,6 @@ function TransactionShark() {
                         {transactionShark
                             .filter((tran) => tran.sharkId)
                             .map((trans, index) => {
-                                console.log({ trans });
                                 return <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />;
                             })}
                     </tbody>

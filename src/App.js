@@ -25,11 +25,13 @@ import SwapToken from './pages/SwapToken';
 import { ToastContainer } from 'react-toastify';
 import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
+import { useCoinsFetchInterval } from '~/hooks';
 
 Chart.register(...registerables);
 
 function App() {
 
+    useCoinsFetchInterval();
 
     
     return (

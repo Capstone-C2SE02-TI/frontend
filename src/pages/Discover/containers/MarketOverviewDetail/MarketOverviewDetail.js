@@ -16,12 +16,9 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-// import { Nodata } from '~/components/Icons';
-import useDebounced from '~/hooks';
+import {  useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
-import { useOnClickOutside } from '~/hooks/useOnclickOutSide';
 import { Fragment } from 'react';
-import useScrollToTop from '~/hooks/useScrollToTop';
 import NoData from '~/components/NoData';
 
 const cx = classNames.bind(styles);
@@ -41,8 +38,6 @@ function MarketOverviewDetail() {
 
     const textSearchDebounced = useDebounced(searchText, 200);
 
-    useScrollToTop();
-
     const tagNameCurrent = useSelector(tagnameTextSelector);
     const coinsList = useSelector(coinsRemainingSelector);
     const listTagsName = useSelector(listTagsNameSelector);
@@ -53,6 +48,7 @@ function MarketOverviewDetail() {
         'selected-item': tagNameCurrent,
     });
 
+    useScrollToTop();
     useEffect(() => {
         dispatch(fetchListTagsName());
         dispatch(fetchCoinsDiscover());
@@ -97,7 +93,7 @@ function MarketOverviewDetail() {
         setOpenFilter(false);
     };
 
-    useOnClickOutside(refFilterCategory, (e) => {
+    useOnclickOutSide(refFilterCategory, (e) => {
         if (!refParenFilterCategory.current.contains(e.target)) {
             setOpenFilter(false);
         }

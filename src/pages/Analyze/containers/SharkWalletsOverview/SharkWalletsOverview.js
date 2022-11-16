@@ -12,7 +12,9 @@ import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkW
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useDebounced from '~/hooks';
+import { useDebounced } from '~/hooks';
+
+
 
 const cx = classNames.bind(styles);
 
