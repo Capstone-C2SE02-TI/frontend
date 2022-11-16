@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSubmitCodeOTP } from '~/modules/user/auth/authSlice';
-import { emailForgotPasswordSelector, statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
+import {  statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
 import { SignIn } from '~/pages';
 import { useNavigate } from 'react-router-dom';
 

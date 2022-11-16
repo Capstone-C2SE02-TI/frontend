@@ -1,7 +1,6 @@
 import styles from './Modal.module.scss';
 import classNames from 'classnames/bind';
 import Portal from '~/components/Portal';
-import { TimesIcon } from '../Icons';
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useCallback } from 'react';

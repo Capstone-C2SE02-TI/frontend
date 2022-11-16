@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import styles from './ConnectButton.module.scss';

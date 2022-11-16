@@ -1,7 +1,6 @@
 import { Parallax } from 'react-parallax';
 import classNames from 'classnames/bind';
 import styles from '../../Home.module.scss';
-import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import { faStar, faMagnifyingGlass, faChartSimple, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

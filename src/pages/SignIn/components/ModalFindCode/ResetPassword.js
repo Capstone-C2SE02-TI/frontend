@@ -6,11 +6,11 @@ import styles from './ModalFindCode.module.scss';
 import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCreateNewPassword, fetchSubmitCodeOTP } from '~/modules/user/auth/authSlice';
-import { resetPasswordStatusSelector, statusLoadingSelector, statusSubmitCodeOTPSelector } from '~/modules/user/auth/selectors';
+import { fetchCreateNewPassword } from '~/modules/user/auth/authSlice';
+import { resetPasswordStatusSelector, statusLoadingSelector } from '~/modules/user/auth/selectors';
 import { SignIn } from '~/pages';
 import { toast } from 'react-toastify';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 

@@ -8,7 +8,8 @@ import { fetchCoinsDetail, fetchTrendingTokens } from '~/modules/CoinDetail/coin
 import { coinsDetailSelector, statusCoinDetailSelector, trendingTokensSelector } from '~/modules/CoinDetail/selector';
 import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
-import useScrollToTop from '~/hooks/useScrollToTop';
+import { useScrollToTop } from '~/hooks';
+
 import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
 import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
 

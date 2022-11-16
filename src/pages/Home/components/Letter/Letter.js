@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from '../../Home.module.scss';
 import { Parallax } from 'react-parallax';
-import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
