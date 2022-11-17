@@ -23,6 +23,8 @@
         "babel-plugin-module-resolver": "^4.1.0",
         "bootstrap": "^5.2.2",
         "chart.js": "^3.9.1",
+        "chartjs-plugin-crosshair": "^1.2.0",
+        "chartjs-plugin-zoom": "^1.2.1",
         "classnames": "^2.3.1",
         "customize-cra": "^1.0.0",
         "ethers": "^5.7.2",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './Analyze.module.scss';
 import { Row, Col, Slider } from 'antd';
@@ -7,7 +8,6 @@ import SharkWalletsDetail from './containers/SharkWalletsDetail';
 import { useDispatch } from 'react-redux';
 import sharkWalletSlice from '~/modules/SharkWallet/sharkWalletSlice';
 
-import millify from 'millify';
 const DOLLAR = 10000000;
 
 const cx = classNames.bind(styles);
@@ -91,6 +91,7 @@ function Analyze() {
             </div>
             <Row>
                 <Col span={8}>
+                    
                     <SharkWalletsOverview />
                 </Col>
                 <Col span={15}>
