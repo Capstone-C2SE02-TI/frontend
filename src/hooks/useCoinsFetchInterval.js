@@ -8,8 +8,8 @@ const useCoinsFetchInterval = () => {
     React.useEffect(() => {
         const interval = setInterval(() => {
             dispatch(fetchCoinsDiscover());
-            //fetch each 5 minutes 300000
-        }, 300000);
+            //fetch each 10 minutes
+        }, 10 * 60 * 1000);
 
         return () => clearInterval(interval);
     }, [dispatch]);

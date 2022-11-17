@@ -13,6 +13,7 @@ import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDebounced } from '~/hooks';
+import TradeItem from './../../components/TradeItem/TradeItem';
 
 
 
@@ -90,6 +91,7 @@ function SharkWalletsOverview() {
                         ))}
                 </tbody>
             </table>
+
             {status !== 'loading' && sharksCoin.length === 0 && <NoData />}
         </div>
     );

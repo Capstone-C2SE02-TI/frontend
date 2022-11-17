@@ -5,7 +5,8 @@ import { Line } from 'react-chartjs-2';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
     const canvasRef = useRef()
-  let delayed;
+    let delayed;
+    
     const getLabelsCoinsDetailSorted = useMemo(() => {
         return data.prices[typeFilter]
             .slice()
@@ -117,21 +118,40 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                         },
                     },
                     plugins: {
-                        legend: {
-                            display: false,
-                            labels: {
-                                usePointStyle: true,
+                        zoom: {
+                            pan: {
+                                enabled: true,
+                                mode: 'xy',
+                                threshold: 5,
+                            },
+                            zoom: {
+                                wheel: {
+                                    enabled: true,
+                                },
+                                pinch: {
+                                    enabled: true,
+                                },
+                                mode: 'xy',
                             },
                         },
-                        title: {
-                            display: true,
-                            text: 'Trading chart',
-                            color: '#482ee8',
-                            fullSize: true,
-                            font: {
-                                size: 20,
-                            },
-                        },
+                        // legend: {
+                        //     display: false,
+                        //     labels: {
+                        //         usePointStyle: true,
+                        //     },
+                        // },
+                        // title: {
+                        //     display: true,
+                        //     text: 'Trading chart',
+                        //     color: '#482ee8',
+                        //     fullSize: true,
+                        //     font: {
+                        //         size: 20,
+                        //     },
+                        // },
+                    },
+                    hover: {
+                        intersect: false,
                     },
                 }}
             />

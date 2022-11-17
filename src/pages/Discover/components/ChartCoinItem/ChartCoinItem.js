@@ -50,6 +50,9 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
                     ],
                 }}
                 options={{
+                    hover: {
+                        intersect: false,
+                    },
                     elements: {
                         point: {
                             radius: 3,

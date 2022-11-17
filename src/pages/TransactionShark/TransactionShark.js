@@ -48,9 +48,9 @@ function TransactionShark() {
                         {transactionShark.length === 0 && <div className="text-center">No data</div>}
                         {transactionShark
                             .filter((tran) => tran.sharkId)
-                            .map((trans, index) => {
-                                return <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />;
-                            })}
+                            .map((trans, index) => 
+                                 <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />
+                            )}
                     </tbody>
                 </table>
             </div>
