@@ -6,11 +6,9 @@ import styles from './ModalFindCode.module.scss';
 import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import authSlice, { fetchFindCodeOTP } from '~/modules/user/auth/authSlice';
+import  { fetchFindCodeOTP } from '~/modules/user/auth/authSlice';
 import { statusFindCodeOTPSelector, statusLoadingSelector } from '~/modules/user/auth/selectors';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeftIcon, ArrowRightIcon } from '~/components/Icons';
-import Button from '~/components/Button';
 import { SignIn } from '~/pages';
 
 const cx = classNames.bind(styles);
@@ -47,9 +45,9 @@ function ModalFindCode() {
     };
 
 
-    const openModalFindCode = () => {
-        setIsShowForgotPassword(true);
-    };
+    // const openModalFindCode = () => {
+    //     setIsShowForgotPassword(true);
+    // };
     const closeModalFindCode = () => {
         setIsShowForgotPassword(false);
     };

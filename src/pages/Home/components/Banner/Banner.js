@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
-import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import styles from '../../Home.module.scss';
 

@@ -14,7 +14,10 @@ import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkW
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useDebounced from '~/hooks';
+import { useDebounced } from '~/hooks';
+import TradeItem from './../../components/TradeItem/TradeItem';
+
+
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +40,8 @@ function SharkWalletsOverview() {
         } else {
             dispatch(sharkWalletSlice.actions.actionSharkNoData(sharksCoin));
         }
-    }, [sharksCoin]);
+        
+    }, [dispatch, sharksCoin]);
     const [searchText, setSearchText] = useState('');
 
     const searchTextShark = useRef();
@@ -52,6 +56,9 @@ function SharkWalletsOverview() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
+
+
+    const searchTextt = useSelector(searchFilterChangeSelector);
 
     return (
         <div className={cx('shark-overview')}>
@@ -86,6 +93,7 @@ function SharkWalletsOverview() {
                         ))}
                 </tbody>
             </table>
+
             {status !== 'loading' && sharksCoin.length === 0 && <NoData />}
         </div>
     );

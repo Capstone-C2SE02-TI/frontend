@@ -8,7 +8,7 @@ import { authService } from '~/services';
 import styles from './SignIn.module.scss';
 import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCircleXmark, faEye, faEyeSlash, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 
 const cx = classNames.bind(styles);

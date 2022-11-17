@@ -6,14 +6,13 @@ import { trendingCoinsSelector } from '~/modules/Discover/selector';
 import { fetchCoinsAndTokensLoss } from '~/modules/HomeDashboard/homeDashboardSlice';
 import { useEffect } from 'react';
 import { coinsAndTokensLossSelector } from '~/modules/HomeDashboard/selector';
-import Slider from 'react-slick';
 import WrapperBox from '../../components/WrapperBox/WrapperBox';
 import { CaretNextIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
 const DISPLAY_COIN_TRENDING = 3;
-const MARKET_SHOW = 1;
+// const MARKET_SHOW = 1;
 
 function AssetCoins() {
     const dispatch = useDispatch();
@@ -25,30 +24,6 @@ function AssetCoins() {
         dispatch(fetchCoinsAndTokensLoss());
     }, [dispatch]);
 
-    const settingsSlider = {
-        dots: false,
-        infinite: 8 > MARKET_SHOW,
-        arrows: false,
-        slidesToShow: MARKET_SHOW,
-        slidesToScroll: 1,
-        vertical: true,
-        verticalSwiping: true,
-        swipeToSlide: true,
-        autoplay: true,
-        autoplaySpeed: 2222000,
-        speed: 2000,
-        adaptiveHeight: true,
-        draggable: true,
-        initialSlide: 0,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-        ],
-    };
 
     return (
         <section className={cx('asset')}>

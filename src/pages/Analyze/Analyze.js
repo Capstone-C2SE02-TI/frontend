@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
+import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './Analyze.module.scss';
 import { Row, Col, Slider } from 'antd';
 import SharkWalletsOverview from './containers/SharkWalletsOverview';
 import SharkWalletsDetail from './containers/SharkWalletsDetail';
-import { useSelector, useDispatch } from 'react-redux';
-import { sharkListSelector } from '~/modules/SharkWallet/selector';
-import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { useDispatch } from 'react-redux';
+import sharkWalletSlice from '~/modules/SharkWallet/sharkWalletSlice';
 
-import millify from 'millify';
 const DOLLAR = 10000000;
 
 const cx = classNames.bind(styles);
@@ -23,14 +22,13 @@ function Analyze() {
     };
 
     useEffect(() => {
-        console.log(rangeStart);
-        console.log(rangeEnd);
         dispatch(
             sharkWalletSlice.actions.actionFilterSharkTotalAssets({
                 startTotalAssets: rangeStart,
                 endTotalAssets: rangeEnd,
             }),
         );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const onAfterChange = (value) => {
@@ -93,6 +91,7 @@ function Analyze() {
             </div>
             <Row>
                 <Col span={8}>
+                    
                     <SharkWalletsOverview />
                 </Col>
                 <Col span={15}>

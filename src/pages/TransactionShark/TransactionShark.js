@@ -20,12 +20,12 @@ function TransactionShark() {
 
     useEffect(() => {
         dispatch(fetchTransactionShark(currentPage ? currentPage : 1));
-    }, [currentPage]);
+    }, [currentPage, dispatch]);
 
     const handlePageClick = (pageNum) => {
         let currenPage = pageNum.selected + 1;
-        setCurrentPage(currenPage)
-    }
+        setCurrentPage(currenPage);
+    };
     return (
         <div className={cx('transaction-container__fluid')}>
             <div className={cx('transaction-container')}>
@@ -46,14 +46,13 @@ function TransactionShark() {
                     </thead>
                     <tbody>
                         {transactionShark.length === 0 && <div className="text-center">No data</div>}
-                        {transactionShark.map((trans, index) => {
-                            if (Object.keys(trans).length !== 0) {
-                                return <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />;
-                            }
-                        })}
+                        {transactionShark
+                            .filter((tran) => tran.sharkId)
+                            .map((trans, index) => 
+                                 <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />
+                            )}
                     </tbody>
                 </table>
-
             </div>
             <div id={cx('transaction-table__pagination')}>
                 <ReactPaginate
@@ -71,7 +70,6 @@ function TransactionShark() {
                 />
             </div>
         </div>
-
     );
 }
 
