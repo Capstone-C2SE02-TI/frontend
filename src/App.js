@@ -30,7 +30,7 @@ import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
-Chart.register( zoomPlugin, ...registerables);
+Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
@@ -202,7 +202,7 @@ function App() {
                     <Route
                         path={configs.routes.gainLoss}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <GainLoss />

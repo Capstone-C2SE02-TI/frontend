@@ -12,7 +12,6 @@ root.render(
         <GlobalStyle>
             <App />
         </GlobalStyle>
-        ,
     </Provider>,
 );
 
