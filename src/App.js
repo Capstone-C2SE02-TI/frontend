@@ -14,6 +14,7 @@ import Home, {
     Analyze,
     TokenDetail,
     TransactionShark,
+    GainLoss,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -29,9 +30,6 @@ import LayoutDefault from './layouts/LayoutDefault';
 Chart.register(...registerables);
 
 function App() {
-
-
-    
     return (
 
         <div className="app">
@@ -191,6 +189,18 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <ChangePassword />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.gainLoss}
+                        element={
+                            <PrivateRoute
+                                element={
+                                    <LayoutDefault>
+                                        <GainLoss />
                                     </LayoutDefault>
                                 }
                             />

@@ -13,5 +13,6 @@ export { default as ChangePassword } from './ChangePassword';
 export { default as Analyze } from './Analyze';
 export { default as BuyToken } from './BuyToken';
 export { default as SwapToken } from './SwapToken';
-export { default as TransactionShark } from './TransactionShark'
+export { default as TransactionShark } from './TransactionShark';
+export { default as GainLoss } from './GainLoss'
 

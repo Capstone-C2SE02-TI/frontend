@@ -30,8 +30,8 @@ function TransactionShark() {
         <div className={cx('transaction-container__fluid')}>
             <div className={cx('transaction-container')}>
                 <div className={cx('transaction-search')}>
-                    <h1>Search all transactions</h1>
-                    <input placeholder='Enter price $' />
+                    <h1>Search shark transactions</h1>
+                    <input placeholder='Enter shark ID' />
                     <Button primary>Search</Button>
                 </div>
                 <table className={cx('transaction-shark__table')}>
