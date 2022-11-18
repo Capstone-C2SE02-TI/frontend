@@ -14,6 +14,7 @@ import Home, {
     Analyze,
     TokenDetail,
     TransactionShark,
+    GainLoss,
 } from './pages';
 
 import { Chart, registerables, Interaction } from 'chart.js';
@@ -29,7 +30,7 @@ import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
-Chart.register( zoomPlugin, ...registerables);
+Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
@@ -193,6 +194,18 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <ChangePassword />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.gainLoss}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <GainLoss />
                                     </LayoutDefault>
                                 }
                             />

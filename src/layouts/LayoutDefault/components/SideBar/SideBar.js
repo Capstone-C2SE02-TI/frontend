@@ -25,7 +25,7 @@ function SideBar() {
                 <MenuItem icon={<DiscoverIcon />} title="Discover" to={configs.routes.discover} />
                 <MenuItem icon={<AnalyzeIcon />} title="Analyze" to={configs.routes.analyze} />
                 <MenuItem icon={<SupportIcon />} title="Trading" to={configs.routes.transactionShark} />
-                <MenuItem icon={<ReportIcon />} title="Reports" to="/report" />
+                <MenuItem icon={<ReportIcon />} title="Gain & Loss" to={configs.routes.gainLoss} />
                 <MenuItem icon={<SettingIcon />} title="Setting" to="/setting" />
                 {/*  */}
             </Menu>

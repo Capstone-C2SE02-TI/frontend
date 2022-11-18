@@ -13,6 +13,7 @@ const routes = {
     profile: '/profile',
     buyToken: '/buy-token',
     swapToken: '/swap-token',
-    transactionShark: '/transaction-shark'
+    transactionShark: '/transaction-shark',
+    gainLoss: '/gain-loss',
 };
 export default routes;

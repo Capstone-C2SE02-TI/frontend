@@ -9,7 +9,7 @@ import numberWithCommas from '~/helpers/numberWithCommas';
 const cx = classNames.bind(styles);
 
 const REDUCING_COLOR = 'rgb(249, 20, 72)';
-const INCREASING_COLOR = 'rgb(77 ,201 ,246)';
+const INCREASING_COLOR = '#21ce66';
 
 function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
     // eslint-disable-next-line react-hooks/rules-of-hooks

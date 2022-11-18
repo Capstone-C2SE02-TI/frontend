@@ -17,6 +17,7 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
     }, [data.from, data.to, sharkAddress]);
 
     return (
+       
         <tr className={cx('transaction-shark__tr')}>
             <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
             <td>shark #{data.sharkId}</td>

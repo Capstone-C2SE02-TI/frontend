@@ -5,6 +5,8 @@ import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+
+    searchFilterChangeSelector,
     sharkCryptoStatusSelector,
     sharkRemainingSelector,
 } from '~/modules/SharkWallet/selector';
@@ -49,14 +51,14 @@ function SharkWalletsOverview() {
 
     const textSearchDebounced = useDebounced(searchText, 500);
     useEffect(() => {
-     
-            dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
-     
+
+        dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
 
 
-    // const searchTextt = useSelector(searchFilterChangeSelector);
+    const searchTextt = useSelector(searchFilterChangeSelector);
 
     return (
         <div className={cx('shark-overview')}>
