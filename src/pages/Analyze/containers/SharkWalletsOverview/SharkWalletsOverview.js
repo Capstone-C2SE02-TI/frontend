@@ -15,7 +15,6 @@ import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDebounced } from '~/hooks';
-import TradeItem from './../../components/TradeItem/TradeItem';
 
 
 

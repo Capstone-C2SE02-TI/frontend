@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './MenuProfile.module.scss';
 import { useState } from 'react';
-
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
@@ -42,30 +41,32 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
     const handleBackMenu = () => {
         setHistory((pre) => pre.slice(0, history.length - 1));
     };
-   const navigate = useNavigate();
 
-   const [modalIsOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 
-   function openModal() {
-       setIsOpen(true);
-   }
+    const [modalIsOpen, setIsOpen] = useState(false);
 
-   function closeModal() {
-       setIsOpen(false);
-   }
+    function openModal() {
+        setIsOpen(true);
+    }
 
-   const handleLogOut = () => {
-       const fetchApi = async () => {
-           const response = await authService.signOut();
-           if (response.message === 'successfully') {
-               localStorage.removeItem('userInfo');
-               navigate('/sign-in ');
-           }
-       };
-       fetchApi();
-   };
-    
-    
+    function closeModal() {
+        setIsOpen(false);
+    }
+
+    const handleLogOut = () => {
+        const fetchApi = async () => {
+            const response = await authService.signOut();
+            if (response.message === 'successfully') {
+                localStorage.removeItem('userInfo');
+                localStorage.removeItem('metamaskConnect');
+                navigate('/sign-in ');
+            }
+        };
+        fetchApi();
+    };
+
+
     const renderResult = (attrs) => {
         return (
             <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
@@ -123,7 +124,7 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
             hideOnClick={hideOnClick}
             render={renderResult}
             onHide={handleResetToFirstPage}
-            // visible
+        // visible
         >
             {children}
         </Tippy>

@@ -1,14 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './LayoutDefault.module.scss';
 import SideBar from './components/SideBar';
+import ConnectButton from '~/pages/SwapToken/ConnectButton'
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
-import { useSelector } from 'react-redux';
-import { AvatarIcon, DolarIcon, MenuIcon } from '~/components/Icons';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon } from '~/components/Icons';
+import { ethers } from 'ethers';
+import { TI_ABI, TI_SMART_CONTRACT_ADDRESS, DEX_ABI, DEX_SMART_CONTRACT_ADDRESS } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
-import { userInfoSelector } from '~/modules/user/auth/selectors';
+import authSlice, { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
+import { userInfoSelector, walletAddressSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
@@ -24,6 +26,10 @@ const userMenu = [
         title: 'Your Profile',
     },
     {
+        icon: <DiscoverIcon />,
+        title: 'Swap Token',
+    },
+    {
         icon: <DolarIcon />,
         title: 'Upgrade Premium',
     },
@@ -31,13 +37,75 @@ const userMenu = [
 
 
 function LayoutDefault({ children }) {
+
     const statusSidebarSelector = useSelector(SidebarSelector);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const userInfo = useSelector(userInfoSelector);
-
+    const walletAddress = useSelector(walletAddressSelector)
     const [resize, setResize] = useState(false)
+    //connect wallet
+    const [provider, setProvider] = useState(undefined);
+    const [signer, setSigner] = useState('');
+    const [signerAddress, setSignerAddress] = useState('');
+
+    useEffect(() => {
+        const onLoad = async () => {
+            const provider = await new ethers.providers.Web3Provider(window.ethereum);
+            await setProvider(provider);
+        };
+        onLoad();
+    }, []);
+
+    //side Effect handle loadBalance and loadRatio when have signer address
+    useEffect(() => {
+
+        if (walletAddress) {
+            //show balance in wallet
+            loadBalance(walletAddress);
+            //have ratio to convert eth to TI
+            loadRatio();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [walletAddress]);
+
+    const loadBalance = async (signerAddress) => {
+        const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
+        const balance = await contractTi.balanceOf(signerAddress);
+        let convertBalance = await balance.toHexString(16);
+        dispatch(authSlice.actions.saveBalance(parseInt(convertBalance, 16)))
+
+    };
+
+    const loadRatio = async () => {
+        const contractSwap = await new ethers.Contract(DEX_SMART_CONTRACT_ADDRESS, DEX_ABI, provider);
+        const balance = await contractSwap.price();
+        let convertBalance = balance.toHexString(16);
+        dispatch(authSlice.actions.saveRatio(parseInt(convertBalance, 16) / 10 ** 18))
+
+    };
+
+    const getSigner = async (provider) => {
+        provider.send('eth_requestAccounts', []);
+        const signer = provider.getSigner();
+        setSigner(signer);
+    };
+
+
+
+    const getWalletAddress = () => {
+        signer.getAddress().then((address) => {
+            setSignerAddress(address);
+            dispatch(authSlice.actions.saveWalletAddress(address))
+        });
+    };
+
+    useEffect(() => {
+        if (signer) getWalletAddress();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [signer])
+
     useEffect(() => {
         if (userId) {
             dispatch(fetchGetUserInfo(userId));
@@ -57,18 +125,19 @@ function LayoutDefault({ children }) {
     };
 
     useEffect(() => {
+
         const handleResize = (e) => {
             if (window.innerWidth < 1200) {
-               setResize(true)
+                setResize(true)
             }
             else setResize(false)
         };
 
         window.addEventListener('resize', handleResize);
 
-        return () => 
-             window.removeEventListener('resize', handleResize);
-        
+        return () =>
+            window.removeEventListener('resize', handleResize);
+
     }, []);
 
 
@@ -85,11 +154,11 @@ function LayoutDefault({ children }) {
 
     //
 
-    const connectWallet = () => {
-        navigate('/buy-token');
-    };
+    // const connectWallet = () => {
+    //     navigate('/buy-token');
+    // };
 
-  
+
     const handleOnChange = (menuItem) => {
         console.log('menuItem', menuItem);
         switch (menuItem.title) {
@@ -97,12 +166,15 @@ function LayoutDefault({ children }) {
                 navigate('/profile');
                 break;
             case 'Upgrade Premium':
-                  navigate('/buy-token');
+                navigate('/buy-token');
+                break;
+            case 'Swap Token':
+                navigate('/swap-token')
                 break;
             default:
                 break;
         }
-      
+
     };
     return (
         <div className={cx('wrapper')}>
@@ -116,9 +188,15 @@ function LayoutDefault({ children }) {
                             <MenuIcon />
                         </button>
                     </Tippy>
-                    <h3 onClick={connectWallet}>Upgrade Premium</h3>
+
                     {userId ? (
                         <div className={cx('user-profile__right')}>
+                            <ConnectButton
+                                provider={provider}
+                                isConnected={!!signer}
+                                signerAddress={walletAddress ? walletAddress : signerAddress}
+                                getSigner={getSigner}
+                            />
                             <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo}>
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
