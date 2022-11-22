@@ -1,10 +1,13 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './BuyToken.module.scss';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { walletAddressSelector } from '~/modules/user/auth/selectors';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import ConnectButton from '../SwapToken/ConnectButton';
+import Button from '~/components/Button';
 import {
     DEX_ABI,
     FUND_SUBSCRIPTION_ABI,
@@ -18,19 +21,23 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 function BuyToken() {
+    const walletAddress = useSelector(walletAddressSelector)
+
     const [provider, setProvider] = useState(undefined);
     const [balance, setBalance] = useState('');
     const [ratio, setRatio] = useState('');
-    const [signer, setSigner] = useState('');
+    // const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
     // const [ethValues, setEthValues] = useState(0);
     // const [ethChange, setEthChange] = useState(0);
     const [premiumPrice, setPremiumPrice] = useState('');
-
+    const [isPremiumUser, setIsPremiumUser] = useState(false)
+    const navigate = useNavigate();
     useEffect(() => {
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
+            setSignerAddress(walletAddress)
         };
         onLoad();
     }, []);
@@ -45,10 +52,11 @@ function BuyToken() {
 
             const isPremiumUser = await contractPremium.isPremiumUser(signerAddress);
             if (isPremiumUser) {
-                toast.success('User is premium ')
+                setIsPremiumUser(true)
             }
             else {
                 toast.success('User is not premium ');
+                setIsPremiumUser(false)
             }
         };
         onLoad();
@@ -75,24 +83,6 @@ function BuyToken() {
         setPremiumPrice(parseInt(convertBalance, 16));
     };
 
-    const getSigner = async (provider) => {
-        provider.send('eth_requestAccounts', []);
-        const signer = provider.getSigner();
-        setSigner(signer);
-    };
-
-    const getWalletAddress = () => {
-        signer.getAddress().then((address) => {
-            setSignerAddress(address);
-        });
-    };
-
-    //side Effect handle get address
-    useEffect(() => {
-        if (signer) getWalletAddress();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [signer]);
-
     //side Effect handle loadBalance and loadRatio when have signer address
     useEffect(() => {
         if (signerAddress) {
@@ -103,28 +93,37 @@ function BuyToken() {
             //have ratio to convert eth to TI
             loadRatio();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
 
     const handleBuyNow = async () => {
-        let ABI = ['function buy()'];
-        let iface = new ethers.utils.Interface(ABI);
-        let params = [
-            {
-                from: signerAddress,
-                to: FUND_SUBSCRIPTION_ADDRESS,
-                gas: '0x1FBD0', // 30400
-                gasPrice: '0x1BF08EB000', // 10000000000000
-                data: iface.encodeFunctionData('buy', []),
-            },
-        ];
+        if (signerAddress) {
+            if (isPremiumUser === false) {
+                if (balance > premiumPrice) {
+                    let ABI = ['function buy()'];
+                    let iface = new ethers.utils.Interface(ABI);
+                    let params = [
+                        {
+                            from: signerAddress,
+                            to: FUND_SUBSCRIPTION_ADDRESS,
+                            gas: '0x1FBD0', // 30400
+                            gasPrice: '0x1BF08EB000', // 10000000000000
+                            data: iface.encodeFunctionData('buy', []),
+                        },
+                    ];
 
-         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
-            console.log({ res });
-            //     checkTransactionConfirm(txhash).then((result) => {
-            //        console.log({resultTransaction: result});
-            //    })
-        });
+                    await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
+                        console.log({ res });
+                        //     checkTransactionConfirm(txhash).then((result) => {
+                        //        console.log({resultTransaction: result});
+                        //    })
+                    });
+                } else navigate('/swap-token');
+            } else toast.success('User is premium')
+        } else {
+            alert('Plz connect first')
+        }
+
     };
 
     // const handleChange = (e) => {
@@ -134,8 +133,8 @@ function BuyToken() {
     return (
         <section className={cx('container-banner')}>
             <div className={cx('popup-buy')}>
-                <h1>Start your plan following sharks: balance {balance}</h1>
-                <h2>Yearly{ratio}</h2>
+                <h1>Start your plan following sharks: Balance: {balance} TI</h1>
+                <h2>Yearly: {ratio}</h2>
                 <div className={cx('popup-buy__content')}>
                     <div className={cx('box-content')}>
                         <h4>
@@ -153,13 +152,8 @@ function BuyToken() {
                         {premiumPrice} TI<p>/month</p>
                     </h5>
                     <div className={cx('btn-swap')}>
-                        <button onClick={handleBuyNow}>Buy now</button>
-                        <ConnectButton
-                            provider={provider}
-                            isConnected={!!signer}
-                            signerAddress={signerAddress}
-                            getSigner={getSigner}
-                        />
+                        <Button linearGradientPrimary onClick={handleBuyNow}>Buy now</Button>
+
                     </div>
                 </div>
             </div>

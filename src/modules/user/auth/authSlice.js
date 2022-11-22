@@ -9,6 +9,9 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
+        walletAddress: '',
+        balance: '',
+        ratio: '',
         emailForgotPassword: '',
     },
 
@@ -20,6 +23,15 @@ const authSlice = createSlice({
         authEmailForgotPassword: (state, action) => {
             state.emailForgotPassword = action.payload;
         },
+        saveWalletAddress: (state, action) => {
+            state.walletAddress = action.payload;
+        },
+        saveBalance: (state, action) => { 
+            state.balance = action.payload;
+        },
+        saveRatio: (state, action) => { 
+            state.ratio = action.payload;
+        }
     },
 
     extraReducers: (builder) => {

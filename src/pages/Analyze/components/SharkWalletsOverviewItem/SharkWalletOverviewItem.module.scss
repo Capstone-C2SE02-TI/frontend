@@ -1,3 +1,11 @@
 .shark-active {
-    background-color: #482ee8;;
+    background-color: #482ee8;
+    color: #fff;
+    tr {
+        td {
+            &:first-child {
+                color: #fff;
+            }
+        }
+    }
 }
