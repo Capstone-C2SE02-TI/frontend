@@ -1,16 +1,27 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Loading.module.scss';
-import { Spin } from 'antd';
+import SyncLoader from 'react-spinners/SyncLoader';
 
 const cx = classNames.bind(styles);
 
-function Loading({ className, children }) {
+function Loading({  loading }) {
+    if(!loading) {
+        return;
+    }
+
     return (
         <div className={cx('wrapper')}>
-            
-            <div className={cx('container')}><Spin>
-                { children}</Spin></div>
+            <div className={cx('container')}>
+                <SyncLoader
+                    color="rgb(0, 255, 204)"
+                    loading={loading}
+                    // cssOverride={override}
+                    size={12}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+            </div>
         </div>
     );
 }

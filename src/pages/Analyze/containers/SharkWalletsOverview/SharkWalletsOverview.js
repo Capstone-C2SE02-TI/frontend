@@ -4,30 +4,25 @@ import classNames from 'classnames/bind';
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-
-    searchFilterChangeSelector,
-    sharkCryptoStatusSelector,
-    sharkRemainingSelector,
-} from '~/modules/SharkWallet/selector';
+import { sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDebounced } from '~/hooks';
-
-
+import { userInfoSelector } from '~/modules/user/auth/selectors';
 
 const cx = classNames.bind(styles);
-
 
 function SharkWalletsOverview() {
     const dispatch = useDispatch();
     const sharksCoin = useSelector(sharkRemainingSelector);
     const status = useSelector(sharkCryptoStatusSelector);
+    const userInfo = useSelector(userInfoSelector);
+    const currentUser = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
-        dispatch(fetchSharkWallet());
+        dispatch(fetchSharkWallet(currentUser.userId));
     }, [dispatch]);
 
     useEffect(() => {
@@ -39,7 +34,6 @@ function SharkWalletsOverview() {
         } else {
             dispatch(sharkWalletSlice.actions.actionSharkNoData(sharksCoin));
         }
-        
     }, [dispatch, sharksCoin]);
     const [searchText, setSearchText] = useState('');
 
@@ -50,14 +44,9 @@ function SharkWalletsOverview() {
 
     const textSearchDebounced = useDebounced(searchText, 500);
     useEffect(() => {
-
         dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
-
-
-    const searchTextt = useSelector(searchFilterChangeSelector);
 
     return (
         <div className={cx('shark-overview')}>
@@ -88,11 +77,10 @@ function SharkWalletsOverview() {
                     {sharksCoin
                         .filter((shark) => shark.totalAssets)
                         .map((sharkCoin) => (
-                            <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.id} />
+                            <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.id} userInfo={userInfo} />
                         ))}
                 </tbody>
             </table>
-
             {status !== 'loading' && sharksCoin.length === 0 && <NoData />}
         </div>
     );

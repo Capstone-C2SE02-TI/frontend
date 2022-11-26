@@ -346,7 +346,7 @@ export const CaretDownIcon = ({ width = 20, height = 23, className }) => {
     );
 };
 
-export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
+export const CaretNextIcon = ({ width = 15, height = 15, className, stroke = 'rgb(56, 97, 251)' }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -359,7 +359,7 @@ export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
         >
             <path
                 d="M1.5 1L4.5 4L1.5 7"
-                stroke="rgb(56, 97, 251)"
+                stroke={stroke}
                 strokeWidth={2}
                 strokeMiterlimit={10}
                 strokeLinecap="round"
@@ -370,7 +370,7 @@ export const CaretNextIcon = ({ width = 15, height = 15, className }) => {
 };
 export const StarIcon = ({ width = 20, height = 23, className }) => {
     return (
-        <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width={27} height={27} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M20 7.62105L12.81 6.96842L10 0L7.19 6.97895L0 7.62105L5.46 12.6L3.82 20L10 16.0737L16.18 20L14.55 12.6L20 7.62105ZM10 14.1053L6.24 16.4947L7.24 11.9895L3.92 8.9579L8.3 8.5579L10 4.31579L11.71 8.56842L16.09 8.96842L12.77 12L13.77 16.5053L10 14.1053Z"
                 fill="white"
@@ -378,7 +378,17 @@ export const StarIcon = ({ width = 20, height = 23, className }) => {
         </svg>
     );
 };
-
+export const StarYellowIcon = ({ width = 20, height = 23, className }) => {
+    return (
+        <svg width={27} height={27} viewBox="0 0 20 20" fill="yellow" xmlns="http://www.w3.org/2000/svg">
+            <path
+                stroke="yellow"
+                d="M20 7.62105L12.81 6.96842L10 0L7.19 6.97895L0 7.62105L5.46 12.6L3.82 20L10 16.0737L16.18 20L14.55 12.6L20 7.62105ZM10 14.1053L6.24 16.4947L7.24 11.9895L3.92 8.9579L8.3 8.5579L10 4.31579L11.71 8.56842L16.09 8.96842L12.77 12L13.77 16.5053L10 14.1053Z"
+                fill="yellow"
+            />
+        </svg>
+    );
+};
 export const TelegramIcon = ({ width = 20, height = 23, className }) => {
     return (
         <svg color="#6B53F8" width={30} height={30} viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">

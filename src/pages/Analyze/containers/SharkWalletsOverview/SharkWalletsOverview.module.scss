@@ -80,8 +80,10 @@
             }
 
             &:hover {
-                opacity: 0.5;
-                background: cornflowerblue;
+                // opacity: 0.5;
+                // background: cornflowerblue;
+                // cursor: pointer;
+                background: #a7c1ee;
                 cursor: pointer;
             }
         }
@@ -120,7 +122,7 @@
         font-weight: 500;
         font-size: 14px;
         color: rgb(0, 0, 0);
-        padding: 3px 8px;
+        padding: 8px;
         background-color: var(--color-primary-white);
         border: 2px solid rgb(255, 255, 255);
         border-radius: 8px;

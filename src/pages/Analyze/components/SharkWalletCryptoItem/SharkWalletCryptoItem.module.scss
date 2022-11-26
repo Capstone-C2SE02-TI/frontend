@@ -9,10 +9,22 @@
     }
 
     &:hover {
-        opacity: 0.5;
-        background: cornflowerblue;
-        cursor: pointer;
+        // opacity: 0.5;
+        // background: cornflowerblue;
+        // cursor: pointer;
+            background: #a7c1ee;
+    cursor: pointer;
     }
+
+
+    .btn-show-more {
+		&--active {
+			transform: rotate(90deg);
+			transition: transform 0.2s ease-in-out;
+		}
+        transform: rotate(0deg);
+		transition: transform 0.2s ease-in-out;
+	}
 
 }
 

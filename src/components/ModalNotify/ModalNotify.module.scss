@@ -1,0 +1,33 @@
+.content {
+    position: relative;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+        padding: 14px;
+}
+
+.title {
+   font-weight: 700;
+    font-size: 20px;
+    color: #7c8691;
+    margin: 20px 0;
+}
+
+.desc {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 14px;
+    padding-top: 6px;
+}
+
+.icon {
+       position: absolute;
+    background: #13c39c;
+    border: 3px solid #25ffae;
+    padding: 18px;
+    border-radius: 50%;
+     top: -34px;
+}

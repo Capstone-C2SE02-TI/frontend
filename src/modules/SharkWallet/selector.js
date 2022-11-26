@@ -10,6 +10,7 @@ export const sharkWalletTotalAssetsSelector = (state) => state.sharkWallet.shark
 export const sharkInfoSelector = (state) => state.sharkWallet.sharkInfo;
 export const filterSharkTotalAssetsSelector = (state) => state.sharkWallet.filterSharkTotalAssets;
 export const searchFilterChangeSelector = (state) => state.sharkWallet.searchFilterChange;
+export const sharkDetailSelector = (state) => state.sharkWallet.sharkDetail;
 
 export const sharkRemainingSelector = createSelector(
     sharkListSelector,
