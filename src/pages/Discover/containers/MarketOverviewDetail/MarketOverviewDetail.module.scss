@@ -71,7 +71,7 @@ table {
 tr {
     &:hover {
         background-color: #f8fafd;
-        cursor: pointer;
+        cursor: revert;
     }
 }
 

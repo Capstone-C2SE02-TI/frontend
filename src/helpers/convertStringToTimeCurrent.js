@@ -1,5 +1,4 @@
 function convertStringToTimeCurrent(timeString) {
-console.log({ timeString });
      timeString = timeString?.toString();
     const date = `${timeString?.slice(6, 8)}/${timeString?.slice(4, 6)}/${timeString?.slice(0, 4)}`;
 

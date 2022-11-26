@@ -9,3 +9,48 @@
         }
     }
 }
+
+#spinning-circle {
+    margin-top: 40px;
+    margin-left: 40px;
+    animation: spinning-circle linear 10s infinite;
+    width: 40px;
+    height: 40px;
+    overflow: visible;
+}
+
+#inner-circle {
+    animation: heartbeat 1s infinite;
+}
+
+#inner-circle img {
+    width: 100%;
+    height: auto;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(2);
+    }
+    
+    50% {
+        transform: scale(1);
+    }
+    
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes spinning-circle {
+    0% {
+        transform: rotate(0turn);
+    }
+    100% {
+        transform: rotate(-1turn);
+    }
+}

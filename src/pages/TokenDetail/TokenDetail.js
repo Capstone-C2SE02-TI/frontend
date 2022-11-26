@@ -12,6 +12,10 @@ import { useScrollToTop } from '~/hooks';
 
 import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
 import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
+import Button from '~/components/Button';
+import { useRef } from 'react';
+import RingLoader from 'react-spinners/RingLoader';
+import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -36,8 +40,17 @@ function TokenDetail() {
     };
 
     //    sm={8} xs={12}
+    const canvasRef = useRef();
+  const handleResetZoom = () => {
+      if (canvasRef && canvasRef.current) {
+          canvasRef.current.resetZoom();
+      }
+    };
+    
+    console.log({ statusFetchCoinDetail });
     return (
         <div className={cx('wrapper')}>
+            <Loading loading={statusFetchCoinDetail==='loading'} />
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
@@ -55,7 +68,10 @@ function TokenDetail() {
                                 <DetailEachCoinSkeleton />
                             )}
                             <div className={cx('wallet-chart')}>
-                                <div style={{ textAlign: 'right', padding: '16px' }}>
+                                <div
+                                    className="d-flex justify-content-between"
+                                    style={{ textAlign: 'right', padding: '16px' }}
+                                >
                                     <Select
                                         defaultValue={FILTERS_CHART_DATA[0]}
                                         style={{ width: 120 }}
@@ -65,6 +81,11 @@ function TokenDetail() {
                                             <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
                                         ))}
                                     </Select>
+                                    <div>
+                                        <Button outline onClick={handleResetZoom}>
+                                            Reset Zoom
+                                        </Button>
+                                    </div>
                                 </div>
                                 <div>
                                     {coinDetail && coinDetail.prices ? (
@@ -73,6 +94,8 @@ function TokenDetail() {
                                             symbol={coinDetail.symbol}
                                             data={coinDetail}
                                             typeFilter={filterChartByTime}
+                                            canvasRef={canvasRef}
+                                            // onResetZoom = {handleResetZoom}
                                         />
                                     ) : (
                                         <h2>Chart</h2>
