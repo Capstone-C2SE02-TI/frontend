@@ -8,11 +8,14 @@ import images from '~/assets/images';
 import { useState } from 'react';
 import { authService } from '~/services';
 import Modal from '~/components/Modal';
+import ModalNotify from '~/components/ModalNotify';
+
 const cx = classNames.bind(styles);
 
 function Portfolio({ data }) {
     const navigate = useNavigate();
     const userInfo = useSelector(userInfoSelector);
+    const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
     const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -28,8 +31,9 @@ function Portfolio({ data }) {
         const fetchApi = async () => {
             const response = await authService.signOut();
             if (response.message === 'successfully') {
+                setOpenModalSucceed(true)
                 localStorage.removeItem('userInfo');
-                navigate('/sign-in ');
+                // navigate('/sign-in ');
             }
         };
         fetchApi();
@@ -65,6 +69,15 @@ function Portfolio({ data }) {
                     </div>
                 </div>
             </Modal>
+
+            {openModalSucceed && (
+                <ModalNotify
+                    isOpen={openModalSucceed}
+                    title={"Success"}
+                    description={"Sign out successfully"}
+                    onRequestClose={() => setOpenModalSucceed(false)}
+                />
+            )}
         </section>
     );
 }
