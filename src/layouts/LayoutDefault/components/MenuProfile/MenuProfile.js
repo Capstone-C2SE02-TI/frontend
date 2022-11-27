@@ -9,13 +9,14 @@ import Image from '~/components/Image/Image';
 import Button from '~/components/Button';
 import { authService } from '~/services';
 import { useNavigate } from 'react-router-dom';
-import Modal from '~/components/Modal';
 import ModalConfirm from '../ModalConfirm';
+import ModalNotify from '~/components/ModalNotify';
 
 const cx = classNames.bind(styles);
 
 function MenuProfile({ children, items = [], onChange, hideOnClick = false, userInfo }) {
     const [history, setHistory] = useState([{ data: items }]);
+    const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
     const current = history[history.length - 1];
 
@@ -61,7 +62,9 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
             if (response.message === 'successfully') {
                 localStorage.removeItem('userInfo');
                 localStorage.removeItem('metamaskConnect');
-                navigate('/sign-in ');
+                setOpenModalSucceed(true);
+
+            
             }
         };
         fetchApi();
@@ -103,6 +106,17 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
                         closeModal={closeModal}
                         onHandleAction={handleLogOut}
                     />
+                    {openModalSucceed && (
+                        <ModalNotify
+                            isOpen={openModalSucceed}
+                            title={'Success'}
+                            description={'Sign out successfully'}
+                            onRequestClose={() => {
+                                setOpenModalSucceed(false);
+                                navigate('/sign-in')
+                            }}
+                        />
+                    )}
                 </PopperWrapper>
             </div>
         );

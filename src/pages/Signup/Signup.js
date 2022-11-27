@@ -10,6 +10,7 @@ import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
+import ModalNotify from '~/components/ModalNotify';
 const cx = classNames.bind(styles);
 
 function Signup() {
@@ -27,6 +28,7 @@ function Signup() {
     const [isShowPassword, setIsShowPassword] = useState(true);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(true);
     // const [successfully, setIsShowConfirmPassword] = useState(true);
+    const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
     const navigate = useNavigate();
     const inputUserRef = useRef();
@@ -47,13 +49,14 @@ function Signup() {
                 setFormErrors({ email: 'Email already exists' });
                 break;
             case 'email-name-must-6-30-characters':
-                setFormErrors({ successfully: 'Successfully' });
-                navigate('/sign-in');
+                setFormErrors({ email: 'Email must 6 to 30 characters' });
                 break;
 
             case 'successfully':
                 setFormErrors({ successfully: 'Successfully' });
-                navigate('/sign-in');
+                setOpenModalSucceed(true);
+
+                // navigate('/sign-in');
                 break;
             default:
                 break;
@@ -225,6 +228,17 @@ function Signup() {
                     </span>
                 </div>
             </form>
+            {openModalSucceed && (
+                <ModalNotify
+                    isOpen={openModalSucceed}
+                    title={'Success'}
+                    description={'Sign up successfully'}
+                    onRequestClose={() => {
+                        setOpenModalSucceed(false);
+                        navigate('/sign-in');
+                    }}
+                />
+            )}
         </div>
     );
 }
