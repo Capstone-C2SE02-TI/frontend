@@ -8,8 +8,10 @@ function Button({
     outlineBrow = false,
     outline = false,
     primary = false,
-    linearGradientPrimary=false,
-    dark= false,
+    success = false,
+    error = false,
+    linearGradientPrimary = false,
+    dark = false,
     large = false,
     small = false,
     medium = false,
@@ -38,6 +40,8 @@ function Button({
 
     const classes = cx('wrapper', {
         primary,
+        success,
+        error,
         dark,
         outlineBrow,
         outline,

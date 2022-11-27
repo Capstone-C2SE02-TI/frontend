@@ -1,8 +1,13 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getSharkWallet = async () => {
+export const getSharkWallet = async (id) => {
     try {
-        const response = await httpRequest.get('/display/sharks');
+  
+        const response = await httpRequest.get('/display/sharks', {
+            params: {
+                userId: id,
+            },
+        });
         return response.data;
     } catch (error) {
         console.log(error);
@@ -29,6 +34,25 @@ export const getTransactionHistorySharkWallet = async (id) => {
                 id,
             },
         });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+export const followSharkWallet = async (data) => {
+    try {
+        const response = await httpRequest.post('/user/follow-shark-wallet', data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const followUnSharkWallet = async (data) => {
+    try {
+        const response = await httpRequest.post('/user/unfollow-shark-wallet', data);
         return response.data;
     } catch (error) {
         console.log(error);

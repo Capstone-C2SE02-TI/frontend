@@ -1,4 +1,4 @@
-import React,{ useRef }  from 'react';
+import React, { useRef } from 'react';
 import styles from './SharkWalletCryptoItem.module.scss';
 import classNames from 'classnames/bind';
 import numberWithCommas from '~/helpers/numberWithCommas';
@@ -6,23 +6,25 @@ import Image from '~/components/Image/Image';
 import { Fragment } from 'react';
 import { useOnclickOutSide } from '~/hooks';
 import TradeItem from './../TradeItem/TradeItem';
+import millify from 'millify';
+import { CaretNextIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
-
 function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
-   
-	const [isShowTrade, setIsShowTrade] = React.useState(false);
+    const [isShowTrade, setIsShowTrade] = React.useState(false);
 
-
-    const refCryptoParent = useRef()
-    const refCryptoChildren = useRef()
-
+    const refCryptoParent = useRef();
+    const refCryptoChildren = useRef();
 
     useOnclickOutSide(refCryptoChildren, (e) => {
         if (!refCryptoParent.current?.contains(e.target)) {
             setIsShowTrade(false);
         }
     });
+
+    const btnMoreClassName = cx('btn-show-more', {
+		'btn-show-more--active': isShowTrade,
+	} )
 
     return (
         <Fragment>
@@ -33,7 +35,9 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                     setIsShowTrade(!isShowTrade);
                 }}
             >
-                <td>#{index + 1}</td>
+                <td className={btnMoreClassName}>
+                    <CaretNextIcon width="16" height="16" />
+                </td>
                 {
                     <ul className={cx('crypto-item')}>
                         <li>
@@ -55,14 +59,19 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                         </li>
                     </ul>
                 }
-                <td>{numberWithCommas(data.quantity)}</td>
+                <td>
+                    {millify(data.quantity, {
+                        precision: 3,
+                        decimalSeparator: ',',
+                    })}
+                </td>
                 <td>
                     ${numberWithCommas(data.total)}({((data.total / totalAssetCrypto) * 100).toFixed(3)}%)
                 </td>
             </tr>
             {/* <TradeItem /> */}
 
-            {isShowTrade && <TradeItem refChild={refCryptoChildren } />}
+            {isShowTrade && <TradeItem refChild={refCryptoChildren} />}
         </Fragment>
     );
 }

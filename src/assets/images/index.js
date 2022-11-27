@@ -14,5 +14,6 @@ const images = {
     userAvatar: require('./avatar-user.png'),
     introduction2: require('./introduction2.jpg'),
     introduction3: require('./space3.jpg'),
+    tick: require('./Vector.png'),
 };
 export default images;

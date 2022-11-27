@@ -15,6 +15,7 @@ const sharkWalletSlice = createSlice({
         sharkInfo: '',
         filterSharkTotalAssets: '',
         searchFilterChange: '',
+        sharkDetail: '',
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -67,12 +68,44 @@ const sharkWalletSlice = createSlice({
             .addCase(fetchTransactionHistorySharkWallet.fulfilled, (state, action) => {
                 state.sharkTransactionHistory = action.payload;
                 state.status = 'idle';
+            })
+
+            .addCase(fetchFollowSharkWallet.pending, (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchFollowSharkWallet.fulfilled, (state, action) => {
+                const { data } = action.payload;
+
+                state.sharkDetail = data;
+                state.status = 'idle';
+                const newShark = state.sharkList.map((shark) => {
+                    if (shark.id === data.id) {
+                        return { ...shark, isFollowed: true };
+                    } else return shark;
+                });
+                state.sharkList = newShark;
+            })
+        
+            .addCase(fetchUnFollowSharkWallet.pending, (state, action) => {
+                    state.status = 'loading';
+                })
+            .addCase(fetchUnFollowSharkWallet.fulfilled, (state, action) => {
+                const { data } = action.payload;
+
+                state.sharkDetail = data;
+                state.status = 'idle';
+                const newShark = state.sharkList.map((shark) => {
+                    if (shark.id === data.id) {
+                        return { ...shark, isFollowed: false };
+                    } else return shark;
+                });
+                state.sharkList = newShark;
             });
     },
 });
 
-export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async () => {
-    const response = await sharkWalletService.getSharkWallet();
+export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async (id) => {
+    const response = await sharkWalletService.getSharkWallet(id);
 
     return response.datas;
 });
@@ -90,4 +123,15 @@ export const fetchTransactionHistorySharkWallet = createAsyncThunk(
     },
 );
 
+export const fetchFollowSharkWallet = createAsyncThunk('sharkWallet/fetchFollowSharkWallet', async (data) => {
+    const response = await sharkWalletService.followSharkWallet(data);
+    
+    return response;
+});
+
+export const fetchUnFollowSharkWallet = createAsyncThunk('sharkWallet/fetchUnFollowSharkWallet', async (data) => {
+    const response = await sharkWalletService.followUnSharkWallet(data);
+
+    return response;
+});
 export default sharkWalletSlice;

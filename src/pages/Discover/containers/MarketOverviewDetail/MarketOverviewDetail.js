@@ -181,7 +181,7 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        {statusFetchListCoins === 'loading' && viewListCoinsPagination.length === 0 && <Loading />}
+                        <Loading loading={viewListCoinsPagination.length === 0} />
                     </tbody>
                 </table>
                 {noData && <NoData searchText={searchText} tagNameCurrent={tagNameCurrent} type={'Category '} />}

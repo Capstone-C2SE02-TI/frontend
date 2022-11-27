@@ -26,7 +26,7 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
 
     useEffect(() => {
         dispatch(fetchCryptoSharkWallet(sharkIdSelected));
-    }, [dispatch, sharkIdSelected, sharksCoin]);
+    }, [dispatch, sharkIdSelected]);
 
 
     return (

@@ -47,7 +47,7 @@ function App() {
                     <Route
                         path={configs.routes.analyze}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Analyze />
@@ -68,22 +68,11 @@ function App() {
                             />
                         }
                     />
-                    <Route
-                        path={configs.routes.tokenDetailL}
-                        element={
-                            <PublicRoute
-                                element={
-                                    <LayoutDefault>
-                                        <TokenDetail />
-                                    </LayoutDefault>
-                                }
-                            />
-                        }
-                    />
+
                     <Route
                         path="/support"
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Support />
@@ -107,7 +96,7 @@ function App() {
                     <Route
                         path="/setting"
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <Setting />
@@ -131,7 +120,7 @@ function App() {
                     <Route
                         path={configs.routes.buyToken}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <BuyToken />
@@ -143,7 +132,7 @@ function App() {
                     <Route
                         path={configs.routes.swapToken}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <SwapToken />
@@ -155,7 +144,7 @@ function App() {
                     <Route
                         path={configs.routes.tokenDetailL}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <TokenDetail />
@@ -203,7 +192,7 @@ function App() {
                     <Route
                         path={configs.routes.gainLoss}
                         element={
-                            <PublicRoute
+                            <PrivateRoute
                                 element={
                                     <LayoutDefault>
                                         <GainLoss />

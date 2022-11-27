@@ -3,8 +3,7 @@ import { useMemo } from 'react';
 import { useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 
-function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
-    const canvasRef = useRef()
+function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  }) {
     let delayed;
 
     const getLabelsCoinsDetailSorted = useMemo(() => {
@@ -15,14 +14,15 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                 let date = new Date(Number(coin[0]));
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                        } PM`
-                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                        } AM`;
+                        ? `${date.getHours() - 12}:${
+                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                          } PM`
+                        : `${date.getHours()}:${
+                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                          } AM`;
                 if (typeFilter === 'month') {
-                    return date.toLocaleDateString().split('/', 2).join('/')
-                } else
-                    return typeFilter === 'day' ? time : date.toLocaleDateString();
+                    return date.toLocaleDateString().split('/', 2).join('/');
+                } else return typeFilter === 'day' ? time : date.toLocaleDateString();
             });
     }, [data.prices, typeFilter]);
 
@@ -132,21 +132,6 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                                 mode: 'xy',
                             },
                         },
-                        // legend: {
-                        //     display: false,
-                        //     labels: {
-                        //         usePointStyle: true,
-                        //     },
-                        // },
-                        // title: {
-                        //     display: true,
-                        //     text: 'Trading chart',
-                        //     color: '#482ee8',
-                        //     fullSize: true,
-                        //     font: {
-                        //         size: 20,
-                        //     },
-                        // },
                     },
                     hover: {
                         intersect: false,
