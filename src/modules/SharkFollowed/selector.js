@@ -1,0 +1,1 @@
+export const sharkFollowedSelector = (state) => state.sharkFollowed.sharkFollowedList;

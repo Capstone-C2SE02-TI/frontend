@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PortfolioSharkFollow.module.scss';
-import { useSelector } from 'react-redux';
-import {
-    sharkCryptoSelector,
-} from '~/modules/SharkWallet/selector';
+import { useDispatch, useSelector } from 'react-redux';
+import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
+import { fetchSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
 
 const cx = classNames.bind(styles);
 
 
 function PortfolioSharkFollow() {
-    const sharkCrypto = useSelector(sharkCryptoSelector);
+    const dispatch = useDispatch();
+    const sharkFollowed = useSelector(sharkFollowedSelector);
+
     const userName = JSON.parse(localStorage.getItem('userInfo'));
+
+    useEffect(() => {
+        dispatch(fetchSharkFollowed(36));
+    }, [dispatch]);
+
+    console.log('sharkFollowed', sharkFollowed)
 
     return (
         <div className='portfolio'>
@@ -33,7 +40,11 @@ function PortfolioSharkFollow() {
                         </tr>
                     </thead>
 
-                    <tbody className={cx('listCoin')}>
+                    <tbody className={cx('portfolio-list-shark')}>
+
+                        {/* <ViewListSharkFollow.lenth > 0 && 
+                        
+                        /> */}
                         {/* {viewListCoinsPagination.length > 0 &&
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem

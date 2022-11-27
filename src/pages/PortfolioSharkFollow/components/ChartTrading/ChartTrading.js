@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-function ChartTrading () {
+import { useRef } from 'react';
+import { Line } from 'react-chartjs-2';
+
+function ChartTrading() {
     return (
         <div>
             
@@ -8,4 +13,4 @@ function ChartTrading () {
     );
 }
 
-export default ChartTrading;
+export default memo(ChartTrading);
