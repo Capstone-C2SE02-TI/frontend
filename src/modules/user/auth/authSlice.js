@@ -9,9 +9,7 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
-        walletAddress: '',
-        balance: '',
-        ratio: '',
+        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrice: '' },
         emailForgotPassword: '',
     },
 
@@ -23,14 +21,11 @@ const authSlice = createSlice({
         authEmailForgotPassword: (state, action) => {
             state.emailForgotPassword = action.payload;
         },
-        saveWalletAddress: (state, action) => {
-            state.walletAddress = action.payload;
-        },
-        saveBalance: (state, action) => { 
-            state.balance = action.payload;
-        },
-        saveRatio: (state, action) => { 
-            state.ratio = action.payload;
+        saveSmartContractInfo: (state, action) => {
+            state.smartContractInfo.walletAddress = action.payload.walletAddress;
+            state.smartContractInfo.balance = action.payload.balance;
+            state.smartContractInfo.ratio = action.payload.ratio;
+            state.smartContractInfo.premiumPrice = action.payload.premiumPrice;
         }
     },
 

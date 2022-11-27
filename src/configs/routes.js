@@ -15,5 +15,6 @@ const routes = {
     swapToken: '/swap-token',
     transactionShark: '/transaction-shark',
     gainLoss: '/gain-loss',
+    portfolioSharkFollow: '/portfolio-shark-follow',
 };
 export default routes;

@@ -6,7 +6,7 @@ import { Line } from 'react-chartjs-2';
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
     const canvasRef = useRef()
     let delayed;
-    
+
     const getLabelsCoinsDetailSorted = useMemo(() => {
         return data.prices[typeFilter]
             .slice()
@@ -15,14 +15,12 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                 let date = new Date(Number(coin[0]));
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                          } PM`
-                        : `${date.getHours()}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                        } PM`
+                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
                         } AM`;
                 if (typeFilter === 'month') {
-                    return date.toLocaleDateString().split('/',2).join('/') 
+                    return date.toLocaleDateString().split('/', 2).join('/')
                 } else
                     return typeFilter === 'day' ? time : date.toLocaleDateString();
             });
@@ -36,14 +34,14 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol }) {
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
-
+    console.log('getLabelsCoinsDetailSorted', getLabelsCoinsDetailSorted)
+    console.log('getDataCoinsDetailSorted', getDataCoinsDetailSorted)
     return (
         <div>
             <Line
                 ref={canvasRef}
                 data={{
                     labels: getLabelsCoinsDetailSorted,
-
                     datasets: [
                         {
                             label: `Price (${time}) in ${symbol} `,
