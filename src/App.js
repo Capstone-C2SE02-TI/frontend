@@ -15,6 +15,7 @@ import Home, {
     TokenDetail,
     TransactionShark,
     GainLoss,
+    PortfolioSharkFollow
 } from './pages';
 
 import { Chart, registerables, Interaction } from 'chart.js';
@@ -195,6 +196,18 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <GainLoss />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.portfolioSharkFollow}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <PortfolioSharkFollow />
                                     </LayoutDefault>
                                 }
                             />

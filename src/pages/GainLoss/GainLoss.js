@@ -4,8 +4,6 @@ import styles from './GainLoss.module.scss';
 import GainLossShark from './containers/GainLossShark/GainLossShark';
 import GainLossCrypto from './containers/GainLossCrypto/GainLossCrypto';
 
-
-
 const cx = classNames.bind(styles);
 
 function GainLoss() {

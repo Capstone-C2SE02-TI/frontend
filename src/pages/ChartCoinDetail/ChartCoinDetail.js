@@ -34,14 +34,14 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
-
+    console.log('getLabelsCoinsDetailSorted', getLabelsCoinsDetailSorted)
+    console.log('getDataCoinsDetailSorted', getDataCoinsDetailSorted)
     return (
         <div>
             <Line
                 ref={canvasRef}
                 data={{
                     labels: getLabelsCoinsDetailSorted,
-
                     datasets: [
                         {
                             label: `Price (${time}) in ${symbol} `,

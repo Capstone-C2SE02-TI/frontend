@@ -5,6 +5,4 @@ export const statusSubmitCodeOTPSelector = (state) => state.auth.statusSubmitCod
 export const emailForgotPasswordSelector = (state) => state.auth.emailForgotPassword;
 export const resetPasswordStatusSelector = (state) => state.auth.statusRestPassword;
 export const statusLoadingSelector = (state) => state.auth.status;
-export const walletAddressSelector = (state) => state.auth.walletAddress;
-export const balanceSelector = (state) => state.auth.balance;
-export const ratioSelector = (state) => state.auth.ratio;
+export const smartContractInfoSelector = (state) => state.auth.smartContractInfo;

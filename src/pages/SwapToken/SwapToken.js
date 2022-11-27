@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { TI_ABI, TI_SMART_CONTRACT_ADDRESS, DEX_ABI, DEX_SMART_CONTRACT_ADDRESS } from '../../abi';
 import { useSelector, useDispatch } from 'react-redux';
-import { walletAddressSelector } from '~/modules/user/auth/selectors';
-import { balanceSelector } from '~/modules/user/auth/selectors';
-import { ratioSelector } from '~/modules/user/auth/selectors';
+import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
 import { ethers } from 'ethers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown, faArrowDown } from '@fortawesome/free-solid-svg-icons';
@@ -21,34 +19,26 @@ const cx = classNames.bind(styles);
 function SwapToken() {
     const dispatch = useDispatch();
 
-    const walletAddress = useSelector(walletAddressSelector)
-    const balance = useSelector(balanceSelector)
-    const ratio = useSelector(ratioSelector)
+    const smartContractInfo = useSelector(smartContractInfoSelector);
+    console.log('smartContractInfo', smartContractInfo)
     const [provider, setProvider] = useState(undefined);
-    // const [balance, setBalance] = useState('');
-    // const [ratio, setRatio] = useState('');
-    const [signerAddress, setSignerAddress] = useState('');
     const [ethValues, setEthValues] = useState(0);
     const [ethChange, setEthChange] = useState(0);
-    // const [statusSwapToken, setStatusSwapToken] = useState('');
 
     useEffect(() => {
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
         };
-        setSignerAddress(walletAddress)
-        // setBalance(balanceRedux)
-        // setRatio(ratioRedux)
+
         onLoad();
     }, []);
 
 
     const handleChange = (e) => {
         setEthValues(e.target.value);
-        setEthChange(e.target.value / ratio);
+        setEthChange(e.target.value / smartContractInfo.ratio);
     };
-
     const handleSwap = async () => {
         let ABI = ['function buy(uint amount)'];
         // let ABITEST = ['function updatePrice(uint _newPrice)'];
@@ -59,7 +49,7 @@ function SwapToken() {
         // console.log(ethers.utils.parseEther(ethValues).toString());
         let params = [
             {
-                from: walletAddress,
+                from: smartContractInfo.walletAddress,
                 to: DEX_SMART_CONTRACT_ADDRESS,
                 gas: '0x1FBD0', // 30400
                 gasPrice: '0x1BF08EB000', // 10000000000000
@@ -74,7 +64,7 @@ function SwapToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    dispatch(authSlice.actions.saveBalance((pre) => pre + ethChange))
+                    dispatch(authSlice.actions.saveSmartContractInfo({ walletAddress: smartContractInfo.walletAddress, balance: ethChange + smartContractInfo.balance, ratio: smartContractInfo.ratio, premiumPrice: smartContractInfo.premiumPrice }))
                     // setBalance((pre) => pre + ethChange);
                     toast.dismiss();
                     toast.success('Swap successfully');
@@ -117,13 +107,13 @@ function SwapToken() {
                     <div className={cx('swap-header')}>
                         <span className={cx('swap-text__header')}>Swap</span>
                         <span className={cx('gear-container')}>
-                            <Button linearGradientPrimary>{walletAddress ? walletAddress.slice(0, 10) + '...' : 'Connect First'}</Button>
+                            <Button linearGradientPrimary>{smartContractInfo.walletAddress ? smartContractInfo.walletAddress.slice(0, 10) + '...' : '...'}</Button>
                         </span>
                     </div>
                     <div className={cx('swap-body')}>
                         <div className={cx('swap-body__text')}>
                             <p>You send</p>
-                            <p>Balance: {balance}</p>
+                            <p>Balance: {smartContractInfo.balance}</p>
                         </div>
                         <div className={cx('swap-body__input')}>
                             <div>
@@ -153,7 +143,7 @@ function SwapToken() {
                                     placeholder="0.0"
                                     type="number"
                                     name="ti-change"
-                                    value={ethValues / ratio || 0}
+                                    value={ethValues / smartContractInfo.ratio || 0}
                                     onChange={() => { }}
                                 />
                             </div>
