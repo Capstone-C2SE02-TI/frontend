@@ -27,7 +27,7 @@ function SharkWalletsOverview() {
 
     useEffect(() => {
         if (sharksCoin.length > 0) {
-            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(sharksCoin[0].id));
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(sharksCoin[0].sharkId));
             dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(sharksCoin[0].walletAddress));
             dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(sharksCoin[0].totalAsset));
             dispatch(sharkWalletSlice.actions.actionSharkInfo(sharksCoin[0]));
@@ -77,7 +77,7 @@ function SharkWalletsOverview() {
                     {sharksCoin
                         .filter((shark) => shark.totalAssets)
                         .map((sharkCoin) => (
-                            <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.id} userInfo={userInfo} />
+                            <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.sharkId} userInfo={userInfo} />
                         ))}
                 </tbody>
             </table>

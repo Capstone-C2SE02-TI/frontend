@@ -6,7 +6,7 @@ import sharkWalletSlice, {
     fetchFollowSharkWallet,
     fetchUnFollowSharkWallet,
 } from '~/modules/SharkWallet/sharkWalletSlice';
-import { useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import { sharkInfoSelector } from '~/modules/SharkWallet/selector';
 import millify from 'millify';
 import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
@@ -16,13 +16,13 @@ const cx = classNames.bind(styles);
 function SharkWalletsOverviewItem({ data, userInfo }) {
     const [openModal, setOpenModal] = useState(false)
     const [confirmContent, setConfirmContent] = useState({});
-   
-   
+    console.log('data', data)
+
     const dispatch = useDispatch();
 
 
     const handleSelectSharkAndSharkAddress = () => {
-        dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(data.id));
+        dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(data.sharkId));
         dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(data.walletAddress));
         dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(data.totalAsset));
         dispatch(sharkWalletSlice.actions.actionSharkInfo(data));
@@ -34,27 +34,27 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
     const handleFollowAndUnFollow = () => {
         if (confirmContent.type === 'follow') {
-             dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.id }));
+            dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
         }
         else {
-             dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.id }));
+            dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
         }
     }
 
-    const openModalConfirm = (title ,description, type) => {
+    const openModalConfirm = (title, description, type) => {
         setOpenModal(true)
         setConfirmContent({ title, description, type });
     }
-    
+
     const closeModalConfirm = () => {
         setOpenModal(false)
         setConfirmContent({})
     }
 
     return (
-        <tr className={cx({ 'shark-active': data.id === sharkInfoCurrent.id })} ref={parentRef}>
+        <tr className={cx({ 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })} ref={parentRef}>
             <td ref={childrenRef} onClick={handleSelectSharkAndSharkAddress}>
-                #Shark {data.id}
+                #Shark {data.sharkId}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress}>
                 $
@@ -91,7 +91,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                 />
             )}
 
-          
+
         </tr>
     );
 }
