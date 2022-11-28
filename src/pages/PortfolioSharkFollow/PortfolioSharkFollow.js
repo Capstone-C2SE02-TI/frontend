@@ -4,6 +4,7 @@ import styles from './PortfolioSharkFollow.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
 import { fetchSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
+import PortfolioSharkFollowItem from './components/PortfolioSharkFollowItem/PortfolioSharkFollowItem';
 
 const cx = classNames.bind(styles);
 
@@ -11,11 +12,10 @@ const cx = classNames.bind(styles);
 function PortfolioSharkFollow() {
     const dispatch = useDispatch();
     const sharkFollowed = useSelector(sharkFollowedSelector);
-
     const userName = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
-        dispatch(fetchSharkFollowed(36));
+        dispatch(fetchSharkFollowed(userName.userId));
     }, [dispatch]);
 
     console.log('sharkFollowed', sharkFollowed)
@@ -41,22 +41,14 @@ function PortfolioSharkFollow() {
                     </thead>
 
                     <tbody className={cx('portfolio-list-shark')}>
-
-                        {/* <ViewListSharkFollow.lenth > 0 && 
-                        
-                        /> */}
-                        {/* {viewListCoinsPagination.length > 0 &&
-                            viewListCoinsPagination.map((coin, index) => (
-                                <CoinItem
-                                    index={index}
-                                    key={coin.id}
-                                    data={coin}
-                                    increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
-                                    increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
-                                />
-                            ))}
-
-                        {statusFetchListCoins === 'loading' && viewListCoinsPagination.length === 0 && <Loading />} */}
+                        {sharkFollowed.length === 0 && <div className="text-center">No data</div>}
+                        {sharkFollowed.map((sharkFollowed, index) => (
+                            <PortfolioSharkFollowItem
+                                index={index}
+                                key={index}
+                                dataSharkFollowed={sharkFollowed}
+                            />
+                        ))}
                     </tbody>
                 </table>
             </div>

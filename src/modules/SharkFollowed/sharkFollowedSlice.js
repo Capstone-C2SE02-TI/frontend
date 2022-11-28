@@ -5,16 +5,12 @@ import { sharkFollowedService } from '~/services';
 const sharkFollowedSlice = createSlice({
     name: 'sharkFollowed',
     initialState: {
-        status: 'idle',
-        sharkFollowedList: [],
+        status: 'idle', sharkFollowedList: [],
     },
 
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchSharkFollowed.pending, (state, action) => {
-                state.status = 'loading';
-            })
             .addCase(fetchSharkFollowed.fulfilled, (state, action) => {
                 state.sharkFollowedList = action.payload;
                 state.status = 'idle';
