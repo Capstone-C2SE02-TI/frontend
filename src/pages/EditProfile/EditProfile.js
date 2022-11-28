@@ -9,13 +9,12 @@ import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { authService } from '~/services';
 import { useNavigate } from 'react-router-dom';
-import { Spin } from 'antd';
+import { Progress, Spin } from 'antd';
 import LoadingCustomize from '~/components/LoadingCustomize';
 import images from '~/assets/images';
 import Axios from 'axios';
 import Modal from '~/components/Modal';
 import { toast } from 'react-toastify';
-
 
 const cx = classNames.bind(styles);
 
@@ -68,16 +67,24 @@ function EditProfile() {
         setImageString(file);
         setDisabledBtn(false);
     };
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [loadingUploadProgress, setLoadingUploadProgress] = useState(false);
 
-    const postImage = () => {
+    const postImage = async () => {
         const data = new FormData();
         data.append('file', imageString);
         data.append('upload_preset', 'ecommerce');
         data.append('cloud_name', 'dhzbsq7fj');
-
-        Axios.post('https://api.cloudinary.com/v1_1/dhzbsq7fj/image/upload', data)
-            .then((res) => setSelectedAvatarImage(res.data.url))
-            .catch((err) => console.log(err));
+        setLoadingUploadProgress(true);
+        const cloudinaryResponse = await Axios.post('https://api.cloudinary.com/v1_1/dhzbsq7fj/auto/upload', data, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            onUploadProgress: function (e) {
+                const uploadProgress = (e.loaded / e.total) * 100;
+                setUploadProgress(Math.floor(uploadProgress));
+            },
+        });
+        setLoadingUploadProgress(false);
+        setSelectedAvatarImage(cloudinaryResponse.data.url);
     };
 
     useEffect(() => {
@@ -124,16 +131,16 @@ function EditProfile() {
                     setFormErrors({});
                     navigate('/profile');
                     toast.success('Update profile successfully', {
-                       position: 'top-center',
-                       autoClose: 1000,
-                       hideProgressBar: false,
-                       closeOnClick: true,
-                       pauseOnHover: true,
-                       draggable: true,
-                       progress: undefined,
-                       theme: 'dark',
-                       icon: '🦄',
-                   });
+                        position: 'top-center',
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'dark',
+                        icon: '🦄',
+                    });
                 }
             };
 
@@ -155,6 +162,14 @@ function EditProfile() {
 
     const openModal = () => {
         setIsOpenModal(true);
+    };
+
+    const renderProgressUploadImages = () => {
+        return (
+            loadingUploadProgress && (
+                <Progress type="circle" percent={uploadProgress} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
+            )
+        );
     };
 
     const renderEditProfile = () => {
@@ -194,10 +209,13 @@ function EditProfile() {
 
                     <div className={cx('edit-profile-avatar')}>
                         <span>Your avatar</span>
-                        <img
-                            src={selectedAvatarImage || userInfoDetail.avatar || images.userAvatar}
-                            alt={cx('edit-profile-avatar')}
-                        />
+                        {renderProgressUploadImages()}
+                        {!loadingUploadProgress && (
+                            <img
+                                src={selectedAvatarImage || userInfoDetail.avatar || images.userAvatar}
+                                alt={cx('edit-profile-avatar')}
+                            />
+                        )}
                         <span className={cx('upload-avatar-btn')}>
                             <UploadIcon className={cx('upload-icon')} />
                             <Button primary onClick={onEditBackgroundButtonClick} className={cx('upload-text')}>

@@ -26,7 +26,11 @@ const authSlice = createSlice({
             state.smartContractInfo.balance = action.payload.balance;
             state.smartContractInfo.ratio = action.payload.ratio;
             state.smartContractInfo.premiumPrice = action.payload.premiumPrice;
+        },
+        saveUserPremium: (state, action) => {
+           state.user.isPremiumUser = action.payload;
         }
+        
     },
 
     extraReducers: (builder) => {
