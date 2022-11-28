@@ -8,18 +8,14 @@ import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 import ConnectButton from '../SwapToken/ConnectButton';
 import Button from '~/components/Button';
-import {
-    FUND_SUBSCRIPTION_ABI,
-    FUND_SUBSCRIPTION_ADDRESS,
-} from '~/abi';
+import { FUND_SUBSCRIPTION_ABI, FUND_SUBSCRIPTION_ADDRESS } from '~/abi';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function BuyToken() {
-    const smartContractInfo = useSelector(smartContractInfoSelector)
+    const smartContractInfo = useSelector(smartContractInfoSelector);
     const [provider, setProvider] = useState(undefined);
-    const [isPremiumUser, setIsPremiumUser] = useState(false)
     const navigate = useNavigate();
     useEffect(() => {
         const onLoad = async () => {
@@ -29,54 +25,30 @@ function BuyToken() {
         onLoad();
     }, []);
 
-    useEffect(() => {
-        const onLoad = async () => {
-            const contractPremium = await new ethers.Contract(
-                FUND_SUBSCRIPTION_ADDRESS,
-                FUND_SUBSCRIPTION_ABI,
-                provider,
-            );
-
-            const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
-            if (isPremiumUser) {
-                setIsPremiumUser(true)
-            }
-            else {
-                toast.success('User is not premium ');
-                setIsPremiumUser(false)
-            }
-        };
-        onLoad();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [smartContractInfo.walletAddress]);
-
-
     const handleBuyNow = async () => {
         if (smartContractInfo.walletAddress) {
-            if (isPremiumUser === false) {
-                if (smartContractInfo.balance > smartContractInfo.premiumPrice) {
-                    let ABI = ['function buy()'];
-                    let iface = new ethers.utils.Interface(ABI);
-                    let params = [
-                        {
-                            from: smartContractInfo.walletAddress,
-                            to: FUND_SUBSCRIPTION_ADDRESS,
-                            gas: '0x1FBD0', // 30400
-                            gasPrice: '0x1BF08EB000', // 10000000000000
-                            data: iface.encodeFunctionData('buy', []),
-                        },
-                    ];
+            if (smartContractInfo.balance > smartContractInfo.premiumPrice) {
+                let ABI = ['function buy()'];
+                let iface = new ethers.utils.Interface(ABI);
+                let params = [
+                    {
+                        from: smartContractInfo.walletAddress,
+                        to: FUND_SUBSCRIPTION_ADDRESS,
+                        gas: '0x1FBD0', // 30400
+                        gasPrice: '0x1BF08EB000', // 10000000000000
+                        data: iface.encodeFunctionData('buy', []),
+                    },
+                ];
 
-                    await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
-                        console.log({ res });
-                        //     checkTransactionConfirm(txhash).then((result) => {
-                        //        console.log({resultTransaction: result});
-                        //    })
-                    });
-                } else navigate('/swap-token');
-            } else toast.success('User is premium')
+                await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((res) => {
+                    console.log({ res });
+                    //     checkTransactionConfirm(txhash).then((result) => {
+                    //        console.log({resultTransaction: result});
+                    //    })
+                });
+            } else navigate('/swap-token');
         } else {
-            alert('Plz connect first')
+            alert('Plz connect first');
         }
     };
 
@@ -102,7 +74,9 @@ function BuyToken() {
                         {smartContractInfo.premiumPrice} TI<p>/month</p>
                     </h5>
                     <div className={cx('btn-swap')}>
-                        <Button linearGradientPrimary onClick={handleBuyNow}>Buy now</Button>
+                        <Button linearGradientPrimary onClick={handleBuyNow}>
+                            Buy now
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -1,12 +1,19 @@
 import classNames from 'classnames/bind';
 import styles from './LayoutDefault.module.scss';
 import SideBar from './components/SideBar';
-import ConnectButton from '~/pages/SwapToken/ConnectButton'
+import ConnectButton from '~/pages/SwapToken/ConnectButton';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { useSelector, useDispatch } from 'react-redux';
 import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon, PortfolioIcon } from '~/components/Icons';
 import { ethers } from 'ethers';
-import { TI_ABI, TI_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, FUND_SUBSCRIPTION_ADDRESS, DEX_ABI, DEX_SMART_CONTRACT_ADDRESS } from '../../abi';
+import {
+    TI_ABI,
+    TI_SMART_CONTRACT_ADDRESS,
+    FUND_SUBSCRIPTION_ABI,
+    FUND_SUBSCRIPTION_ADDRESS,
+    DEX_ABI,
+    DEX_SMART_CONTRACT_ADDRESS,
+} from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
 import authSlice, { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
@@ -17,6 +24,7 @@ import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -37,23 +45,22 @@ const userMenu = [
         icon: <PortfolioIcon />,
         title: 'Portfolio',
     },
-
 ];
 
-
 function LayoutDefault({ children }) {
-
-    const statusSidebarSelector = useSelector(SidebarSelector);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
-    const userInfo = useSelector(userInfoSelector);
-    const smartContractInfo = useSelector(smartContractInfoSelector)
-    const [resize, setResize] = useState(false)
-    //connect wallet
+    const [resize, setResize] = useState(false);
+    const [isPremiumUser, setIsPremiumUser] = useState(false);
     const [provider, setProvider] = useState(undefined);
     const [signer, setSigner] = useState('');
-    const [signerAddress, setSignerAddress] = useState('')
+    const [signerAddress, setSignerAddress] = useState('');
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
+    const statusSidebarSelector = useSelector(SidebarSelector);
+    const userInfo = useSelector(userInfoSelector);
+    const smartContractInfo = useSelector(smartContractInfoSelector);
 
     useEffect(() => {
         const onLoad = async () => {
@@ -76,9 +83,30 @@ function LayoutDefault({ children }) {
     };
 
     useEffect(() => {
+        const onLoad = async () => {
+            const contractPremium = await new ethers.Contract(
+                FUND_SUBSCRIPTION_ADDRESS,
+                FUND_SUBSCRIPTION_ABI,
+                provider,
+            );
+
+            const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
+            if (isPremiumUser) {
+                setIsPremiumUser(isPremiumUser);
+                dispatch(authSlice.actions.saveUserPremium(isPremiumUser));
+            } else {
+                toast.success('User is not premium ');
+                setIsPremiumUser(false);
+            }
+        };
+        onLoad();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [smartContractInfo.walletAddress]);
+
+    useEffect(() => {
         if (signer) getWalletAddress();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [signer])
+    }, [signer]);
 
     const getWalletAddress = () => {
         signer.getAddress().then((address) => {
@@ -93,15 +121,27 @@ function LayoutDefault({ children }) {
             //show balance in wallet
             const loadCommon = async () => {
                 const balance = await loadBalance(signerAddress);
-                console.log("Ban lan", balance)
+                console.log('Ban lan', balance);
                 //have ratio to convert eth to TI
                 const ratio = await loadRatio();
                 //load premium price
                 const premiumPrice = await loadPremiumPrice();
-                dispatch(authSlice.actions.saveSmartContractInfo({ walletAddress: signerAddress, balance: balance, ratio: ratio, premiumPrice: premiumPrice }))
-                console.log({ walletAddress: signerAddress, balance: balance, ratio: ratio, premiumPrice: premiumPrice })
-            }
-            loadCommon()
+                dispatch(
+                    authSlice.actions.saveSmartContractInfo({
+                        walletAddress: signerAddress,
+                        balance: balance,
+                        ratio: ratio,
+                        premiumPrice: premiumPrice,
+                    }),
+                );
+                console.log({
+                    walletAddress: signerAddress,
+                    balance: balance,
+                    ratio: ratio,
+                    premiumPrice: premiumPrice,
+                });
+            };
+            loadCommon();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
@@ -111,7 +151,7 @@ function LayoutDefault({ children }) {
 
     const loadBalance = async (signerAddress) => {
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
-        console.log(contractTi.balanceOf(signerAddress))
+        console.log(contractTi.balanceOf(signerAddress));
         const balance = await contractTi.balanceOf(signerAddress);
         let convertBalance = await balance.toHexString(16);
         return parseInt(convertBalance, 16);
@@ -148,19 +188,14 @@ function LayoutDefault({ children }) {
     useEffect(() => {
         const handleResize = (e) => {
             if (window.innerWidth < 1200) {
-                setResize(true)
-            }
-            else setResize(false)
+                setResize(true);
+            } else setResize(false);
         };
 
         window.addEventListener('resize', handleResize);
 
-        return () =>
-            window.removeEventListener('resize', handleResize);
-
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-
 
     const defaultPropsTippy = {
         animateFill: false,
@@ -182,7 +217,7 @@ function LayoutDefault({ children }) {
                 navigate('/buy-token');
                 break;
             case 'Swap Token':
-                navigate('/swap-token')
+                navigate('/swap-token');
                 break;
             case 'Portfolio':
                 navigate('/portfolio-shark-follow');
@@ -190,7 +225,6 @@ function LayoutDefault({ children }) {
             default:
                 break;
         }
-
     };
     return (
         <div className={cx('wrapper')}>
@@ -210,7 +244,9 @@ function LayoutDefault({ children }) {
                             <ConnectButton
                                 provider={provider}
                                 isConnected={!!signer}
-                                signerAddress={smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress}
+                                signerAddress={
+                                    smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress
+                                }
                                 getSigner={getSigner}
                             />
                             <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo}>
