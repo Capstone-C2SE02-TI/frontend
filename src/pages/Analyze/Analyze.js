@@ -18,9 +18,8 @@ function Analyze() {
     const [rangeEnd, setRangeEnd] = useState(100 * DOLLAR);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
     const [modalSucceedContent, setModalSucceedContent] = useState('');
-    // const [openModalSucceed, setOpenModalSucceed] = useState(false);
-
     const dispatch = useDispatch();
+
 
     const onChange = (value) => {
         setRangeStart(value[0] * DOLLAR);

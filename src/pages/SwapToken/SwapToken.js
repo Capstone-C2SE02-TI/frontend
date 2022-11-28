@@ -20,7 +20,6 @@ function SwapToken() {
     const dispatch = useDispatch();
 
     const smartContractInfo = useSelector(smartContractInfoSelector);
-    console.log('smartContractInfo', smartContractInfo)
     const [provider, setProvider] = useState(undefined);
     const [ethValues, setEthValues] = useState(0);
     const [ethChange, setEthChange] = useState(0);
@@ -46,7 +45,6 @@ function SwapToken() {
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);
 
-        // console.log(ethers.utils.parseEther(ethValues).toString());
         let params = [
             {
                 from: smartContractInfo.walletAddress,
