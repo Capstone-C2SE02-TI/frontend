@@ -9,11 +9,14 @@
             border-top: 1px solid #fff;
             color: #473d85;
             text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 90;
             &:hover {
-                background: none;
+                background-color: #A697FF;
                 cursor: default;
             }
-
             th {
                 padding: 10px;
                 border-right: 1px solid #fff;
