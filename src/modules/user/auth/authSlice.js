@@ -9,8 +9,9 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
-        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrice: '' },
+        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: '' },
         emailForgotPassword: '',
+        isPremiumUser: '',
     },
 
     reducers: {
@@ -22,15 +23,18 @@ const authSlice = createSlice({
             state.emailForgotPassword = action.payload;
         },
         saveSmartContractInfo: (state, action) => {
-            state.smartContractInfo.walletAddress = action.payload.walletAddress;
-            state.smartContractInfo.balance = action.payload.balance;
-            state.smartContractInfo.ratio = action.payload.ratio;
-            state.smartContractInfo.premiumPrice = action.payload.premiumPrice;
+            const { walletAddress, balance, ratio, premiumPrices } = action.payload;
+            state.smartContractInfo.walletAddress = walletAddress;
+            state.smartContractInfo.balance = balance;
+            state.smartContractInfo.ratio = ratio;
+            state.smartContractInfo.premiumPrices = premiumPrices;
         },
         saveUserPremium: (state, action) => {
-           state.user.isPremiumUser = action.payload;
-        }
-        
+            state.isPremiumUser = action.payload;
+        },
+        // saveContractPremium: (state, action) => {
+        //     state.contractPremium = action.payload;
+        // },
     },
 
     extraReducers: (builder) => {
@@ -76,11 +80,7 @@ const authSlice = createSlice({
                 state.status = 'idle';
                 if (action.payload === 'successfully') {
                     state.statusRestPassword.successfully = action.payload;
-                }
-                else
-                    state.statusRestPassword.failed = action.payload
-
-
+                } else state.statusRestPassword.failed = action.payload;
             });
     },
 });
@@ -108,3 +108,5 @@ export const fetchCreateNewPassword = createAsyncThunk('auth/fetchCreateNewPassw
     return response.message;
 });
 export default authSlice;
+
+export const { saveUserPremium, saveContractPremium, saveSmartContractInfo } = authSlice.actions;

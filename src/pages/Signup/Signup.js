@@ -8,7 +8,7 @@ import { authService } from '~/services';
 import styles from './Signup.module.scss';
 import validate from '~/helpers/validation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretDown, faCircleXmark, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCheck, faCircleXmark, faEye, faEyeSlash, faSquareCheck } from '@fortawesome/free-solid-svg-icons';
 import images from '~/assets/images';
 import ModalNotify from '~/components/ModalNotify';
 const cx = classNames.bind(styles);
@@ -230,6 +230,7 @@ function Signup() {
             </form>
             {openModalSucceed && (
                 <ModalNotify
+                    icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
                     title={'Success'}
                     description={'Sign up successfully'}

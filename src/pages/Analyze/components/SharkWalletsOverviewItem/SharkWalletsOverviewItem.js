@@ -16,7 +16,6 @@ const cx = classNames.bind(styles);
 function SharkWalletsOverviewItem({ data, userInfo }) {
     const [openModal, setOpenModal] = useState(false)
     const [confirmContent, setConfirmContent] = useState({});
-    console.log('data', data)
 
     const dispatch = useDispatch();
 
