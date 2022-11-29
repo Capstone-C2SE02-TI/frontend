@@ -6,6 +6,7 @@ import coinDetailSlice from './CoinDetail/coinDetailSlice';
 import sharkWalletSlice from './SharkWallet/sharkWalletSlice';
 import transactionSharkSlice from './TransactionShark/transactionSharkSlice';
 import gainLossSlice from './GainLoss/gainLossSlice';
+import sharkFollowedSlice from './SharkFollowed/sharkFollowedSlice';
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         sharkWallet: sharkWalletSlice.reducer,
         transactionShark: transactionSharkSlice.reducer,
         gainLoss: gainLossSlice.reducer,
+        sharkFollowed: sharkFollowedSlice.reducer,
     },
 });
 export default store;

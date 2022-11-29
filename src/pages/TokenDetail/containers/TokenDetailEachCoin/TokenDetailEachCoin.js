@@ -9,6 +9,7 @@ import { CaretDownIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 function TokenDetailEachCoin({ data, community }) {
+    { console.log(data) }
     return (
         <section className={cx('token-container')}>
             <div>
@@ -24,6 +25,7 @@ function TokenDetailEachCoin({ data, community }) {
                 <h3>
                     {data.name} {data.symbol}
                 </h3>
+                <h1>{data.usd.price.toFixed(3)}</h1>
                 <span>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
             </div>
 
