@@ -111,10 +111,6 @@ function SignIn() {
                 <img src={images.logoRobot} alt="logo" />
             </div>
             <form className={cx('login-right')} onSubmit={handleSubmit}>
-                <div className={cx('login-right__language')}>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                    <span>Language</span>
-                </div>
                 <div className={cx('login-right__header')}>
                     <h3>TI Access</h3>
                     <span>Please fill your detail to access your account.</span>

@@ -54,8 +54,8 @@ table {
             border-top: 1px solid #eff2f5;
 
             &:hover {
-                background-color: #f8fafd;
-                cursor: pointer;
+                background-color: unset;
+                cursor: default;
             }
         }
 
@@ -63,7 +63,7 @@ table {
         border-bottom: 1px solid #fff;
 
         th {
-            padding: 10px 10px 10px 0;
+            padding: 10px 10px 10px 10px;
         }
     }
 }
@@ -71,13 +71,17 @@ table {
 tr {
     &:hover {
         background-color: #f8fafd;
-        cursor: revert;
+        cursor: pointer;
     }
 }
 
 td {
-    text-align: start;
+    text-align: center;
     padding: 0px 0 0px 20px;
+    &:nth-child(1) {
+        text-align: center;
+        padding: 10px;
+    }
 }
 
 .pricedata {
