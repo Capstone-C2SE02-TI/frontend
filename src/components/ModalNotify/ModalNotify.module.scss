@@ -5,14 +5,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-        padding: 14px;
+    padding: 14px;
 }
 
 .title {
-   font-weight: 700;
+    font-weight: 700;
     font-size: 20px;
     color: #7c8691;
-    margin: 20px 0;
+    margin: 30px 0 8px 0;
 }
 
 .desc {
@@ -24,10 +24,15 @@
 }
 
 .icon {
-       position: absolute;
+    position: absolute;
     background: #13c39c;
     border: 3px solid #25ffae;
-    padding: 18px;
+    padding: 16px 18px;
     border-radius: 50%;
-     top: -34px;
+    top: -34px;
+
+    svg {
+        font-size: 26px;
+        color: #fff;
+    }
 }

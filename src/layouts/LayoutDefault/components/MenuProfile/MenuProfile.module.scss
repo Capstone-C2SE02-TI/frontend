@@ -109,5 +109,7 @@
     color: rgb(107 114 128);
     font-weight: 600;
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 156px;
 }
-

@@ -16,15 +16,14 @@ import {
 } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import authSlice, { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
-import { userInfoSelector, smartContractInfoSelector } from '~/modules/user/auth/selectors';
+import authSlice, { fetchGetUserInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
+import { userInfoSelector, smartContractInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
-import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -49,10 +48,10 @@ const userMenu = [
 
 function LayoutDefault({ children }) {
     const [resize, setResize] = useState(false);
-    const [isPremiumUser, setIsPremiumUser] = useState(false);
     const [provider, setProvider] = useState(undefined);
     const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
+    const [isConnecting, setIsConnecting] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -89,15 +88,9 @@ function LayoutDefault({ children }) {
                 FUND_SUBSCRIPTION_ABI,
                 provider,
             );
-
+            // dispatch(saveContractPremium(contractPremium));
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
-            if (isPremiumUser) {
-                setIsPremiumUser(isPremiumUser);
-                dispatch(authSlice.actions.saveUserPremium(isPremiumUser));
-            } else {
-                toast.success('User is not premium ');
-                setIsPremiumUser(false);
-            }
+            dispatch(saveUserPremium(isPremiumUser));
         };
         onLoad();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,47 +104,37 @@ function LayoutDefault({ children }) {
     const getWalletAddress = () => {
         signer.getAddress().then((address) => {
             setSignerAddress(address);
-            console.log('address', address);
         });
     };
+    const userIsPremium = useSelector(userIsPremiumSelector);
 
-    //side Effect handle loadBalance and loadRatio when have signer address
     useEffect(() => {
         if (signerAddress) {
             //show balance in wallet
             const loadCommon = async () => {
+                setIsConnecting(true);
+
                 const balance = await loadBalance(signerAddress);
-                console.log('Ban lan', balance);
                 //have ratio to convert eth to TI
                 const ratio = await loadRatio();
                 //load premium price
-                const premiumPrice = await loadPremiumPrice();
+                const premiumPrices = await loadPremiumPrices();
                 dispatch(
                     authSlice.actions.saveSmartContractInfo({
                         walletAddress: signerAddress,
                         balance: balance,
                         ratio: ratio,
-                        premiumPrice: premiumPrice,
+                        premiumPrices: premiumPrices,
                     }),
                 );
-                console.log({
-                    walletAddress: signerAddress,
-                    balance: balance,
-                    ratio: ratio,
-                    premiumPrice: premiumPrice,
-                });
             };
             loadCommon();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [signerAddress]);
-    // const smartTest = useSelector(smartContractInfoSelector)
-    // console.log('Test', smartTest)
-    // console.log(signerAddress)
 
     const loadBalance = async (signerAddress) => {
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
-        console.log(contractTi.balanceOf(signerAddress));
         const balance = await contractTi.balanceOf(signerAddress);
         let convertBalance = await balance.toHexString(16);
         return parseInt(convertBalance, 16);
@@ -162,15 +145,14 @@ function LayoutDefault({ children }) {
         const balance = await contractSwap.price();
         let convertBalance = balance.toHexString(16);
         return parseInt(convertBalance, 16) / 10 ** 18;
-        // dispatch(authSlice.actions.saveSmartContractInfo({ ratio: parseInt(convertBalance, 16) / 10 ** 18 }))
     };
 
-    const loadPremiumPrice = async () => {
+    const loadPremiumPrices = async () => {
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
-        const premiumPrice = await contractPremium.premiumPrice();
-        let convertBalance = premiumPrice.toHexString(16);
-        return parseInt(convertBalance, 16);
-        // dispatch(authSlice.actions.saveSmartContractInfo({ premiumPrice: parseInt(convertBalance, 16) }))
+        const premium1Month = await contractPremium.premiumLevel(1);
+        const premium6Month = await contractPremium.premiumLevel(2);
+        const premium1Year = await contractPremium.premiumLevel(3);
+        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1] , time: 6}, {price: premium1Year[1], time: 12}];
     };
 
     const sidebarClassName = cx({
@@ -193,7 +175,6 @@ function LayoutDefault({ children }) {
         };
 
         window.addEventListener('resize', handleResize);
-
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
@@ -208,7 +189,6 @@ function LayoutDefault({ children }) {
     };
 
     const handleOnChange = (menuItem) => {
-        console.log('menuItem', menuItem);
         switch (menuItem.title) {
             case 'Your Profile':
                 navigate('/profile');
@@ -226,6 +206,27 @@ function LayoutDefault({ children }) {
                 break;
         }
     };
+
+    const renderConnectMetaMask = () => {
+        if (userIsPremium === '')
+            return (
+                <ConnectButton
+                    provider={provider}
+                    isConnected={isConnecting}
+                    signerAddress={smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress}
+                    getSigner={getSigner}
+                />
+            );
+
+        return userIsPremium ? (
+            <button className={cx('btn-connection')}>Premium!</button>
+        ) : (
+            <button className={cx('btn-connection')} onClick={() => navigate('/buy-token')}>
+                Click Upgrade now!
+            </button>
+        );
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
@@ -241,14 +242,7 @@ function LayoutDefault({ children }) {
 
                     {userId ? (
                         <div className={cx('user-profile__right')}>
-                            <ConnectButton
-                                provider={provider}
-                                isConnected={!!signer}
-                                signerAddress={
-                                    smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress
-                                }
-                                getSigner={getSigner}
-                            />
+                            {renderConnectMetaMask()}
                             <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo}>
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (

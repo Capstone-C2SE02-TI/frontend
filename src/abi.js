@@ -316,144 +316,69 @@ const DEX_ABI =
 
 const FUND_SUBSCRIPTION_ABI = [
     {
-        inputs: [
-            {
-                internalType: 'address',
-                name: '_paymentToken',
-                type: 'address',
-            },
-            {
-                internalType: 'uint256',
-                name: '_premiumPrice',
-                type: 'uint256',
-            },
-        ],
+        inputs: [{ internalType: 'address', name: '_paymentToken', type: 'address' }],
         stateMutability: 'nonpayable',
         type: 'constructor',
     },
     {
-        anonymous: false,
-        inputs: [
-            {
-                indexed: false,
-                internalType: 'address payable',
-                name: 'buyer',
-                type: 'address',
-            },
-            {
-                indexed: false,
-                internalType: 'uint256',
-                name: 'amount',
-                type: 'uint256',
-            },
-        ],
-        name: 'Bought',
-        type: 'event',
-    },
-    {
-        inputs: [],
-        name: 'buy',
-        outputs: [],
-        stateMutability: 'payable',
+        inputs: [{ internalType: 'address', name: '_user', type: 'address' }],
+        name: 'getExpriedTime',
+        outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+        stateMutability: 'view',
         type: 'function',
     },
     {
-        inputs: [
-            {
-                internalType: 'address',
-                name: '',
-                type: 'address',
-            },
-        ],
+        inputs: [{ internalType: 'address', name: '_user', type: 'address' }],
         name: 'isPremiumUser',
-        outputs: [
-            {
-                internalType: 'bool',
-                name: '',
-                type: 'bool',
-            },
-        ],
+        outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
         stateMutability: 'view',
         type: 'function',
     },
     {
         inputs: [],
         name: 'owner',
-        outputs: [
-            {
-                internalType: 'address payable',
-                name: '',
-                type: 'address',
-            },
-        ],
+        outputs: [{ internalType: 'address payable', name: '', type: 'address' }],
         stateMutability: 'view',
         type: 'function',
     },
     {
         inputs: [],
         name: 'paymenToken',
+        outputs: [{ internalType: 'contract IERC20', name: '', type: 'address' }],
+        stateMutability: 'view',
+        type: 'function',
+    },
+    {
+        inputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+        name: 'premiumLevel',
         outputs: [
-            {
-                internalType: 'contract IERC20',
-                name: '',
-                type: 'address',
-            },
+            { internalType: 'uint256', name: 'expriedTime', type: 'uint256' },
+            { internalType: 'uint24', name: 'price', type: 'uint24' },
         ],
         stateMutability: 'view',
         type: 'function',
     },
     {
-        inputs: [],
-        name: 'premiumPrice',
+        inputs: [{ internalType: 'address', name: '', type: 'address' }],
+        name: 'premiumUsers',
         outputs: [
-            {
-                internalType: 'uint256',
-                name: '',
-                type: 'uint256',
-            },
+            { internalType: 'address', name: 'supcripter', type: 'address' },
+            { internalType: 'uint256', name: 'startTime', type: 'uint256' },
+            { internalType: 'uint256', name: 'endTime', type: 'uint256' },
+            { internalType: 'bool', name: 'isValid', type: 'bool' },
         ],
         stateMutability: 'view',
         type: 'function',
     },
     {
-        inputs: [
-            {
-                internalType: 'address',
-                name: 'user',
-                type: 'address',
-            },
-            {
-                internalType: 'bool',
-                name: 'premiumStatus',
-                type: 'bool',
-            },
-        ],
-        name: 'setPremiumUserStatus',
-        outputs: [],
-        stateMutability: 'nonpayable',
-        type: 'function',
-    },
-    {
-        inputs: [
-            {
-                internalType: 'address',
-                name: '_newERC20',
-                type: 'address',
-            },
-        ],
+        inputs: [{ internalType: 'address', name: '_newERC20', type: 'address' }],
         name: 'updateERC20',
         outputs: [],
         stateMutability: 'nonpayable',
         type: 'function',
     },
     {
-        inputs: [
-            {
-                internalType: 'uint256',
-                name: '_newPrice',
-                type: 'uint256',
-            },
-        ],
+        inputs: [{ internalType: 'address payable', name: '_newOwner', type: 'address' }],
         name: 'updateOwner',
         outputs: [],
         stateMutability: 'nonpayable',
@@ -462,19 +387,41 @@ const FUND_SUBSCRIPTION_ABI = [
     {
         inputs: [
             {
-                internalType: 'address payable',
-                name: '_newOwner',
-                type: 'address',
+                components: [
+                    { internalType: 'uint256', name: 'expriedTime', type: 'uint256' },
+                    { internalType: 'uint24', name: 'price', type: 'uint24' },
+                ],
+                internalType: 'struct premiumSubsription.premiumMetadata',
+                name: '__newMedata',
+                type: 'tuple',
             },
+            { internalType: 'uint8', name: '_level', type: 'uint8' },
         ],
-        name: 'updateOwner',
+        name: 'updatePremiumLevel',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [
+            { internalType: 'address', name: '_user', type: 'address' },
+            { internalType: 'bool', name: '_premiumStatus', type: 'bool' },
+        ],
+        name: 'updateValidUserStatus',
+        outputs: [],
+        stateMutability: 'nonpayable',
+        type: 'function',
+    },
+    {
+        inputs: [{ internalType: 'uint8', name: '_level', type: 'uint8' }],
+        name: 'upgradePremium',
         outputs: [],
         stateMutability: 'nonpayable',
         type: 'function',
     },
 ];
 
-const FUND_SUBSCRIPTION_ADDRESS = '0x69b6747E19176E61BE77DC13ed6AfdF61c978Bc8';
+const FUND_SUBSCRIPTION_ADDRESS = '0x563aef0377c65075fa33ec14640f1d24c8839eaa';
 
 export {
     TI_SMART_CONTRACT_ADDRESS,

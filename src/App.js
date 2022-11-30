@@ -31,8 +31,8 @@ import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
-Chart.register(zoomPlugin, ...registerables);
-// Interaction.modes.interpolate = Interpolate;
+Chart.register(CrosshairPlugin,zoomPlugin, ...registerables);
+Interaction.modes.interpolate = Interpolate;
 
 function App() {
     useCoinsFetchInterval();

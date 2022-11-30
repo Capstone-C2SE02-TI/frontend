@@ -62,7 +62,7 @@ function SwapToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    dispatch(authSlice.actions.saveSmartContractInfo({ walletAddress: smartContractInfo.walletAddress, balance: ethChange + smartContractInfo.balance, ratio: smartContractInfo.ratio, premiumPrice: smartContractInfo.premiumPrice }))
+                    dispatch(authSlice.actions.saveSmartContractInfo({...smartContractInfo,  balance: ethChange + smartContractInfo.balance  }))
                     // setBalance((pre) => pre + ethChange);
                     toast.dismiss();
                     toast.success('Swap successfully');

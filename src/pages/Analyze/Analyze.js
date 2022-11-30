@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import sharkWalletSlice from '~/modules/SharkWallet/sharkWalletSlice';
 import { sharkDetailSelector } from '~/modules/SharkWallet/selector';
 import ModalNotify from '~/components/ModalNotify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const DOLLAR = 10000000;
 
@@ -113,6 +115,7 @@ function Analyze() {
             </Row>
             {openModalSucceed && (
                 <ModalNotify
+                    icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
                     title={modalSucceedContent.title}
                     description={modalSucceedContent.description}

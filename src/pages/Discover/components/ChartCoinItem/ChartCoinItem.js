@@ -63,6 +63,17 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
                         legend: {
                             display: false,
                         },
+                        crosshair: {
+                            line: {
+                                color: '#fff', // crosshair line color
+                                width: 1, // crosshair line width
+                            },
+                            sync: {
+                                enabled: true, // enable trace line syncing with other charts
+                                group: 1, // chart group
+                                suppressTooltips: false, // suppress tooltips when showing a synced tracer
+                            },
+                        },
                     },
                     scales: {
                         y: {

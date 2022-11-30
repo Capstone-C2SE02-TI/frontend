@@ -10,7 +10,7 @@ import TrendingTokens from './containers/TrendingTokens/TrendingTokens';
 import { useParams } from 'react-router-dom';
 import { useScrollToTop } from '~/hooks';
 
-import  ChartCoinDetail  from '~/pages/ChartCoinDetail/ChartCoinDetail';
+import ChartCoinDetail from '~/pages/ChartCoinDetail/ChartCoinDetail';
 import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
 import Button from '~/components/Button';
 import { useRef } from 'react';
@@ -32,25 +32,26 @@ function TokenDetail() {
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
-        dispatch(fetchTrendingTokens());
     }, [dispatch, symbol]);
+
+    useEffect(() => {
+        dispatch(fetchTrendingTokens());
+    }, [dispatch]);
 
     const handleFilterChart = (time) => {
         setFilterChartByTime(time);
     };
 
-    //    sm={8} xs={12}
     const canvasRef = useRef();
-  const handleResetZoom = () => {
-      if (canvasRef && canvasRef.current) {
-          canvasRef.current.resetZoom();
-      }
+    const handleResetZoom = () => {
+        if (canvasRef && canvasRef.current) {
+            canvasRef.current.resetZoom();
+        }
     };
-    
-    console.log({ statusFetchCoinDetail });
+
     return (
         <div className={cx('wrapper')}>
-            <Loading loading={statusFetchCoinDetail==='loading'} />
+            <Loading loading={statusFetchCoinDetail === 'loading'} />
             <div className={cx('wallet-bottom-container')}>
                 <div className={cx('wallet-content-statics')}>
                     <Row>
@@ -104,7 +105,7 @@ function TokenDetail() {
                             </div>
                         </Col>
                         <Col xl={6} lg={6} md={0}>
-                            <TrendingTokens loading={statusFetchCoinDetail} data={trendingTokens} />
+                            <TrendingTokens data={trendingTokens} />
                         </Col>
                     </Row>
                 </div>

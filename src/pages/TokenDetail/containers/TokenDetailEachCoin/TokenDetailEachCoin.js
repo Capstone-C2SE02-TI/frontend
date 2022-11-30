@@ -9,11 +9,11 @@ import { CaretDownIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 function TokenDetailEachCoin({ data, community }) {
-    { console.log(data) }
+  
     return (
         <section className={cx('token-container')}>
             <div>
-                <span>Rank #1</span>
+                <span>Rank #{data.cmcRank}</span>
             </div>
             <div className={cx('token-content__price')}>
                 <div className={cx('token-price__inf')}>
@@ -60,7 +60,7 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Total Supply</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.totalSupply.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>Max Supply</p>
@@ -83,7 +83,9 @@ function TokenDetailEachCoin({ data, community }) {
                         <li className={cx('detail-tippy-container')}>
                             <p>Website</p>
                             <MenuTippy data={data.urls.website}>
-                                <h6 className={cx('detail-tippy')}>{data.urls.website[0]?.split('/')[2] || 'No link'}</h6>
+                                <h6 className={cx('detail-tippy')}>
+                                    {data.urls.website[0]?.split('/')[2] || 'No link'}
+                                </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
