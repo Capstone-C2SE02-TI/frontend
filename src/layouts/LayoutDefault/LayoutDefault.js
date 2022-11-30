@@ -16,7 +16,7 @@ import {
 } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import authSlice, { fetchGetUserInfo, saveContractPremium, saveUserPremium } from '~/modules/user/auth/authSlice';
+import authSlice, { fetchGetUserInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
 import { userInfoSelector, smartContractInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -152,7 +152,7 @@ function LayoutDefault({ children }) {
         const premium1Month = await contractPremium.premiumLevel(1);
         const premium6Month = await contractPremium.premiumLevel(2);
         const premium1Year = await contractPremium.premiumLevel(3);
-        return [premium1Month[1], premium6Month[1], premium1Year[1]];
+        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1] , time: 6}, {price: premium1Year[1], time: 12}];
     };
 
     const sidebarClassName = cx({

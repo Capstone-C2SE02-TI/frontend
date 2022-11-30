@@ -9,7 +9,7 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
-        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: '' },
+        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['','',''] },
         emailForgotPassword: '',
         isPremiumUser: '',
     },

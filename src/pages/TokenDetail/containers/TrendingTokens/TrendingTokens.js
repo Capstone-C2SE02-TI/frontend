@@ -7,13 +7,13 @@ import ReferentItem from '../../components/ReferentItem';
 
 const cx = classNames.bind(styles);
 
-function TrendingTokens({data, loading}) {
+function TrendingTokens({data}) {
  
     return (
         <div className={cx('wallet-referent')}>
             <h3 className={cx('wallet-referent__heading')}>Trending Tokens</h3>
 
-            {loading === 'idle' && data.length !== 0 ? (
+            { data.length !== 0 ? (
                 <>
                     {data.map((token, i) => <ReferentItem key={i} data = {token} />)}
                 </>
