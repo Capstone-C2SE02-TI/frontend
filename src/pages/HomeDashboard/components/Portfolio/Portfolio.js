@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { authService } from '~/services';
 import Modal from '~/components/Modal';
 import ModalNotify from '~/components/ModalNotify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -72,9 +74,10 @@ function Portfolio({ data }) {
 
             {openModalSucceed && (
                 <ModalNotify
+                    icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
-                    title={"Success"}
-                    description={"Sign out successfully"}
+                    title={'Success'}
+                    description={'Sign out successfully'}
                     onRequestClose={() => setOpenModalSucceed(false)}
                 />
             )}

@@ -34,8 +34,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
-    console.log('getLabelsCoinsDetailSorted', getLabelsCoinsDetailSorted)
-    console.log('getDataCoinsDetailSorted', getDataCoinsDetailSorted)
+ 
     return (
         <div>
             <Line
@@ -56,14 +55,15 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                                     return;
                                 }
                                 var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                                gradient.addColorStop(0, 'rgba(58,123,231,1)');
-                                gradient.addColorStop(1, 'rgba(0,210,255,0.3)');
+                                gradient.addColorStop(0, 'rgb(130 238 247)');
+                                gradient.addColorStop(1, 'rgb(17, 46 ,61)');
                                 return gradient;
                             },
                             borderColor: '#fff',
-                            pointBackgroundColor: 'rgb(77 ,201 ,246)',
+                            pointBackgroundColor: '#275361',
                             showLine: false,
                             tension: 0.02,
+                            pointStyle: 'rectRot',
                         },
                     ],
                 }}
@@ -72,7 +72,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                     hoverRadius: 13,
                     hitRadius: 30,
                     responsive: true,
-                    pointHoverBackgroundColor: 'rgb(77 ,201 ,246)',
+                    pointHoverBackgroundColor: '#275361',
                     animation: {
                         onComplete: () => {
                             delayed = true;
@@ -130,6 +130,12 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                                     enabled: true,
                                 },
                                 mode: 'xy',
+                            },
+                        },
+                        crosshair: {
+                            line: {
+                                color: 'rgb(91 171 183)', // crosshair line color
+                                width: 1, // crosshair line width
                             },
                         },
                     },
