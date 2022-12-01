@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { fetchCryptoSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import { sharkCryptoSelector, sharkCryptoStatusSelector, sharkWalletIdSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import { Spin } from 'antd';
-import NoData  from '~/components/NoData';
+import NoData from '~/components/NoData';
 const cx = classNames.bind(styles);
 
 function SharkWalletCrypto({ currentTabSharkWallet }) {
@@ -42,7 +42,7 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {sharksCoin.length> 0 &&cryptosSharkWallet.length > 0 &&
+                        {sharksCoin.length > 0 && cryptosSharkWallet.length > 0 &&
                             cryptosSharkWallet
                                 .slice()
                                 .filter((crypto) => crypto.total)

@@ -19,6 +19,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
     const dispatch = useDispatch();
 
+    const classNamesStatusCoin24h = cx(data.percent24h >= 0 ? 'increase' : 'reduce');
 
     const handleSelectSharkAndSharkAddress = () => {
         dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(data.sharkId));
@@ -62,7 +63,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                     decimalSeparator: ',',
                 })}
             </td>
-            <td onClick={handleSelectSharkAndSharkAddress}>{data.percent24h.toFixed(3) + '%' || '0%'}</td>
+            <td onClick={handleSelectSharkAndSharkAddress} className={cx(classNamesStatusCoin24h)}>{data.percent24h.toFixed(3) + '%' || '0%'}</td>
             {data.isFollowed ? (
                 <td
                     onClick={() => {

@@ -11,14 +11,14 @@ const cx = classNames.bind(styles);
 
 function PortfolioSharkFollow() {
     const dispatch = useDispatch();
-    const sharkFollowed = useSelector(sharkFollowedSelector);
+    const sharkFolloweds = useSelector(sharkFollowedSelector);
     const userName = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
     }, [dispatch]);
 
-    console.log('sharkFollowed', sharkFollowed)
+    console.log('sharkFollowed', sharkFolloweds)
 
     return (
         <div className='portfolio'>
@@ -41,11 +41,11 @@ function PortfolioSharkFollow() {
                     </thead>
 
                     <tbody className={cx('portfolio-list-shark')}>
-                        {sharkFollowed.length === 0 && <div className="text-center">No data</div>}
-                        {sharkFollowed.map((sharkFollowed, index) => (
+                        {sharkFolloweds.length === 0 && <div className="text-center">No data</div>}
+                        {sharkFolloweds.map((sharkFollowed) => (
                             <PortfolioSharkFollowItem
-                                index={index}
-                                key={index}
+                                userId={userName.userId}
+                                key={sharkFollowed.id}
                                 dataSharkFollowed={sharkFollowed}
                             />
                         ))}

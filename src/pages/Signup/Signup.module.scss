@@ -1,11 +1,11 @@
 .wrapper {
     --height-input: 40px;
-    --primary-color: #53c79e;
+    --primary-color: #9381FF;
 
     display: flex;
     height: 100%;
     justify-content: space-between;
-    background: linear-gradient(154.9deg, #53c79d 13.55%, rgba(142, 231, 199, 0) 78.38%);
+    background: linear-gradient(154.9deg, #9381FF 13.55%, rgba(142, 231, 199, 0) 78.38%);
 }
 
 .login-left {
@@ -136,7 +136,7 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #1dd192;
+                    opacity: 0.8;
                 }
             }
         }

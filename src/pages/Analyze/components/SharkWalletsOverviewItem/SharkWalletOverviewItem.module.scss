@@ -28,6 +28,14 @@
     height: auto;
 }
 
+.increase {
+    color: darkblue;
+}
+
+.reduce {
+    color: red;
+}
+
 @keyframes heartbeat {
     0% {
         transform: scale(1);

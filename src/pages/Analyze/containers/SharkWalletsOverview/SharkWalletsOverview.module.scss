@@ -100,10 +100,12 @@
     align-items: center;
     width: 30%;
     text-transform: uppercase;
+
     h4 {
         margin-right: 10px;
         font-weight: 500;
     }
+
     input {
         width: 100%;
     }
@@ -131,6 +133,7 @@
         &:hover {
             background-color: var(--color-primary-white);
         }
+
         &:focus-within {
             background-color: var(--color-primary-white);
         }

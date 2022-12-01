@@ -47,7 +47,7 @@
         font-size: 1.5rem;
         border-bottom: 1px solid #fff;
         th {
-            padding: 20px 0 10px 0;
+            padding: 10px 0 10px 0;
             &:not(:nth-child(1)) {
                 text-align: start;
             }
@@ -71,6 +71,10 @@
         &:nth-child(2) {
             text-align: start;
             padding: 20px 0 20px 0px !important;
+        }
+        &:nth-child(1) {
+            text-align: center;
+            padding: 10px;
         }
     }
 }
