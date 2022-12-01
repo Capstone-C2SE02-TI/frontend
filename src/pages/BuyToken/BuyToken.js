@@ -35,7 +35,6 @@ function BuyToken() {
         onLoad();
     }, []);
     const upgradePremium = async (premiumPrice) => {
-
         let ABI = ['function upgradePremium(uint8 _level)'];
         let iface = new ethers.utils.Interface(ABI);
         let params = [
@@ -43,7 +42,7 @@ function BuyToken() {
                 from: smartContractInfo.walletAddress,
                 to: FUND_SUBSCRIPTION_ADDRESS,
                 gas: '0x3F7A0',
-                gasPrice: '0x104C533C00', 
+                gasPrice: '0x104C533C00',
                 data: '0x0ea063a00000000000000000000000000000000000000000000000000000000000000001',
             },
         ];
@@ -61,7 +60,7 @@ function BuyToken() {
                         console.log({ approveTokenStatus: approveTokenStatus.data });
                         if (approveTokenStatus.data.result.isError === '0') {
                             toast.dismiss();
-                            toast.success('Upgrade Premium successfully');
+                            toast.success('Upgrade Premium successfully',);
                             dispatch(
                                 saveSmartContractInfo({
                                     ...smartContractInfo,
@@ -105,7 +104,7 @@ function BuyToken() {
 
                         if (approveTokenStatus.data.result.isError === '0') {
                             toast.dismiss();
-                            toast.success('Approve Token successfully');
+                            toast.success('Approve Token successfully', { icon: '👻' });
                             handleToggleApprove();
                         } else {
                             toast.dismiss();
