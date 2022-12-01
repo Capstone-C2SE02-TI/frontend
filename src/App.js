@@ -15,7 +15,7 @@ import Home, {
     TokenDetail,
     TransactionShark,
     GainLoss,
-    PortfolioSharkFollow
+    PortfolioSharkFollow,
 } from './pages';
 
 import { Chart, registerables, Interaction } from 'chart.js';
@@ -30,16 +30,25 @@ import LayoutDefault from './layouts/LayoutDefault';
 import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
-
-Chart.register(CrosshairPlugin,zoomPlugin, ...registerables);
-Interaction.modes.interpolate = Interpolate;
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+Chart.register(zoomPlugin, ...registerables);
+// Interaction.modes.interpolate = Interpolate;
 
 function App() {
     useCoinsFetchInterval();
 
     return (
         <div className="app">
-            <ToastContainer />
+            <ToastContainer
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick={true}
+                pauseOnHover={true}
+                draggable={true}
+                progress={undefined}
+                // theme={'warning'}
+                transition={Flip}
+            />
             <Router>
                 <Routes>
                     <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />

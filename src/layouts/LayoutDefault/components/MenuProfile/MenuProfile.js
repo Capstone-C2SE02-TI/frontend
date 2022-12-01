@@ -16,7 +16,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function MenuProfile({ children, items = [], onChange, hideOnClick = false, userInfo }) {
+function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
     const [history, setHistory] = useState([{ data: items }]);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
@@ -66,7 +66,7 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
                 localStorage.removeItem('metamaskConnect');
                 setOpenModalSucceed(true);
 
-            
+
             }
         };
         fetchApi();
@@ -91,8 +91,8 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
                             />
                             <div>
                                 <p className={cx('user-name')}> {userInfo.username} </p>
-                                <p className={cx('user-role')}> User </p>
-                                <p className={cx('user-email')}> {userInfo.email} </p>
+                                <p className={cx('user-role')}> Expried Time Premium</p>
+                                <p className={cx('user-email')}> {limmitedAccountTime} </p>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
             hideOnClick={hideOnClick}
             render={renderResult}
             onHide={handleResetToFirstPage}
-            // visible
+        // visible
         >
             {children}
         </Tippy>

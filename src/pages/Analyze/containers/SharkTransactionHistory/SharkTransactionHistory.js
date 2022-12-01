@@ -24,9 +24,7 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
 
 
     useEffect(() => {
-        if (sharkIdSelected) {
-            dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
-        }
+      if (sharkIdSelected) dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
     return (

@@ -16,6 +16,7 @@ const sharkWalletSlice = createSlice({
         filterSharkTotalAssets: '',
         searchFilterChange: '',
         sharkDetail: '',
+        tradeTransactionHistory: ''
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -79,27 +80,31 @@ const sharkWalletSlice = createSlice({
                 state.sharkDetail = data;
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
-                    if (shark.id === data.id) {
+                    if (shark.sharkId === data.sharkId) {
                         return { ...shark, isFollowed: true };
                     } else return shark;
                 });
                 state.sharkList = newShark;
             })
-        
+
             .addCase(fetchUnFollowSharkWallet.pending, (state, action) => {
-                    state.status = 'loading';
-                })
+                state.status = 'loading';
+            })
             .addCase(fetchUnFollowSharkWallet.fulfilled, (state, action) => {
                 const { data } = action.payload;
 
                 state.sharkDetail = data;
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
-                    if (shark.id === data.id) {
+                    if (shark.sharkId === data.sharkId) {
                         return { ...shark, isFollowed: false };
                     } else return shark;
                 });
                 state.sharkList = newShark;
+            })
+
+            .addCase(fetchTradeTransactionHistory.fulfilled, (state, action) => {
+                state.tradeTransactionHistory = action.payload
             });
     },
 });
@@ -125,13 +130,20 @@ export const fetchTransactionHistorySharkWallet = createAsyncThunk(
 
 export const fetchFollowSharkWallet = createAsyncThunk('sharkWallet/fetchFollowSharkWallet', async (data) => {
     const response = await sharkWalletService.followSharkWallet(data);
-    
     return response;
 });
 
 export const fetchUnFollowSharkWallet = createAsyncThunk('sharkWallet/fetchUnFollowSharkWallet', async (data) => {
     const response = await sharkWalletService.followUnSharkWallet(data);
-
     return response;
 });
+
+export const fetchTradeTransactionHistory = createAsyncThunk(
+    'sharkWallet/fetchTradeTransactionHistory',
+    async (body) => {
+        const response = await sharkWalletService.tradeTransactionHistory(body);
+        return response;
+    },
+);
+
 export default sharkWalletSlice;

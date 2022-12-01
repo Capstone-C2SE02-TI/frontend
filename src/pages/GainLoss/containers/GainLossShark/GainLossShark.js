@@ -16,6 +16,7 @@ function GainLossShark() {
 
     useEffect(() => {
         dispatch(fetchGainLossShark(statusGainLossShark ? statusGainLossShark : false));
+        console.log('Gain loss', gainLossSharkData)
     }, [statusGainLossShark, dispatch]);
 
     const handleGain = () => {

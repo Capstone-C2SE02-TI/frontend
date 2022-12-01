@@ -56,7 +56,7 @@ function MarketOverview() {
                                     trendingCoins.map((coin, index) => (
                                         <CoinItem
                                             index={index}
-                                            key={coin.id}
+                                            key={index}
                                             data={coin}
                                             increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
                                             increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}

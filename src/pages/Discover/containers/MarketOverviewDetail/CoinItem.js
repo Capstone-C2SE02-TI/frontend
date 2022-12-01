@@ -32,14 +32,14 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
             <td>${numberWithCommas(data.usd.volume24h.toFixed(0))}</td>
 
-            <td>${numberWithCommas(data.marketCap.toFixed(0))}</td>
-            <td>${numberWithCommas(data.circulatingSupply.toFixed(0))}</td>
+            <td>${numberWithCommas(data.marketCap ? data.marketCap?.toFixed(0) : 0)}</td>
+            <td>${numberWithCommas(data.circulatingSupply ? data.circulatingSupply.toFixed(0) : 0)}</td>
             <td>
                 {data.pricesLast1Day ? (
                     <ChartCoinItem
                         labelTitle={'Last 1 day'}
                         symbol={data.symbol}
-                        data={data.pricesLast1Day}
+                        data={data.pricesLast1Day[0]}
                         theme={data.usd.percentChange24h < 0 ? REDUCING_COLOR : INCREASING_COLOR}
                     />
                 ) : (

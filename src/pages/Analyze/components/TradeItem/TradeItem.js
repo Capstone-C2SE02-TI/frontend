@@ -3,22 +3,85 @@ import classNames from 'classnames/bind';
 import styles from './TradeItem.module.scss'
 
 import { Line } from 'react-chartjs-2';
-import { data, deposit, labels, withdraw } from '~/data/dataChart';
+import { memo } from 'react';
+import { useMemo } from 'react';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-function TradeItem({ refChild }) {
+function TradeItem({ refChild, coinInfoData, historyData }) {
+    const [typeFilter, setTypeFilter] = useState('day');
+
+     const getLabelsCoinsDetailSorted = useMemo(() => {
+         const dataCoinDetail = coinInfoData.prices[typeFilter];
+
+         return Object.keys(dataCoinDetail)
+             .map((key) => [Number(key), dataCoinDetail[key]])
+             .slice()
+             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
+             .map((coin) => {
+                 let date = new Date(Number(coin[0]) * 1000);
+                 let time =
+                     date.getHours() > 12
+                         ? `${date.getHours() - 12}:${
+                               date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                           } PM`
+                         : `${date.getHours()}:${
+                               date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                           } AM`;
+                 if (typeFilter === 'month') {
+                     return date.toLocaleDateString().split('/', 2).join('/');
+                 } else return typeFilter === 'day' ? time : date.toLocaleDateString();
+             });
+     }, [typeFilter]);
+
+
+     const getDataCoinsDetailSorted = useMemo(() => {
+        const dataCoinDetail = coinInfoData.prices[typeFilter];
+
+         return Object.keys(dataCoinDetail)
+             .map((key) => [Number(key), dataCoinDetail[key]])
+             .slice()
+             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
+             .map((coin) => {
+                 return coin[1];
+             });
+     }, [typeFilter]);
+    console.log(getDataCoinsDetailSorted);
+
+
+    const datasetsDeposit = useMemo(() => {
+        return historyData
+            .filter((data) => data.status === 'deposit')
+            .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
+            .map((data) => {
+                let date = new Date(+data.timeStamp);
+                return { x: date.toLocaleDateString(), y: data.value / 10000 };
+            });
+    }, []);
+// y: data.value / 10000; 
+    
+    const datasetsWithDraw = useMemo(() => {
+        return historyData
+            .filter((data) => data.status === 'withdraw')
+            .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
+            .map((data) => {
+                let date = new Date(+data.timeStamp);
+                return { x: date.toLocaleDateString(), y: data.value / 10000000 };
+            });
+    }, []);
+
     return (
         <tr style={{ backgroundColor: '#FFFFFF' }} ref={refChild}>
             <td colSpan="4" style={{ padding: '0' }}>
                 <div className={cx('trade-item-child')}>
                     <Line
                         data={{
-                            labels: labels,
+                            labels: getLabelsCoinsDetailSorted,
                             datasets: [
                                 {
                                     label: `Price $ `,
-                                    data: data,
+                                    data: getDataCoinsDetailSorted,
                                     tension: 0.1,
                                     type: 'line',
                                     borderColor: '#cdf8f8',
@@ -46,7 +109,7 @@ function TradeItem({ refChild }) {
                                 },
                                 {
                                     label: 'Deposit $',
-                                    data: deposit,
+                                    data: datasetsDeposit,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -58,7 +121,7 @@ function TradeItem({ refChild }) {
                                 },
                                 {
                                     label: 'Withdraw $',
-                                    data: withdraw,
+                                    data: datasetsWithDraw,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -130,4 +193,4 @@ function TradeItem({ refChild }) {
     );
 }
 
-export default TradeItem;
+export default memo(TradeItem);

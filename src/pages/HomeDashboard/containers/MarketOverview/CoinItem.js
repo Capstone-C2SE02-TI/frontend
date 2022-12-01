@@ -6,7 +6,7 @@ import numberWithCommas from '~/helpers/numberWithCommas';
 
 const cx = classNames.bind(styles);
 
-function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
+function CoinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
     const classNamesStatusCoin24h = cx(increaseStatus24h ? 'increase' : 'reduce');
     const classNamesStatusCoin7h = cx(increaseStatus7d ? 'increase' : 'reduce');
     return (
@@ -22,10 +22,10 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td className={classNamesStatusCoin24h}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
             <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
             <td>${numberWithCommas(data.usd.volume24h.toFixed(0))}</td>
-            <td>${numberWithCommas(data.marketCap.toFixed(0))}</td>
-            <td>${numberWithCommas(data.circulatingSupply.toFixed(0))}</td>
+            <td>${numberWithCommas(data.marketCap ? data.marketCap?.toFixed(0) : 0)}</td>
+            <td>${numberWithCommas(data.circulatingSupply?data.circulatingSupply.toFixed(0): 0)}</td>
         </tr>
     );
 }
 
-export default coinItem;
+export default CoinItem;

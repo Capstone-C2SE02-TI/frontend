@@ -16,7 +16,7 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import {  useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
+import { useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { Fragment } from 'react';
 import NoData from '~/components/NoData';
@@ -174,14 +174,14 @@ function MarketOverviewDetail() {
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem
                                     index={index}
-                                    key={coin.id}
+                                    key={index}
                                     data={coin}
                                     increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
                                     increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
                                 />
                             ))}
 
-                        <Loading loading={viewListCoinsPagination.length === 0} />
+                        {!searchText && <Loading loading={viewListCoinsPagination.length === 0} />}
                     </tbody>
                 </table>
                 {noData && <NoData searchText={searchText} tagNameCurrent={tagNameCurrent} type={'Category '} />}
@@ -209,7 +209,7 @@ function MarketOverviewDetail() {
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
+                                pageCount={Math.ceil(coinsList.length / NUMBER_ITEM_DISPLAY)}
                                 marginPagesDisplayed={3}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
