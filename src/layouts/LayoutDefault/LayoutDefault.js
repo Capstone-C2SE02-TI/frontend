@@ -4,6 +4,7 @@ import SideBar from './components/SideBar';
 import ConnectButton from '~/pages/SwapToken/ConnectButton';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { useSelector, useDispatch } from 'react-redux';
+import { convertUnixTime } from '~/helpers';
 import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon, PortfolioIcon } from '~/components/Icons';
 import { ethers } from 'ethers';
 import {
@@ -24,6 +25,8 @@ import images from '~/assets/images';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -41,7 +44,7 @@ const userMenu = [
         title: 'Upgrade Premium',
     },
     {
-        icon: <PortfolioIcon />,
+        icon: <FontAwesomeIcon icon={faUser} />,
         title: 'Portfolio',
     },
 ];
@@ -52,7 +55,7 @@ function LayoutDefault({ children }) {
     const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
     const [isConnecting, setIsConnecting] = useState(false);
-
+    const [expriedTime, setExpriedTime] = useState('')
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -88,6 +91,12 @@ function LayoutDefault({ children }) {
                 FUND_SUBSCRIPTION_ABI,
                 provider,
             );
+            console.log(contractPremium)
+            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress)
+            const convertlimmitedAccount = await limmitedAccount.toHexString(16)
+            const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
+            setExpriedTime(limmitedAccountTime)
+            console.log(limmitedAccountTime)
             // dispatch(saveContractPremium(contractPremium));
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
             dispatch(saveUserPremium(isPremiumUser));
@@ -142,6 +151,7 @@ function LayoutDefault({ children }) {
 
     const loadRatio = async () => {
         const contractSwap = await new ethers.Contract(DEX_SMART_CONTRACT_ADDRESS, DEX_ABI, provider);
+        console.log(contractSwap.price())
         const balance = await contractSwap.price();
         let convertBalance = balance.toHexString(16);
         return parseInt(convertBalance, 16) / 10 ** 18;
@@ -152,7 +162,7 @@ function LayoutDefault({ children }) {
         const premium1Month = await contractPremium.premiumLevel(1);
         const premium6Month = await contractPremium.premiumLevel(2);
         const premium1Year = await contractPremium.premiumLevel(3);
-        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1] , time: 6}, {price: premium1Year[1], time: 12}];
+        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1], time: 6 }, { price: premium1Year[1], time: 12 }];
     };
 
     const sidebarClassName = cx({
@@ -243,7 +253,7 @@ function LayoutDefault({ children }) {
                     {userId ? (
                         <div className={cx('user-profile__right')}>
                             {renderConnectMetaMask()}
-                            <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo}>
+                            <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo} limmitedAccountTime={expriedTime}>
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
                                         <img

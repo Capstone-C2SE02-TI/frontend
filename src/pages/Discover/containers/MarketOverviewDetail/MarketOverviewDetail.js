@@ -16,7 +16,7 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import {  useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
+import { useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { Fragment } from 'react';
 import NoData from '~/components/NoData';
@@ -181,7 +181,7 @@ function MarketOverviewDetail() {
                                 />
                             ))}
 
-                        <Loading loading={viewListCoinsPagination.length === 0} />
+                        {!searchText && <Loading loading={viewListCoinsPagination.length === 0} />}
                     </tbody>
                 </table>
                 {noData && <NoData searchText={searchText} tagNameCurrent={tagNameCurrent} type={'Category '} />}

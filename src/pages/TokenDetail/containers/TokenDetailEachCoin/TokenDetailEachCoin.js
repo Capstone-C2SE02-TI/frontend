@@ -23,8 +23,7 @@ function TokenDetailEachCoin({ data, community }) {
         placement: 'top',
         delay: [1, 200],
     };
-
-    console.log({ copied });
+    console.log(data)
     return (
         <section className={cx('token-container')}>
             <div>
@@ -36,14 +35,18 @@ function TokenDetailEachCoin({ data, community }) {
                 </div>
             </div>
             <div className={cx('token-content__name')}>
-                <Image src={data.iconURL} alt={data.name} />
-                <h3>
-                    {data.name} {data.symbol}
-                </h3>
-                <h1>{data.usd.price.toFixed(3)}</h1>
-                <span>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
+                <div className={cx('token-price')}>
+                    <Image src={data.iconURL} alt={data.name} />
+                    <h3>
+                        {data.name} ({data.symbol})
+                    </h3>
+                </div>
+                <div className={cx('token-price')}>
+                    <h2>Price: </h2>
+                    <h2 style={{ color: '#7665d8' }}> {data.usd.price.toFixed(3)} $</h2>
+                    <span>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
+                </div>
             </div>
-
             <div className={cx('token-content__inf')}>
                 <nav>
                     <ul>
@@ -57,15 +60,15 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Fully Diluted Valuation</p>
-                            <p>${numberWithCommas(data.circulatingSupply.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.circulatingSupply ? data.circulatingSupply.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>24h low</p>
-                            <p>${numberWithCommas(data.usd._24hLow.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.usd._24hLow ? data.usd._24hLow.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>All-Time Low</p>
-                            <p>${numberWithCommas(data.usd.allTimeHigh.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.usd.allTimeLow ? data.usd.allTimeLow.toFixed(0) : 0)}</p>
                         </li>
                     </ul>
                     <ul>
@@ -75,25 +78,25 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Total Supply</p>
-                            <p>${numberWithCommas(data.totalSupply.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.totalSupply ? data.totalSupply.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>Max Supply</p>
-                            <p>${numberWithCommas(data.maxSupply)}</p>
+                            <p>${numberWithCommas(data.maxSupply ? data.maxSupply : 0)}</p>
                         </li>
                         <li>
                             <p>24h high</p>
-                            <p>${numberWithCommas(data.usd._24hHigh.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.usd._24hHigh ? data.usd._24hHigh.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>All-Time High</p>
-                            <p>${numberWithCommas(data.usd.allTimeHigh.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.usd.allTimeHigh ? data.usd.allTimeHigh.toFixed(0) : 0)}</p>
                         </li>
                     </ul>
                     <ul>
                         <li>
                             <p>Contract Address</p>
-                           <div className="d-flex justify-content-between">
+                            <div className="d-flex justify-content-between">
                                 <span style={{ color: '#000' }}>{data.contractAddress.slice(0, 20)}...</span>
                                 <Tippy content={!copied ? 'Copy to clipboard' : 'Copied'} {...defaultPropsTippy}>
                                     <div>
@@ -104,7 +107,7 @@ function TokenDetailEachCoin({ data, community }) {
                                         </CopyToClipboard>
                                     </div>
                                 </Tippy>
-                           </div>
+                            </div>
                             {/* <span>{copied ? 'Copy to clipboard' : ''}</span> */}
                         </li>
                         <li className={cx('detail-tippy-container')}>
