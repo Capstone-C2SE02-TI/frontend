@@ -8,11 +8,14 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
     let delayed;
     console.log(data);
     const getLabelsCoinsDetailSorted = useMemo(() => {
-        return data.prices[typeFilter]
+        const dataCoinDetail = data.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
-                let date = new Date(Number(coin[0]));
+                let date = new Date(Number(coin[0])*1000);
                 let time =
                     date.getHours() > 12
                         ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
@@ -26,7 +29,10 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
     }, [data.prices, typeFilter]);
 
     const getDataCoinsDetailSorted = useMemo(() => {
-        return data.prices[typeFilter]
+        const dataCoinDetail = data.prices[typeFilter];
+
+        return Object.keys(dataCoinDetail)
+            .map((key) => [Number(key), dataCoinDetail[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {

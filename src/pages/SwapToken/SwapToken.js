@@ -65,7 +65,7 @@ function SwapToken() {
                     dispatch(authSlice.actions.saveSmartContractInfo({...smartContractInfo,  balance: ethChange + smartContractInfo.balance  }))
                     // setBalance((pre) => pre + ethChange);
                     toast.dismiss();
-                    toast.success('Swap successfully');
+                    toast.success('Swap successfully',{ icon: '👻' });
                 }
                 const handleRequestStatus = async () => {
                     const statusSwapToken = await axios.get(

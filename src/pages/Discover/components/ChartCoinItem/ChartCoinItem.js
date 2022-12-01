@@ -5,7 +5,8 @@ import { Line } from 'react-chartjs-2';
 function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
 
     const getLabelsCoinsDetailSorted = useCallback(() => {
-        return data
+        return Object.keys(data)
+            .map((key) => [Number(key), data[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
@@ -23,7 +24,8 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
     }, [data]);
 
     const getDataCoinsDetailSorted = useCallback(() => {
-        return data
+        return Object.keys(data)
+            .map((key) => [Number(key), data[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
@@ -31,6 +33,9 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
             });
     }, [data]);
 
+
+    // console.log(getDataCoinsDetailSorted());
+    // console.log(getLabelsCoinsDetailSorted());
     return (
         <div style={{ height: '80px', width: '140px' }}>
             <Line

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import millify from 'millify';
 import styles from './SharkWalletCryptoItem.module.scss';
 import classNames from 'classnames/bind';
 import numberWithCommas from '~/helpers/numberWithCommas';
@@ -6,8 +7,11 @@ import Image from '~/components/Image/Image';
 import { Fragment } from 'react';
 import { useOnclickOutSide } from '~/hooks';
 import TradeItem from './../TradeItem/TradeItem';
-import millify from 'millify';
 import { CaretNextIcon } from '~/components/Icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { sharkWalletIdSelector, tradeTransactionHistorySelector } from '~/modules/SharkWallet/selector';
+import { fetchTradeTransactionHistory } from '~/modules/SharkWallet/sharkWalletSlice';
+import { useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
@@ -23,9 +27,19 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
     });
 
     const btnMoreClassName = cx('btn-show-more', {
-		'btn-show-more--active': isShowTrade,
-	} )
+        'btn-show-more--active': isShowTrade,
+    });
+    const sharkIdSelected = useSelector(sharkWalletIdSelector);
+    const tradeTransactionHistory = useSelector(tradeTransactionHistorySelector);
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (isShowTrade) {
+            dispatch(fetchTradeTransactionHistory({ sharkId: sharkIdSelected, coinSymbol: data.symbol }));
+        }
+    }, [isShowTrade, dispatch, sharkIdSelected, data.symbol]);
+
+    // console.log({ tradeTransactionHistory });
     return (
         <Fragment>
             <tr
@@ -69,9 +83,15 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                     ${numberWithCommas(data.total)}({((data.total / totalAssetCrypto) * 100).toFixed(3)}%)
                 </td>
             </tr>
-            {/* <TradeItem /> */}
 
-            {isShowTrade && <TradeItem refChild={refCryptoChildren} />}
+            {tradeTransactionHistory && isShowTrade &&
+                (
+                    <TradeItem
+                        refChild={refCryptoChildren}
+                        coinInfoData={tradeTransactionHistory.datas.coinInfo}
+                        historyData={tradeTransactionHistory.datas.historyData}
+                    />
+                )}
         </Fragment>
     );
 }

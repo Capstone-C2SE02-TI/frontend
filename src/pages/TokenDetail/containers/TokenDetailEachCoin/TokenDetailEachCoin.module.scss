@@ -15,7 +15,7 @@
 
     .token-content__name {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
         margin: 10px 0 20px 0;
 
@@ -141,4 +141,20 @@
 
 .skeleton-title-full-width {
     margin-bottom: 10px;
+}
+
+
+
+.icon-copied {
+    border: none;
+    background: none;
+    padding: 0 12px;
+    svg {
+        font-size: 18px;
+    }
+}
+
+.token-price {
+    display: flex;
+    align-items: center;
 }

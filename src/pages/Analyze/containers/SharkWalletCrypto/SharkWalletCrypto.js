@@ -25,10 +25,7 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
     }, [cryptosSharkWallet]);
 
     useEffect(() => {
-        if (sharkIdSelected) {
-            dispatch(fetchCryptoSharkWallet(sharkIdSelected));
-        }
-        console.log('sharkIdSelected', sharkIdSelected)
+        if (sharkIdSelected) dispatch(fetchCryptoSharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
 

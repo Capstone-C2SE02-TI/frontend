@@ -39,13 +39,13 @@ function TrendingCoins({ data, loading }) {
 
     return data.length > 0 && loading === 'idle' && (
         <Slider {...settingsSlider} className={cx('wallet-hot-statics')}>
-            {data.map((coin, index) => {
+            {data.map((coin,index) => {
                 return (
                     <WalletHotItem
                         key={index}
                         increaseCoin={coin.usd.percentChange24h > 0 ? true : false}
                         reduceCoin={coin.usd.percentChange24h > 0 ? false : true}
-                        index={1}
+                        index={index + 1}
                         data={coin}
                     />
                 );

@@ -181,7 +181,7 @@ function MarketOverviewDetail() {
 
                             ))}
 
-                        <Loading loading={viewListCoinsPagination.length === 0} />
+                        {!searchText && <Loading loading={viewListCoinsPagination.length === 0} />}
                     </tbody>
                 </table>
                 {noData && <NoData searchText={searchText} tagNameCurrent={tagNameCurrent} type={'Category '} />}
@@ -209,7 +209,7 @@ function MarketOverviewDetail() {
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
+                                pageCount={Math.ceil(coinsList.length / NUMBER_ITEM_DISPLAY)}
                                 marginPagesDisplayed={3}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}

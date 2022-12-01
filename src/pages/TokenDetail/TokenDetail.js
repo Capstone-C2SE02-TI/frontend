@@ -1,4 +1,5 @@
 import { Col, Row, Select } from 'antd';
+import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TokenDetail.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,8 +14,6 @@ import { useScrollToTop } from '~/hooks';
 import ChartCoinDetail from '~/pages/ChartCoinDetail/ChartCoinDetail';
 import DetailEachCoinSkeleton from './containers/TokenDetailEachCoin/DetailEachCoinSkeleton';
 import Button from '~/components/Button';
-import { useRef } from 'react';
-import RingLoader from 'react-spinners/RingLoader';
 import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
@@ -32,15 +31,19 @@ function TokenDetail() {
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
+
     }, [dispatch, symbol]);
 
     useEffect(() => {
+      
         dispatch(fetchTrendingTokens());
     }, [dispatch]);
 
     const handleFilterChart = (time) => {
         setFilterChartByTime(time);
     };
+
+  
 
     const canvasRef = useRef();
     const handleResetZoom = () => {
@@ -59,11 +62,12 @@ function TokenDetail() {
                             {coinDetail ? (
                                 <TokenDetailEachCoin
                                     data={coinDetail}
-                                    community={[
-                                        ...coinDetail.urls.announcement_url,
-                                        // ...coinDetail.urls.reddit,
-                                        // ...coinDetail.urls.messageBoard,
-                                    ]}
+                                    // community={[
+                                    //     ...coinDetail.urls.announcement_url,
+                                    //     ...coinDetail.urls.subreddit_url,
+                                    //     // ...coinDetail.urls.messageBoard,
+                                    //     ...coinDetail.urls.announcement_url,
+                                    // ]}
                                 />
                             ) : (
                                 <DetailEachCoinSkeleton />
@@ -89,7 +93,7 @@ function TokenDetail() {
                                     </div>
                                 </div>
                                 <div>
-                                    {coinDetail && coinDetail.prices ? (
+                                    {coinDetail && coinDetail.prices.day ? (
                                         <ChartCoinDetail
                                             time={filterChartByTime.toLowerCase()}
                                             symbol={coinDetail.symbol}
