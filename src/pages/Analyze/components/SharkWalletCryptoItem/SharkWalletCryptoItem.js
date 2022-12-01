@@ -39,6 +39,7 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
         }
     }, [isShowTrade, dispatch, sharkIdSelected, data.symbol]);
 
+    //!!testid
     return (
         <Fragment>
             <tr
