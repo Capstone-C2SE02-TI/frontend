@@ -20,10 +20,9 @@ export const sharkRemainingSelector = createSelector(
     (sharkList, filterSharkTotalAssets, searchFilterChange) => {
         return sharkList.filter((shark) => {
             if (searchFilterChange) {
-                console.log("run");
-                console.log(searchFilterChange);
+             
                 return (
-                    shark.id.toString().includes(searchFilterChange) &&
+                    shark.sharkId.toString().includes(searchFilterChange) &&
                     shark.totalAssets >= filterSharkTotalAssets.startTotalAssets &&
                     shark.totalAssets <= filterSharkTotalAssets.endTotalAssets
                 );

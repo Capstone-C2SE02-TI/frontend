@@ -39,7 +39,7 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
         }
     }, [isShowTrade, dispatch, sharkIdSelected, data.symbol]);
 
-    //!!testid
+    // console.log({ tradeTransactionHistory });
     return (
         <Fragment>
             <tr
@@ -84,7 +84,14 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                 </td>
             </tr>
 
-            {isShowTrade && <TradeItem refChild={refCryptoChildren} data={tradeTransactionHistory} />}
+            {tradeTransactionHistory && isShowTrade &&
+                (
+                    <TradeItem
+                        refChild={refCryptoChildren}
+                        coinInfoData={tradeTransactionHistory.datas.coinInfo}
+                        historyData={tradeTransactionHistory.datas.historyData}
+                    />
+                )}
         </Fragment>
     );
 }
