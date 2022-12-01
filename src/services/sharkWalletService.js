@@ -59,3 +59,19 @@ export const followUnSharkWallet = async (data) => {
     }
 };
 
+
+
+export const tradeTransactionHistory = async (body) => {
+    try {
+        const response = await httpRequest.get('/display/shark/trade-transaction-history', {
+            params: {
+                sharkId: body.sharkId,
+                coinSymbol: body.coinSymbol,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+

@@ -1,15 +1,30 @@
 import classNames from 'classnames/bind';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import Image from '~/components/Image/Image';
 import styles from './TokenDetailEachCoin.module.scss';
 import MenuTippy from './MenuTippy';
 import numberWithCommas from '~/helpers/numberWithCommas';
 import { CaretDownIcon } from '~/components/Icons';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Tippy from '@tippyjs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function TokenDetailEachCoin({ data, community }) {
-  
+    const [copied, setCopied] = useState(false);
+    const defaultPropsTippy = {
+        animateFill: false,
+        animation: 'scale',
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light',
+        placement: 'top',
+        delay: [1, 200],
+    };
+
+    console.log({ copied });
     return (
         <section className={cx('token-container')}>
             <div>
@@ -34,7 +49,7 @@ function TokenDetailEachCoin({ data, community }) {
                     <ul>
                         <li>
                             <p>Market Cap</p>
-                            <p>${numberWithCommas(data.marketCap.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.marketCap ? data.marketCap?.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>24 hours trading vol</p>
@@ -42,21 +57,21 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Fully Diluted Valuation</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.circulatingSupply.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>24h low</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.usd._24hLow.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>All-Time Low</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.usd.allTimeHigh.toFixed(0))}</p>
                         </li>
                     </ul>
                     <ul>
                         <li>
                             <p>Circulating Supply</p>
-                            <p>${numberWithCommas(data.circulatingSupply.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.circulatingSupply ? data.circulatingSupply.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>Total Supply</p>
@@ -64,45 +79,59 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Max Supply</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.maxSupply)}</p>
                         </li>
                         <li>
                             <p>24h high</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.usd._24hHigh.toFixed(0))}</p>
                         </li>
                         <li>
                             <p>All-Time High</p>
-                            <p>$387,503,617,100</p>
+                            <p>${numberWithCommas(data.usd.allTimeHigh.toFixed(0))}</p>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <p>Contract</p>
-                            <p>$387,503,617,100</p>
+                            <p>Contract Address</p>
+                           <div className="d-flex justify-content-between">
+                                <span style={{ color: '#000' }}>{data.contractAddress.slice(0, 20)}...</span>
+                                <Tippy content={!copied ? 'Copy to clipboard' : 'Copied'} {...defaultPropsTippy}>
+                                    <div>
+                                        <CopyToClipboard text={data.contractAddress} onCopy={() => setCopied(true)}>
+                                            <button className={cx('icon-copied')}>
+                                                <FontAwesomeIcon icon={faCopy} />
+                                            </button>
+                                        </CopyToClipboard>
+                                    </div>
+                                </Tippy>
+                           </div>
+                            {/* <span>{copied ? 'Copy to clipboard' : ''}</span> */}
                         </li>
                         <li className={cx('detail-tippy-container')}>
-                            <p>Website</p>
-                            <MenuTippy data={data.urls.website}>
+                            <p>Blockchain_site</p>
+                            <MenuTippy data={data.urls.blockchain_site}>
                                 <h6 className={cx('detail-tippy')}>
-                                    {data.urls.website[0]?.split('/')[2] || 'No link'}
+                                    {data.urls.blockchain_site[0]?.split('/')[2] || 'No link'}
                                 </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li className={cx('detail-tippy-container')}>
-                            <p>Explorer</p>
+                            <p>Homepage</p>
 
-                            <MenuTippy data={data.urls.explorer}>
+                            <MenuTippy data={data.urls.homepage}>
                                 <h6 className={cx('detail-tippy')}>
-                                    {data.urls.explorer[0]?.split('/')[2] || 'No link'}
+                                    {data.urls.homepage[0]?.split('/')[2] || 'No link'}
                                 </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>
                         <li className={cx('detail-tippy-container')}>
-                            <p>Community</p>
-                            <MenuTippy data={community}>
-                                <h6 className={cx('detail-tippy')}>{community[0]?.split('/')[2] || 'No link'}</h6>
+                            <p>official_forum_url</p>
+                            <MenuTippy data={data.urls.official_forum_url}>
+                                <h6 className={cx('detail-tippy')}>
+                                    {data.urls.official_forum_url[0]?.split('/')[2] || 'No link'}
+                                </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
                         </li>

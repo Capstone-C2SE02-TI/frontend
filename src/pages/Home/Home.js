@@ -13,6 +13,10 @@ import { FacebookIcon, TelegramIcon, TwitterIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 function Home() {
+        const currentUser = JSON.parse(localStorage.getItem('userInfo'));
+
+
+
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
@@ -22,14 +26,16 @@ function Home() {
                             <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
                         </Link>
                         <NavHeader />
-                        <div className={cx('header-group')}>
-                            <Link to="/sign-in">
-                                <button className={cx('btn-signIn')}>Sign in</button>
-                            </Link>
-                            <Link to="/sign-up">
-                                <button className={cx('btn')}>Sign up</button>
-                            </Link>
-                        </div>
+                        {!currentUser && (
+                            <div className={cx('header-group')}>
+                                <Link to="/sign-in">
+                                    <button className={cx('btn-signIn')}>Sign in</button>
+                                </Link>
+                                <Link to="/sign-up">
+                                    <button className={cx('btn')}>Sign up</button>
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </section>
             </header>

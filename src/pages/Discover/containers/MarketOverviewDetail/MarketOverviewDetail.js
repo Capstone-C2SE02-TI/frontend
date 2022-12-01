@@ -174,7 +174,7 @@ function MarketOverviewDetail() {
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem
                                     index={index}
-                                    key={coin.id}
+                                    key={index}
                                     data={coin}
                                     increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
                                     increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
@@ -209,7 +209,7 @@ function MarketOverviewDetail() {
                                 nextLabel={'>'}
                                 breakLabel={'...'}
                                 breakClassName={cx('break-me')}
-                                pageCount={coinsList.length / NUMBER_ITEM_DISPLAY}
+                                pageCount={Math.ceil(coinsList.length / NUMBER_ITEM_DISPLAY)}
                                 marginPagesDisplayed={3}
                                 pageRangeDisplayed={5}
                                 onPageChange={handlePageClick}
