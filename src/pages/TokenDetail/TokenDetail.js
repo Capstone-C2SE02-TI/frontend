@@ -28,7 +28,7 @@ function TokenDetail() {
     const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
-
+    console.log(coinDetail)
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
@@ -60,9 +60,9 @@ function TokenDetail() {
                                 <TokenDetailEachCoin
                                     data={coinDetail}
                                     community={[
-                                        ...coinDetail.urls.announcement,
-                                        ...coinDetail.urls.reddit,
-                                        ...coinDetail.urls.messageBoard,
+                                        ...coinDetail.urls.announcement_url,
+                                        // ...coinDetail.urls.reddit,
+                                        // ...coinDetail.urls.messageBoard,
                                     ]}
                                 />
                             ) : (
@@ -96,7 +96,7 @@ function TokenDetail() {
                                             data={coinDetail}
                                             typeFilter={filterChartByTime}
                                             canvasRef={canvasRef}
-                                            // onResetZoom = {handleResetZoom}
+                                        // onResetZoom = {handleResetZoom}
                                         />
                                     ) : (
                                         <h2>Chart</h2>

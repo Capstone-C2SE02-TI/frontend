@@ -10,8 +10,8 @@ const MARKET_SHOW = 4;
 const cx = classNames.bind(styles);
 
 function TrendingCoins({ data, loading }) {
+    console.log(data)
 
-  
     const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
@@ -39,20 +39,20 @@ function TrendingCoins({ data, loading }) {
 
     return data.length > 0 && loading === 'idle' && (
         <Slider {...settingsSlider} className={cx('wallet-hot-statics')}>
-            {data.map((coin) => {
+            {data.map((coin, index) => {
                 return (
                     <WalletHotItem
-                        key={coin.id}
+                        key={index}
                         increaseCoin={coin.usd.percentChange24h > 0 ? true : false}
-                        reduceCoin = {coin.usd.percentChange24h > 0 ? false : true}
+                        reduceCoin={coin.usd.percentChange24h > 0 ? false : true}
                         index={1}
                         data={coin}
                     />
                 );
             })}
         </Slider>
-    ) 
-  
+    )
+
 }
 
 export default memo(TrendingCoins);

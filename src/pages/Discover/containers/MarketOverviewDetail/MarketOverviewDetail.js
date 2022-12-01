@@ -16,7 +16,7 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import {  useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
+import { useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { Fragment } from 'react';
 import NoData from '~/components/NoData';
@@ -168,17 +168,17 @@ function MarketOverviewDetail() {
                             <th>Last 1 day</th>
                         </tr>
                     </thead>
-
                     <tbody className={cx('listCoin')}>
                         {viewListCoinsPagination.length > 0 &&
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem
+                                    key={index}
                                     index={index}
-                                    key={coin.id}
                                     data={coin}
                                     increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
                                     increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
                                 />
+
                             ))}
 
                         <Loading loading={viewListCoinsPagination.length === 0} />

@@ -14,11 +14,12 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td>{index + 1}</td>
             <td className={cx('pricedata')}>
                 <Image width="20" className={cx('imagedata')} src={data.iconURL} alt="logo" />
-                <span>
-                    {data.name}({data.symbol})
-                </span>
+                <div className={cx('priceData-content')}>
+                    <h6>{data.name}</h6>
+                    <span>{data.symbol}</span>
+                </div>
             </td>
-            <td>${numberWithCommas(data.usd.price.toFixed(5))}</td>
+            <td>${data.usd.price.toFixed(5)}</td>
             <td className={classNamesStatusCoin24h}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
             <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
             <td>${numberWithCommas(data.usd.volume24h.toFixed(0))}</td>

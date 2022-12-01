@@ -64,6 +64,12 @@ table {
 
         th {
             padding: 10px 10px 10px 10px;
+            text-align: center;
+
+            &:nth-child(2) {
+                text-align: start;
+            }
+
         }
     }
 }
@@ -76,20 +82,28 @@ tr {
 }
 
 td {
-    text-align: center;
-    padding: 0px 0 0px 20px;
     &:nth-child(1) {
         text-align: center;
         padding: 10px;
     }
+
+    &:nth-child(2) {
+        padding: 30px 0 20px 0px !important;
+        display: flex;
+    }
+
+    text-align: center;
+    font-weight: 500;
+    padding: 0;
+
 }
 
 .pricedata {
-    padding: 0px 20px 0 0 !important;
+    padding: 0px 20px 0 0;
 
     img {
         margin-right: 5px;
-        margin-left: 0 !important;
+        margin-left: 0;
     }
 }
 
@@ -107,6 +121,22 @@ td {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+    }
+}
+
+.priceData-content {
+    display: flex;
+    justify-content: center;
+
+    h6 {
+        font-size: 14px;
+    }
+
+    span {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: rgb(128, 138, 157);
+        margin-left: 5px;
     }
 }
 

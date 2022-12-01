@@ -9,7 +9,7 @@ import { CaretDownIcon } from '~/components/Icons';
 const cx = classNames.bind(styles);
 
 function TokenDetailEachCoin({ data, community }) {
-  
+    console.log(data);
     return (
         <section className={cx('token-container')}>
             <div>
@@ -60,7 +60,7 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Total Supply</p>
-                            <p>${numberWithCommas(data.totalSupply.toFixed(0))}</p>
+                            <p>${numberWithCommas(data.totalSupply ? data.totalSupply.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>Max Supply</p>
@@ -82,9 +82,9 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li className={cx('detail-tippy-container')}>
                             <p>Website</p>
-                            <MenuTippy data={data.urls.website}>
+                            <MenuTippy data={data.urls.homepage}>
                                 <h6 className={cx('detail-tippy')}>
-                                    {data.urls.website[0]?.split('/')[2] || 'No link'}
+                                    {data.urls.homepage[0]?.split('/')[2] || 'No link'}
                                 </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
@@ -92,9 +92,9 @@ function TokenDetailEachCoin({ data, community }) {
                         <li className={cx('detail-tippy-container')}>
                             <p>Explorer</p>
 
-                            <MenuTippy data={data.urls.explorer}>
+                            <MenuTippy data={data.urls.blockchain_site}>
                                 <h6 className={cx('detail-tippy')}>
-                                    {data.urls.explorer[0]?.split('/')[2] || 'No link'}
+                                    {data.urls.blockchain_site[0]?.split('/')[2] || 'No link'}
                                 </h6>
                             </MenuTippy>
                             <CaretDownIcon className={cx('detail-tippy-caret-down')} />
