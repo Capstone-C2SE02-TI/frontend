@@ -12,12 +12,12 @@
             color: #473d85;
             text-transform: uppercase;
             &:hover {
-                background: none;
+                background: #A697FF;
                 cursor: default;
             }
 
             th {
-                padding: 10px;
+                padding: 0;
                 border-right: 1px solid #fff;
             }
         }
