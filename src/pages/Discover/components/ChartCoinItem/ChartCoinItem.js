@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useCallback } from 'react';
 import { Line } from 'react-chartjs-2';
 
-function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
+function ChartCoinItem({ data, theme, labelTitle = 'Last 1 day', symbol }) {
 
     const getLabelsCoinsDetailSorted = useCallback(() => {
         return Object.keys(data)
@@ -13,12 +13,10 @@ function ChartCoinItem({ data , theme, labelTitle = 'Last 1 day', symbol}) {
                 let date = new Date(Number(coin[0]));
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                          } PM`
-                        : `${date.getHours()}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                          } AM`;
+                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                        } PM`
+                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                        } AM`;
                 return time;
             });
     }, [data]);

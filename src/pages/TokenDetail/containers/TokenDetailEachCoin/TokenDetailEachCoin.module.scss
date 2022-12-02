@@ -9,7 +9,7 @@
         background: #d4d9de;
         font-size: 12px;
         font-weight: 500;
-        border-radius: 20px;
+        border-radius: 8px;
         color: white;
     }
 
@@ -28,13 +28,8 @@
         img {
             width: 30px;
             height: 30px;
-            margin-right: 18px;
         }
 
-        span {
-            color: #21ce66;
-            background-color: #f4f6f6;
-        }
     }
 
     .token-content__price {
@@ -73,14 +68,20 @@
 
     ul {
         width: calc((100% - 20px) / 3);
-
+        &:last-child {
+            li {
+                padding: 12.5px 5px;
+                &:last-child {
+                    padding: 15px 5px;
+                }
+            }
+        }
         li {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #a5a2b8;
             padding: 15px 5px;
-
             .detail-tippy {
                 border-radius: 6px;
                 background: #eff2f5;
@@ -157,4 +158,38 @@
 .token-price {
     display: flex;
     align-items: center;
+    h3 {
+        font-size: 24px;
+    }
+    h2 {
+        margin: 0 10px;
+        font-size: 34px;
+    }
+}
+
+.increase {
+    background-color: #07bc0c !important;
+}
+
+.reduce {
+    background-color: red !important;
+}
+
+.priceData-content {
+    display: flex;
+    justify-content: center;
+
+    h6 {
+        font-size: 24px;
+        margin: 0 5px 0 5px;
+    }
+
+    span {
+        text-transform: uppercase;
+        font-size: 16px;
+        color: #333;
+        margin-left: 5px;
+        background-color: #eff2f5;
+        padding: 6px 10px;
+    }
 }

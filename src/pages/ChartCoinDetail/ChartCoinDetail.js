@@ -1,4 +1,4 @@
-import { log } from '@uniswap/smart-order-router';
+// import { log } from '@uniswap/smart-order-router';
 import React, { memo } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
@@ -15,7 +15,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
-                let date = new Date(Number(coin[0])*1000);
+                let date = new Date(Number(coin[0]) * 1000);
                 let time =
                     date.getHours() > 12
                         ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
