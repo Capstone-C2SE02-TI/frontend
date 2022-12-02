@@ -28,7 +28,10 @@ const discoverSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchCoinsDiscover.fulfilled, (state, action) => {
-                state.coinsList = action.payload;
+                const data = action.payload;
+                
+                // state.coinsList = data.slice().sort((prev, next) => Number(next.usd.price) - Number(prev.usd.price));
+                state.coinsList = data
                 state.status = 'idle';
             })
             .addCase(fetchListTagsName.fulfilled, (state, action) => {

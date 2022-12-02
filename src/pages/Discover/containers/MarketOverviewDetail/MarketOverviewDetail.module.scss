@@ -85,7 +85,8 @@ td {
 }
 
 .pricedata {
-    padding: 0px 20px 0 0 !important;
+    text-align: left;
+    // padding: 0px 20px 0 0 !important;
 
     img {
         margin-right: 5px;
@@ -291,16 +292,16 @@ input:not(:placeholder-shown)~.search--icon {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border-radius: 28px;
+    border-radius: 6px;
     background: #eff2f5;
-    max-height: 34px;
+    max-height: 40px;
 
     &--filter {
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        padding: 8px 24px;
+          padding: 8px 12px;
 
         &--container {
             display: flex;
@@ -312,6 +313,11 @@ input:not(:placeholder-shown)~.search--icon {
                 font-size: 12px;
                 margin-right: 10px;
                 margin-bottom: 0px;
+                color: rgb(56, 97, 251)
+            }
+            svg {
+                color: rgb(56, 97, 251)
+
             }
         }
     }
@@ -331,6 +337,17 @@ input:not(:placeholder-shown)~.search--icon {
         z-index: 100;
     }
 }
+.spread {
+       height: 26px;
+    width: 1px;
+    margin: 0px 16px;
+    background: rgb(207, 214, 228);
+}
+
+.list-tab-item-filter {
+
+}
+
 
 @keyframes fadeIn {
     from {

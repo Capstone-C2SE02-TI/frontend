@@ -10,7 +10,7 @@ function RecommendAccountFollow() {
     return (
         <div className={cx('recommend-account-follow')}>
             <div className={cx('heading-follow')}>
-                <span>Recommended Accounts</span>
+                <span>Recommended Shark</span>
                 <div className={cx('pagination-follow')}>
                     <ArrowLeftIcon />
                     <ArrowRightIcon />

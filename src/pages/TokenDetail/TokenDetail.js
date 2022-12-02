@@ -28,10 +28,10 @@ function TokenDetail() {
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
 
-    useScrollToTop();
+
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
-
+        window.scrollTo(0, 0);
     }, [dispatch, symbol]);
 
     useEffect(() => {

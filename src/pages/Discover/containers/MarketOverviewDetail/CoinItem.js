@@ -35,11 +35,11 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td>${numberWithCommas(data.marketCap ? data.marketCap?.toFixed(0) : 0)}</td>
             <td>${numberWithCommas(data.circulatingSupply ? data.circulatingSupply.toFixed(0) : 0)}</td>
             <td>
-                {data.pricesLast1Day ? (
+                {data.pricesLast1Month ? (
                     <ChartCoinItem
                         labelTitle={'Last 1 day'}
                         symbol={data.symbol}
-                        data={data.pricesLast1Day[0]}
+                        data={data.pricesLast1Month}
                         theme={data.usd.percentChange24h < 0 ? REDUCING_COLOR : INCREASING_COLOR}
                     />
                 ) : (
