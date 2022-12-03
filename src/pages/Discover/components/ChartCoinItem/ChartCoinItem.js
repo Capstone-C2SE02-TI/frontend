@@ -1,28 +1,19 @@
 import React, { memo } from 'react';
-import { useCallback } from 'react';
+import {  useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
+import { convertUnixTime, numberWithCommas } from '~/helpers';
 
-function ChartCoinItem({ data, theme, labelTitle = 'Last 1 month', symbol }) {
-
-    const getLabelsCoinsDetailSorted = useCallback(() => {
+function ChartCoinItem({ data, theme }) {
+    const getLabelsCoinsDetailSorted = useMemo(() => {
         return Object.keys(data)
             .map((key) => [Number(key), data[key]])
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
-                let date = new Date(Number(coin[0]));
-                console.log(date)
-                let time =
-                    date.getHours() > 12
-                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                        } PM`
-                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                        } AM`;
-                return time;
+                return convertUnixTime(Number(coin[0])).split(' ')[0];
             });
     }, [data]);
-
-    const getDataCoinsDetailSorted = useCallback(() => {
+    const getDataCoinsDetailSorted = useMemo(() => {
         return Object.keys(data)
             .map((key) => [Number(key), data[key]])
             .slice()
@@ -31,25 +22,23 @@ function ChartCoinItem({ data, theme, labelTitle = 'Last 1 month', symbol }) {
                 return coin[1];
             });
     }, [data]);
-
-
-    // console.log(getDataCoinsDetailSorted());
-    // console.log(getLabelsCoinsDetailSorted());
     return (
         <div style={{ height: '80px', width: '140px' }}>
             <Line
                 data={{
-                    labels: getLabelsCoinsDetailSorted(),
+                    labels: getLabelsCoinsDetailSorted,
 
                     datasets: [
                         {
                             label: `Price`,
-                            data: getDataCoinsDetailSorted(),
+                            data: getDataCoinsDetailSorted,
                             fill: true,
                             backgroundColor: '#fff',
                             borderColor: theme,
                             showLine: true,
                             pointBackgroundColor: theme,
+                            tension: 0.02,
+                            borderWidth: 2,
                         },
                     ],
                 }}
@@ -59,11 +48,18 @@ function ChartCoinItem({ data, theme, labelTitle = 'Last 1 month', symbol }) {
                     },
                     elements: {
                         point: {
-                            radius: 3,
-                            hoverRadius: 4,
+                            radius: 0,
+                            hoverRadius: 1,
                         },
                     },
                     plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return '$' + numberWithCommas(context.parsed.y.toFixed(3));
+                                },
+                            },
+                        },
                         legend: {
                             display: false,
                         },

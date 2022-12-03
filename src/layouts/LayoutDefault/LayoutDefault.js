@@ -65,6 +65,7 @@ function LayoutDefault({ children }) {
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
     useEffect(() => {
+        console.log('provider');
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
@@ -91,13 +92,11 @@ function LayoutDefault({ children }) {
                 FUND_SUBSCRIPTION_ABI,
                 provider,
             );
-            console.log(contractPremium)
+            // console.log(contractPremium)
             const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress)
             const convertlimmitedAccount = await limmitedAccount.toHexString(16)
             const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
             setExpriedTime(limmitedAccountTime)
-            console.log(limmitedAccountTime)
-            // dispatch(saveContractPremium(contractPremium));
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
             dispatch(saveUserPremium(isPremiumUser));
         };
@@ -151,7 +150,6 @@ function LayoutDefault({ children }) {
 
     const loadRatio = async () => {
         const contractSwap = await new ethers.Contract(DEX_SMART_CONTRACT_ADDRESS, DEX_ABI, provider);
-        console.log(contractSwap.price())
         const balance = await contractSwap.price();
         let convertBalance = balance.toHexString(16);
         return parseInt(convertBalance, 16) / 10 ** 18;

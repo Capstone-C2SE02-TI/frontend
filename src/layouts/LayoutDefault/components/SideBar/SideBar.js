@@ -11,6 +11,40 @@ import configs from '~/configs';
 
 const cx = classNames.bind(styles);
 
+
+const MENU_SIDEBAR = [
+    {
+        title: 'Home',
+        icon: <HomeIcon />,
+        to: configs.routes.homeDashboard,
+        isPremium: false,
+    },
+    {
+        title: 'Discover',
+        icon: <DiscoverIcon />,
+        to: configs.routes.discover,
+        isPremium: false,
+    },
+    {
+        title: 'Analyze',
+        icon: <AnalyzeIcon />,
+        to: configs.routes.analyze,
+        isPremium: true,
+    },
+    {
+        title: 'Trading',
+        icon: <SupportIcon />,
+        to: configs.routes.transactionShark,
+        isPremium: true,
+    },
+    {
+        title: 'Gain & Loss',
+        icon: <ReportIcon />,
+        to: configs.routes.gainLoss,
+        isPremium: true,
+    },
+];
+
 function SideBar() {
     return (
         <React.Fragment>
@@ -21,12 +55,10 @@ function SideBar() {
                 </Link>
             </div>
             <Menu>
-                <MenuItem icon={<HomeIcon />} title="Home" to={configs.routes.homeDashboard}  />
-                <MenuItem icon={<DiscoverIcon />} title="Discover" to={configs.routes.discover} />
-                <MenuItem icon={<AnalyzeIcon />} title="Analyze" to={configs.routes.analyze} />
-                <MenuItem icon={<SupportIcon />} title="Trading" to={configs.routes.transactionShark} />
-                <MenuItem icon={<ReportIcon />} title="Gain & Loss" to={configs.routes.gainLoss} />
-                <MenuItem icon={<SettingIcon />} title="Setting" to="/setting" />
+                {MENU_SIDEBAR.map((menu, index) => (
+                    <MenuItem key={index} icon={menu.icon} title={menu.title} to={menu.to} isPremium={menu.isPremium} />
+                ))}
+
                 {/*  */}
             </Menu>
 
