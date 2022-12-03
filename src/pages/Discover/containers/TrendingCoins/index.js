@@ -1,1 +1,1 @@
-export { default} from './TrendingCoins'
+export { default } from './TrendingCoins'

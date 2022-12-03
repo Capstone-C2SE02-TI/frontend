@@ -13,6 +13,9 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
 function TokenDetailEachCoin({ data, community }) {
+
+    const classNamesStatusCoin7d = cx(data.usd.percentChange7d >= 0 ? 'increase' : 'reduce');
+
     const [copied, setCopied] = useState(false);
     const defaultPropsTippy = {
         animateFill: false,
@@ -26,10 +29,8 @@ function TokenDetailEachCoin({ data, community }) {
     console.log(data)
     return (
         <section className={cx('token-container')}>
-            <div>
-                <span>Rank #{data.cmcRank}</span>
-            </div>
             <div className={cx('token-content__price')}>
+
                 <div className={cx('token-price__inf')}>
                     <h1>Information</h1>
                 </div>
@@ -37,15 +38,18 @@ function TokenDetailEachCoin({ data, community }) {
             <div className={cx('token-content__name')}>
                 <div className={cx('token-price')}>
                     <Image src={data.iconURL} alt={data.name} />
-                    <h3>
-                        {data.name} ({data.symbol})
-                    </h3>
+                    <div className={cx('priceData-content')}>
+                        <h6>{data.name}</h6>
+                        <span>{data.symbol}</span>
+                    </div>
                 </div>
-                <div className={cx('token-price')}>
-                    <h2>Price: </h2>
-                    <h2 style={{ color: '#7665d8' }}> {data.usd.price.toFixed(3)} $</h2>
-                    <span>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
-                </div>
+                <span>Rank #{data.cmcRank}</span>
+
+            </div>
+            <div className={cx('token-price')}>
+                <h3>Price: </h3>
+                <h2 style={{ color: '#7665d8' }}> {data.usd.price.toFixed(3)} $</h2>
+                <span className={cx(classNamesStatusCoin7d)}>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
             </div>
             <div className={cx('token-content__inf')}>
                 <nav>
@@ -97,7 +101,7 @@ function TokenDetailEachCoin({ data, community }) {
                         <li>
                             <p>Contract Address</p>
                             <div className="d-flex justify-content-between">
-                                <span style={{ color: '#000' }}>{data.contractAddress.slice(0, 20)}...</span>
+                                <span style={{ color: '#000' }}>{data.contractAddress.slice(0, 15)}...</span>
                                 <Tippy content={!copied ? 'Copy to clipboard' : 'Copied'} {...defaultPropsTippy}>
                                     <div>
                                         <CopyToClipboard text={data.contractAddress} onCopy={() => setCopied(true)}>

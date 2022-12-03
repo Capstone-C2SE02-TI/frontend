@@ -1,11 +1,12 @@
+// import { log } from '@uniswap/smart-order-router';
 import React, { memo } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { Line } from 'react-chartjs-2';
 
-function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  }) {
+function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
     let delayed;
-
+    console.log(data);
     const getLabelsCoinsDetailSorted = useMemo(() => {
         const dataCoinDetail = data.prices[typeFilter];
 
@@ -14,15 +15,13 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
             .slice()
             .sort((prev, next) => Number(prev[0]) - Number(next[0]))
             .map((coin) => {
-                let date = new Date(Number(coin[0])*1000);
+                let date = new Date(Number(coin[0]) * 1000);
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                          } PM`
-                        : `${date.getHours()}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                          } AM`;
+                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                        } PM`
+                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                        } AM`;
                 if (typeFilter === 'month') {
                     return date.toLocaleDateString().split('/', 2).join('/');
                 } else return typeFilter === 'day' ? time : date.toLocaleDateString();
@@ -40,7 +39,7 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef  })
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
- 
+
     return (
         <div>
             <Line

@@ -10,14 +10,16 @@
 }
 
 .detail-info__table {
-  background-color: #A697FF;
+  background-color: #fff;
   width: 95%;
   margin: 0 auto;
   margin-top: 1%;
+  box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
   .detail-info__th {
     width: 50%;
+    text-align: start;
     padding-left: 20px;
-    background-color: #A697FF;
+    background-color: rgb(239, 242, 245);
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
     color: #333;
@@ -29,16 +31,21 @@
     cursor: default;
   }
   .detail-info__td {
-    border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    text-align: start;
+    font-weight: 500;
+    color: #333;
     border-left: 1px solid #fff;
     &:first-child {
       text-transform: uppercase;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 14px;
+      padding: 5px 0 5px 20px;
     }
     &:last-child {
-      color: #fff;
+      color: #333;
+      padding: 5px 0 5px 0 !important;
     }
   }
 }

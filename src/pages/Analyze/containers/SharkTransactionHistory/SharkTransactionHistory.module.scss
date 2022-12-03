@@ -1,24 +1,37 @@
 .table-shark__crypto {
-    background: #A697FF;
+    background: #fff;
     color: #fff;
     a {
         color: #482ee8 !important;
     }
     thead {
         tr {
-            background: #A697FF;
-            border-bottom: 1px solid #fff;
-            border-top: 1px solid #fff;
+            background: #fff;
+            border-bottom: 1px solid #eff2f5;
+            border-top: 1px solid #eff2f5;
             color: #473d85;
             text-transform: uppercase;
             &:hover {
-                background: #A697FF;
+                background: #fff;
                 cursor: default;
             }
 
             th {
-                padding: 0px;
+                padding: 11px 0px;
                 border-right: 1px solid #fff;
+                text-align: center;
+                &:nth-child(1) {
+                    width: 14%;
+                }
+                &:nth-child(2) {
+                    width: 50%;
+                }
+                &:nth-child(3) {
+                    width: 18%;
+                }
+                &:nth-child(4) {
+                    width: 18%;
+                }
             }
         }
     }

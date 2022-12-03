@@ -165,20 +165,20 @@ function MarketOverviewDetail() {
                             <th>Market Cap</th>
                             <th>Volume(24h)</th>
                             <th>Circulating Supply</th>
-                            <th>Last 1 day</th>
+                            <th>Last 1 month</th>
                         </tr>
                     </thead>
-
                     <tbody className={cx('listCoin')}>
                         {viewListCoinsPagination.length > 0 &&
                             viewListCoinsPagination.map((coin, index) => (
                                 <CoinItem
-                                    index={index}
                                     key={index}
+                                    index={index}
                                     data={coin}
                                     increaseStatus24h={coin.usd.percentChange24h > 0 ? true : false}
                                     increaseStatus7d={coin.usd.percentChange7d > 0 ? true : false}
                                 />
+
                             ))}
 
                         {!searchText && <Loading loading={viewListCoinsPagination.length === 0} />}
