@@ -14,6 +14,7 @@ function AssetCoinItem({ title, iconBox, data, type }) {
         'hide-box': !statusSidebarSelector,
     });
     const priceValueChange24ClassName = cx('coin-asset__percent', type === 'trending' ? 'trending-coin' : 'loss-coin');
+    console.log(data);
     return (
         <div className={boxClassName}>
             <div className={cx('coin-asset')}>

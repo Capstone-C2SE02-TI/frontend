@@ -10,8 +10,8 @@ const MARKET_SHOW = 4;
 const cx = classNames.bind(styles);
 
 function TrendingCoins({ data, loading }) {
+    console.log(data)
 
-  
     const settingsSlider = {
         dots: false,
         infinite: 8 > MARKET_SHOW,
@@ -51,8 +51,8 @@ function TrendingCoins({ data, loading }) {
                 );
             })}
         </Slider>
-    ) 
-  
+    )
+
 }
 
 export default memo(TrendingCoins);

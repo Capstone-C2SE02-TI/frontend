@@ -1,3 +1,4 @@
+// import { log } from '@uniswap/smart-order-router';
 import React, { memo } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
@@ -6,7 +7,7 @@ import { numberWithCommas } from '~/helpers';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
     let delayed;
-
+    console.log(data);
     const getLabelsCoinsDetailSorted = useMemo(() => {
         const dataCoinDetail = data.prices[typeFilter];
 
@@ -18,12 +19,10 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
                 let date = new Date(Number(coin[0]) * 1000);
                 let time =
                     date.getHours() > 12
-                        ? `${date.getHours() - 12}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
-                          } PM`
-                        : `${date.getHours()}:${
-                              date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
-                          } AM`;
+                        ? `${date.getHours() - 12}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()} ` : date.getMinutes()
+                        } PM`
+                        : `${date.getHours()}:${date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
+                        } AM`;
                 if (typeFilter === 'month') {
                     return date.toLocaleDateString().split('/', 2).join('/');
                 } else return typeFilter === 'day' ? time : date.toLocaleDateString();

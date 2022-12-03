@@ -22,10 +22,13 @@
 }
 
 .shark-overview {
-    background-color: #a697ff;
+    background-color: #fff;
     padding: 5px 0px;
     border-radius: 12px;
     height: 100vh;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
 }
 
 .shark-search {
@@ -35,6 +38,16 @@
     padding: 12px 0;
     font-size: 14px;
     margin-left: 12px;
+
+    form {
+        border: 3px solid #eee;
+        border-radius: 8px;
+        transition: border-color 0.5s;
+        &:hover {
+            background-color: #fff;
+            border: 3px solid #3861fb;;
+        }
+    }
 
     input {
         padding: 5px 8px;
@@ -59,13 +72,13 @@
 }
 
 .table-shark {
-    background-color: #a697ff;
-    color: #fff;
+    background-color: #fff;
+    color: #333;
 
     thead {
         th {
             padding: 11px 0 10px 0;
-            background-color: #a697ff;
+            background-color: #fff;
             text-align: center !important;
             color: #473d85;
             text-transform: uppercase;
@@ -75,8 +88,13 @@
     tbody {
         tr {
             td {
-                padding: 10px 0 10px 0px !important;
+                padding: 10px 0 10px 0px ;
                 text-align: center;
+                &:nth-child(2) {
+                    display: flex;
+                    justify-content: center;
+                    padding: 0;
+                }
             }
 
             &:hover {

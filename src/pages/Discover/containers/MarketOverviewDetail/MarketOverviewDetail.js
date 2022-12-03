@@ -198,7 +198,6 @@ function MarketOverviewDetail() {
                             <th>Last 1 Month</th>
                         </tr>
                     </thead>
-
                     <tbody className={cx('listCoin')}>
                         {viewListCoinsPagination.length > 0 &&
                             viewListCoinsPagination

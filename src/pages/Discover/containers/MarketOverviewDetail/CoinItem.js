@@ -16,15 +16,16 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
     const navigate = useNavigate();
     const classNamesStatusCoin24h = cx(increaseStatus24h ? 'increase' : 'reduce');
     const classNamesStatusCoin7h = cx(increaseStatus7d ? 'increase' : 'reduce');
-
+    console.log(data.pricesLast1Month[0]);
     return (
         <tr key={index} onClick={() => navigate(`/discover/detail/${data.symbol}`)}>
             <td>{index + 1}</td>
             <td className={cx('pricedata')}>
                 <Image width="20" className={cx('imagedata')} src={data.iconURL} alt="logo" />
-                <span>
-                    {data.name}({data.symbol})
-                </span>
+                <div className={cx('priceData-content')}>
+                    <h6>{data.name}</h6>
+                    <span>{data.symbol}</span>
+                </div>
             </td>
             <td>${numberWithCommas(data.usd.price.toFixed(3))}</td>
 
@@ -37,7 +38,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td>
                 {data.pricesLast1Month ? (
                     <ChartCoinItem
-                        labelTitle={'Last 1 day'}
+                        labelTitle={'Last 1 month'}
                         symbol={data.symbol}
                         data={data.pricesLast1Month}
                         theme={data.usd.percentChange24h < 0 ? REDUCING_COLOR : INCREASING_COLOR}
