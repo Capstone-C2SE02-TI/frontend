@@ -144,7 +144,7 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Total investment</p>
-                            <p>$387,503,617,100</p>
+                            <p>${data.totalInvestment ? data.totalInvestment : 0}</p>
                         </li>
                     </ul>
                 </nav>

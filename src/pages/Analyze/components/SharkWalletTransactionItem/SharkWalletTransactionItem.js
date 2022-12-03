@@ -7,7 +7,7 @@ import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 const cx = classNames.bind(styles);
 
 function SharkWalletTransactionItem({ data, sharkAddress }) {
-
+    console.log(data)
     const handleTransactionTo = useCallback(() => {
         if (sharkAddress === data.to) {
             return `${data.from} → Wallet`;
@@ -16,7 +16,13 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
             return `Wallet → ${data.to}  `;
         }
     }, [data.from, data.to, sharkAddress]);
-
+    const handleTransferTransaction = () => {
+        if (sharkAddress === data.to) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     return (
         <tr className={cx('tr-crypto__item')}>
             <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
@@ -25,11 +31,14 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
                     {handleTransactionTo()}
                 </a>
             </td>
-            <td>
-                {numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}
-                <p>{data.pastPrice === 0 ? 0 : data.pastPrice.toFixed(3)}</p>
+            <td>{handleTransferTransaction() === true ? <p style={{ color: '#34CF82 ' }}>{"+" + numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}</p> : <p style={{ color: 'red ' }}>{"-" + numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}</p>}
+
+                <p>@{data.pastPrice === 0 ? 0 : data.pastPrice.toFixed(3)}</p>
             </td>
-            <td>{data.presentPrice === 0 ? 0 : data.presentPrice.toFixed(3)}</td>
+            <td>
+                <p>$ {(data.presentPrice * data.numberOfTokens).toFixed(3)}</p>
+                <p>@{data.presentPrice === 0 ? 0 : data.presentPrice.toFixed(3)}</p>
+            </td>
         </tr>
     );
 }

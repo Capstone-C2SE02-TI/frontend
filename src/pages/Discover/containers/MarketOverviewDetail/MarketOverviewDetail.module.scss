@@ -81,16 +81,22 @@ tr {
     }
 }
 
+.listCoin {
+    td {
+        &:nth-child(2) {
+            padding: 30px 0 20px 0px !important;
+            display: flex;
+        }
+    }
+}
+
 td {
     &:nth-child(1) {
         text-align: center;
         padding: 10px;
     }
 
-    &:nth-child(2) {
-        padding: 30px 0 20px 0px !important;
-        display: flex;
-    }
+
 
     text-align: center;
     font-weight: 500;
