@@ -13,10 +13,25 @@ import styles from './BuyToken.module.scss';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { saveSmartContractInfo } from '~/modules/user/auth/authSlice';
+import { saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
 import BuyItem from './BuyItem';
 
 const cx = classNames.bind(styles);
+
+const PREMIUM_PRICES_DEFAULT = [
+    {
+        price: 99,
+        type: 1,
+    },
+    {
+        price: 560,
+        type: 2,
+    },
+    {
+        price: 899,
+        type: 3,
+    },
+];
 
 function BuyToken() {
     const smartContractInfo = useSelector(smartContractInfoSelector);
@@ -35,6 +50,11 @@ function BuyToken() {
         onLoad();
     }, []);
     const upgradePremium = async (premiumPrice) => {
+        const ide =
+            PREMIUM_PRICES_DEFAULT[
+                PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice)
+            ].type;
+        console.log({ ide });
         let ABI = ['function upgradePremium(uint8 _level)'];
         let iface = new ethers.utils.Interface(ABI);
         let params = [
@@ -43,7 +63,7 @@ function BuyToken() {
                 to: FUND_SUBSCRIPTION_ADDRESS,
                 gas: '0x3F7A0',
                 gasPrice: '0x104C533C00',
-                data: '0x0ea063a00000000000000000000000000000000000000000000000000000000000000002',
+                data: '0x0ea063a0000000000000000000000000000000000000000000000000000000000000000' + ide,
             },
         ];
 
@@ -60,13 +80,14 @@ function BuyToken() {
                         console.log({ approveTokenStatus: approveTokenStatus.data });
                         if (approveTokenStatus.data.result.isError === '0') {
                             toast.dismiss();
-                            toast.success('Upgrade Premium successfully',);
+                            toast.success('Upgrade Premium successfully');
                             dispatch(
                                 saveSmartContractInfo({
                                     ...smartContractInfo,
                                     balance: smartContractInfo.balance - premiumPrice,
                                 }),
                             );
+                            dispatch(saveUserPremium(true));
                         } else {
                             toast.dismiss();
                             toast.error('Upgrade Premium failed');
@@ -118,7 +139,6 @@ function BuyToken() {
     };
 
     const handleApprove = async (premiumPrice, handleToggleApprove) => {
-        console.log(premiumPrice);
         if (smartContractInfo.walletAddress) {
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);

@@ -102,8 +102,8 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
                         Sign Out
                     </Button>
                     <ModalConfirm
-                        title="Delete user"
-                        description="Are you sure you want to delete this user?"
+                        title="Logout"
+                        description="Are you sure you want to log out?"
                         modalIsOpen={modalIsOpen}
                         closeModal={closeModal}
                         onHandleAction={handleLogOut}
@@ -136,7 +136,8 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
             hideOnClick={hideOnClick}
             render={renderResult}
             onHide={handleResetToFirstPage}
-        // visible
+            arrow={true}
+            // visible
         >
             {children}
         </Tippy>

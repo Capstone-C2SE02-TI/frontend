@@ -30,7 +30,7 @@ function AssetCoinItem({ title, iconBox, data, type }) {
                 {data.length > 0
                     ? data.map((coin, i) => {
                         return (
-                            <div key={coin.id} className={cx('coin-asset__change')}>
+                            <div key={i} className={cx('coin-asset__change')}>
                                 <div className={cx('coin-asset__info')}>
                                     <span className={cx('coin-info_stt')}>{i + 1}</span>
                                     <img
