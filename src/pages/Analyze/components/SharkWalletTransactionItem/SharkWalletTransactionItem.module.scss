@@ -1,10 +1,12 @@
 .tr-crypto__item {
     text-align: center;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #eee;
     td {
         padding: 8px 0 8px 0;
         text-align: center;
-        border-right: 1px solid #fff;
+        border-right: 1px solid #eee;
+        color: #333;
+
     }
 
     &:hover {

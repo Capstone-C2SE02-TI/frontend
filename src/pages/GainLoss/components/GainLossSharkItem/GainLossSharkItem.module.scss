@@ -3,14 +3,24 @@
         background: unset;
         cursor: default;
     }
+
 }
 
 .shark-gain-item__td {
     text-align: start;
     padding: 10px 20px 10px 20px;
-    border-right: 1px solid #fff;
-    border-bottom: 1px solid #fff;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     &:nth-child(2) {
+        display: block;
         color: #482ee8;
+        background-color: #FFF;
+        text-align: center;
+        padding: 12px 0 !important;
+    }
+    &:not(:nth-child(2)) {
+        color: #333;
+        background-color: #fff;
+        text-align: center;
     }
 }

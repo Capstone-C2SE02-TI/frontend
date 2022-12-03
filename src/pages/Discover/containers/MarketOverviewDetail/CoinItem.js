@@ -38,7 +38,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
             <td>
                 {data.pricesLast1Month ? (
                     <ChartCoinItem
-                        labelTitle={'Last 1 day'}
+                        labelTitle={'Last 1 month'}
                         symbol={data.symbol}
                         data={data.pricesLast1Month}
                         theme={data.usd.percentChange24h < 0 ? REDUCING_COLOR : INCREASING_COLOR}

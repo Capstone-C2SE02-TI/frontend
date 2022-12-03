@@ -1,11 +1,13 @@
 .table-shark__crypto {
-    background: #A697FF;
-    color: #fff;
-
+    background: #fff;
+    color: #333;
+    span {
+        color: #fff;
+    }
     thead {
         tr {
-            background: #A697FF;
-            border-bottom: 1px solid #fff;
+            background: #fff;
+            border-bottom: 1px solid #eff2f5;
             border-top: 1px solid #fff;
             color: #473d85;
             text-transform: uppercase;
@@ -14,12 +16,15 @@
             left: 0;
             z-index: 90;
             &:hover {
-                background-color: #A697FF;
+                background-color: #fff;
                 cursor: default;
             }
             th {
                 padding: 10px;
                 border-right: 1px solid #fff;
+                &:nth-child(2) {
+                    text-align: center;
+                }
             }
         }
     }

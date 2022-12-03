@@ -165,7 +165,7 @@ function MarketOverviewDetail() {
                             <th>Market Cap</th>
                             <th>Volume(24h)</th>
                             <th>Circulating Supply</th>
-                            <th>Last 1 day</th>
+                            <th>Last 1 month</th>
                         </tr>
                     </thead>
                     <tbody className={cx('listCoin')}>
