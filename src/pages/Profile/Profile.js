@@ -23,6 +23,8 @@ function Profile() {
         }
     }, [dispatch, userId]);
 
+console.log(userInfoDetail?.createdAt?.split('T')[0]);
+
     const renderProfile = () => {
         return (
             <div className={cx('wrapper')}>
@@ -67,13 +69,13 @@ function Profile() {
                     <p className={cx('profile-detail-title')}>
                         Created date:
                         <span className={cx('profile-detail-value')}>
-                            {/* {new Date(userInfoDetail.createdDate?._nanoseconds)?.toLocaleDateString() || ''} */}
+                            {userInfoDetail?.createdAt?.split('T')[0] || ''}
                         </span>
                     </p>
                     <p className={cx('profile-detail-title')}>
                         Updated date:
                         <span className={cx('profile-detail-value')}>
-                            {/* {new Date(userInfoDetail.updatedDate?._nanoseconds)?.toLocaleDateString() || ''} */}
+                            {userInfoDetail?.updatedAt?.split('T')[0] || ''}
                         </span>
                     </p>
                     <p className={cx('profile-detail-title')}>
@@ -90,7 +92,7 @@ function Profile() {
                         </span>
                     </p>
                 </div>
-                <div style={{marginLeft: "40px"}}>
+                <div style={{ marginLeft: '40px', marginTop: "20px" }}>
                     {' '}
                     <Button primary onClick={() => navigate('/change-password')}>
                         Change Password

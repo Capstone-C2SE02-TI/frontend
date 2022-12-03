@@ -31,7 +31,7 @@ function TokenDetail() {
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));
-
+        window.scrollTo(0, 0);
     }, [dispatch, symbol]);
 
     useEffect(() => {

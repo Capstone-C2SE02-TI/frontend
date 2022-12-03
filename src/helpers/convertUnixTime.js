@@ -3,7 +3,7 @@ const convertUnixTime = (unix_timestamp) => {
     // Create a new JavaScript Date object based on the timestamp
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
     var a = new Date(unix_timestamp * 1000);
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     var year = a.getFullYear();
     var month = months[a.getMonth()];
     var date = a.getDate();

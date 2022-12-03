@@ -3,6 +3,7 @@ import React, { memo } from 'react';
 import { useMemo } from 'react';
 import { useRef } from 'react';
 import { Line } from 'react-chartjs-2';
+import { numberWithCommas } from '~/helpers';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
     let delayed;
@@ -39,7 +40,6 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
                 return coin[1];
             });
     }, [data.prices, typeFilter]);
-
     return (
         <div>
             <Line
@@ -48,8 +48,8 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
                     labels: getLabelsCoinsDetailSorted,
                     datasets: [
                         {
-                            label: `Price (${time}) in ${symbol} `,
                             data: getDataCoinsDetailSorted,
+                            labels: 'hello',
                             fill: true,
                             backgroundColor: function (context) {
                                 const chart = context.chart;
@@ -121,7 +121,35 @@ function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) 
                         },
                     },
                     plugins: {
+                        title: {
+                            display: true,
+                            text: 'Statistics Chart',
+                            fullSize: true,
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return (
+                                        `Price (${time}) in ${symbol.toUpperCase()}: $ ` +
+                                        numberWithCommas(context.parsed.y.toFixed(3))
+                                    );
+                                },
+                            },
+                        },
                         zoom: {
+                            limits: {
+                                y: {
+                                    min: Math.min(...getDataCoinsDetailSorted),
+                                    max: Math.max(...getDataCoinsDetailSorted),
+                                    minRange:
+                                        (Math.max(...getDataCoinsDetailSorted) -
+                                            Math.min(...getDataCoinsDetailSorted)) /
+                                        20,
+                                },
+                            },
                             pan: {
                                 enabled: true,
                                 mode: 'xy',
