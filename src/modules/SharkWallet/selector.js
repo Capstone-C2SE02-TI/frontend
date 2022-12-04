@@ -1,7 +1,8 @@
-import { createSelector } from "@reduxjs/toolkit";
+import { createSelector } from '@reduxjs/toolkit';
 
 export const sharkListSelector = (state) => state.sharkWallet.sharkList;
 export const sharkCryptoSelector = (state) => state.sharkWallet.sharkCrypto;
+export const searchSharkCryptoSelector = (state) => state.sharkWallet.searchTextCrypto;
 export const sharkCryptoStatusSelector = (state) => state.sharkWallet.status;
 export const sharkTransactionHistorySelector = (state) => state.sharkWallet.sharkTransactionHistory;
 export const sharkWalletIdSelector = (state) => state.sharkWallet.sharkWalletId;
@@ -20,7 +21,6 @@ export const sharkRemainingSelector = createSelector(
     (sharkList, filterSharkTotalAssets, searchFilterChange) => {
         return sharkList.filter((shark) => {
             if (searchFilterChange) {
-             
                 return (
                     shark.sharkId.toString().includes(searchFilterChange) &&
                     shark.totalAssets >= filterSharkTotalAssets.startTotalAssets &&
@@ -30,7 +30,19 @@ export const sharkRemainingSelector = createSelector(
                 return (
                     shark.totalAssets >= filterSharkTotalAssets.startTotalAssets &&
                     shark.totalAssets <= filterSharkTotalAssets.endTotalAssets
-                );;
+                );
         });
+    },
+);
+
+export const cryptoRemainingSelector = createSelector(
+    sharkCryptoSelector,
+    searchSharkCryptoSelector,
+    (sharkCryptos, searchFilterChange) => {
+        return sharkCryptos.filter(
+            (sharkCrypto) =>
+                sharkCrypto.name.toLowerCase().includes(searchFilterChange.toLowerCase()) ||
+                sharkCrypto.symbol.toLowerCase().includes(searchFilterChange.toLowerCase()),
+        );
     },
 );

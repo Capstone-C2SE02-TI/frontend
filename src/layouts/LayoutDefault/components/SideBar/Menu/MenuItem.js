@@ -30,7 +30,7 @@ function MenuItem({ icon, title, to, key, isPremium }) {
                 {icon}
                 <span className={cx('menu-item__title')}>{title}</span>
             </NavLink>
-            <div className={cx('menu-item-tippy-container')}>
+            {/* <div className={cx('menu-item-tippy-container')}>
                 <div className={cx('container-tippy')}>
                     <p className={cx('container-tippy-title')}>Thưởng thức Bài hát đã thích</p>
                     <p className={cx('container-tippy-desc')}>
@@ -44,7 +44,7 @@ function MenuItem({ icon, title, to, key, isPremium }) {
             </div>
             <div className={cx('tippy-arrow')}>
 
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -6,8 +6,8 @@ function convertStringToTimeCurrent(timeString) {
     const seconds = timeString?.slice(12, 14);
     const hours =
         timeString?.slice(8, 10) > '12'
-            ? `${timeString?.slice(8, 10) - 12}:${minutes}: ${seconds} PM`
-            : `${timeString?.slice(8, 10)}:${minutes}: ${seconds} AM`;
+            ? `${timeString?.slice(8, 10) - 12}:${minutes}:${seconds} PM`
+            : `${timeString?.slice(8, 10)}:${minutes}:${seconds} AM`;
 
     return `${date} ${hours}`;
 }

@@ -1,6 +1,6 @@
 .nav {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     font-size: 25px;
     font-weight: 800;
@@ -12,7 +12,6 @@
     }
 }
 
-
 .nav-item__title {
     margin-bottom: 0;
     margin-right: 8px;
@@ -22,3 +21,5 @@
         color: #482ee8;
     }
 }
+
+

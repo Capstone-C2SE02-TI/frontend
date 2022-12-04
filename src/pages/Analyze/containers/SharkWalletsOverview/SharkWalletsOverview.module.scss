@@ -43,9 +43,15 @@
         border: 3px solid #eee;
         border-radius: 8px;
         transition: border-color 0.5s;
+        
         &:hover {
             background-color: #fff;
-            border: 3px solid #3861fb;;
+            border: 3px solid #3861fb;
+        }
+
+        &:focus-within {
+            background-color: #fff;
+            border: 3px solid #3861fb;
         }
     }
 
@@ -88,7 +94,7 @@
     tbody {
         tr {
             td {
-                padding: 10px 0 10px 0px ;
+                padding: 10px 0 10px 0px;
                 text-align: center;
                 &:nth-child(2) {
                     display: flex;
@@ -142,7 +148,7 @@
         font-weight: 500;
         font-size: 14px;
         color: rgb(0, 0, 0);
-        padding: 3px 0px;
+        padding: 6px 0px;
         background-color: var(--color-primary-white);
         border: 2px solid rgb(255, 255, 255);
         border-radius: 8px;

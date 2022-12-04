@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { StarYellowIcon } from '~/components/Icons';
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './PortfolioSharkFollowItem.module.scss';
 import { fetchUnFollowSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 import millify from 'millify';
+import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
+import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({ key, userId, dataSharkFollowed }) {
+function PortfolioSharkFollowItem({  userId, dataSharkFollowed }) {
+
+    const [sharkACtive, setSharkActive] = useState()
+
     const [openModal, setOpenModal] = useState(false)
     const [confirmContent, setConfirmContent] = useState({});
 
     const dispatch = useDispatch();
+
+
 
     const openModalConfirm = (title, description, type) => {
         setOpenModal(true)
@@ -32,22 +39,33 @@ function PortfolioSharkFollowItem({ key, userId, dataSharkFollowed }) {
     }
 
     return (
-        <tr className={cx('portfolio-shark-follow__tr')}>
-            <td>Shark #{dataSharkFollowed.id}</td>
-            <td></td>
-            <td>${millify(dataSharkFollowed.totalAssets, {
-                precision: 3,
-                decimalSeparator: ',',
-            })}</td>
-            <td>{dataSharkFollowed.transactionsHistory.length}</td>
-            <td>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
-            <td></td>
-            <td onClick={() => {
-                openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'follow');
-            }}
+        <>
+            <tr
+                className={cx('portfolio-shark-follow__tr')}
+                onClick={() => {
+                    dispatch(saveSharkFollowedSelected(dataSharkFollowed));
+                }}
             >
-                <StarYellowIcon />
-            </td>
+                <td>Shark #{dataSharkFollowed.sharkId}</td>
+                <td style={{ fontSize: '12px' }}>{dataSharkFollowed.walletAddress}</td>
+                <td>
+                    $
+                    {millify(dataSharkFollowed.totalAssets, {
+                        precision: 3,
+                        decimalSeparator: ',',
+                    })}
+                </td>
+                <td>{dataSharkFollowed.transactionsHistory.length}</td>
+                <td>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
+                <td></td>
+                <td
+                    onClick={() => {
+                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'follow');
+                    }}
+                >
+                    <StarYellowIcon />
+                </td>
+            </tr>
             {openModal && (
                 <ModalConfirm
                     title={confirmContent.title}
@@ -57,8 +75,7 @@ function PortfolioSharkFollowItem({ key, userId, dataSharkFollowed }) {
                     onHandleAction={handleUnFollow}
                 />
             )}
-        </tr>
-
+        </>
     );
 }
 

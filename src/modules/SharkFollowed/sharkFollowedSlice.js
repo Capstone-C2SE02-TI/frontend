@@ -12,7 +12,8 @@ const sharkFollowedSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchSharkFollowed.fulfilled, (state, action) => {
-                state.sharkFollowedList = action.payload;
+                const dataSharkFollowed = action.payload;
+                state.sharkFollowedList = dataSharkFollowed.slice().sort((prev, next) => prev.sharkId -next.sharkId)
                 state.status = 'idle';
             });
     },
