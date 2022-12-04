@@ -53,7 +53,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
     return (
         <tr className={cx({ 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })} ref={parentRef}>
-            <td ref={childrenRef} onClick={handleSelectSharkAndSharkAddress}>
+            <td className={cx('shark-default-td')} ref={childrenRef} onClick={handleSelectSharkAndSharkAddress}>
                 #Shark {data.sharkId}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress}>

@@ -1,14 +1,20 @@
 .shark-active {
     background-color: #a7c1ee;
     color: #482ee8;
+
     tr {
         td {
             font-size: 14px;
+
             &:first-child {
                 color: #fff;
             }
         }
     }
+}
+
+.shark-default-td {
+    color: #0036ff;
 }
 
 #spinning-circle {
@@ -45,11 +51,11 @@
     25% {
         transform: scale(2);
     }
-    
+
     50% {
         transform: scale(1);
     }
-    
+
     100% {
         transform: scale(1);
     }
@@ -59,6 +65,7 @@
     0% {
         transform: rotate(0turn);
     }
+
     100% {
         transform: rotate(-1turn);
     }

@@ -59,7 +59,7 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                                 <div className={cx('crypto-item__Text')}>
                                     <Image width="22" className={cx('people-image')} src={data.iconURL} alt="logo" />
                                     <p>
-                                        {data.name} ({data.symbol}) - ${data.price.toFixed(3)}
+                                        {data.name} ({data.symbol}) - ${String(data.price)}
                                     </p>
                                 </div>
                                 <span>Rank#{data.cmcRank}</span>
