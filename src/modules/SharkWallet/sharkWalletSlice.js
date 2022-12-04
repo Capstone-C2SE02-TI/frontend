@@ -8,6 +8,7 @@ const sharkWalletSlice = createSlice({
         status: 'idle',
         sharkList: [],
         sharkCrypto: [],
+        searchTextCrypto: '',
         sharkTransactionHistory: [],
         sharkWalletId: 1,
         sharkWalletAddress: '',
@@ -16,7 +17,7 @@ const sharkWalletSlice = createSlice({
         filterSharkTotalAssets: '',
         searchFilterChange: '',
         sharkDetail: '',
-        tradeTransactionHistory: ''
+        tradeTransactionHistory: '',
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -42,6 +43,10 @@ const sharkWalletSlice = createSlice({
         searchFilterChange: (state, action) => {
             state.searchFilterChange = action.payload;
         },
+        searchTextCryptoWallet: (state, action) => {
+            state.searchTextCrypto = action.payload;
+
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -104,7 +109,7 @@ const sharkWalletSlice = createSlice({
             })
 
             .addCase(fetchTradeTransactionHistory.fulfilled, (state, action) => {
-                state.tradeTransactionHistory = action.payload
+                state.tradeTransactionHistory = action.payload;
             });
     },
 });
@@ -147,3 +152,6 @@ export const fetchTradeTransactionHistory = createAsyncThunk(
 );
 
 export default sharkWalletSlice;
+
+
+export const { searchTextCryptoWallet } = sharkWalletSlice.actions
