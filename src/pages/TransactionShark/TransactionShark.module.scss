@@ -1,9 +1,10 @@
 .transaction-container {
-    background-color: #A697FF;
+    background-color: #fff;
     border-radius: 8px;
     margin-left: 2%;
     overflow: scroll;
     height: 100vh;
+    box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
 }
 
 .transaction-search {
@@ -12,12 +13,19 @@
     align-items: center;
     padding: 15px 10px;
     border-bottom: 1px solid #fff;
-    background-color: rgb(124 112 195);
+    background-color: rgb(239, 242, 245);
+
     input {
         padding: 6px 15px;
         border-radius: 6px;
         margin-right: 8px;
-        border: none;
+        border: 3px solid #eee;
+        transition: 0.5s;
+
+        &:hover {
+            background-color: #fff;
+            border: 3px solid #3861fb;
+        }
 
         &:focus-visible {
             outline: none;
@@ -27,13 +35,13 @@
     h1 {
         margin-right: 15px;
         font-size: 24px;
-        color: #fff;
+        color: #473d85;
     }
 }
 
-.transaction-shark__table {
-    background: #A697FF;
-    color: #fff;
+.transaction-shark-tab {
+    background: #fff;
+    color: #333;
 
     thead {
         font-size: 1.5rem;
@@ -43,7 +51,7 @@
             position: sticky;
             z-index: 100;
             top: 0;
-            background: rgb(124 112 195);
+            background: rgb(239, 242, 245);
             border-bottom: 1px solid #fff;
             border-top: 1px solid #fff;
             color: #473d85;
@@ -51,7 +59,7 @@
 
             &:hover {
                 cursor: default;
-                background-color: rgb(124 112 195);
+                background: rgb(239, 242, 245);
             }
 
             th {
@@ -63,18 +71,27 @@
 
     tbody {
         .transaction-shark__tr {
-            text-align: center;
-            border-bottom: 1px solid #fff;
-
             &:hover {
-                opacity: 0.5;
                 background-color: cornflowerblue;
+                cursor: pointer;
             }
 
-            td {
-                padding: 12px 0 12px 0;
-                text-align: center;
-                border-right: 1px solid #fff;
+
+        }
+        td {
+            text-align: center;
+
+            border-left: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+            padding: 12px 0px;
+            &:nth-child(2) {
+                color: #3861fb;
+            }
+            &:nth-child(3) {
+                a {
+                    color: #482ee8;
+                }
             }
         }
     }
@@ -115,3 +132,4 @@
         }
     }
 }
+

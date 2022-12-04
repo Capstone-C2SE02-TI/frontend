@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 import styles from './ReferentItem.module.scss'
-import  numberWithCommas  from '~/helpers/numberWithCommas';
+import numberWithCommas from '~/helpers/numberWithCommas';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function ReferentItem({data}) {
+function ReferentItem({ data }) {
 
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function ReferentItem({data}) {
                 <p>{data.symbol}</p>
             </div>
             <div className={cx('referent-item-value')}>
-                <span>$ {numberWithCommas(data.usd.price.toFixed(3))} </span>
+                <span>$ {String(data.usd.price)} </span>
                 <p>+ {numberWithCommas(data.usd.percentChange24h.toFixed(3))}%</p>
             </div>
         </div>

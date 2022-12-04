@@ -3,9 +3,13 @@
     border-bottom: 1px solid #eee;
     td {
         padding: 8px 0 8px 0;
+        font-size: 14px;
         text-align: center;
         border-right: 1px solid #eee;
         color: #333;
+        &:nth-child(2) {
+            padding: 10px 0 10px 0px !important;
+        }
 
     }
 
