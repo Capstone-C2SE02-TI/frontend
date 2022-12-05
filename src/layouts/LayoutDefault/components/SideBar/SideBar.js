@@ -8,10 +8,18 @@ import Menu from './Menu';
 import styles from './SideBar.module.scss';
 
 import configs from '~/configs';
+import { useSelector } from 'react-redux';
+import { userIsPremiumSelector } from '~/modules/user/auth/selectors';
 
 const cx = classNames.bind(styles);
 
 
+
+
+function SideBar() {
+
+    const userIsPremium = useSelector(userIsPremiumSelector);
+    
 const MENU_SIDEBAR = [
     {
         title: 'Home',
@@ -29,23 +37,21 @@ const MENU_SIDEBAR = [
         title: 'Analyze',
         icon: <AnalyzeIcon />,
         to: configs.routes.analyze,
-        isPremium: true,
+        isPremium: userIsPremium ? false : true,
     },
     {
         title: 'Trading',
         icon: <SupportIcon />,
         to: configs.routes.transactionShark,
-        isPremium: true,
+        isPremium: userIsPremium ? false : true,
     },
     {
         title: 'Gain & Loss',
         icon: <ReportIcon />,
         to: configs.routes.gainLoss,
-        isPremium: true,
+        isPremium: userIsPremium ? false : true,
     },
 ];
-
-function SideBar() {
     return (
         <React.Fragment>
             <div className={cx('sidebar-logo')}>
