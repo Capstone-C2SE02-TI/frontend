@@ -30,21 +30,6 @@ function MenuItem({ icon, title, to, key, isPremium }) {
                 {icon}
                 <span className={cx('menu-item__title')}>{title}</span>
             </NavLink>
-            {/* <div className={cx('menu-item-tippy-container')}>
-                <div className={cx('container-tippy')}>
-                    <p className={cx('container-tippy-title')}>Thưởng thức Bài hát đã thích</p>
-                    <p className={cx('container-tippy-desc')}>
-                        Đăng nhập để xem tất cả bài hát bạn đã thích trong một danh sách phát đơn giản.
-                    </p>
-                    <div className={cx('div-action-tippy')}>
-                        <Button>Để sau</Button>
-                        <Button>Đăng nhập</Button>
-                    </div>
-                </div>
-            </div>
-            <div className={cx('tippy-arrow')}>
-
-            </div> */}
         </div>
     );
 }

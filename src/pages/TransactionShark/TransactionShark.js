@@ -1,26 +1,30 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import classNames from 'classnames/bind';
 import styles from './TransactionShark.module.scss';
+import Button from '~/components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactionShark } from '~/modules/TransactionShark/transactionSharkSlice';
-import { transactionSharkSelector } from '~/modules/TransactionShark/selector';
-import sharkWalletSlice from '~/modules/SharkWallet/sharkWalletSlice';
+import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { transactionSharkService } from '~/services';
 import TransactionSharkItem from './components/TransactionSharkItem/TransactionSharkItem';
 import { sharkWalletAddressSelector } from '~/modules/SharkWallet/selector';
-import { useDebounced } from '~/hooks';
+
 
 const cx = classNames.bind(styles);
 
 function TransactionShark() {
-    const dispatch = useDispatch();
-    const transactionShark = useSelector(transactionSharkSelector);
     const sharkAddress = useSelector(sharkWalletAddressSelector);
-    const [searchText, setSearchText] = useState('');
+    const [transactionShark, setTransactionShark] = useState([])
+    const [transactionSharkLength, setTransactionSharkLength] = useState('')
+    const [valueFilter, setValueFilter] = useState('');
     const [currentPage, setCurrentPage] = useState('');
-
+    const dispatch = useDispatch();
+    console.log(transactionShark);
+    console.log("sharkAddress", sharkAddress);
     useEffect(() => {
-        dispatch(fetchTransactionShark(currentPage ? currentPage : 1));
+        dispatch(fetchSharkWallet());
+        getLength()
+        handleSubmit()
     }, [currentPage, dispatch]);
 
     const handlePageClick = (pageNum) => {
@@ -28,26 +32,62 @@ function TransactionShark() {
         setCurrentPage(currenPage);
     };
 
-    const searchTextShark = useRef();
-    const textSearchDebounced = useDebounced(searchText, 500);
-    useEffect(() => {
-        dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [textSearchDebounced]);
+    const handleChange = (e) => {
+        const value = (e.target.validity.valid) ? e.target.value : '';
+        setValueFilter(value)
+    };
+    const getLength = () => {
+        const fetchApi = async () => {
+            const data = await transactionSharkService.getTransactionSharkLength(
+                {
+                    valueFilter: valueFilter ? valueFilter : 0,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log(data.data[0].transactionsLength)
+            setTransactionSharkLength(data.data[0].transactionsLength)
+        };
+        fetchApi();
+    }
+    const handleSubmit = () => {
+        const fetchApi = async () => {
+            const data = await transactionSharkService.getTransactionShark(
+                {
+                    page: currentPage ? currentPage : 1,
+                    valueFilter: valueFilter ? valueFilter : 0,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            console.log(data.datas)
+            setTransactionShark(data.datas)
+        };
+        fetchApi();
+    }
     return (
         <div className={cx('transaction-container__fluid')}>
             <div className={cx('transaction-container')}>
                 <div className={cx('transaction-search')}>
                     <h1>Search shark transactions</h1>
                     <input
-                        ref={searchTextShark}
-                        placeholder="Search by ID shark"
-                        spellCheck="false"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
+                        defaultValue={0}
+                        type="number"
+                        name="valueFilter"
+                        onChange={handleChange}
                     />
+                    <Button primary onClick={handleSubmit}>
+                        Search
+                    </Button>
+
                 </div>
-                <table className={cx('transaction-shark__table')}>
+                <table className={cx('transaction-shark-tab')}>
                     <thead>
                         <tr>
                             <th>Time</th>
@@ -58,12 +98,12 @@ function TransactionShark() {
                         </tr>
                     </thead>
                     <tbody>
-                        {transactionShark.length === 0 && <div className="text-center">No data</div>}
-                        {transactionShark
-                            .filter((tran) => tran.sharkId)
-                            .map((trans, index) =>
-                                <TransactionSharkItem data={trans} index={index} sharkAddress={sharkAddress} />
-                            )}
+                        {/* {transactionShark.length === 0 && <div className="text-center">No data</div>} */}
+                        {transactionShark.map((trans, index) => {
+                            console.log(sharkAddress);
+                            return <TransactionSharkItem key={index} data={trans} index={index} sharkAddress={sharkAddress} />
+                        }
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -73,7 +113,7 @@ function TransactionShark() {
                     nextLabel={'>'}
                     breakLabel={'...'}
                     breakClassName={cx('break-me')}
-                    pageCount={112 / 20}
+                    pageCount={transactionSharkLength / 20}
                     marginPagesDisplayed={3}
                     pageRangeDisplayed={5}
                     onPageChange={handlePageClick}
