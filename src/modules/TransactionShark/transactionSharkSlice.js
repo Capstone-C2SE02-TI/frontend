@@ -7,6 +7,7 @@ const transactionSharkSlice = createSlice({
     initialState: {
         status: 'idle',
         transactionSharkList: [],
+        transactionsLength: '',
     },
 
     reducers: {},
@@ -18,12 +19,20 @@ const transactionSharkSlice = createSlice({
             .addCase(fetchTransactionShark.fulfilled, (state, action) => {
                 state.transactionSharkList = action.payload;
                 state.status = 'idle';
+            })
+            .addCase(fetchTransactionSharkLength.fulfilled, (state, action) => {
+                state.transactionsLength = action.payload;
+                state.status = 'idle';
             });
     },
 });
 
-export const fetchTransactionShark = createAsyncThunk('transactionShark/fetchTransactionShark', async (pageNum) => {
-    const response = await transactionSharkService.getTransactionShark(pageNum);
+export const fetchTransactionShark = createAsyncThunk('transactionShark/fetchTransactionShark', async () => {
+    const response = await transactionSharkService.getTransactionShark();
+    return response.datas;
+});
+export const fetchTransactionSharkLength = createAsyncThunk('transactionShark/fetchTransactionSharkLength', async () => {
+    const response = await transactionSharkService.getTransactionSharkLength();
     return response.datas;
 });
 

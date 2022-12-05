@@ -27,7 +27,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
                     <span>{data.symbol}</span>
                 </div>
             </td>
-            <td>${numberWithCommas(data.usd.price.toFixed(3))}</td>
+            <td>${String(data.usd.price)}</td>
 
             <td className={classNamesStatusCoin24h}>{Math.round(data.usd.percentChange24h * 100) / 100}%</td>
             <td className={classNamesStatusCoin7h}>{Math.round(data.usd.percentChange7d * 100) / 100}%</td>
