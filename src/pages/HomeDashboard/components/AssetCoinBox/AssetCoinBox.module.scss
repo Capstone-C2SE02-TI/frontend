@@ -1,5 +1,3 @@
-.asset-coin--box {
-}
 
 .coin-asset__box {
     display: flex;
@@ -51,6 +49,7 @@
     .coin-info_stt,
     .coin-info_symbol {
         margin-bottom: 0;
+        text-transform: uppercase;
     }
 
     .coin-info_stt {

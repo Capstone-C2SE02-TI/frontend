@@ -44,38 +44,8 @@
     }
 }
 
-//tippy
-
-.menu-item-tippy-container {
-    border-radius: 8px;
-    animation: fadeIn 0.4s forwards;
-    background-color: #0d72ea;
-    box-shadow: 0 4px 40px rgb(0 0 0 / 30%);
- 
-    max-width: 336px;
-    min-width: 300px;    
-    position: absolute;
-    left: 99%;
-    z-index: 15;
-}
-
-
 .container-tippy {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.container-tippy-title {
-
-
-}
-
-.container-tippy-desc {
-
-
-}
-
-.div-action-tippy {
-
 }

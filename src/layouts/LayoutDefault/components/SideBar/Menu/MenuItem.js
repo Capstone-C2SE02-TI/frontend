@@ -41,7 +41,7 @@ const navigate = useNavigate();
                     onHandleAction={()=> navigate('/buy-token')} 
                 />
             )}
-        </div>
+            </div>
     );
 }
 

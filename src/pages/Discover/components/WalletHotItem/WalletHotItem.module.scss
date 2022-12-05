@@ -77,3 +77,12 @@
     width: 25% !important;
     border-right: 1px dashed #d9def1 !important;
 }
+
+.wallet-statics__card__date {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15px;
+    p {
+        font-weight: 600;
+    }
+}
