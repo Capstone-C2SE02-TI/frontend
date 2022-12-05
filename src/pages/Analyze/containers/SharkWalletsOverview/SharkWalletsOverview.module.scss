@@ -25,7 +25,7 @@
     background-color: #fff;
     padding: 5px 0px;
     border-radius: 12px;
-    height: 100vh;
+    // height: 100vh;
     border-radius: 8px;
     background: #fff;
     box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
@@ -169,5 +169,44 @@
         position: absolute;
         left: 5%;
         top: 32%;
+    }
+}
+
+#market-table__pagination {
+    background: #fff;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(6, 29, 33, 0.8995973389355743) 100%);
+
+    ul {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    ul > li {
+        border: none;
+        border-radius: 50%;
+        color: #838383;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1.2rem;
+        height: 32px;
+        margin: 0 5px;
+        outline: none;
+        outline-style: initial;
+        padding: 0.5rem;
+        text-align: center;
+        width: 32px;
+
+        a {
+                padding: 8px;
+    color: #000;
+        }
     }
 }
