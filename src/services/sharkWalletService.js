@@ -60,7 +60,6 @@ export const followUnSharkWallet = async (data) => {
 };
 
 
-
 export const tradeTransactionHistory = async (body) => {
     try {
         const response = await httpRequest.get('/display/shark/trade-transaction-history', {
@@ -75,3 +74,12 @@ export const tradeTransactionHistory = async (body) => {
     }
 };
 
+
+export const addNewSharkWallet = async (data) => {
+    try {
+        const response = await httpRequest.post('/user/add-new-shark', data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

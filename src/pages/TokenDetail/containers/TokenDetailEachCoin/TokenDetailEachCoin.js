@@ -30,7 +30,6 @@ function TokenDetailEachCoin({ data, community }) {
     return (
         <section className={cx('token-container')}>
             <div className={cx('token-content__price')}>
-
                 <div className={cx('token-price__inf')}>
                     <h1>Information</h1>
                 </div>
@@ -44,7 +43,6 @@ function TokenDetailEachCoin({ data, community }) {
                     </div>
                 </div>
                 <span>Rank #{data.cmcRank}</span>
-
             </div>
             <div className={cx('token-price')}>
                 <h3>Price: </h3>
@@ -86,7 +84,7 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Max Supply</p>
-                            <p>${numberWithCommas(data.maxSupply ? data.maxSupply : 0)}</p>
+                            <p>${numberWithCommas(data.maxSupply ? data.maxSupply.toFixed(0) : 0)}</p>
                         </li>
                         <li>
                             <p>24h high</p>
@@ -144,7 +142,7 @@ function TokenDetailEachCoin({ data, community }) {
                         </li>
                         <li>
                             <p>Total investment</p>
-                            <p>${data.totalInvestment ? data.totalInvestment : 0}</p>
+                            <p>${numberWithCommas(data.totalInvestment ? data.totalInvestment.toFixed(0) : 0)}</p>
                         </li>
                     </ul>
                 </nav>

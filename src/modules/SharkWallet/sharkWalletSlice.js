@@ -110,6 +110,11 @@ const sharkWalletSlice = createSlice({
 
             .addCase(fetchTradeTransactionHistory.fulfilled, (state, action) => {
                 state.tradeTransactionHistory = action.payload;
+            })
+
+             .addCase(fetchAddNewShark.fulfilled, (state, action) => {
+                  const newShark = action.payload;
+                  state.sharkList = [newShark, ...state.sharkList];
             });
     },
 });
@@ -150,6 +155,12 @@ export const fetchTradeTransactionHistory = createAsyncThunk(
         return response;
     },
 );
+
+export const fetchAddNewShark = createAsyncThunk('sharkWallet/fetchAddNewShark', async (data) => {
+    const response = await sharkWalletService.addNewSharkWallet(data);
+    return response;
+});
+
 
 export default sharkWalletSlice;
 
