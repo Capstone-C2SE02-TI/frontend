@@ -16,18 +16,19 @@ function ModalNotify({
     type = 'success',
     typeSuccess = false,
     typeError = false,
+    typeNotify=false
 }) {
     return (
         <Modal isOpen={isOpen} onRequestClose={onRequestClose}>
             <div className={cx('content')}>
-                <div className={cx('icon', type === 'success' ? 'success' : 'error')}>
+                <div className={cx('icon', type )}>
                     {icon}
                     {/* <img src={icon} alt="" /> */}
                 </div>
                 <h4 className={cx('title')}>{title}</h4>
                 <p className={cx('desc')}>{description}</p>
                 <div>
-                    <Button success={typeSuccess} error={typeError} onClick={onRequestClose}>
+                    <Button success={typeSuccess} error={typeError} notify={typeNotify} onClick={onRequestClose}>
                         OK
                     </Button>
                 </div>

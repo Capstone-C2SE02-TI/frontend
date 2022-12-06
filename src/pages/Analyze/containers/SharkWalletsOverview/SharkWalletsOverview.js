@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
-import { newSharkListSelector, newSharkQuantitySelector, newSharkSelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
+import { newSharkListRemainingSelector, newSharkListSelector, newSharkQuantitySelector, newSharkSelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ const NUMBER_ITEM_DISPLAY = 40;
 function SharkWalletsOverview() {
     const dispatch = useDispatch();
     const sharksCoin = useSelector(sharkRemainingSelector);
-    const newSharkList = useSelector(newSharkListSelector);
+    const newSharkList = useSelector(newSharkListRemainingSelector);
     const newSharkQuantity = useSelector(newSharkQuantitySelector);
    ;
     const status = useSelector(sharkCryptoStatusSelector);
@@ -120,7 +120,8 @@ function SharkWalletsOverview() {
                     </tbody>
                 </table>
 
-                {status !== 'loading' && sharksCoin.length === 0 && <NoData />}
+                {status !== 'loading' && viewListSharkCoinPagination.length === 0 && <NoData />}
+                {/* {status !== 'loading' && sharksCoin.length === 0 && <NoData />} */}
             </div>
             <div id={cx('market-table__pagination')}>
                 <ReactPaginate

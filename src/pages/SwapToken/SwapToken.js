@@ -99,13 +99,18 @@ function SwapToken() {
             <div className={cx('swap-text')}>
                 <h1>SWAP TOKEN</h1>
             </div>
-
             <div className={cx('app-body')}>
+        
+
                 <div className={cx('swap-container')}>
                     <div className={cx('swap-header')}>
                         <span className={cx('swap-text__header')}>Swap</span>
                         <span className={cx('gear-container')}>
-                            <Button linearGradientPrimary>{smartContractInfo.walletAddress ? smartContractInfo.walletAddress.slice(0, 10) + '...' : '...'}</Button>
+                            <Button linearGradientPrimary>
+                                {smartContractInfo.walletAddress
+                                    ? smartContractInfo.walletAddress.slice(0, 10) + '...'
+                                    : '...'}
+                            </Button>
                         </span>
                     </div>
                     <div className={cx('swap-body')}>
@@ -142,7 +147,7 @@ function SwapToken() {
                                     type="number"
                                     name="ti-change"
                                     value={ethValues / smartContractInfo.ratio || 0}
-                                    onChange={() => { }}
+                                    onChange={() => {}}
                                 />
                             </div>
                         </div>

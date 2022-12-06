@@ -25,8 +25,7 @@
 
 .icon {
     position: absolute;
-
-    padding: 16px 18px;
+    padding: 12px 17px;
     border-radius: 50%;
     top: -34px;
 
@@ -44,4 +43,9 @@
 .icon.error {
     background: #f33a58;
     border: 3px solid #f33a58;
+}
+
+.icon.notify {
+    background: #fdbd4a;
+    border: 3px solid #fdbd4a;
 }

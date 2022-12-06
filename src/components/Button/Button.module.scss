@@ -2,6 +2,7 @@
     --primary: rgb(56, 97, 251);
     --success: #13C39C;
     --error: #EE3959;
+    --notify: #fdbd4a;
 
     font-size: 1.6rem;
     min-width: 130px;
@@ -68,6 +69,17 @@
 
     &:hover {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--success);
+        color: rgb(255, 255, 255);
+    }
+}
+
+.notify {
+    color: var(--text-white);
+    background-color: var(--notify);
+    border-color: var(--notify);
+
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), var(--notify);
         color: rgb(255, 255, 255);
     }
 }

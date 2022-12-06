@@ -39,7 +39,7 @@ const navigate = useNavigate();
                     description="You should upgrade Premium!"
                     modalIsOpen={openModalNotify}
                     closeModal={() => setOpenModalNotify(false)}
-                    onHandleAction={() => navigate('/buy-token')}
+                    onHandleAction={() => navigate('/upgrade')}
                 />
             )}
         </div>

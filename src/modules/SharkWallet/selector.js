@@ -22,7 +22,7 @@ export const sharkRemainingSelector = createSelector(
     newSharkListSelector,
     filterSharkTotalAssetsSelector,
     searchFilterChangeSelector,
-    (sharkList,newSharkList, filterSharkTotalAssets, searchFilterChange) => {
+    (sharkList, newSharkList, filterSharkTotalAssets, searchFilterChange) => {
         return sharkList.filter((shark) => {
             if (searchFilterChange) {
                 return (
@@ -48,5 +48,15 @@ export const cryptoRemainingSelector = createSelector(
                 sharkCrypto.name.toLowerCase().includes(searchFilterChange.toLowerCase()) ||
                 sharkCrypto.symbol.toLowerCase().includes(searchFilterChange.toLowerCase()),
         );
+    },
+);
+
+export const newSharkListRemainingSelector = createSelector(
+    newSharkListSelector,
+    searchFilterChangeSelector,
+    (newSharkList, searchFilterChange) => {
+        return newSharkList.filter((newShark) => {
+            return newShark.sharkId.toString().includes(searchFilterChange);
+        });
     },
 );

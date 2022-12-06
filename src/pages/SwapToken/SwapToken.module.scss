@@ -2,12 +2,14 @@
     --linear1: linear-gradient(to right, #77a1d3 0%, #79cbca 40%, #77a1d3 100%);
     .app-body {
         width: 100%;
+            display: flex;
+    justify-content: space-around;
     }
 
     .swap-container {
         width: 35%;
         background: linear-gradient(90deg, rgb(160, 190, 248) 0%, rgb(181, 240, 240) 35%, rgba(51, 51, 51, 0.2304272051) 100%);
-        margin: 0 auto;
+   
         padding: 15px;
         border-radius: 8px;
         margin-top: 30px;
