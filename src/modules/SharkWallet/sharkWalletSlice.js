@@ -57,8 +57,8 @@ const sharkWalletSlice = createSlice({
             })
             .addCase(fetchSharkWallet.fulfilled, (state, action) => {
                 const data = action.payload;
-                state.sharkList = data.filter((shark) => shark.totalAssets > 0);
-                state.newSharkList = data.filter((shark) => shark.totalAssets === 0);
+                state.sharkList = data.filter((shark) => +shark.totalAssets > 0);
+                state.newSharkList = data.filter((shark) => +shark.totalAssets === 0);
                 state.sharkWalletAddress = data[0].walletAddress;
                 state.sharkWalletId = data[0].id;
                 state.status = 'idle';

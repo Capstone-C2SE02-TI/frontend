@@ -13,30 +13,30 @@ import styles from './BuyToken.module.scss';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
-import { saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
+import { saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
 import BuyItem from './BuyItem';
+import { convertUnixTime } from '~/helpers';
 
 const cx = classNames.bind(styles);
-
-const PREMIUM_PRICES_DEFAULT = [
-    {
-        price: 99,
-        type: 1,
-    },
-    {
-        price: 560,
-        type: 2,
-    },
-    {
-        price: 899,
-        type: 3,
-    },
-];
 
 function BuyToken() {
     const smartContractInfo = useSelector(smartContractInfoSelector);
     const navigate = useNavigate();
     const [provider, setProvider] = useState(undefined);
+    const PREMIUM_PRICES_DEFAULT = [
+        {
+            price: smartContractInfo.premiumPrices[0].price,
+            type: 1,
+        },
+        {
+            price: smartContractInfo.premiumPrices[1].price,
+            type: 2,
+        },
+        {
+            price: smartContractInfo.premiumPrices[2].price,
+            type: 3,
+        },
+    ];
 
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
@@ -49,12 +49,20 @@ function BuyToken() {
         };
         onLoad();
     }, []);
+    const onLoadExpriredTime = async () => {
+        const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
+        // console.log(contractPremium)
+        const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
+        const convertlimmitedAccount = await limmitedAccount.toHexString(16);
+        const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
+        dispatch(saveExpiredTime(limmitedAccountTime));
+    };
     const upgradePremium = async (premiumPrice) => {
         const ide =
             PREMIUM_PRICES_DEFAULT[
                 PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice)
             ].type;
-        console.log({ ide });
+
         let ABI = ['function upgradePremium(uint8 _level)'];
         let iface = new ethers.utils.Interface(ABI);
         let params = [
@@ -79,6 +87,7 @@ function BuyToken() {
                         );
                         console.log({ approveTokenStatus: approveTokenStatus.data });
                         if (approveTokenStatus.data.result.isError === '0') {
+                            await onLoadExpriredTime();
                             toast.dismiss();
                             toast.success('Upgrade Premium successfully');
                             dispatch(

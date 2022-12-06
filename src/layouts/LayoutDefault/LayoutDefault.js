@@ -17,7 +17,7 @@ import {
 } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import authSlice, { fetchGetUserInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
+import authSlice, { fetchGetUserInfo, saveExpiredTime, saveUserPremium } from '~/modules/user/auth/authSlice';
 import { userInfoSelector, smartContractInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -99,6 +99,7 @@ function LayoutDefault({ children }) {
             setExpriedTime(limmitedAccountTime)
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
             dispatch(saveUserPremium(isPremiumUser));
+            dispatch(saveExpiredTime(limmitedAccountTime));
         };
         onLoad();
         // eslint-disable-next-line react-hooks/exhaustive-deps

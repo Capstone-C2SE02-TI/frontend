@@ -68,12 +68,12 @@ function Analyze() {
             setOpenModalError(true);
             setModalSucceedContent({ title: 'Error', description: 'Add new shark failed' });
         }
-        else if (newSharkStatus) {
+        else if (newSharkStatus!== '') {
             setOpenModalSucceed(true);
             setModalSucceedContent({ title: 'Success', description: 'Add new shark successfully' });
         }
     }, [newSharkStatus]);
-
+ 
     const formatter = (value) => `$ ${millify(value * DOLLAR)}`;
     
     const handleSubmitAddNewShark = (e) => {
