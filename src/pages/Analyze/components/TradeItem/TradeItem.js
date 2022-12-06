@@ -56,8 +56,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                 return { x: date.toLocaleDateString(), y: data.value / 10000 };
             });
     }, []); 
-    const rutra = [12, 34, 23, 23, 23];
-    let test = 2;
+
     const datasetsWithDraw = useMemo(() => {
         return historyData
             .filter((data) => data.status === 'withdraw')
@@ -77,35 +76,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                             //x
                             labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'],
                             datasets: [
-                                {
-                                    label: `Price% `,
-                                    //y
-                                    data: [5, 12, 3, 4, 5, 7, 2],
-                                    tension: 0.1,
-                                    type: 'line',
-                                    borderColor: '#cdf8f8',
-                                    pointStyle: 'rectRot',
-                                    pointBorderColor: 'rgba(0, 0, 0, 0)',
-                                    pointBackgroundColor: 'rgba(0, 0, 0, 0)',
-                                    pointHoverBackgroundColor: '#74a5a5',
-                                    pointHoverBorderColor: '#fff',
-                                    hoverRadius: 10,
-                                    backgroundColor: function (context) {
-                                        const chart = context.chart;
-                                        const { ctx, chartArea } = chart;
-
-                                        if (!chartArea) {
-                                            // This case happens on initial chart load
-                                            return;
-                                        }
-                                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                                        gradient.addColorStop(0, 'rgb(130 238 247)');
-                                        gradient.addColorStop(1, 'rgb(17, 46 ,61)');
-                                        return gradient;
-                                    },
-                                    fill: true,
-                                    order: 1,
-                                },
+                              
                                 {
                                     label: 'deposit',
                                     data: [

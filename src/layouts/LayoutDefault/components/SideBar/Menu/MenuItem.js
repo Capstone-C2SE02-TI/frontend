@@ -34,14 +34,15 @@ const navigate = useNavigate();
             </NavLink>
             {openModalNotify && (
                 <ModalConfirm
+                    typeSuccess={true}
                     title="Upgrade premium"
                     description="You should upgrade Premium!"
                     modalIsOpen={openModalNotify}
                     closeModal={() => setOpenModalNotify(false)}
-                    onHandleAction={()=> navigate('/buy-token')} 
+                    onHandleAction={() => navigate('/buy-token')}
                 />
             )}
-            </div>
+        </div>
     );
 }
 

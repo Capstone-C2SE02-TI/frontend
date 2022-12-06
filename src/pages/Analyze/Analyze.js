@@ -7,10 +7,10 @@ import SharkWalletsOverview from './containers/SharkWalletsOverview';
 import SharkWalletsDetail from './containers/SharkWalletsDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import sharkWalletSlice, { fetchAddNewShark } from '~/modules/SharkWallet/sharkWalletSlice';
-import { sharkDetailSelector } from '~/modules/SharkWallet/selector';
+import { newSharkSelector, sharkDetailSelector } from '~/modules/SharkWallet/selector';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircleExclamation, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
 const DOLLAR = 10000000;
 
@@ -19,6 +19,8 @@ function Analyze() {
     const [rangeStart, setRangeStart] = useState(0);
     const [rangeEnd, setRangeEnd] = useState(100 * DOLLAR);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
+    const [openModalError, setOpenModalError] = useState(false);
+
     const [modalSucceedContent, setModalSucceedContent] = useState('');
     const [sharkAddressText, setSharkAddressText] = useState('');
 
@@ -57,6 +59,20 @@ function Analyze() {
             }),
         );
     };
+
+    const newSharkStatus = useSelector(newSharkSelector);
+    
+
+    useEffect(() => {
+        if (newSharkStatus.error === 'error') {
+            setOpenModalError(true);
+            setModalSucceedContent({ title: 'Error', description: 'Add new shark failed' });
+        }
+        else if (newSharkStatus) {
+            setOpenModalSucceed(true);
+            setModalSucceedContent({ title: 'Success', description: 'Add new shark successfully' });
+        }
+    }, [newSharkStatus]);
 
     const formatter = (value) => `$ ${millify(value * DOLLAR)}`;
     
@@ -152,11 +168,23 @@ function Analyze() {
             </Row>
             {openModalSucceed && (
                 <ModalNotify
+                    typeSuccess={true}
                     icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
                     title={modalSucceedContent.title}
                     description={modalSucceedContent.description}
                     onRequestClose={() => setOpenModalSucceed(false)}
+                />
+            )}
+            {openModalError && (
+                <ModalNotify
+                    typeError={true}
+                    icon={<FontAwesomeIcon icon={faCircleExclamation} />}
+                    isOpen={openModalError}
+                    title={modalSucceedContent.title}
+                    description={modalSucceedContent.description}
+                    onRequestClose={() => setOpenModalError(false)}
+                    type="error"
                 />
             )}
         </section>

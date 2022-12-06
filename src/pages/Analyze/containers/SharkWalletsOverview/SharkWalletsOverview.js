@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
-import { sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
+import { newSharkListSelector, newSharkQuantitySelector, newSharkSelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -13,13 +13,17 @@ import { useDebounced } from '~/hooks';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import ReactPaginate from 'react-paginate';
 import { sliceArrayToPagination } from '~/helpers';
+import { useMemo } from 'react';
 
 const cx = classNames.bind(styles);
-const NUMBER_ITEM_DISPLAY = 10;
+const NUMBER_ITEM_DISPLAY = 40;
 
 function SharkWalletsOverview() {
     const dispatch = useDispatch();
     const sharksCoin = useSelector(sharkRemainingSelector);
+    const newSharkList = useSelector(newSharkListSelector);
+    const newSharkQuantity = useSelector(newSharkQuantitySelector);
+   ;
     const status = useSelector(sharkCryptoStatusSelector);
     const userInfo = useSelector(userInfoSelector);
     const currentUser = JSON.parse(localStorage.getItem('userInfo'));
@@ -39,6 +43,7 @@ function SharkWalletsOverview() {
         }
     }, [dispatch, sharksCoin]);
     const [searchText, setSearchText] = useState('');
+    const [tabOverviewTransaction, setTabOverviewTransaction] = useState('oldShark');
 
     const searchTextShark = useRef();
     const handleSubmit = (e) => {
@@ -48,19 +53,44 @@ function SharkWalletsOverview() {
     const textSearchDebounced = useDebounced(searchText, 500);
     useEffect(() => {
         dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
+       
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
     const [paginationState, setPaginationState] = useState(1);
-    const viewListSharkCoinPagination = sliceArrayToPagination(sharksCoin, paginationState, NUMBER_ITEM_DISPLAY);
 
+    const viewListSharkCoinPagination = useMemo(() => {
+        if (tabOverviewTransaction === 'oldShark') {
+            return sliceArrayToPagination(sharksCoin, paginationState, NUMBER_ITEM_DISPLAY);
+        } else {
+            return sliceArrayToPagination(newSharkList, paginationState, NUMBER_ITEM_DISPLAY);
+        }
+    }, [newSharkList, paginationState, sharksCoin, tabOverviewTransaction]);
+
+// console.log(newSharkList);
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected + 1);
     };
 
+    const allSharkClassName = useMemo(() => {
+        return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'oldShark' });
+    }, [tabOverviewTransaction]);
+
+    const newSharkClassName = useMemo(() => {
+        return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'newShark' });
+    }, [tabOverviewTransaction]);
+console.log({ newSharkQuantity });
     return (
-        <div>
+        <div className={cx('shark-container')}>
             <div className={cx('shark-overview')}>
                 <div className={cx('shark-search')}>
+                    <div className="d-flex justify-content-between">
+                        <div onClick={() => setTabOverviewTransaction('oldShark')} className={allSharkClassName}>
+                            All{' '}
+                        </div>
+                        <div onClick={() => setTabOverviewTransaction('newShark')} className={newSharkClassName}>
+                            New shark {newSharkQuantity > 0 && <span className={cx('badge')}>{newSharkQuantity}</span>}
+                        </div>
+                    </div>
                     <form onSubmit={handleSubmit}>
                         <div className={cx('container__search')}>
                             <input
@@ -84,25 +114,9 @@ function SharkWalletsOverview() {
                         </tr>
                     </thead>
                     <tbody>
-                        {viewListSharkCoinPagination
-                            .slice()
-                            .sort((prev, next) => {
-                                if (
-                                    prev.isFollowed === false &&
-                                    next.isFollowed === true &&
-                                    next.totalAssets - prev.totalAssets < 1
-                                ) {
-                                    return -1;
-                                } else return 1;
-                            })
-                            // .filter((shark) => shark.totalAssets)
-                            .map((sharkCoin) => (
-                                <SharkWalletsOverviewItem
-                                    data={sharkCoin}
-                                    key={sharkCoin.sharkId}
-                                    userInfo={userInfo}
-                                />
-                            ))}
+                        {viewListSharkCoinPagination.slice().map((sharkCoin) => (
+                            <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.sharkId} userInfo={userInfo} />
+                        ))}
                     </tbody>
                 </table>
 
@@ -114,9 +128,13 @@ function SharkWalletsOverview() {
                     nextLabel={'>'}
                     breakLabel={'...'}
                     breakClassName={cx('break-me')}
-                    pageCount={Math.ceil(sharksCoin.length / NUMBER_ITEM_DISPLAY)}
-                    marginPagesDisplayed={3}
-                    pageRangeDisplayed={5}
+                    pageCount={Math.ceil(
+                        tabOverviewTransaction === 'oldShark'
+                            ? sharksCoin.length / NUMBER_ITEM_DISPLAY
+                            : newSharkList.length / NUMBER_ITEM_DISPLAY,
+                    )}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={3}
                     onPageChange={handlePageClick}
                     forcePage={paginationState - 1}
                     containerClassName={cx('pagination')}

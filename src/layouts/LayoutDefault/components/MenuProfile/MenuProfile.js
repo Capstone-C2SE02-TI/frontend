@@ -110,6 +110,7 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
                     />
                     {openModalSucceed && (
                         <ModalNotify
+                            typeSuccess={true}
                             icon={<FontAwesomeIcon icon={faCheck} />}
                             isOpen={openModalSucceed}
                             title={'Success'}

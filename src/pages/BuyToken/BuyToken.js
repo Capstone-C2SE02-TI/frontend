@@ -167,6 +167,7 @@ function BuyToken() {
         <div className={cx('container-banner')}>
             {openModalSucceed && (
                 <ModalNotify
+                    typeSuccess={true}
                     icon={<FontAwesomeIcon icon={faBell} />}
                     isOpen={openModalSucceed}
                     title={'Notify'}

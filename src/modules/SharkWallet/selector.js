@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 export const sharkListSelector = (state) => state.sharkWallet.sharkList;
+export const newSharkListSelector = (state) => state.sharkWallet.newSharkList;
 export const sharkCryptoSelector = (state) => state.sharkWallet.sharkCrypto;
 export const searchSharkCryptoSelector = (state) => state.sharkWallet.searchTextCrypto;
 export const sharkCryptoStatusSelector = (state) => state.sharkWallet.status;
@@ -13,12 +14,15 @@ export const filterSharkTotalAssetsSelector = (state) => state.sharkWallet.filte
 export const searchFilterChangeSelector = (state) => state.sharkWallet.searchFilterChange;
 export const sharkDetailSelector = (state) => state.sharkWallet.sharkDetail;
 export const tradeTransactionHistorySelector = (state) => state.sharkWallet.tradeTransactionHistory;
+export const newSharkSelector = (state) => state.sharkWallet.addNewShark;
+export const newSharkQuantitySelector = (state) => state.sharkWallet.newSharkQuantity;
 
 export const sharkRemainingSelector = createSelector(
     sharkListSelector,
+    newSharkListSelector,
     filterSharkTotalAssetsSelector,
     searchFilterChangeSelector,
-    (sharkList, filterSharkTotalAssets, searchFilterChange) => {
+    (sharkList,newSharkList, filterSharkTotalAssets, searchFilterChange) => {
         return sharkList.filter((shark) => {
             if (searchFilterChange) {
                 return (

@@ -230,6 +230,7 @@ function Signup() {
             </form>
             {openModalSucceed && (
                 <ModalNotify
+                    typeSuccess={true}
                     icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
                     title={'Success'}
