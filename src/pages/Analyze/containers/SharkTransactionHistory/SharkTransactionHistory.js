@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchTransactionHistorySharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import {
     sharkCryptoStatusSelector,
     sharkTransactionHistorySelector,
@@ -24,9 +25,14 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
 
 
     useEffect(() => {
-      if (sharkIdSelected) dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected));
-    }, [dispatch, sharkIdSelected]);
+        if (sharkIdSelected) {
+            dispatch(fetchTransactionHistorySharkWallet(sharkIdSelected))
+        };
 
+    }, [dispatch, sharkIdSelected]);
+    console.log(sharkTransactionHistory)
+    console.log(sharkIdSelected)
+    console.log(sharkAddressSelected)
     return (
         currentTabSharkWallet === 'transaction-history' && (
             <Spin spinning={sharkCryptoStatus === 'loading' ? true : false}>

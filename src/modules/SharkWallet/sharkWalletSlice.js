@@ -132,7 +132,6 @@ const sharkWalletSlice = createSlice({
 
 export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async (id) => {
     const response = await sharkWalletService.getSharkWallet(id);
-
     return response.datas;
 });
 
