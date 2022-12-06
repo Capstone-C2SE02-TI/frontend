@@ -13,13 +13,15 @@ import ModalConfirm from '../ModalConfirm';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { expiredTimeSelector } from '~/modules/user/auth/selectors';
 
 const cx = classNames.bind(styles);
 
 function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
     const [history, setHistory] = useState([{ data: items }]);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
-
+const expiredTime = useSelector(expiredTimeSelector);
     const current = history[history.length - 1];
 
     const renderItems = () => {
@@ -92,7 +94,7 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
                             <div>
                                 <p className={cx('user-name')}> {userInfo.username} </p>
                                 <p className={cx('user-role')}> Expried Time Premium</p>
-                                <p className={cx('user-email')}> {limmitedAccountTime} </p>
+                                <p className={cx('user-email')}> {expiredTime} </p>
                             </div>
                         </div>
                     </div>

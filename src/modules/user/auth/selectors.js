@@ -7,4 +7,4 @@ export const resetPasswordStatusSelector = (state) => state.auth.statusRestPassw
 export const statusLoadingSelector = (state) => state.auth.status;
 export const smartContractInfoSelector = (state) => state.auth.smartContractInfo;
 export const userIsPremiumSelector = (state) => state.auth.isPremiumUser;
-// export const contractPremiumSelector = (state) => state.auth.contractPremium;
+export const expiredTimeSelector = (state) => state.auth.expiredTime;

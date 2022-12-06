@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import images from '~/assets/images';
-import { HomeIcon, DiscoverIcon, AnalyzeIcon, SupportIcon, ReportIcon, SettingIcon } from '~/components/Icons';
+import { HomeIcon, DiscoverIcon, AnalyzeIcon, SupportIcon, ReportIcon, SettingIcon, DolarIcon } from '~/components/Icons';
 import MenuItem from './Menu/MenuItem';
 import Menu from './Menu';
 import styles from './SideBar.module.scss';
@@ -31,6 +31,12 @@ const MENU_SIDEBAR = [
         title: 'Discover',
         icon: <DiscoverIcon />,
         to: configs.routes.discover,
+        isPremium: false,
+    },
+    {
+        title: 'Upgrade',
+        icon: <DolarIcon />,
+        to: configs.routes.buyToken,
         isPremium: false,
     },
     {

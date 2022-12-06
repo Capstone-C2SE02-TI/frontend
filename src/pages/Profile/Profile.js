@@ -23,8 +23,6 @@ function Profile() {
         }
     }, [dispatch, userId]);
 
-console.log(userInfoDetail?.createdAt?.split('T')[0]);
-
     const renderProfile = () => {
         return (
             <div className={cx('wrapper')}>
@@ -92,7 +90,7 @@ console.log(userInfoDetail?.createdAt?.split('T')[0]);
                         </span>
                     </p>
                 </div>
-                <div style={{ marginLeft: '40px', marginTop: "20px" }}>
+                <div style={{ marginLeft: '40px', marginTop: '20px' }}>
                     {' '}
                     <Button primary onClick={() => navigate('/change-password')}>
                         Change Password
