@@ -6,11 +6,12 @@ import { Row, Col, Slider } from 'antd';
 import SharkWalletsOverview from './containers/SharkWalletsOverview';
 import SharkWalletsDetail from './containers/SharkWalletsDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import sharkWalletSlice, { fetchAddNewShark } from '~/modules/SharkWallet/sharkWalletSlice';
+import sharkWalletSlice, { fetchAddNewShark, resetSharkDetail } from '~/modules/SharkWallet/sharkWalletSlice';
 import { newSharkSelector, sharkDetailSelector } from '~/modules/SharkWallet/selector';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { userInfoSelector } from '~/modules/user/auth/selectors';
 
 const DOLLAR = 10000000;
 
@@ -24,6 +25,8 @@ function Analyze() {
     const [modalSucceedContent, setModalSucceedContent] = useState('');
     const [sharkAddressText, setSharkAddressText] = useState('');
 
+    const userInfoDetail = useSelector(userInfoSelector);
+
     const dispatch = useDispatch();
 
     const onChange = (value) => {
@@ -36,9 +39,11 @@ function Analyze() {
         if (dataFollow && dataFollow?.isFollowed) {
             setOpenModalSucceed(true);
             setModalSucceedContent({ title: 'Success', description: 'Follow shark successfully' });
+            dispatch(resetSharkDetail(''));
         } else if (dataFollow && !dataFollow?.isFollowed) {
             setOpenModalSucceed(true);
             setModalSucceedContent({ title: 'Success', description: 'UnFollow shark successfully' });
+            dispatch(resetSharkDetail(''));
         }
     }, [dataFollow]);
     useEffect(() => {
@@ -61,24 +66,26 @@ function Analyze() {
     };
 
     const newSharkStatus = useSelector(newSharkSelector);
-    
+  
 
     useEffect(() => {
-        if (newSharkStatus.error === 'error') {
+        if (newSharkStatus.error) {
             setOpenModalError(true);
             setModalSucceedContent({ title: 'Error', description: 'Add new shark failed' });
-        }
-        else if (newSharkStatus!== '') {
+            dispatch(resetSharkDetail(''));
+        } else if (newSharkStatus.newShark) {
             setOpenModalSucceed(true);
             setModalSucceedContent({ title: 'Success', description: 'Add new shark successfully' });
+            dispatch(resetSharkDetail(''));
         }
     }, [newSharkStatus]);
- 
+
     const formatter = (value) => `$ ${millify(value * DOLLAR)}`;
-    
+
     const handleSubmitAddNewShark = (e) => {
         e.preventDefault();
-        dispatch(fetchAddNewShark({ walletAddress: sharkAddressText }));
+        dispatch(fetchAddNewShark({ walletAddress: sharkAddressText, userId: userInfoDetail.userId }));
+        setSharkAddressText('')
     };
 
     const renderFilterRange = () => {

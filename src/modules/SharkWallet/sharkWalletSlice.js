@@ -20,7 +20,7 @@ const sharkWalletSlice = createSlice({
         sharkDetail: '',
         tradeTransactionHistory: '',
         addNewShark: '',
-        newSharkQuantity: 0
+        newSharkQuantity: 0,
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -48,6 +48,10 @@ const sharkWalletSlice = createSlice({
         },
         searchTextCryptoWallet: (state, action) => {
             state.searchTextCrypto = action.payload;
+        },
+        resetSharkDetail: (state, action) => {
+            state.sharkDetail = action.payload;
+            state.addNewShark = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -86,9 +90,10 @@ const sharkWalletSlice = createSlice({
                 const { data } = action.payload;
 
                 state.sharkDetail = data;
+              
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
-                    if (shark.sharkId === data.sharkId) {
+                    if (shark.sharkId === data._doc.sharkId) {
                         return { ...shark, isFollowed: true };
                     } else return shark;
                 });
@@ -104,7 +109,7 @@ const sharkWalletSlice = createSlice({
                 state.sharkDetail = data;
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
-                    if (shark.sharkId === data.sharkId) {
+                    if (shark.sharkId === data._doc.sharkId) {
                         return { ...shark, isFollowed: false };
                     } else return shark;
                 });
@@ -118,13 +123,13 @@ const sharkWalletSlice = createSlice({
             .addCase(fetchAddNewShark.fulfilled, (state, action) => {
                 const { data, error } = action.payload;
 
-                if (error === 'error') {
+                if (error) {
                     state.addNewShark = action.payload;
                 } else {
                     state.addNewShark = data;
                     state.addNewShark.newShark = true;
                     state.newSharkList = [state.addNewShark, ...state.newSharkList];
-                    state.newSharkQuantity = state.newSharkQuantity+ 1;
+                    state.newSharkQuantity = state.newSharkQuantity + 1;
                 }
             });
     },
@@ -166,11 +171,11 @@ export const fetchTradeTransactionHistory = createAsyncThunk(
     },
 );
 
-export const fetchAddNewShark = createAsyncThunk('sharkWallet/fetchAddNewShark', async (data) => {
-    const response = await sharkWalletService.addNewSharkWallet(data);
+export const fetchAddNewShark = createAsyncThunk('sharkWallet/fetchAddNewShark', async (body) => {
+    const response = await sharkWalletService.addNewSharkWallet(body);
     return response;
 });
 
 export default sharkWalletSlice;
 
-export const { searchTextCryptoWallet } = sharkWalletSlice.actions;
+export const { searchTextCryptoWallet, resetSharkDetail } = sharkWalletSlice.actions;

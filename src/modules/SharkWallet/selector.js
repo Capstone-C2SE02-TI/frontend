@@ -16,6 +16,7 @@ export const sharkDetailSelector = (state) => state.sharkWallet.sharkDetail;
 export const tradeTransactionHistorySelector = (state) => state.sharkWallet.tradeTransactionHistory;
 export const newSharkSelector = (state) => state.sharkWallet.addNewShark;
 export const newSharkQuantitySelector = (state) => state.sharkWallet.newSharkQuantity;
+export const loadingSelector = (state) => state.sharkWallet.status;
 
 export const sharkRemainingSelector = createSelector(
     sharkListSelector,
