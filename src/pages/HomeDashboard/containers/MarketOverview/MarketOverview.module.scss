@@ -48,8 +48,11 @@
         border-bottom: 1px solid #fff;
         th {
             padding: 10px 0 10px 0;
-            &:not(:nth-child(1)) {
+            &:nth-child(2) {
                 text-align: start;
+            }
+            &:not(:nth-child(2)) {
+                text-align: center;
             }
             // &:nth-child(2) {
             //     text-align: start;
@@ -65,9 +68,9 @@
         text-align: start;
         padding: 20px 0 20px 20px;
         &:not(:nth-child(1)) {
-            text-align: start;
+            text-align: center;
             font-weight: 500;
-            padding: 0px 0 0px 0px !important;
+            padding: 0 !important;
         }
         &:nth-child(2) {
             text-align: start;

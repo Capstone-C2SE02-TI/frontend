@@ -8,6 +8,7 @@ import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 import millify from 'millify';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
+import { log } from '@uniswap/smart-order-router';
 const cx = classNames.bind(styles);
 
 
@@ -33,11 +34,12 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
     }
 
     const handleUnFollow = () => {
-        if (confirmContent.type === 'follow') {
-            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.id }));
+        if (confirmContent.type === 'unfollow') {
+            console.log("co")
+            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
         }
     }
-
+    console.log(dataSharkFollowed)
     return (
         <>
             <tr
@@ -47,7 +49,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
                 }}
             >
                 <td>Shark #{dataSharkFollowed.sharkId}</td>
-                <td style={{ fontSize: '12px' }}>{dataSharkFollowed.walletAddress}</td>
+                <td >{dataSharkFollowed.walletAddress}</td>
                 <td>
                     $
                     {millify(dataSharkFollowed.totalAssets, {
@@ -60,7 +62,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
                 <td></td>
                 <td
                     onClick={() => {
-                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'follow');
+                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                     }}
                 >
                     <StarYellowIcon />

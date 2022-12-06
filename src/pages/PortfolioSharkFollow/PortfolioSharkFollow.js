@@ -38,7 +38,7 @@ function PortfolioSharkFollow() {
                     <h1>Portfolio: {userName.username ? userName.username : 'No data'}</h1>
                 </div>
                 {/* <DoughnutChart classNames={cx('chart-shark')} cryptosSharkWallet={sharkCrypto} /> */}
-                <table>
+                <table className={cx('portfolio-table')}>
                     <thead>
                         <tr>
                             <th>Shark</th>

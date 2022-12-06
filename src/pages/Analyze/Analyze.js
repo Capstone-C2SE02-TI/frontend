@@ -90,71 +90,73 @@ function Analyze() {
 
     const renderFilterRange = () => {
         return (
-            <div className={cx('shark-range-filter')}>
-                <div className="d-flex justify-content-between align-items-center">
-                    <p style={{ fontSize: '20px' }}>Add a new shark</p>
-                    <form className={cx('form')} onSubmit={handleSubmitAddNewShark}>
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24}>
-                                <path fill="none" d="M0 0h24v24H0z" />
-                                <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
-                            </svg>
-                        </button>
-                        <input
-                            className={cx('input')}
-                            placeholder="Add to shark..."
-                            required
-                            type="text"
-                            value={sharkAddressText}
-                            onChange={(e) => setSharkAddressText(e.target.value)}
-                        />
-                        <button className={cx('reset')} type="reset">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-                <div className="d-flex justify-content-between mb-8">
-                    <div className={cx('shark-filter-range-container')}>
-                        <p className={cx('range-price')}>
-                            Filter range shark: $
-                            {millify((rangeStart + rangeEnd) / 2, {
-                                precision: 3,
-                            })}
-                        </p>
+            <div className={cx('common-filter-range')}>
+                <div className={cx('shark-range-filter')}>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <p style={{ fontSize: '20px' }}>Add a new shark</p>
+                        <form className={cx('form')} onSubmit={handleSubmitAddNewShark}>
+                            <button>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24}>
+                                    <path fill="none" d="M0 0h24v24H0z" />
+                                    <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+                                </svg>
+                            </button>
+                            <input
+                                className={cx('input')}
+                                placeholder="Add to shark..."
+                                required
+                                type="text"
+                                value={sharkAddressText}
+                                onChange={(e) => setSharkAddressText(e.target.value)}
+                            />
+                            <button className={cx('reset')} type="reset">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </form>
                     </div>
-                    <div className={cx('shark-filter-range-container')}>
-                        <p className={cx('range-start')}>
-                            $
-                            {millify(rangeStart, {
-                                precision: 3,
-                            })}
-                        </p>
-                        <p className={cx('range-spread')}>-</p>
-                        <p className={cx('range-end')}>
-                            $
-                            {millify(rangeEnd, {
-                                precision: 3,
-                            })}
-                        </p>
+                    <div className="d-flex justify-content-between mb-8">
+                        <div className={cx('shark-filter-range-container')}>
+                            <p className={cx('range-price')}>
+                                Filter range shark: $
+                                {millify((rangeStart + rangeEnd) / 2, {
+                                    precision: 3,
+                                })}
+                            </p>
+                        </div>
+                        <div className={cx('shark-filter-range-container')}>
+                            <p className={cx('range-start')}>
+                                $
+                                {millify(rangeStart, {
+                                    precision: 3,
+                                })}
+                            </p>
+                            <p className={cx('range-spread')}>-</p>
+                            <p className={cx('range-end')}>
+                                $
+                                {millify(rangeEnd, {
+                                    precision: 3,
+                                })}
+                            </p>
+                        </div>
                     </div>
+                    <Slider
+                        range
+                        // step={10}
+                        defaultValue={[0, 100]}
+                        onChange={onChange}
+                        onAfterChange={onAfterChange}
+                        tooltip={{ formatter: formatter }}
+                    />
                 </div>
-                <Slider
-                    range
-                    // step={10}
-                    defaultValue={[0, 100]}
-                    onChange={onChange}
-                    onAfterChange={onAfterChange}
-                    tooltip={{ formatter: formatter }}
-                />
             </div>
         );
     };

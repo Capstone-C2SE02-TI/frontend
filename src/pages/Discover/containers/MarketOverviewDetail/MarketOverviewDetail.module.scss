@@ -178,7 +178,6 @@ td {
         a {
             padding: 6px 12px;
             border-radius: 4px;
-            color: #4200ff;
         }
     }
 }
@@ -348,10 +347,10 @@ input:not(:placeholder-shown)~.search--icon {
                 font-size: 12px;
                 margin-right: 10px;
                 margin-bottom: 0px;
-                color: rgb(56, 97, 251)
+                color: #333;
             }
             svg {
-                color: rgb(56, 97, 251)
+                color: #333;
 
             }
         }
