@@ -1,3 +1,9 @@
+.shark-container {
+    box-shadow: rgb(128 138 157 / 12%) 0px 1px 2px, rgb(128 138 157 / 24%) 0px 8px 32px;
+    height: 811px;
+    overflow: scroll;
+}
+
 .shark-wallet {
     padding-bottom: 17px;
 
@@ -33,7 +39,7 @@
 
 .shark-search {
     display: flex;
-    // justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 12px 0;
     font-size: 14px;
@@ -43,7 +49,7 @@
         border: 3px solid #eee;
         border-radius: 8px;
         transition: border-color 0.5s;
-        
+
         &:hover {
             background-color: #fff;
             border: 3px solid #3861fb;
@@ -207,8 +213,36 @@
         width: 32px;
 
         a {
-                padding: 8px;
-    color: #000;
+            padding: 8px;
+            color: #000;
         }
     }
+}
+
+.tab-shark {
+    cursor: pointer;
+    margin-bottom: 0;
+    margin-right: 24px;
+    font-size: 18px;
+    color: rgb(88, 102, 126);
+    font-weight: 600;
+}
+
+.tab-shark.active-shark {
+    color: #482ee8;
+}
+
+
+.badge {
+   position: absolute;
+     top: 2%;
+    right: 62%;
+    padding: 0px 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #ee3959;
 }

@@ -74,6 +74,7 @@ function Portfolio({ data }) {
 
             {openModalSucceed && (
                 <ModalNotify
+                    typeSuccess={true}
                     icon={<FontAwesomeIcon icon={faCheck} />}
                     isOpen={openModalSucceed}
                     title={'Success'}

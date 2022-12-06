@@ -43,7 +43,7 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
                         {/* {sharkTransactionHistory.length === 0 && <div className="text-center">No data</div>} */}
                         {sharkTransactionHistory
                             .slice()
-                            .filter((transaction) => transaction.presentPrice)
+                            // .filter((transaction) => transaction.presentPrice)
                             .sort((prev, next) => {
                                 return next?.presentPrice - prev?.presentPrice;
                             })

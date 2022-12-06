@@ -6,7 +6,7 @@ import sharkWalletSlice, {
     fetchFollowSharkWallet,
     fetchUnFollowSharkWallet,
 } from '~/modules/SharkWallet/sharkWalletSlice';
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { sharkInfoSelector } from '~/modules/SharkWallet/selector';
 import millify from 'millify';
 import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
@@ -14,7 +14,7 @@ import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 const cx = classNames.bind(styles);
 
 function SharkWalletsOverviewItem({ data, userInfo }) {
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(false);
     const [confirmContent, setConfirmContent] = useState({});
 
     const dispatch = useDispatch();
@@ -35,26 +35,40 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
     const handleFollowAndUnFollow = () => {
         if (confirmContent.type === 'follow') {
             dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
-        }
-        else {
+        } else {
             dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
         }
-    }
+    };
 
     const openModalConfirm = (title, description, type) => {
-        setOpenModal(true)
+        setOpenModal(true);
         setConfirmContent({ title, description, type });
-    }
+    };
 
     const closeModalConfirm = () => {
-        setOpenModal(false)
-        setConfirmContent({})
-    }
+        setOpenModal(false);
+        setConfirmContent({});
+    };
+  
 
+   // The scroll listener
+   const handleScroll = useCallback(() => {
+       console.log('scrolling');
+   }, []);
+
+   // Attach the scroll listener to the div
+   useEffect(() => {
+       const div = parentRef.current;
+       div.addEventListener('scroll', handleScroll);
+   }, [handleScroll]);
     return (
-        <tr className={cx({ 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })} ref={parentRef}>
+        <tr
+            className={cx('react-bootstrap-table', { 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })}
+            ref={parentRef}
+        >
             <td className={cx('shark-default-td')} ref={childrenRef} onClick={handleSelectSharkAndSharkAddress}>
-                #Shark {data.sharkId}
+                <p className="d-flex justify-content-around">#Shark {data.sharkId}</p>
+                {data.newShark === true ? <p className={cx('new-shark')}>NEW SHARK</p> : ''}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress}>
                 $
@@ -63,7 +77,9 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                     decimalSeparator: ',',
                 })}
             </td>
-            <td onClick={handleSelectSharkAndSharkAddress} className={cx(classNamesStatusCoin24h)}>{data.percent24h.toFixed(3) + '%' || '0%'}</td>
+            <td onClick={handleSelectSharkAndSharkAddress} className={cx(classNamesStatusCoin24h)}>
+                {data.percent24h === 0 ? 0 : data.percent24h.toFixed(3) + '%' || '0%'}
+            </td>
             {data.isFollowed ? (
                 <td
                     onClick={() => {
@@ -90,8 +106,6 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                     onHandleAction={handleFollowAndUnFollow}
                 />
             )}
-
-
         </tr>
     );
 }

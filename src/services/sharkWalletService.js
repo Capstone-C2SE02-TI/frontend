@@ -80,6 +80,7 @@ export const addNewSharkWallet = async (data) => {
         const response = await httpRequest.post('/user/add-new-shark', data);
         return response.data;
     } catch (error) {
-        console.log(error);
+               return error.response.data;
+
     }
 };

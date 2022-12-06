@@ -7,6 +7,7 @@ const sharkWalletSlice = createSlice({
     initialState: {
         status: 'idle',
         sharkList: [],
+        newSharkList: [],
         sharkCrypto: [],
         searchTextCrypto: '',
         sharkTransactionHistory: [],
@@ -18,6 +19,8 @@ const sharkWalletSlice = createSlice({
         searchFilterChange: '',
         sharkDetail: '',
         tradeTransactionHistory: '',
+        addNewShark: '',
+        newSharkQuantity: 0
     },
     reducers: {
         actionSelectedSharkWalletId: (state, action) => {
@@ -45,8 +48,7 @@ const sharkWalletSlice = createSlice({
         },
         searchTextCryptoWallet: (state, action) => {
             state.searchTextCrypto = action.payload;
-
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -55,7 +57,8 @@ const sharkWalletSlice = createSlice({
             })
             .addCase(fetchSharkWallet.fulfilled, (state, action) => {
                 const data = action.payload;
-                state.sharkList = data;
+                state.sharkList = data.filter((shark) => shark.totalAssets > 0);
+                state.newSharkList = data.filter((shark) => shark.totalAssets === 0);
                 state.sharkWalletAddress = data[0].walletAddress;
                 state.sharkWalletId = data[0].id;
                 state.status = 'idle';
@@ -112,9 +115,17 @@ const sharkWalletSlice = createSlice({
                 state.tradeTransactionHistory = action.payload;
             })
 
-             .addCase(fetchAddNewShark.fulfilled, (state, action) => {
-                  const newShark = action.payload;
-                  state.sharkList = [newShark, ...state.sharkList];
+            .addCase(fetchAddNewShark.fulfilled, (state, action) => {
+                const { data, error } = action.payload;
+
+                if (error === 'error') {
+                    state.addNewShark = action.payload;
+                } else {
+                    state.addNewShark = data;
+                    state.addNewShark.newShark = true;
+                    state.newSharkList = [state.addNewShark, ...state.newSharkList];
+                    state.newSharkQuantity = state.newSharkQuantity+ 1;
+                }
             });
     },
 });
@@ -161,8 +172,6 @@ export const fetchAddNewShark = createAsyncThunk('sharkWallet/fetchAddNewShark',
     return response;
 });
 
-
 export default sharkWalletSlice;
 
-
-export const { searchTextCryptoWallet } = sharkWalletSlice.actions
+export const { searchTextCryptoWallet } = sharkWalletSlice.actions;
