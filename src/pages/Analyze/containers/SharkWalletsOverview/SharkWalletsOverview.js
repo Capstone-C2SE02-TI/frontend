@@ -78,7 +78,7 @@ function SharkWalletsOverview() {
     const newSharkClassName = useMemo(() => {
         return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'newShark' });
     }, [tabOverviewTransaction]);
-console.log({ newSharkQuantity });
+// console.log({ newSharkQuantity });
     return (
         <div className={cx('shark-container')}>
             <div className={cx('shark-overview')}>

@@ -9,9 +9,10 @@ const authSlice = createSlice({
         statusFindCodeOTP: {},
         statusSubmitCodeOTP: {},
         statusRestPassword: {},
-        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['','',''] },
+        smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['', '', ''] },
         emailForgotPassword: '',
         isPremiumUser: '',
+        expiredTime: ''
     },
 
     reducers: {
@@ -31,6 +32,9 @@ const authSlice = createSlice({
         },
         saveUserPremium: (state, action) => {
             state.isPremiumUser = action.payload;
+        },
+        saveExpiredTime: (state, action) => {
+            state.expiredTime = action.payload;
         },
         // saveContractPremium: (state, action) => {
         //     state.contractPremium = action.payload;
@@ -109,4 +113,4 @@ export const fetchCreateNewPassword = createAsyncThunk('auth/fetchCreateNewPassw
 });
 export default authSlice;
 
-export const { saveUserPremium, saveContractPremium, saveSmartContractInfo } = authSlice.actions;
+export const { saveExpiredTime,saveUserPremium, saveContractPremium, saveSmartContractInfo } = authSlice.actions;

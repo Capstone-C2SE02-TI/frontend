@@ -9,7 +9,7 @@ import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 function TradeItem({ refChild, coinInfoData, historyData }) {
-    const [typeFilter, setTypeFilter] = useState('day');
+    const [typeFilter, setTypeFilter] = useState('month');
 
     const getLabelsCoinsDetailSorted = useMemo(() => {
         const dataCoinDetail = coinInfoData.prices[typeFilter];
@@ -29,7 +29,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                               date.getMinutes().toString().length === 1 ? `0${date.getMinutes()}` : date.getMinutes()
                           } AM`;
                 if (typeFilter === 'month') {
-                    return date.toLocaleDateString().split('/', 2).join('/');
+                    return date.toLocaleDateString().split('/', 3).join('/');
                 } else return typeFilter === 'day' ? time : date.toLocaleDateString();
             });
     }, [typeFilter]);
@@ -45,7 +45,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                 return coin[1];
             });
     }, [typeFilter]);
-    console.log(getDataCoinsDetailSorted);
+
 
     const datasetsDeposit = useMemo(() => {
         return historyData
@@ -53,7 +53,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((data) => {
                 let date = new Date(+data.timeStamp);
-                return { x: date.toLocaleDateString(), y: data.value / 10000 };
+                return { x: date, y: data.value / 10000 };
             });
     }, []); 
 
@@ -63,10 +63,11 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((data) => {
                 let date = new Date(+data.timeStamp);
-                return { x: date.toLocaleDateString(), y: data.value / 10000000 };
+                return { x: date, y: data.value / 10000000 };
             });
     }, []);
-
+console.log(datasetsWithDraw);
+console.log(datasetsDeposit);
     return (
         <tr style={{ backgroundColor: '#FFFFFF' }} ref={refChild}>
             <td colSpan="4" style={{ padding: '0' }}>
@@ -74,18 +75,40 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                     <Line
                         data={{
                             //x
-                            labels: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'],
+                            labels: getLabelsCoinsDetailSorted,
                             datasets: [
-                              
+                                {
+                                    label: `Price% `,
+                                    //y
+                                    data: getDataCoinsDetailSorted,
+                                    tension: 0.1,
+                                    type: 'line',
+                                    borderColor: '#cdf8f8',
+                                    pointStyle: 'rectRot',
+                                    pointBorderColor: 'rgba(0, 0, 0, 0)',
+                                    pointBackgroundColor: 'rgba(0, 0, 0, 0)',
+                                    pointHoverBackgroundColor: '#74a5a5',
+                                    pointHoverBorderColor: '#fff',
+                                    hoverRadius: 10,
+                                    backgroundColor: function (context) {
+                                        const chart = context.chart;
+                                        const { ctx, chartArea } = chart;
+
+                                        if (!chartArea) {
+                                            // This case happens on initial chart load
+                                            return;
+                                        }
+                                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                                        gradient.addColorStop(0, 'rgb(130 238 247)');
+                                        gradient.addColorStop(1, 'rgb(17, 46 ,61)');
+                                        return gradient;
+                                    },
+                                    fill: true,
+                                    order: 1,
+                                },
                                 {
                                     label: 'deposit',
-                                    data: [
-                                        { x: 'a', y: 5 },
-                                        { x: 'b', y: 12 },
-                                        { x: 'c', y: 3 },
-                                        { x: 'd', y: 4 },
-                                        { x: 'e', y: 5 },
-                                    ],
+                                    data: datasetsDeposit,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -99,10 +122,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                                 },
                                 {
                                     label: 'Withdraw $',
-                                    data: [
-                                        { x: 'f', y: 7 },
-                                        { x: 'g', y: 2 },
-                                    ],
+                                    data: datasetsWithDraw,
                                     fill: false,
                                     showLine: false,
                                     tension: 0.1,
@@ -161,7 +181,7 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                                                 currency: 'USD',
                                             }).format(context.parsed.y);
                                         }
-                                        return "setlable"+label;
+                                        return 'setlable' + label;
                                     },
                                 },
                                 cornerRadius: 12, //<- set this
@@ -177,8 +197,8 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                             plugins: {
                                 datalabels: {
                                     formatter: function (value) {
-                                        return "hello gyu"
-                                    }
+                                        return 'hello gyu';
+                                    },
                                 },
                                 // zoom: {
                                 //     limits: {

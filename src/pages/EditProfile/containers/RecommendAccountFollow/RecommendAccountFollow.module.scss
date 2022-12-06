@@ -24,6 +24,10 @@
 
 
 .pagination-follow {
+    display: flex;
+    align-items: center;
+
+
     svg {
         cursor: pointer;
     }

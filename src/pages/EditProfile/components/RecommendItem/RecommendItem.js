@@ -1,32 +1,85 @@
 import classNames from "classnames/bind";
 import styles from './RecommendItem.module.scss'
 import  Button  from '~/components/Button';
+import { useState } from "react";
+import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
+import { useDispatch } from "react-redux";
+import millify from 'millify';
+import { fetchFollowSharkWallet, fetchUnFollowSharkWallet } from "~/modules/SharkWallet/sharkWalletSlice";
+
 const cx = classNames.bind(styles);
 
 
-function RecommendItem() {
+function RecommendItem({ key, data, userInfo }) {
+    const [openModal, setOpenModal] = useState(false);
+    const [confirmContent, setConfirmContent] = useState({});
+    const openModalConfirm = (title, description, type) => {
+        setOpenModal(true);
+        setConfirmContent({ title, description, type });
+    };
+    const dispatch = useDispatch();
+
+    const handleFollowAndUnFollow = () => {
+        if (confirmContent.type === 'follow') {
+            dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+        } else {
+            dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+        }
+    };
+
+    const closeModalConfirm = () => {
+        setOpenModal(false);
+        setConfirmContent({});
+    };
     return (
-        <div className={cx('recommend-item')}>
+        <div key={key} className={cx('recommend-item')}>
             <div className={cx('recommend-item-info')}>
-                <img
-                    className={cx('icon-coin')}
-                    src={'https://s3.coinmarketcap.com/static/img/portraits/6225bb3ee89bc32c2edec857.png'}
-                    alt=""
-                />
                 <div className={cx('recommend-item-name')}>
                     <span>
-                        ApolloX
+                        Shark {data.sharkId}
                         <img
                             src="https://s2.coinmarketcap.com/static/cloud/img/icon/certified.svg?_=b8777e5"
                             alt="certified"
                         />
                     </span>
-                    <p>@ApolloX</p>
+                    <p>                     
+                        {millify(data.totalAssets, {
+                            precision: 3,
+                        })}
+                    </p>
                 </div>
             </div>
             <div className={cx('recommend-item-follow')}>
-                <Button dark >+ Follow</Button>
+                {data.isFollowed ? (
+                    <Button
+                        primary
+                        onClick={() => {
+                            openModalConfirm('UnFollow shark', 'Are you sure unfollow this shark?', 'unfollow');
+                        }}
+                    >
+                        Following
+                    </Button>
+                ) : (
+                    <Button
+                        dark
+                        onClick={() => {
+                            openModalConfirm('Follow shark', 'Are you sure follow this shark?', 'follow');
+                        }}
+                    >
+                        {' '}
+                        + Follow
+                    </Button>
+                )}
             </div>
+            {openModal && (
+                <ModalConfirm
+                    title={confirmContent.title}
+                    description={confirmContent.description}
+                    modalIsOpen={openModal}
+                    closeModal={closeModalConfirm}
+                    onHandleAction={handleFollowAndUnFollow}
+                />
+            )}
         </div>
     );
 }
