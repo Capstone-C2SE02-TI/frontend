@@ -16,6 +16,7 @@ import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
 import BuyItem from './BuyItem';
 import { convertUnixTime } from '~/helpers';
+import BuyLevel from './BuyLevel/BuyLevel';
 
 const cx = classNames.bind(styles);
 
@@ -151,8 +152,12 @@ function BuyToken() {
         if (smartContractInfo.walletAddress) {
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
-            } else navigate('/swap-token');
+            } else {
+                 setNotifyContent({ title: 'You are not enough TI?', type: "need-swap" });
+                 setOpenModalSucceed(true);
+            }
         } else {
+            setNotifyContent({ title: 'Please connect metamask first' });
             setOpenModalSucceed(true);
         }
     };
@@ -171,30 +176,34 @@ function BuyToken() {
         };
         return checkTransactionLop();
     };
-
+const [notifyContent,setNotifyContent] = useState({})
     return (
         <div className={cx('container-banner')}>
             {openModalSucceed && (
                 <ModalNotify
-                    typeSuccess={true}
+                    typeNotify={true}
+                    type="notify"
                     icon={<FontAwesomeIcon icon={faBell} />}
                     isOpen={openModalSucceed}
                     title={'Notify'}
-                    description={'Please connect metamask first'}
+                    description={notifyContent.title}
                     onRequestClose={() => {
+                        if (notifyContent.type === "need-swap") {
+                            navigate('/swap-token')
+                        }
                         setOpenModalSucceed(false);
                     }}
                 />
             )}
             <h1 className={cx('heading')}>Update premium plan for more features.</h1>
-            <Row style={{ height: '100%' }} gutter={[16, 16]}>
+            <Row style={{ height: '100%' }} gutter={[48, 48]}>
                 {smartContractInfo?.premiumPrices?.map((premiumPrice, index) => {
                     return (
                         <Col xl={8} lg={12} md={24} key={index}>
-                            <BuyItem
+                            <BuyLevel
                                 premiumPrice={premiumPrice}
                                 handleApprove={handleApprove}
-                                upgradePremium={upgradePremium}
+                                handleUpgradePremium={upgradePremium}
                             />
                         </Col>
                     );

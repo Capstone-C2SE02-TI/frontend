@@ -13,19 +13,16 @@ function BuyItem({ handleApprove, upgradePremium, premiumPrice }) {
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
     const handleToggleApprove = () => {
-        console.log("approve");
         setApprove(true);
     };
 
     return (
         <div className={cx('popup-buy')}>
             <h1>Balance: {smartContractInfo.balance} TI</h1>
-            {/* <h2>Yearly: {smartContractInfo.ratio}</h2> */}
+       
             <div className={cx('popup-buy__content')}>
                 <div className={cx('box-content')}>
-                    {/* <h4>
-                                    Professional <span>(Save 85%)</span>
-                                </h4> */}
+                  
                     <p>Provide rich data about Crypto Market. It's suitable for professional investors.</p>
                 </div>
                 <ul className={cx('nav-benefit')}>

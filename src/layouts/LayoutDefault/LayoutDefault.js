@@ -203,7 +203,7 @@ function LayoutDefault({ children }) {
                 navigate('/profile');
                 break;
             case 'Upgrade Premium':
-                navigate('/buy-token');
+                navigate('/upgrade');
                 break;
             case 'Swap Token':
                 navigate('/swap-token');
@@ -230,7 +230,7 @@ function LayoutDefault({ children }) {
         return userIsPremium ? (
             <button className={cx('btn-connection')}>Premium!</button>
         ) : (
-            <button className={cx('btn-connection')} onClick={() => navigate('/buy-token')}>
+            <button className={cx('btn-connection')} onClick={() => navigate('/upgrade')}>
                 Click Upgrade now!
             </button>
         );
