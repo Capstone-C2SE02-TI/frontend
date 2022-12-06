@@ -8,6 +8,7 @@ import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 import millify from 'millify';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
+import { log } from '@uniswap/smart-order-router';
 const cx = classNames.bind(styles);
 
 
@@ -34,10 +35,11 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
 
     const handleUnFollow = () => {
         if (confirmContent.type === 'unfollow') {
-            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.id }));
+            console.log("co")
+            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
         }
     }
-
+    console.log(dataSharkFollowed)
     return (
         <>
             <tr

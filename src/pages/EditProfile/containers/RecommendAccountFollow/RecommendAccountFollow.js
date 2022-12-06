@@ -31,7 +31,7 @@ function RecommendAccountFollow() {
         dispatch(fetchSharkWallet(currentUser.userId));
     }, [dispatch]);
 
-    console.log({ viewListSharkPagination });
+
 
     return (
         <div className={cx('recommend-account-follow')}>

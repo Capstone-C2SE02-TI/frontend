@@ -4,7 +4,7 @@ import { useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
-import { convertStringToTimeCurrent } from '~/helpers';
+import { convertStringToTimeCurrent, convertDate, convertTime } from '~/helpers';
 
 function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
 
@@ -19,7 +19,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .slice()
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
-                return { x: convertStringToTimeCurrent(+trans.timeStamp), y: trans.pastPrice };
+                return { x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`, y: trans.pastPrice };
             });
     }, [dataTransactionHistory, sharkAddress]);
 
@@ -32,7 +32,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .slice()
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
-                return { x: convertStringToTimeCurrent(+trans.timeStamp), y: trans.presentPrice };
+                return { x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`, y: trans.presentPrice };
             });
     }, [dataTransactionHistory, sharkAddress]);
 

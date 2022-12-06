@@ -153,8 +153,8 @@ function BuyToken() {
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
             } else {
-                 setNotifyContent({ title: 'You are not enough TI?', type: "need-swap" });
-                 setOpenModalSucceed(true);
+                setNotifyContent({ title: 'You are not enough TI?', type: 'need-swap' });
+                setOpenModalSucceed(true);
             }
         } else {
             setNotifyContent({ title: 'Please connect metamask first' });
@@ -176,7 +176,7 @@ function BuyToken() {
         };
         return checkTransactionLop();
     };
-const [notifyContent,setNotifyContent] = useState({})
+    const [notifyContent, setNotifyContent] = useState({});
     return (
         <div className={cx('container-banner')}>
             {openModalSucceed && (
@@ -188,8 +188,8 @@ const [notifyContent,setNotifyContent] = useState({})
                     title={'Notify'}
                     description={notifyContent.title}
                     onRequestClose={() => {
-                        if (notifyContent.type === "need-swap") {
-                            navigate('/swap-token')
+                        if (notifyContent.type === 'need-swap') {
+                            navigate('/swap-token');
                         }
                         setOpenModalSucceed(false);
                     }}

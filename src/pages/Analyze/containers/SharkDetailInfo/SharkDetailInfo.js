@@ -66,7 +66,7 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                     <tbody>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Name</td>
-                            <td className={cx('detail-info__td')}>Shark {sharkInfoCurrent.id}</td>
+                            <td className={cx('detail-info__td')}>Shark #{sharkInfoCurrent.sharkId}</td>
                         </tr>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Address</td>

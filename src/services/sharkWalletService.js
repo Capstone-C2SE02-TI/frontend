@@ -75,9 +75,9 @@ export const tradeTransactionHistory = async (body) => {
 };
 
 
-export const addNewSharkWallet = async (data) => {
+export const addNewSharkWallet = async (body) => {
     try {
-        const response = await httpRequest.post('/user/add-new-shark', data);
+        const response = await httpRequest.post('/user/add-new-shark', body);
         return response.data;
     } catch (error) {
         return error.response.data;
