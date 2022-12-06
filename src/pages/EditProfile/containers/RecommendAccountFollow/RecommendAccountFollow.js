@@ -19,7 +19,10 @@ function RecommendAccountFollow() {
     const sharkList = useSelector(sharkListSelector);
 
     const viewListSharkPagination = useMemo(() => {
-        let newSharkFilter = sharkList.slice().sort((prev, next) => +next.totalAssets - prev.totalAssets);
+        let newSharkFilter = sharkList
+            .slice()
+      
+            .sort((prev, next) => +next.totalAssets - prev.totalAssets);
         return sliceArrayToPagination(newSharkFilter, paginationState, NUMBER_ITEM_DISPLAY);
     }, [paginationState, sharkList]);
     const dispatch = useDispatch();

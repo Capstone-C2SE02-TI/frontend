@@ -153,7 +153,7 @@ function BuyToken() {
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
             } else {
-                 setNotifyContent({ title: 'You are not enough TI?' });
+                 setNotifyContent({ title: 'You are not enough TI?', type: "need-swap" });
                  setOpenModalSucceed(true);
             }
         } else {
@@ -188,6 +188,9 @@ const [notifyContent,setNotifyContent] = useState({})
                     title={'Notify'}
                     description={notifyContent.title}
                     onRequestClose={() => {
+                        if (notifyContent.type === "need-swap") {
+                            navigate('/swap-token')
+                        }
                         setOpenModalSucceed(false);
                     }}
                 />
