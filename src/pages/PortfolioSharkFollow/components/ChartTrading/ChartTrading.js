@@ -47,13 +47,13 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
                 datasets: [
                     {
                         data: dataTransactionIn,
-                        label: 'dataTransactionIn',
+                        label: 'Transaction in',
                         borderColor: '#21ce66',
                         fill: true,
                     },
                     {
                         data: dataTransactionOut,
-                        label: 'dataTransactionOut',
+                        label: 'Transaction out',
                         borderColor: 'red',
                         fill: true,
                     },

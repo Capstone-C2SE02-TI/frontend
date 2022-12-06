@@ -33,7 +33,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
     }
 
     const handleUnFollow = () => {
-        if (confirmContent.type === 'follow') {
+        if (confirmContent.type === 'unfollow') {
             dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.id }));
         }
     }
@@ -47,7 +47,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
                 }}
             >
                 <td>Shark #{dataSharkFollowed.sharkId}</td>
-                <td style={{ fontSize: '12px' }}>{dataSharkFollowed.walletAddress}</td>
+                <td >{dataSharkFollowed.walletAddress}</td>
                 <td>
                     $
                     {millify(dataSharkFollowed.totalAssets, {
@@ -60,7 +60,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
                 <td></td>
                 <td
                     onClick={() => {
-                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'follow');
+                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                     }}
                 >
                     <StarYellowIcon />

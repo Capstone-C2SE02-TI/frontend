@@ -2,7 +2,7 @@ import * as httpRequest from '~/utils/httpRequest';
 
 export const getSharkWallet = async (id) => {
     try {
-  
+
         const response = await httpRequest.get('/display/sharks', {
             params: {
                 userId: id,
@@ -80,7 +80,7 @@ export const addNewSharkWallet = async (data) => {
         const response = await httpRequest.post('/user/add-new-shark', data);
         return response.data;
     } catch (error) {
-               return error.response.data;
+        return error.response.data;
 
     }
 };
