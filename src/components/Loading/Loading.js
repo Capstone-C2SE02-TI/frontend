@@ -5,13 +5,16 @@ import SyncLoader from 'react-spinners/SyncLoader';
 
 const cx = classNames.bind(styles);
 
-function Loading({  loading }) {
+function Loading({ loading }) {
+    console.log(loading);
     if(!loading) {
         return;
     }
 
     return (
         <div className={cx('wrapper')}>
+            <div className={cx('overlay')}></div>
+
             <div className={cx('container')}>
                 <SyncLoader
                     color="rgb(0, 255, 204)"

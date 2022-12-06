@@ -30,9 +30,8 @@ function SharkTransactionHistory({ currentTabSharkWallet }) {
         };
 
     }, [dispatch, sharkIdSelected]);
-    console.log(sharkTransactionHistory)
-    console.log(sharkIdSelected)
-    console.log(sharkAddressSelected)
+
+  
     return (
         currentTabSharkWallet === 'transaction-history' && (
             <Spin spinning={sharkCryptoStatus === 'loading' ? true : false}>

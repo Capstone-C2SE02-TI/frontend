@@ -1,14 +1,15 @@
-import classNames from "classnames/bind";
-import styles from './RecommendItem.module.scss'
-import  Button  from '~/components/Button';
-import { useState } from "react";
+import classNames from 'classnames/bind';
+import styles from './RecommendItem.module.scss';
+import Button from '~/components/Button';
+import { useState } from 'react';
 import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import millify from 'millify';
-import { fetchFollowSharkWallet, fetchUnFollowSharkWallet } from "~/modules/SharkWallet/sharkWalletSlice";
+import { fetchFollowSharkWallet, fetchUnFollowSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
+import { loadingSelector, sharkDetailSelector } from '~/modules/SharkWallet/selector';
+import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
-
 
 function RecommendItem({ key, data, userInfo }) {
     const [openModal, setOpenModal] = useState(false);
@@ -18,6 +19,8 @@ function RecommendItem({ key, data, userInfo }) {
         setConfirmContent({ title, description, type });
     };
     const dispatch = useDispatch();
+
+    const loading = useSelector(loadingSelector);
 
     const handleFollowAndUnFollow = () => {
         if (confirmContent.type === 'follow') {
@@ -42,7 +45,7 @@ function RecommendItem({ key, data, userInfo }) {
                             alt="certified"
                         />
                     </span>
-                    <p>                     
+                    <p>
                         {millify(data.totalAssets, {
                             precision: 3,
                         })}
@@ -80,6 +83,8 @@ function RecommendItem({ key, data, userInfo }) {
                     onHandleAction={handleFollowAndUnFollow}
                 />
             )}
+
+            <Loading loading={loading === 'loading' ? true : false} />
         </div>
     );
 }
