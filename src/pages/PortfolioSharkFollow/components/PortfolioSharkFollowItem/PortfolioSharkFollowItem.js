@@ -11,7 +11,7 @@ import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({  userId, dataSharkFollowed }) {
+function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
 
     const [sharkACtive, setSharkActive] = useState()
 
@@ -20,7 +20,7 @@ function PortfolioSharkFollowItem({  userId, dataSharkFollowed }) {
 
     const dispatch = useDispatch();
 
-
+    console.log(dataSharkFollowed)
 
     const openModalConfirm = (title, description, type) => {
         setOpenModal(true)

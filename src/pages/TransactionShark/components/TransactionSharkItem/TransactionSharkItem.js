@@ -23,6 +23,7 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
             return false;
         }
     }
+    console.log(data);
     return (
         <tr className={cx('transaction-shark__tr')} >
             <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
