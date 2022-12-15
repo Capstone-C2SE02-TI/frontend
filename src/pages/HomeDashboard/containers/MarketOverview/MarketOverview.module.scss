@@ -48,12 +48,14 @@
         border-bottom: 1px solid #fff;
         th {
             padding: 10px 0 10px 0;
-            &:not(:nth-child(1)) {
+            text-align: center;
+            &:nth-child(1) {
                 text-align: start;
             }
-            // &:nth-child(2) {
-            //     text-align: start;
-            // }
+            &:nth-child(2) {
+                text-align: start;
+            }
+
         }
     }
 }
@@ -62,24 +64,17 @@
     border-bottom: 1px solid #eff2f5;
     font-size: 14px;
     td {
-        text-align: start;
-        padding: 20px 0 20px 20px;
-        &:not(:nth-child(1)) {
+        text-align: center;
+        padding: 20px 0 20px 0px;
+        &:nth-child(1) {
             text-align: start;
             font-weight: 500;
-            padding: 0px 0 0px 0px !important;
+            padding: 0px!important;
         }
         &:nth-child(2) {
             text-align: start;
             padding: 20px 0 20px 0px !important;
         }
-        &:nth-child(1) {
-            text-align: center;
-            padding: 10px;
-        }
-        &:nth-child(4), &:nth-child(5)  {
-            font-weight: 600;
-        } 
     }
 }
 

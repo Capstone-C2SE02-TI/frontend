@@ -7,3 +7,17 @@
     }
 }
 
+.portfolio-table {
+    thead {
+        th {
+            text-align: center;
+            text-transform: uppercase;
+            background-color: #eee;
+
+            &:nth-child(2) {
+                text-align: center;
+            }
+        }
+    }
+    
+}

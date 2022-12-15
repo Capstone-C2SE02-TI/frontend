@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames/bind';
 import styles from './TransactionSharkItem.module.scss'
-import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
+import { convertStringToTimeCurrent, numberWithCommas, convertDate, convertTime } from '~/helpers';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +26,9 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
     console.log(data);
     return (
         <tr className={cx('transaction-shark__tr')} >
-            <td>{convertStringToTimeCurrent(data.timeStamp)}</td>
+            <td>{convertDate(data.timeStamp * 1000)}
+                <p>{convertTime(data.timeStamp * 1000)}</p>
+            </td>
             <td>shark #{data.sharkId}</td>
             <td>
                 <a href={`https://etherscan.io/tx/${data.hash}`} rel="noopener noreferrer" target="_blank">

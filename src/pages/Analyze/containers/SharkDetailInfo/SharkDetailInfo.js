@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SharkDetailInfo.module.scss';
 import { useSelector } from 'react-redux';
-import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
+import { convertDate, convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 import {
     sharkCryptoSelector,
     sharkInfoSelector,
@@ -61,7 +61,7 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                     <tbody>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Name</td>
-                            <td className={cx('detail-info__td')}>Shark {sharkInfoCurrent.id}</td>
+                            <td className={cx('detail-info__td')}>Shark {sharkInfoCurrent.sharkId}</td>
                         </tr>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Address</td>
@@ -71,10 +71,10 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                             <td className={cx('detail-info__td')}>{sharkTransactionHistory.length}</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>First transaction</td>
-                            <td className={cx('detail-info__td')}>{firstTransactionTime ? convertStringToTimeCurrent(firstTransactionTime) : 0}</td>
+                            <td className={cx('detail-info__td')}>{firstTransactionTime ? convertDate(firstTransactionTime * 1000) : 0}</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Total assets ($)</td>
-                            <td className={cx('detail-info__td')}>{numberWithCommas(sharkInfoCurrent.totalAsset)} $</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(sharkInfoCurrent.totalAssets)} $</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Total value in ($)</td>
                             <td className={cx('detail-info__td')}>{numberWithCommas(totalValueIn)} $</td>
