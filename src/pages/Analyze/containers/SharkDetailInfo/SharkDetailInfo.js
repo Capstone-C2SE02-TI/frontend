@@ -48,9 +48,6 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
         }, 0);
     }, [sharkAddressSelected, sharkTransactionHistory]);
 
-    console.log(sharkTransactionHistory)
-    console.log(sharkInfoCurrent)
-    console.log(firstTransactionTime)
     return (
         currentTabSharkWallet === 'detail-info' && (
             <div className={cx('detail-info__container')}>

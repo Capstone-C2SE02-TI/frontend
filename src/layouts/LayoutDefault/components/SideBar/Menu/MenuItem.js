@@ -8,19 +8,19 @@ import { memo } from 'react';
 import ModalConfirm from '../../ModalConfirm';
 const cx = classNames.bind(styles);
 
-function MenuItem({ icon, title, to, key, isPremium }) {
-const [openModalNotify, setOpenModalNotify] = useState(false)
-    
+function MenuItem({ icon, title, to, key, isPremium, requiredPremium =false }) {
+    const [openModalNotify, setOpenModalNotify] = useState(false);
+
     const handleClick1 = (e) => {
         if (isPremium) {
             // console.log('can premium');
-            setOpenModalNotify(true)
+            setOpenModalNotify(true);
             e.preventDefault();
         } else {
             // console.log('ko can premium');
         }
     };
-const navigate = useNavigate();
+    const navigate = useNavigate();
     return (
         <div className={cx('wrapper')}>
             <NavLink
@@ -31,6 +31,7 @@ const navigate = useNavigate();
             >
                 {icon}
                 <span className={cx('menu-item__title')}>{title}</span>
+                {/* {requiredPremium && <button className={cx('btn-connection')}>Vip</button>} */}
             </NavLink>
             {openModalNotify && (
                 <ModalConfirm

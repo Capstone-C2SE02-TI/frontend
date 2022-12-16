@@ -35,17 +35,19 @@ function Analyze() {
     };
     const dataFollow = useSelector(sharkDetailSelector);
 
-    useEffect(() => {
-        if (dataFollow && dataFollow?.isFollowed) {
-            setOpenModalSucceed(true);
-            setModalSucceedContent({ title: 'Success', description: 'Follow shark successfully' });
-            dispatch(resetSharkDetail(''));
-        } else if (dataFollow && !dataFollow?.isFollowed) {
-            setOpenModalSucceed(true);
-            setModalSucceedContent({ title: 'Success', description: 'UnFollow shark successfully' });
-            dispatch(resetSharkDetail(''));
-        }
-    }, [dataFollow]);
+    // useEffect(() => {
+    //     console.log('run', dataFollow);
+    //      dispatch(resetSharkDetail(''));
+    //     if (dataFollow && dataFollow?.isFollowed) {
+    //         setOpenModalSucceed(true);
+    //         setModalSucceedContent({ title: 'Success', description: 'Follow shark successfully' });
+    //         dispatch(resetSharkDetail(''));
+    //     } else if (dataFollow && !dataFollow?.isFollowed) {
+    //         setOpenModalSucceed(true);
+    //         setModalSucceedContent({ title: 'Success', description: 'UnFollow shark successfully' });
+    //         dispatch(resetSharkDetail(''));
+    //     }
+    // }, [dataFollow]);
     useEffect(() => {
         dispatch(
             sharkWalletSlice.actions.actionFilterSharkTotalAssets({
