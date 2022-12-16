@@ -12,7 +12,7 @@ import { log } from '@uniswap/smart-order-router';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
+function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSelelected }) {
 
     const [sharkACtive, setSharkActive] = useState()
 
@@ -21,7 +21,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
 
     const dispatch = useDispatch();
 
-    console.log(dataSharkFollowed)
+    // console.log(dataSharkFollowed)
 
     const openModalConfirm = (title, description, type) => {
         setOpenModal(true)
@@ -35,8 +35,9 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
 
     const handleUnFollow = () => {
         if (confirmContent.type === 'unfollow') {
-            console.log("co")
             dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
+
+            onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
     console.log(dataSharkFollowed)
@@ -50,6 +51,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
             >
                 <td>Shark #{dataSharkFollowed.sharkId}</td>
                 <td >{dataSharkFollowed.walletAddress}</td>
+                <td >{dataSharkFollowed.walletAddress}</td>
                 <td>
                     $
                     {millify(dataSharkFollowed.totalAssets, {
@@ -57,26 +59,29 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed }) {
                         decimalSeparator: ',',
                     })}
                 </td>
-                <td>{dataSharkFollowed.transactionsHistory.length}</td>
+                {/* <td>{dataSharkFollowed.transactionsHistory.length}</td> */}
                 <td>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
-                <td></td>
+                {/* <td></td> */}
                 <td
                     onClick={() => {
+                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                         openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                     }}
                 >
                     <StarYellowIcon />
                 </td>
             </tr>
-            {openModal && (
-                <ModalConfirm
-                    title={confirmContent.title}
-                    description={confirmContent.description}
-                    modalIsOpen={openModal}
-                    closeModal={closeModalConfirm}
-                    onHandleAction={handleUnFollow}
-                />
-            )}
+            {
+                openModal && (
+                    <ModalConfirm
+                        title={confirmContent.title}
+                        description={confirmContent.description}
+                        modalIsOpen={openModal}
+                        closeModal={closeModalConfirm}
+                        onHandleAction={handleUnFollow}
+                    />
+                )
+            }
         </>
     );
 }

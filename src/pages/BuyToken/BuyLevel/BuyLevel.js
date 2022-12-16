@@ -58,7 +58,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice }) {
                         <p
                             onClick={async () => {
                                 await handleUpgradePremium(premiumPrice.price);
-                                setApprove(false);
+                                // setApprove(false);
                             }}
                         >
                             <span style={{ fontSize: '18px' }}>Upgrade Premium</span>

@@ -101,7 +101,7 @@ function TransactionShark() {
                         {/* {transactionShark.length === 0 && <div className="text-center">No data</div>} */}
                         {transactionShark.map((trans, index) => {
                             console.log(sharkAddress);
-                            return <TransactionSharkItem key={index} data={trans} index={index} sharkAddress={sharkAddress} />
+                            return <TransactionSharkItem key={index} data={trans} index={index} sharkAddress={trans.walletAddress} />
                         }
                         )}
                     </tbody>
