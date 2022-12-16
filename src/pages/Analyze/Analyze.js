@@ -34,19 +34,7 @@ function Analyze() {
         setRangeEnd(value[1] * DOLLAR);
     };
     const dataFollow = useSelector(sharkDetailSelector);
-    console.log({ dataFollow })
-    useEffect(() => {
-        if (dataFollow && dataFollow?.isFollowed) {
-            setOpenModalSucceed(true);
-            setModalSucceedContent({ title: 'Success', description: 'Follow shark successfully' });
-            dispatch(resetSharkDetail(''));
-        } else if (dataFollow !== '' && !dataFollow?.isFollowed) {
-            console.log({ hehelo: dataFollow !== '' });
-            setOpenModalSucceed(true);
-            setModalSucceedContent({ title: 'Success', description: 'UnFollow shark successfully' });
-            dispatch(resetSharkDetail(''));
-        }
-    }, [dataFollow]);
+
     useEffect(() => {
         dispatch(
             sharkWalletSlice.actions.actionFilterSharkTotalAssets({

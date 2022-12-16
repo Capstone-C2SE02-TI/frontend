@@ -8,6 +8,9 @@ import PortfolioSharkFollowItem from './components/PortfolioSharkFollowItem/Port
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import ChartTrading from './components/ChartTrading/ChartTrading';
+import { userIsPremiumSelector } from '~/modules/user/auth/selectors';
+import Button from '~/components/Button';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { fetchTransactionHistorySharkWallet, resetSharkDetail } from '~/modules/SharkWallet/sharkWalletSlice';
 import Loading from '~/components/Loading';
@@ -25,7 +28,6 @@ function PortfolioSharkFollow() {
     const loadingShark = useSelector(sharkLoadingSelector);
     const loadingTransaction = useSelector(loadingTransactionSelector);
     console.log({ transactionHistory });
-
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,6 +40,9 @@ function PortfolioSharkFollow() {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sharkFolloweds]);
+    const userIsPremium = useSelector(userIsPremiumSelector);
+
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -56,47 +61,67 @@ function PortfolioSharkFollow() {
 
     return (
         <div className="portfolio">
-            <div>
-                <div className={cx('portfolio-h1')}>
-                    <h1>Portfolio: {userName.username ? userName.username : 'No data'}</h1>
+            {userIsPremium ? (
+                <div>
+                    <div>
+                        <div className={cx('portfolio-h1')}>
+                            <h1>Portfolio: {userName.username ? userName.username : 'No data'}</h1>
+                        </div>
+                        {/* <DoughnutChart classNames={cx('chart-shark')} cryptosSharkWallet={sharkCrypto} /> */}
+                        <table className={cx('portfolio-table')}>
+                            <thead>
+                                <tr>
+                                    <th>Shark</th>
+                                    <th>Address</th>
+                                    <th>Total Assets</th>
+                                    <th>Total Transaction</th>
+                                    <th>24h%</th>
+                                    <th>Actual Growth</th>
+                                    <th>Follow</th>
+                                </tr>
+                            </thead>
+
+                            <tbody className={cx('portfolio-list-shark')}>
+                                {sharkFolloweds
+                                    .slice()
+                                    .sort((prev, next) => prev.sharkId - next.sharkId)
+                                    .map((sharkFollowed) => (
+                                        <PortfolioSharkFollowItem
+                                            userId={userName.userId}
+                                            key={sharkFollowed.sharkId}
+                                            dataSharkFollowed={sharkFollowed}
+                                        />
+                                    ))}
+                            </tbody>
+                        </table>
+                        {sharkFolloweds.length === 0 && <div className="text-center">No data</div>}
+                    </div>
+                    {sharkFollowedSelected.transactionsHistory && (
+                        <ChartTrading
+                            dataTransactionHistory={sharkFollowedSelected.transactionsHistory}
+                            sharkAddress={sharkFollowedSelected.walletAddress}
+                            name={sharkFollowedSelected.sharkId}
+                        />
+                    )}
                 </div>
-                {/* <DoughnutChart classNames={cx('chart-shark')} cryptosSharkWallet={sharkCrypto} /> */}
-                <table className={cx('portfolio-table')}>
-                    <thead>
-                        <tr>
-                            <th>Shark</th>
-                            <th>Address</th>
-                            <th>Total Assets</th>
-                            <th>24h%</th>
-                            <th>Follow</th>
-                        </tr>
-                    </thead>
-
-                    <tbody className={cx('portfolio-list-shark')}>
-                        {sharkFolloweds
-                            .slice()
-                            .sort((prev, next) => prev.sharkId - next.sharkId)
-                            .map((sharkFollowed) => (
-                                <PortfolioSharkFollowItem
-                                    onChangeSharkSelelected={handleChangeSharkSelelected}
-                                    userId={userName.userId}
-                                    key={sharkFollowed.sharkId}
-                                    dataSharkFollowed={sharkFollowed}
-                                />
-                            ))}
-                    </tbody>
-                </table>
-                {/* {sharkFolloweds.length === 0 && <div className="text-center"></div>} */}
-                <Loading loading={loadingShark === 'loading' ? true : false} />
-            </div>
-            <Loading loading={loadingTransaction === 'loading' ? true : false} />
-
-            {transactionHistory.length > 0 && (
-                <ChartTrading
-                    dataTransactionHistory={transactionHistory}
-                    sharkAddress={sharkFollowedSelected.walletAddress}
-                    name={sharkFollowedSelected.sharkId}
-                />
+            ) : (
+                <div className={cx('d-flex flex-column align-items-center')}>
+                    <img
+                        width="216"
+                        src="https://s2.coinmarketcap.com/static/cloud/img/posts/no-post.png?_=b8777e5"
+                        alt="nothing-here"
+                    />
+                    <p style={{ margin: '0px', color: 'rgb(34, 37, 49)', fontSize: '28px', fontWeight: ' 700' }}>
+                        Nothing here!
+                    </p>
+                    <p style={{ color: 'rgb(128, 138, 157)', padding: "12px" }}>
+                        You can discover and follow shark accounts that interest you! If you update your premium
+                        account!
+                    </p>
+                    <Button primary onClick={() => navigate('/upgrade')} y>
+                        Upgrade premium account
+                    </Button>
+                </div>
             )}
         </div>
     );

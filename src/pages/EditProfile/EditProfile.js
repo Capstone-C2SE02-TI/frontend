@@ -299,7 +299,7 @@ function EditProfile() {
     return (
         <div className="d-flex justify-content-between">
             {renderEditProfile()}
-            <RecommendAccountFollow />
+            {/* <RecommendAccountFollow /> */}
         </div>
     );
 }

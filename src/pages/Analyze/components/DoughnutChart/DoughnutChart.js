@@ -40,20 +40,20 @@ function DoughnutChart({ cryptosSharkWallet }) {
         if (cryptosSharkWallet.length > 20) {
             otherPercentLabel = cryptosSharkWalletAcc.slice(21, cryptosSharkWallet.length).reduce((percent, crypto) => {
                 return (crypto.total / totalAssetCrypto) * 100 + percent;
-            }, 0).toFixed(2)
+            }, 0).toFixed(3)
             otherPercentLabel = `Other ${otherPercentLabel}%`;
         }
 
         const labelPercent = cryptosSharkWalletAcc.slice(0, 20).map((crypto) => {
-            const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(2);
-            return ` ${crypto.symbol} ${percent}%`;
+            const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(3);
+            return ` ${crypto.symbol.toUpperCase()} ${percent}%`;
         });
 
         return otherPercentLabel !== 0 ? [...labelPercent, otherPercentLabel] : labelPercent;
-        // ${crypto.name}
+ 
     }, [cryptosSharkWallet, totalAssetCrypto]);
-    console.log(labelsDoughnut);
-    console.log(dataDoughnut);
+    // console.log(labelsDoughnut);
+    // console.log(dataDoughnut);
 
     return (
         <div className={cx('chart-circle')}>

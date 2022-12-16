@@ -13,6 +13,8 @@ import { useMemo } from 'react';
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 10;
 
+const MAXIMUM_LENGTH = 20;
+
 function RecommendAccountFollow() {
     const currentUser = JSON.parse(localStorage.getItem('userInfo'));
     const [paginationState, setPaginationState] = useState(1);
@@ -21,27 +23,40 @@ function RecommendAccountFollow() {
     const viewListSharkPagination = useMemo(() => {
         let newSharkFilter = sharkList
             .slice()
-      
+
             .sort((prev, next) => +next.totalAssets - prev.totalAssets);
         return sliceArrayToPagination(newSharkFilter, paginationState, NUMBER_ITEM_DISPLAY);
     }, [paginationState, sharkList]);
     const dispatch = useDispatch();
-
     useEffect(() => {
         dispatch(fetchSharkWallet(currentUser.userId));
     }, [dispatch]);
 
+    const handleNextPage = (e) => {
+        if (paginationState !== MAXIMUM_LENGTH) {
+            setPaginationState((prev) => prev + 1);
+        } return
+    };
 
+    const handlePreviousPage = (e) => {
+         if (paginationState !== 1) {
+             setPaginationState((prev) => prev - 1);
+         }
+        return
+      
+    }
 
+    console.log({paginationState});
     return (
         <div className={cx('recommend-account-follow')}>
             <div className={cx('heading-follow')}>
                 <span>Recommended Shark</span>
                 <div className={cx('pagination-follow')}>
-                    <div onClick={() => setPaginationState((prev) => prev + 1)}>
-                        <ArrowLeftIcon />
+                    <div onClick={handleNextPage}>
+                        <ArrowLeftIcon  />
                     </div>
-                    <div onClick={() => setPaginationState((prev) => prev - 1)}>
+
+                    <div onClick={handlePreviousPage} >
                         <ArrowRightIcon />
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import styles from './Profile.module.scss';
 
 import RecommendAccountFollow from '../EditProfile/containers/RecommendAccountFollow';
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfoSelector } from '~/modules/user/auth/selectors';
+import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect } from 'react';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -106,17 +106,20 @@ function Profile() {
                         Nothing here!
                     </p>
                     <p style={{ color: 'rgb(128, 138, 157)' }}>
-                        You can post your first tweet, or discover and follow accounts you are interested in!
+                        You can discover and follow shark accounts that interest you! If you update your premium
+                        account!
                     </p>
                     {/* <Button primary>Create new Post</Button> */}
                 </div>
             </div>
         );
     };
+    const userIsPremium = useSelector(userIsPremiumSelector);
+
     return (
         <div className="d-flex justify-content-between">
             {renderProfile()}
-            <RecommendAccountFollow />
+            {userIsPremium && <RecommendAccountFollow />}
         </div>
     );
 }

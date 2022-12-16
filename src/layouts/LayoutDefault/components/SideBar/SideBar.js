@@ -44,18 +44,23 @@ const MENU_SIDEBAR = [
         icon: <AnalyzeIcon />,
         to: configs.routes.analyze,
         isPremium: userIsPremium ? false : true,
+        requiredPremium: true
     },
     {
         title: 'Trading',
         icon: <SupportIcon />,
         to: configs.routes.transactionShark,
         isPremium: userIsPremium ? false : true,
+        requiredPremium: true
+
     },
     {
         title: 'Gain & Loss',
         icon: <ReportIcon />,
         to: configs.routes.gainLoss,
         isPremium: userIsPremium ? false : true,
+        requiredPremium: true
+
     },
 ];
     return (
@@ -68,7 +73,14 @@ const MENU_SIDEBAR = [
             </div>
             <Menu>
                 {MENU_SIDEBAR.map((menu, index) => (
-                    <MenuItem key={index} icon={menu.icon} title={menu.title} to={menu.to} isPremium={menu.isPremium} />
+                    <MenuItem
+                        requiredPremium={menu.requiredPremium}
+                        key={index}
+                        icon={menu.icon}
+                        title={menu.title}
+                        to={menu.to}
+                        isPremium={menu.isPremium}
+                    />
                 ))}
 
                 {/*  */}
