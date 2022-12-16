@@ -9,6 +9,8 @@ import {
     sharkTransactionHistorySelector,
     sharkWalletAddressSelector,
 } from '~/modules/SharkWallet/selector';
+import convertDate from '~/helpers/convertDate';
+import convertTime from '~/helpers/convertTime';
 import DoughnutChart from '../../components/DoughnutChart';
 
 const cx = classNames.bind(styles);
@@ -46,6 +48,9 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
         }, 0);
     }, [sharkAddressSelected, sharkTransactionHistory]);
 
+    console.log(sharkTransactionHistory)
+    console.log(sharkInfoCurrent)
+    console.log(firstTransactionTime)
     return (
         currentTabSharkWallet === 'detail-info' && (
             <div className={cx('detail-info__container')}>
@@ -61,7 +66,7 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                     <tbody>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Name</td>
-                            <td className={cx('detail-info__td')}>Shark {sharkInfoCurrent.sharkId}</td>
+                            <td className={cx('detail-info__td')}>Shark #{sharkInfoCurrent.sharkId}</td>
                         </tr>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Address</td>

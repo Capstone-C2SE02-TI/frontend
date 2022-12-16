@@ -1,0 +1,9 @@
+
+.portfolio-shark-follow__tr {
+    td {
+        border-right: 1px solid #eee;
+    }
+    &:nth-child(2n) {
+        background-color: #eee;
+    }
+}

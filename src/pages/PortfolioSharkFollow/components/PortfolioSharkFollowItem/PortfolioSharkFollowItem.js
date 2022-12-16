@@ -8,6 +8,7 @@ import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 import millify from 'millify';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
+import { log } from '@uniswap/smart-order-router';
 const cx = classNames.bind(styles);
 
 
@@ -39,7 +40,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
             onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
-
+    console.log(dataSharkFollowed)
     return (
         <>
             <tr
@@ -49,6 +50,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
                 }}
             >
                 <td>Shark #{dataSharkFollowed.sharkId}</td>
+                <td >{dataSharkFollowed.walletAddress}</td>
                 <td >{dataSharkFollowed.walletAddress}</td>
                 <td>
                     $
@@ -62,6 +64,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
                 {/* <td></td> */}
                 <td
                     onClick={() => {
+                        openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                         openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');
                     }}
                 >

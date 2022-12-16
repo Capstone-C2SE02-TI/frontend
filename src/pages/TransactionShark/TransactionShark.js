@@ -20,7 +20,7 @@ function TransactionShark() {
     const [currentPage, setCurrentPage] = useState('');
     const dispatch = useDispatch();
     console.log(transactionShark);
-    console.log("sharkAddress", sharkAddress);
+    console.log(sharkAddress)
     useEffect(() => {
         dispatch(fetchSharkWallet());
         getLength()
