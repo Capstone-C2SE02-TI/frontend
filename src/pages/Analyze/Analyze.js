@@ -35,19 +35,6 @@ function Analyze() {
     };
     const dataFollow = useSelector(sharkDetailSelector);
 
-    // useEffect(() => {
-    //     console.log('run', dataFollow);
-    //      dispatch(resetSharkDetail(''));
-    //     if (dataFollow && dataFollow?.isFollowed) {
-    //         setOpenModalSucceed(true);
-    //         setModalSucceedContent({ title: 'Success', description: 'Follow shark successfully' });
-    //         dispatch(resetSharkDetail(''));
-    //     } else if (dataFollow && !dataFollow?.isFollowed) {
-    //         setOpenModalSucceed(true);
-    //         setModalSucceedContent({ title: 'Success', description: 'UnFollow shark successfully' });
-    //         dispatch(resetSharkDetail(''));
-    //     }
-    // }, [dataFollow]);
     useEffect(() => {
         dispatch(
             sharkWalletSlice.actions.actionFilterSharkTotalAssets({
@@ -68,7 +55,7 @@ function Analyze() {
     };
 
     const newSharkStatus = useSelector(newSharkSelector);
-  
+
 
     useEffect(() => {
         if (newSharkStatus.error) {

@@ -174,6 +174,7 @@ const TI_ABI =
     ]
 
 const DEX_SMART_CONTRACT_ADDRESS = '0x98c517cDe4f382395aE6742382a183520b7a06D4';
+// const DEX_SMART_CONTRACT_ADDRESS_backup = '0xabd2f634cEb6b0d01d6b5e2b20176aDC0486C93e';
 const DEX_ABI =
     [
         {

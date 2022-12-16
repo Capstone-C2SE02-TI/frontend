@@ -23,7 +23,7 @@ function SharkWalletsOverview() {
     const sharksCoin = useSelector(sharkRemainingSelector);
     const newSharkList = useSelector(newSharkListRemainingSelector);
     const newSharkQuantity = useSelector(newSharkQuantitySelector);
-   ;
+    ;
     const status = useSelector(sharkCryptoStatusSelector);
     const userInfo = useSelector(userInfoSelector);
     const currentUser = JSON.parse(localStorage.getItem('userInfo'));
@@ -53,7 +53,7 @@ function SharkWalletsOverview() {
     const textSearchDebounced = useDebounced(searchText, 500);
     useEffect(() => {
         dispatch(sharkWalletSlice.actions.searchFilterChange(textSearchDebounced));
-       
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textSearchDebounced]);
     const [paginationState, setPaginationState] = useState(1);
@@ -66,7 +66,7 @@ function SharkWalletsOverview() {
         }
     }, [newSharkList, paginationState, sharksCoin, tabOverviewTransaction]);
 
-// console.log(newSharkList);
+    // console.log(newSharkList);
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected + 1);
     };
@@ -78,7 +78,7 @@ function SharkWalletsOverview() {
     const newSharkClassName = useMemo(() => {
         return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'newShark' });
     }, [tabOverviewTransaction]);
-// console.log({ newSharkQuantity });
+    // console.log({ newSharkQuantity });
     return (
         <div className={cx('shark-container')}>
             <div className={cx('shark-overview')}>
@@ -114,7 +114,7 @@ function SharkWalletsOverview() {
                         </tr>
                     </thead>
                     <tbody>
-                        {viewListSharkCoinPagination.slice().map((sharkCoin) => (
+                        {viewListSharkCoinPagination.slice().sort((prev, next) => next.isFollowed - prev.isFollowed).map((sharkCoin) => (
                             <SharkWalletsOverviewItem data={sharkCoin} key={sharkCoin.sharkId} userInfo={userInfo} />
                         ))}
                     </tbody>

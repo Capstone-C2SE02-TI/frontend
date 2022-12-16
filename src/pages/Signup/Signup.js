@@ -72,13 +72,13 @@ function Signup() {
                 };
 
                 const result = await authService.signUp(formValues, requestOptions);
-              
+
                 handleExceptions(result.message);
                 setLoading(false);
             };
             fetchApi();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formErrors, isSubmit]);
 
     const handleSubmit = (e) => {
@@ -111,10 +111,6 @@ function Signup() {
                 <img src={images.logoRobot} alt="logo" />
             </div>
             <form className={cx('login-right')} onSubmit={handleSubmit}>
-                <div className={cx('login-right__language')}>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                    <span>Language</span>
-                </div>
                 <div className={cx('login-right__header')}>
                     <h3>Create Account</h3>
                     <span>Please fill in your details to create your account.</span>

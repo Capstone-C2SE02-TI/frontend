@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PortfolioSharkFollow.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
-import { fetchSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
+import { loadingTransactionSelector, sharkFollowedSelector, sharkLoadingSelector, transactionHistorySelector } from '~/modules/SharkFollowed/selector';
+import { fetchSharkFollowed, fetchTransactionHistoryPortfolio, removeSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
 import PortfolioSharkFollowItem from './components/PortfolioSharkFollowItem/PortfolioSharkFollowItem';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
@@ -11,16 +11,23 @@ import ChartTrading from './components/ChartTrading/ChartTrading';
 import { userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { fetchTransactionHistorySharkWallet, resetSharkDetail } from '~/modules/SharkWallet/sharkWalletSlice';
+import Loading from '~/components/Loading';
 
 const cx = classNames.bind(styles);
 
 function PortfolioSharkFollow() {
     const dispatch = useDispatch();
+
     const sharkFolloweds = useSelector(sharkFollowedSelector);
     const userName = JSON.parse(localStorage.getItem('userInfo'));
 
     const sharkFollowedSelected = useSelector(sharkFollowedSelectedSelector);
-
+    const transactionHistory = useSelector(transactionHistorySelector);
+    const loadingShark = useSelector(sharkLoadingSelector);
+    const loadingTransaction = useSelector(loadingTransactionSelector);
+    console.log({ transactionHistory });
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,12 +36,28 @@ function PortfolioSharkFollow() {
     useEffect(() => {
         if (sharkFolloweds.length > 0) {
             dispatch(saveSharkFollowedSelected(sharkFolloweds[0]));
+
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sharkFolloweds]);
     const userIsPremium = useSelector(userIsPremiumSelector);
 
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (sharkFollowedSelected.sharkId) {
+            dispatch(fetchTransactionHistoryPortfolio(sharkFollowedSelected.sharkId));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sharkFollowedSelected]);
+
+    const handleChangeSharkSelelected = (sharkIdSelected) => {
+        dispatch(removeSharkFollowed(sharkIdSelected))
+        dispatch(resetSharkDetail(''));
+
+
+    }
 
     return (
         <div className="portfolio">

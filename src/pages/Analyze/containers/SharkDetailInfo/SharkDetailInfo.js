@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SharkDetailInfo.module.scss';
 import { useSelector } from 'react-redux';
-import { convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
+import { convertDate, convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 import {
     sharkCryptoSelector,
     sharkInfoSelector,
@@ -67,7 +67,7 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                         </tr>
                         <tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Address</td>
-                            <td className={cx('detail-info__td')}>{sharkAddressSelected.slice(0, 25) + '...'}</td>
+                            <td className={cx('detail-info__td')}>{sharkAddressSelected}</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Total transactions</td>
                             <td className={cx('detail-info__td')}>{sharkTransactionHistory.length}</td>

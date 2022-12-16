@@ -49,18 +49,19 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
         setOpenModal(false);
         setConfirmContent({});
     };
-  
 
-   // The scroll listener
-   const handleScroll = useCallback(() => {
-       console.log('scrolling');
-   }, []);
 
-   // Attach the scroll listener to the div
-   useEffect(() => {
-       const div = parentRef.current;
-       div.addEventListener('scroll', handleScroll);
-   }, [handleScroll]);
+    // The scroll listener
+    const handleScroll = useCallback(() => {
+        console.log('scrolling');
+    }, []);
+
+    // Attach the scroll listener to the div
+    useEffect(() => {
+        const div = parentRef.current;
+        div.addEventListener('scroll', handleScroll);
+    }, [handleScroll]);
+    console.log(data)
     return (
         <tr
             className={cx('react-bootstrap-table', { 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })}
@@ -78,7 +79,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                 })}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress} className={cx(classNamesStatusCoin24h)}>
-                {data.percent24h === 0 ? 0 : data.percent24h.toFixed(3) + '%' || '0%'}
+                {data.percent24h === 0 ? '0%' : data.percent24h.toFixed(3) + '%'}
             </td>
             {data.isFollowed ? (
                 <td

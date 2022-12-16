@@ -29,11 +29,13 @@ export const getCryptoSharkWallet = async (sharkId) => {
 
 export const getTransactionHistorySharkWallet = async (id) => {
     try {
+
         const response = await httpRequest.get('/display/shark/transaction-history', {
             params: {
                 id,
             },
         });
+
         return response.data;
     } catch (error) {
         console.log(error);

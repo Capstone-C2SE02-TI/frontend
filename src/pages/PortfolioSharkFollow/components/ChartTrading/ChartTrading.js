@@ -47,7 +47,6 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
                         {
                             data: pastPriceData,
                             label: 'Past Price',
-
                             backgroundColor: 'rgb(255, 205, 86)',
                             fill: true,
                         },
@@ -56,7 +55,6 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
                             label: 'Present Price',
 
                             backgroundColor: 'rgb(54, 162, 235)',
-
                             fill: true,
                         },
                     ],
@@ -67,7 +65,6 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
                             callbacks: {
                                 label: function (context) {
                                     let label = context.dataset.label || '';
-
                                     if (label) {
                                         label += ': ';
                                     }
