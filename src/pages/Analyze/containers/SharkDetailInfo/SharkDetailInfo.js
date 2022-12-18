@@ -2,15 +2,13 @@ import { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SharkDetailInfo.module.scss';
 import { useSelector } from 'react-redux';
-import { convertDate, convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
+import { convertDate, convertTime, convertStringToTimeCurrent, numberWithCommas } from '~/helpers';
 import {
     sharkCryptoSelector,
     sharkInfoSelector,
     sharkTransactionHistorySelector,
     sharkWalletAddressSelector,
 } from '~/modules/SharkWallet/selector';
-import convertDate from '~/helpers/convertDate';
-import convertTime from '~/helpers/convertTime';
 import DoughnutChart from '../../components/DoughnutChart';
 
 const cx = classNames.bind(styles);
