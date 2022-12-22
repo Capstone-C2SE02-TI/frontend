@@ -27,7 +27,7 @@ function PortfolioSharkFollow() {
     const transactionHistory = useSelector(transactionHistorySelector);
     const loadingShark = useSelector(sharkLoadingSelector);
     const loadingTransaction = useSelector(loadingTransactionSelector);
-    console.log({ transactionHistory });
+
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +58,7 @@ function PortfolioSharkFollow() {
 
 
     }
-
+    // console.log({ transactionHistory });
     return (
         <div className="portfolio">
             {userIsPremium ? (
@@ -74,9 +74,9 @@ function PortfolioSharkFollow() {
                                     <th>Shark</th>
                                     <th>Address</th>
                                     <th>Total Assets</th>
-                                    <th>Total Transaction</th>
+                                    {/* <th>Total Transaction</th> */}
                                     <th>24h%</th>
-                                    <th>Actual Growth</th>
+                                    {/* <th>Actual Growth</th> */}
                                     <th>Follow</th>
                                 </tr>
                             </thead>
@@ -96,9 +96,9 @@ function PortfolioSharkFollow() {
                         </table>
                         {sharkFolloweds.length === 0 && <div className="text-center">No data</div>}
                     </div>
-                    {sharkFollowedSelected.transactionsHistory && (
+                    {transactionHistory.length > 0 && (
                         <ChartTrading
-                            dataTransactionHistory={sharkFollowedSelected.transactionsHistory}
+                            dataTransactionHistory={transactionHistory}
                             sharkAddress={sharkFollowedSelected.walletAddress}
                             name={sharkFollowedSelected.sharkId}
                         />
@@ -114,7 +114,7 @@ function PortfolioSharkFollow() {
                     <p style={{ margin: '0px', color: 'rgb(34, 37, 49)', fontSize: '28px', fontWeight: ' 700' }}>
                         Nothing here!
                     </p>
-                    <p style={{ color: 'rgb(128, 138, 157)', padding: "12px" }}>
+                    <p style={{ color: 'rgb(128, 138, 157)', padding: '12px' }}>
                         You can discover and follow shark accounts that interest you! If you update your premium
                         account!
                     </p>

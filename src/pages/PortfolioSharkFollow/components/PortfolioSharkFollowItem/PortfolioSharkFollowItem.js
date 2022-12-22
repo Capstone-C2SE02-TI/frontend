@@ -50,8 +50,8 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
                 }}
             >
                 <td>Shark #{dataSharkFollowed.sharkId}</td>
-                <td >{dataSharkFollowed.walletAddress}</td>
-                <td >{dataSharkFollowed.walletAddress}</td>
+                <td>{dataSharkFollowed.walletAddress}</td>
+                {/* <td >{dataSharkFollowed.walletAddress}</td> */}
                 <td>
                     $
                     {millify(dataSharkFollowed.totalAssets, {
@@ -71,17 +71,15 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
                     <StarYellowIcon />
                 </td>
             </tr>
-            {
-                openModal && (
-                    <ModalConfirm
-                        title={confirmContent.title}
-                        description={confirmContent.description}
-                        modalIsOpen={openModal}
-                        closeModal={closeModalConfirm}
-                        onHandleAction={handleUnFollow}
-                    />
-                )
-            }
+            {openModal && (
+                <ModalConfirm
+                    title={confirmContent.title}
+                    description={confirmContent.description}
+                    modalIsOpen={openModal}
+                    closeModal={closeModalConfirm}
+                    onHandleAction={handleUnFollow}
+                />
+            )}
         </>
     );
 }
