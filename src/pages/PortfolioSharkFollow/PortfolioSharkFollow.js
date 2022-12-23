@@ -87,10 +87,10 @@ function PortfolioSharkFollow() {
                                     .sort((prev, next) => prev.sharkId - next.sharkId)
                                     .map((sharkFollowed) => (
                                         <PortfolioSharkFollowItem
+                                            onChangeSharkSelelected={handleChangeSharkSelelected}
                                             userId={userName.userId}
                                             key={sharkFollowed.sharkId}
                                             dataSharkFollowed={sharkFollowed}
-                                        // onChangeSharkSelelected={onChangeSharkSelelected}
                                         />
                                     ))}
                             </tbody>

@@ -35,8 +35,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
     const handleUnFollow = () => {
         if (confirmContent.type === 'unfollow') {
             dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
-            // onChangeSharkSelelected(dataSharkFollowed.sharkId)
-            closeModalConfirm();
+            onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
     console.log(dataSharkFollowed)
