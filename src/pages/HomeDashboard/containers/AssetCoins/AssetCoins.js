@@ -4,10 +4,12 @@ import AssetCoinBox from '../../components/AssetCoinBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { trendingCoinsSelector } from '~/modules/Discover/selector';
 import { fetchCoinsAndTokensLoss } from '~/modules/HomeDashboard/homeDashboardSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { coinsAndTokensLossSelector } from '~/modules/HomeDashboard/selector';
 import WrapperBox from '../../components/WrapperBox/WrapperBox';
 import { CaretNextIcon } from '~/components/Icons';
+import { useNavigate } from 'react-router-dom';
+import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +17,7 @@ const DISPLAY_COIN_TRENDING = 3;
 // const MARKET_SHOW = 1;
 
 function AssetCoins() {
+
     const dispatch = useDispatch();
 
     const trendingCoins = useSelector(trendingCoinsSelector);
@@ -145,6 +148,7 @@ function AssetCoins() {
                     </WrapperBox> */}
                 </div>
             </div>
+  
         </section>
     );
 }

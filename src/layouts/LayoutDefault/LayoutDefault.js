@@ -96,10 +96,12 @@ function LayoutDefault({ children }) {
             const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress)
             const convertlimmitedAccount = await limmitedAccount.toHexString(16)
             const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
-            setExpriedTime(limmitedAccountTime)
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
+            if (isPremiumUser) {
+                setExpriedTime(limmitedAccountTime)
+                dispatch(saveExpiredTime(limmitedAccountTime));
+            }
             dispatch(saveUserPremium(isPremiumUser));
-            dispatch(saveExpiredTime(limmitedAccountTime));
         };
         onLoad();
         // eslint-disable-next-line react-hooks/exhaustive-deps

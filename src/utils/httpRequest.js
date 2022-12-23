@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpRequest = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: "https://trackscan-be.azurewebsites.net/",
 });
 
 export const get = async (path, options = {}) => {
@@ -9,9 +9,9 @@ export const get = async (path, options = {}) => {
     return response;
 };
 
-export const post = async (path, body, options ) => {
+export const post = async (path, body, options) => {
     const response = await httpRequest.post(path, body, options);
-    return response;    
+    return response;
 };
 
 export default httpRequest;
