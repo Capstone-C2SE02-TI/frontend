@@ -90,6 +90,7 @@ function PortfolioSharkFollow() {
                                             userId={userName.userId}
                                             key={sharkFollowed.sharkId}
                                             dataSharkFollowed={sharkFollowed}
+                                        // onChangeSharkSelelected={onChangeSharkSelelected}
                                         />
                                     ))}
                             </tbody>
