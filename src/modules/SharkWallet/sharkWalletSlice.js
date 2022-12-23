@@ -90,7 +90,7 @@ const sharkWalletSlice = createSlice({
                 const { data } = action.payload;
 
                 state.sharkDetail = data;
-              
+
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
                     if (shark.sharkId === data._doc.sharkId) {
