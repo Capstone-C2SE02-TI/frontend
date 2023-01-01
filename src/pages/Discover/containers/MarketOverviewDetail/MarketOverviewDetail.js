@@ -16,7 +16,7 @@ import {
     tagnameTextSelector,
 } from '~/modules/Discover/selector';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
-import { useDebounced, useOnclickOutSide, useScrollToTop } from '~/hooks';
+import { useDebounced, useFetchInterval, useOnclickOutSide, useScrollToTop } from '~/hooks';
 import WrapperMenu from '~/components/WrapperMenu/WrapperMenu';
 import { Fragment } from 'react';
 import NoData from '~/components/NoData';
@@ -47,7 +47,9 @@ function MarketOverviewDetail() {
     const selectedTagnameClassNames = cx('market-box__category--filter--container', {
         'selected-item': tagNameCurrent,
     });
-
+    useFetchInterval.useFetchCoinsDiscoverInterval();
+    useFetchInterval.useFetchListTagsNameInterval();
+    useFetchInterval.useFetchTrendingCoinsInterval();
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchListTagsName());

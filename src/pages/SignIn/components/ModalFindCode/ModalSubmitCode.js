@@ -58,7 +58,7 @@ function ModalSubmitCode() {
                 <div className={cx('modal-forgot-password')}>
                     <h3 className={cx('modal-heading')}>Check email</h3>
                     <span className={cx('modal-title')}>
-                        We have emailed levanthuan@gmail.com a piece of code. Please check and enter that code here
+                        {`We have emailed ${emailForgot}a piece of code. Please check and enter that code here`}
                     </span>
                     <form onSubmit={handleSubmitCodeOTP}>
                         <div className={cx('modal-body')}>

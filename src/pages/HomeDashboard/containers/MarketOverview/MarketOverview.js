@@ -9,6 +9,7 @@ import { CaretNextIcon } from '~/components/Icons';
 import {  statusCoinDetailSelector } from '~/modules/CoinDetail/selector';
 import { fetchTrendingCoins } from '~/modules/Discover/discoverSlice';
 import { trendingCoinsSelector } from '~/modules/Discover/selector';
+import { useFetchInterval } from '~/hooks';
 const cx = classNames.bind(styles);
 
 
@@ -18,6 +19,7 @@ function MarketOverview() {
     const trendingCoins = useSelector(trendingCoinsSelector);
     const status = useSelector(statusCoinDetailSelector);
 
+    useFetchInterval.useFetchTrendingCoinsInterval();
     useEffect(() => {
         dispatch(fetchTrendingCoins());
     }, [dispatch]);

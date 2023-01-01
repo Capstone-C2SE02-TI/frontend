@@ -6,7 +6,7 @@ import styles from './ModalFindCode.module.scss';
 import { useState, useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCreateNewPassword } from '~/modules/user/auth/authSlice';
+import { fetchCreateNewPassword, resetAllPassword } from '~/modules/user/auth/authSlice';
 import { resetPasswordStatusSelector, statusLoadingSelector } from '~/modules/user/auth/selectors';
 import { SignIn } from '~/pages';
 import { toast } from 'react-toastify';
@@ -36,8 +36,9 @@ function ResetPassword() {
 
     useEffect(() => {
         if (resetPasswordStatus.successfully === 'successfully') {
-            toast.success(resetPasswordStatus.successfully)
+            toast.success("Reset password successfully")
             navigate('/sign-in')
+            dispatch(resetAllPassword());
         }
     }, [navigate, resetPasswordStatus.successfully])
 

@@ -157,7 +157,7 @@ function Signup() {
                             ref={inputPhoneNumberRef}
                             type="number"
                             name="phoneNumber"
-                            placeholder="+84*************"
+                            placeholder="Enter your phone number"
                             onChange={handleChange}
                             value={formValues.phoneNumber}
                         />

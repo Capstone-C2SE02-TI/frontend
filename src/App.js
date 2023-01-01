@@ -27,16 +27,17 @@ import SwapToken from './pages/SwapToken';
 import { ToastContainer } from 'react-toastify';
 import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
-import { useCoinsFetchInterval } from '~/hooks';
 import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
+import { useFetchInterval } from './hooks';
+
+
 Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
-    useCoinsFetchInterval();
-
+ 
     return (
         <div className="app">
             <ToastContainer
