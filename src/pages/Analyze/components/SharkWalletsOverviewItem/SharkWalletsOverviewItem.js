@@ -79,7 +79,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
                 })}
             </td>
             <td onClick={handleSelectSharkAndSharkAddress} className={cx(classNamesStatusCoin24h)}>
-                {data.percent24h === 100 ? '0%' : data.percent24h.toFixed(3) + '%'}
+                {data.percent24h === 100 || data.percent24h === 0 ? '0%' : data.percent24h.toFixed(3) + '%'}
             </td>
             {data.isFollowed ? (
                 <td
