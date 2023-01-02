@@ -5,7 +5,7 @@ import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
 import styles from './BuyLevel.module.scss';
 const cx = classNames.bind(styles);
 
-function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice }) {
+function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) {
     const [approve, setApprove] = useState(false);
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
@@ -23,7 +23,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice }) {
                 </h2>
                 <div className={cx('etiquet-price')}>
                     <p>
-                        {premiumPrice.price}TI / {premiumPrice.time} Month
+                        {times.price}TI / {times.quantityTime} {times.type}
                     </p>
                     <div />
                 </div>

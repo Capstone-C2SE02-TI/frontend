@@ -80,7 +80,7 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
                     })}
                 </td>
                 <td>
-                    ${numberWithCommas(data.total)}({((data.total / totalAssetCrypto) * 100).toFixed(3)}%)
+                    ${numberWithCommas(data.total)}({((data.total / totalAssetCrypto) * 100).toFixed(4)}%)
                 </td>
             </tr>
 

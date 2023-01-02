@@ -39,6 +39,26 @@ function BuyToken() {
         },
     ];
 
+    const TIME_UPGRADE_PRICES = [
+        {
+            type: 'month',
+            quantityTime: '1',
+            price: 1
+        },
+        {
+            type: 'month',
+            quantityTime: '6',
+            price: 5
+
+        },
+        {
+            type: 'year',
+            quantityTime: '1',
+            price: 10
+
+        }
+    ]
+
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
     const dispatch = useDispatch();
@@ -201,6 +221,7 @@ function BuyToken() {
                     return (
                         <Col xl={8} lg={12} md={24} key={index}>
                             <BuyLevel
+                                times={TIME_UPGRADE_PRICES[index]}
                                 premiumPrice={premiumPrice}
                                 handleApprove={handleApprove}
                                 handleUpgradePremium={upgradePremium}

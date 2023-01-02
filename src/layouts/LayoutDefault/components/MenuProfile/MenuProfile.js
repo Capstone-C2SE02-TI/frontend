@@ -92,7 +92,7 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
                                 className={cx('user-avatar')}
                             />
                             <div>
-                                <p className={cx('user-name')}> {userInfo.fullName} </p>
+                                <p className={cx('user-name')}> {userInfo.username} </p>
                                 <p className={cx('user-role')}> Expried Time Premium</p>
                                 <p className={cx('user-email')}> {expiredTime} </p>
                             </div>

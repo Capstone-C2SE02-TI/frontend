@@ -40,17 +40,17 @@ function DoughnutChart({ cryptosSharkWallet }) {
         if (cryptosSharkWallet.length > 20) {
             otherPercentLabel = cryptosSharkWalletAcc.slice(21, cryptosSharkWallet.length).reduce((percent, crypto) => {
                 return (crypto.total / totalAssetCrypto) * 100 + percent;
-            }, 0).toFixed(3)
+            }, 0).toFixed(4)
             otherPercentLabel = `Other ${otherPercentLabel}%`;
         }
 
         const labelPercent = cryptosSharkWalletAcc.slice(0, 20).map((crypto) => {
-            const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(3);
+            const percent = ((crypto.total / totalAssetCrypto) * 100).toFixed(4);
             return ` ${crypto.symbol.toUpperCase()} ${percent}%`;
         });
 
         return otherPercentLabel !== 0 ? [...labelPercent, otherPercentLabel] : labelPercent;
- 
+
     }, [cryptosSharkWallet, totalAssetCrypto]);
     // console.log(labelsDoughnut);
     // console.log(dataDoughnut);
