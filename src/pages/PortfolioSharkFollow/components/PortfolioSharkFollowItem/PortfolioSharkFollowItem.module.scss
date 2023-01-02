@@ -1,9 +1,32 @@
 
 .portfolio-shark-follow__tr {
+    &:last-of-type {
+        border-bottom: 2px solid #03a9f4;
+    }
     td {
-        border-right: 1px solid #eee;
-    }
+        border-bottom: 1px solid #dddddd;
+        &:first-child {
+            color: #7b0cff;
+            font-weight: bold;
+        }
+        &:nth-child(3) {
+            font-weight: bold;
+        }
+    } 
     &:nth-child(2n) {
-        background-color: #eee;
+        background-color: #f3f3f3;
     }
+    &.active {
+        td {
+            color: #03a9f4;
+        }
+    }
+}
+
+.increase {
+    color: #21ce66;
+}
+
+.decrease {
+    color: red;
 }

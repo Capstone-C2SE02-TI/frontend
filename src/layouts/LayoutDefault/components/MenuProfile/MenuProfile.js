@@ -15,13 +15,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { expiredTimeSelector } from '~/modules/user/auth/selectors';
+import images from '~/assets/images';
 
 const cx = classNames.bind(styles);
 
 function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
     const [history, setHistory] = useState([{ data: items }]);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
-const expiredTime = useSelector(expiredTimeSelector);
+    const expiredTime = useSelector(expiredTimeSelector);
     const current = history[history.length - 1];
 
     const renderItems = () => {
@@ -85,14 +86,13 @@ const expiredTime = useSelector(expiredTimeSelector);
                         <div className="d-flex justify-content-between" style={{ marginTop: '30px' }}>
                             <Image
                                 src={
-                                    userInfo.avatar ||
-                                    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAO/SURBVHgBzVhddtJQEJ65oW+eGndAVyA+9w92UN+txRUUVkBZQWEFgvX42nYFRDh9FldgdmCs+mLJHWeSUEObn3tp6ul3TkohQ+7HnTsz3wzCmnjzbNZERQ2FuA9ADQB0+WM3uR3w5ctFpL9qrbyPv3Y9WANoY9x2J67WtWNE6KTImC7lA4GH6qY/Clq+8bdMjIQYaacHiB2oAoQjU6KlBN9uzmTHTsB6x0qX9rXW/bOfe6NCq6KbR5vT08p2LQ+Eg/H1TjfvdibByKVUO+d/m/B/4CEuXrPLg7s3VJa1HTkK+Aj0+WqNf+yiXIjqFRGNwRzNZM17uLeDdm4lHzFs5R129kSdyJnwMnUwQYa7VwgeutO2InwPhmC3bJVFYkyy9gUMg0wTdc+u9wbL9yr9IEWqB6bgVGGSJsSGk/UQDMGJvycxcPv+dj29weSoDobgPGa+qFIemMONuSTryJ/EDd8sHgISDDb2R89nZGPPx+eFRHW0g2nGTwVcv6NAjV2M9vmu7c6a5raTBliCU9WxvCpRJTZnbwkuU01TW/bQMdjDlU3g82u+UBryC+XsltlFNkhtWAOhjuScegnrgcvhxqSIZBx8GxNYExyFTeTokiRqfUZWwDnxJsThp9/bc3krx0Yp2F9PN65Q9IXgd6hcSlWGKM08VXICV8ETRw3iBqeCXSSfz0yi58g1VjDFCGqi55KOzIaMfGeORJegHA/gj58lNtvuVQN02KSo84MDsEcUJOfmX2b9RzAEFY6yCBUhVijOARH0THeXRe8lHm5OO5wMT0tMWTUr7sJ2BlAB2u60Q1S2phDUfeUonEMpOVHN1ZATjIK9gbQFEJ//XIhMU6Mg6vhzDVFDl91Z8iPsMQq258VClnzhFsutIkMnvIBHAuuAfK9QLHJVmWGonTY8EniMcpR3TyYP8hoRlIgkic4MxD3C1cNqdQZEIyYTi/tI9Tu3lUSphRhnnUVWLXpSJUkhxy2GqJyM/MupLNm9FYKyi4jUz3lmRFJSEjwQMuvJJxcF5cpQCTMewCkA8hWwxWQqjaQxk567mWfD6w45clc2IbMz4+oygfLRxwUr3nHNCb28qiLVY7GoNRxHqkfp8zzuFFt3P6xqeCR5kgeU+I8oytTVWAjnDo8Ke9tSd1eALLemUagHP1zvdjhw3sVSqmpICcVuETlBqWDlujmSWmw5TiuE7Bo/c8ukvtsO0etaOye8wL69II12jIvBYmAj1awIpiFNtTTvSdtaj5v/pfAVQQtLUfuZy9E8ESXW+AvH8r7pUvamxQAAAABJRU5ErkJggg=='
+                                    userInfo.avatar || images.userAvatar
                                 }
                                 alt=""
                                 className={cx('user-avatar')}
                             />
                             <div>
-                                <p className={cx('user-name')}> {userInfo.username} </p>
+                                <p className={cx('user-name')}> {userInfo.fullName} </p>
                                 <p className={cx('user-role')}> Expried Time Premium</p>
                                 <p className={cx('user-email')}> {expiredTime} </p>
                             </div>
@@ -140,7 +140,7 @@ const expiredTime = useSelector(expiredTimeSelector);
             render={renderResult}
             onHide={handleResetToFirstPage}
             arrow={true}
-            // visible
+        // visible
         >
             {children}
         </Tippy>

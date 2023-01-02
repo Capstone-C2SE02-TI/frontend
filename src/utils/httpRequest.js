@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpRequest = axios.create({
-    baseURL: "https://trackscan-be.azurewebsites.net/",
+    baseURL: "http://localhost:4000/",
 });
 
 export const get = async (path, options = {}) => {

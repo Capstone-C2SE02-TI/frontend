@@ -7,8 +7,9 @@
     font-size: 28px;
     line-height: 36px;
     color: #352e5b;
-    margin-top: 20px;
+    margin-top: 0;
     margin-bottom: 18px;
+
     h2 {
         font-size: 28px;
         text-align: center;
@@ -62,6 +63,7 @@
     background: none;
     color: #8b8ba7;
 }
+
 /* styling of whole input container */
 .form {
     --timing: 0.3s;
@@ -77,12 +79,12 @@
     height: var(--height-of-input);
     display: flex;
     align-items: center;
-    padding: 22px;
     border-radius: var(--border-radius);
     transition: border-radius 0.5s ease;
     background: var(--input-bg, #fff);
     border: 3px solid #eee;
     margin: 12px 0;
+    padding: 10px;
 }
 
 .input {
@@ -128,12 +130,83 @@ input:focus {
     visibility: hidden;
 }
 
-input:not(:placeholder-shown) ~ .reset {
+input:not(:placeholder-shown)~.reset {
     opacity: 1;
     visibility: visible;
 }
 
 .form svg {
     width: 17px;
-    margin-top: 3px;
+    margin-top: 9px;
+}
+
+.common-filter-range {
+    display: flex;
+    align-items: center;
+}
+
+.box-content__shark {
+    padding: 60px;
+    background: linear-gradient(55deg, #03a9f4, #a762be);
+    margin-top: 18px;
+    border-radius: 8px;
+    width: 61%;
+    margin-left: 1%;
+
+    h2 {
+        text-align: center;
+        font-size: 18;
+        font-weight: bold;
+        color: #fff;
+    }
+}
+
+.Marquee {
+    background: linear-gradient(-135deg, #008ed9, #8b00db);
+    width: 85vw;
+    box-sizing: border-box;
+    padding: 1px;
+    color: white;
+    font-weight: 200;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    &-content {
+        display: flex;
+        animation: marquee 10s linear infinite running;
+
+        &:hover {
+            animation-play-state: paused;
+        }
+    }
+
+
+    &-tag {
+        width: 200px;
+        margin: 0.5em;
+        padding: .5em;
+        background: rgba(255, 255, 255, .1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .2s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, .5);
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translate(-50%);
+    }
 }

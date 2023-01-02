@@ -13,7 +13,7 @@ function Banner() {
         <section className={cx('banner')}>
             <Parallax className={cx('banner-parallax')} bgImage={images.banner} bgImageAlt="the cat" strength={800}>
                 <div className={cx('banner-content')}>
-                    <h2>Easy Invest With Another People</h2>
+                    <h2>Easy Invest To Everyone</h2>
                     <p>
                         First-ever Crypto analyzing platform where you can track and invest following thousands of successful investors
                     </p>

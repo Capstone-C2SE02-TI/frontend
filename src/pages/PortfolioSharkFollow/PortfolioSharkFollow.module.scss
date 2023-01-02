@@ -4,15 +4,39 @@
         font-weight: 600;
         font-size: 30px;
         text-align: center;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #07a7f2;
+        background: linear-gradient(55deg, #03a9f4, #a762be);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
+    
 }
 
 .portfolio-table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    margin: 0 auto;
+    font-family: sans-serif;
+    width: 99%;
+    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+    margin-top: 15px;
+    td {
+        padding: 10px 12px;
+    }
     thead {
+        tr {
+            background: linear-gradient(55deg, #03a9f4, #a762be);
+            color: #ffffff;
+            text-align: left;
+            &:hover {
+                background: linear-gradient(55deg, #03a9f4, #a762be);
+            }
+        }
         th {
             text-align: center;
             text-transform: uppercase;
-            background-color: #eee;
+            padding: 12px 15px;
 
             &:nth-child(2) {
                 text-align: center;

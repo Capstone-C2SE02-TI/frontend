@@ -288,7 +288,7 @@ function LayoutDefault({ children }) {
                         </div>
                     ) : (
                         <div>
-                            <Button outline onClick={() => navigate('/sign-in')}>
+                            <Button className={cx("btn_signIn")} outline onClick={() => navigate('/sign-in')}>
                                 Sign In
                             </Button>
                             <Button primary onClick={() => navigate('/sign-up')}>
