@@ -36,6 +36,7 @@
     padding: 0.2rem 1.2rem;
     border-radius: 5px 0 0 5px;
     height: 60px;
+    background: linear-gradient(55deg, #03a9f4, #a762be);
 }
 
 .etiquet-price p {
@@ -44,7 +45,7 @@
     display: flex;
     font-size: 1.9rem;
     font-weight: 600;
-    color: #4d4d4d;
+    color: #fff;
 }
 
 .etiquet-price div {

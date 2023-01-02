@@ -8,7 +8,7 @@ import PortfolioSharkFollowItem from './components/PortfolioSharkFollowItem/Port
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import ChartTrading from './components/ChartTrading/ChartTrading';
-import { userIsPremiumSelector } from '~/modules/user/auth/selectors';
+import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -22,11 +22,13 @@ function PortfolioSharkFollow() {
 
     const sharkFolloweds = useSelector(sharkFollowedSelector);
     const userName = JSON.parse(localStorage.getItem('userInfo'));
-
+    const userInfo = useSelector(userInfoSelector);
     const sharkFollowedSelected = useSelector(sharkFollowedSelectedSelector);
     const transactionHistory = useSelector(transactionHistorySelector);
     const loadingShark = useSelector(sharkLoadingSelector);
     const loadingTransaction = useSelector(loadingTransactionSelector);
+
+    console.log(userInfo)
 
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));
@@ -65,7 +67,7 @@ function PortfolioSharkFollow() {
                 <div>
                     <div>
                         <div className={cx('portfolio-h1')}>
-                            <h1>Portfolio: {userName.username ? userName.username : 'No data'}</h1>
+                            <h1>Portfolio: {userInfo.fullName ? userInfo.fullName : 'No data'}</h1>
                         </div>
                         {/* <DoughnutChart classNames={cx('chart-shark')} cryptosSharkWallet={sharkCrypto} /> */}
                         <table className={cx('portfolio-table')}>
@@ -74,9 +76,7 @@ function PortfolioSharkFollow() {
                                     <th>Shark</th>
                                     <th>Address</th>
                                     <th>Total Assets</th>
-                                    {/* <th>Total Transaction</th> */}
                                     <th>24h%</th>
-                                    {/* <th>Actual Growth</th> */}
                                     <th>Follow</th>
                                 </tr>
                             </thead>
@@ -85,12 +85,13 @@ function PortfolioSharkFollow() {
                                 {sharkFolloweds
                                     .slice()
                                     .sort((prev, next) => prev.sharkId - next.sharkId)
-                                    .map((sharkFollowed) => (
+                                    .map((sharkFollowed, index) => (
                                         <PortfolioSharkFollowItem
                                             onChangeSharkSelelected={handleChangeSharkSelelected}
                                             userId={userName.userId}
                                             key={sharkFollowed.sharkId}
                                             dataSharkFollowed={sharkFollowed}
+                                            isActiveDefault={index === 0}
                                         />
                                     ))}
                             </tbody>

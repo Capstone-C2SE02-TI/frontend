@@ -9,7 +9,7 @@ export const useFetchCoinsDiscoverInterval = () => {
         const interval = setInterval(() => {
             dispatch(fetchCoinsDiscover());
             //fetch each 2 minutes
-        }, 1 * 60 * 1000);
+        }, 3 * 60 * 1000);
 
         return () => clearInterval(interval);
     }, [dispatch]);
@@ -23,7 +23,7 @@ export const useFetchTrendingCoinsInterval = () => {
         const interval = setInterval(() => {
             dispatch(fetchTrendingCoins());
             //fetch each 1 minutes
-        }, 1 * 60 * 1000);
+        }, 3 * 60 * 1000);
 
         return () => clearInterval(interval);
     }, [dispatch]);
@@ -38,7 +38,7 @@ export const useFetchListTagsNameInterval = () => {
         const interval = setInterval(() => {
             dispatch(fetchListTagsName());
             //fetch each 1 minutes
-        }, 1 * 60 * 1000);
+        }, 3 * 60 * 1000);
 
         return () => clearInterval(interval);
     }, [dispatch]);

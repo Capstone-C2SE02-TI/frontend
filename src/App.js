@@ -37,7 +37,7 @@ Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
- 
+
     return (
         <div className="app">
             <ToastContainer
@@ -154,7 +154,7 @@ function App() {
                     <Route
                         path={configs.routes.tokenDetailL}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <TokenDetail />

@@ -12,6 +12,7 @@ import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
+import { transactionSharkService } from '~/services';
 
 const DOLLAR = 10000000;
 
@@ -21,10 +22,11 @@ function Analyze() {
     const [rangeEnd, setRangeEnd] = useState(100 * DOLLAR);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
     const [openModalError, setOpenModalError] = useState(false);
-
     const [modalSucceedContent, setModalSucceedContent] = useState('');
     const [sharkAddressText, setSharkAddressText] = useState('');
-
+    const [totalTransaction, setTotalTransaction] = useState('');
+    const [totalUser, setTotalUser] = useState('');
+    const [totalShark, setShark] = useState('');
     const userInfoDetail = useSelector(userInfoSelector);
 
     const dispatch = useDispatch();
@@ -36,6 +38,7 @@ function Analyze() {
     const dataFollow = useSelector(sharkDetailSelector);
 
     useEffect(() => {
+        getMarquee();
         dispatch(
             sharkWalletSlice.actions.actionFilterSharkTotalAssets({
                 startTotalAssets: rangeStart,
@@ -76,6 +79,18 @@ function Analyze() {
         dispatch(fetchAddNewShark({ walletAddress: sharkAddressText, userId: userInfoDetail.userId }));
         setSharkAddressText('')
     };
+
+    const getMarquee = () => {
+        const fetchApi = async () => {
+            const totalTransaction = await transactionSharkService.getTotalTransaction();
+            const totalUser = await transactionSharkService.getTotalUser();
+            const totalShark = await transactionSharkService.getTotalShark();
+            setTotalTransaction(totalTransaction.data)
+            setTotalUser(totalUser.data)
+            setShark(totalShark.data)
+        };
+        fetchApi();
+    }
 
     const renderFilterRange = () => {
         return (
@@ -146,14 +161,21 @@ function Analyze() {
                         tooltip={{ formatter: formatter }}
                     />
                 </div>
+                <div className={cx('box-content__shark')}>
+                    <h2>SHARK WALLET INFORMATION</h2>
+                </div>
             </div>
         );
     };
 
     return (
         <section className={cx('shark-wallet')}>
+            <marquee className={cx('Marquee')}>
+                <div className={cx("Marquee-tag")}><b>Total of transaction: </b> {" " + totalTransaction}</div>
+                <div className={cx("Marquee-tag")}><b>Total investors: </b> {totalUser}</div>
+                <div className={cx("Marquee-tag")}><b>Total sharks: </b> {totalShark}</div>
+            </marquee>
             <div className={cx('shark-wallet__content')}>
-                <h2>SHARK WALLETS</h2>
                 {renderFilterRange()}
             </div>
             <Row>

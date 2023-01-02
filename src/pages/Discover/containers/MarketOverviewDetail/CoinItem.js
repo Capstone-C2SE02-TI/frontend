@@ -16,7 +16,7 @@ function coinItem({ index, data, increaseStatus24h, increaseStatus7d }) {
     const navigate = useNavigate();
     const classNamesStatusCoin24h = cx(increaseStatus24h ? 'increase' : 'reduce');
     const classNamesStatusCoin7h = cx(increaseStatus7d ? 'increase' : 'reduce');
-    console.log(data.pricesLast1Month[0]);
+
     return (
         <tr key={index} onClick={() => navigate(`/discover/detail/${data.symbol}`)}>
             <td>{index + 1}</td>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { StarYellowIcon } from '~/components/Icons';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,19 +8,19 @@ import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
 import millify from 'millify';
 import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
+import { useOnclickOutSide } from '~/hooks';
+import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSelelected }) {
+function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSelelected, isActiveDefault }) {
 
     const [sharkACtive, setSharkActive] = useState()
 
     const [openModal, setOpenModal] = useState(false)
     const [confirmContent, setConfirmContent] = useState({});
-
+    const [isActiveShark, setIsActiveShark] = useState(isActiveDefault);
     const dispatch = useDispatch();
-
-    // console.log(dataSharkFollowed)
 
     const openModalConfirm = (title, description, type) => {
         setOpenModal(true)
@@ -38,16 +38,25 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
             onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
-    console.log(dataSharkFollowed)
+    const refParentPortfolio = useRef()
+    const refChildrenPortfolio = useRef()
+    useOnclickOutSide(refChildrenPortfolio, (e) => {
+        if (!refParentPortfolio.current.contains(e.target)) {
+            setIsActiveShark(false);
+        }
+    });
+    const portfolioItem__tr = cx('portfolio-shark-follow__tr', { active: isActiveShark })
     return (
         <>
             <tr
-                className={cx('portfolio-shark-follow__tr')}
+                ref={refParentPortfolio}
+                className={portfolioItem__tr}
                 onClick={() => {
                     dispatch(saveSharkFollowedSelected(dataSharkFollowed));
+                    setIsActiveShark(true)
                 }}
             >
-                <td>Shark #{dataSharkFollowed.sharkId}</td>
+                <td ref={refChildrenPortfolio}>Shark #{dataSharkFollowed.sharkId}</td>
                 <td>{dataSharkFollowed.walletAddress}</td>
                 {/* <td >{dataSharkFollowed.walletAddress}</td> */}
                 <td>
@@ -57,9 +66,12 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
                         decimalSeparator: ',',
                     })}
                 </td>
-                {/* <td>{dataSharkFollowed.transactionsHistory.length}</td> */}
-                <td>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
-                {/* <td></td> */}
+                {
+                    dataSharkFollowed.percent24h.toFixed(3) > 0 ?
+                        <td className={cx("increase")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td> :
+                        <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
+                }
+
                 <td
                     onClick={() => {
                         openModalConfirm('Follow shark', 'Are you sure unfollow this shark?', 'unfollow');

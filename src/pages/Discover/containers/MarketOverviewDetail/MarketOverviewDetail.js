@@ -143,26 +143,9 @@ function MarketOverviewDetail() {
                         </div>
                     )}
                 </div>
-                {/* <div className={cx('spread')}></div> */}
             </div>
         );
     };
-
-    // const renderListTabItemFilter = () => {
-    //     return (
-    //         <div className={cx('list-tab-item-filter')}>
-    //             <div>
-    //                 <button>Các loại tiền điện tử</button>
-    //             </div>
-    //             <div>
-    //                 <button>Các loại tiền điện tử</button>
-    //             </div>
-    //             <div>
-    //                 <button>Các loại tiền điện tử</button>
-    //             </div>
-    //         </div>
-    //     );
-    // }
 
     const renderSearch = () => {
         return (
@@ -230,7 +213,6 @@ function MarketOverviewDetail() {
             </div>
             <div className={cx('market-box')}>
                 {renderFilterCategory()}
-                {/* {renderListTabItemFilter()} */}
                 {renderSearch()}
             </div>
             <nav className={cx('statisticsOverview')}>
