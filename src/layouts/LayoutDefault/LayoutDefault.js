@@ -27,6 +27,8 @@ import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 
@@ -55,7 +57,7 @@ function LayoutDefault({ children }) {
     const [signer, setSigner] = useState('');
     const [signerAddress, setSignerAddress] = useState('');
     const [isConnecting, setIsConnecting] = useState(false);
-    const [expriedTime, setExpriedTime] = useState('')
+    const [expriedTime, setExpriedTime] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -63,13 +65,29 @@ function LayoutDefault({ children }) {
     const statusSidebarSelector = useSelector(SidebarSelector);
     const userInfo = useSelector(userInfoSelector);
     const smartContractInfo = useSelector(smartContractInfoSelector);
+    const walletAddress = useSelector(getAddressMetaMask);
 
     useEffect(() => {
-        console.log('provider');
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
         };
+        window.ethereum.on('accountsChanged', function (accounts) {
+            // Time to reload your interface with accounts[0]!
+           
+            dispatch(setInformationMetaMask(accounts[0]));
+        });
+
+        async function isConnected() {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length) {
+                dispatch(setInformationMetaMask(accounts[0]));
+                console.log(`You're connected to: ${accounts[0]}`);
+            } else {
+                console.log('Metamask is not connected');
+            }
+        }
+        isConnected();
         onLoad();
     }, []);
 
@@ -92,13 +110,12 @@ function LayoutDefault({ children }) {
                 FUND_SUBSCRIPTION_ABI,
                 provider,
             );
-            // console.log(contractPremium)
-            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress)
-            const convertlimmitedAccount = await limmitedAccount.toHexString(16)
+            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
+            const convertlimmitedAccount = await limmitedAccount.toHexString(16);
             const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
             const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
             if (isPremiumUser) {
-                setExpriedTime(limmitedAccountTime)
+                setExpriedTime(limmitedAccountTime);
                 dispatch(saveExpiredTime(limmitedAccountTime));
             }
             dispatch(saveUserPremium(isPremiumUser));
@@ -120,19 +137,19 @@ function LayoutDefault({ children }) {
     const userIsPremium = useSelector(userIsPremiumSelector);
 
     useEffect(() => {
-        if (signerAddress) {
+        if (walletAddress) {
             //show balance in wallet
             const loadCommon = async () => {
                 setIsConnecting(true);
 
-                const balance = await loadBalance(signerAddress);
+                const balance = await loadBalance(walletAddress);
                 //have ratio to convert eth to TI
                 const ratio = await loadRatio();
                 //load premium price
                 const premiumPrices = await loadPremiumPrices();
                 dispatch(
                     authSlice.actions.saveSmartContractInfo({
-                        walletAddress: signerAddress,
+                        walletAddress: walletAddress,
                         balance: balance,
                         ratio: ratio,
                         premiumPrices: premiumPrices,
@@ -142,7 +159,7 @@ function LayoutDefault({ children }) {
             loadCommon();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [signerAddress]);
+    }, [walletAddress]);
 
     const loadBalance = async (signerAddress) => {
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
@@ -163,7 +180,11 @@ function LayoutDefault({ children }) {
         const premium1Month = await contractPremium.premiumLevel(1);
         const premium6Month = await contractPremium.premiumLevel(2);
         const premium1Year = await contractPremium.premiumLevel(3);
-        return [{ price: premium1Month[1], time: 1 }, { price: premium6Month[1], time: 6 }, { price: premium1Year[1], time: 12 }];
+        return [
+            { price: premium1Month[1], time: 1 },
+            { price: premium6Month[1], time: 6 },
+            { price: premium1Year[1], time: 12 },
+        ];
     };
 
     const sidebarClassName = cx({
@@ -219,7 +240,7 @@ function LayoutDefault({ children }) {
     };
 
     const renderConnectMetaMask = () => {
-        if (userIsPremium === '')
+        if (typeof walletAddress === 'undefined' || walletAddress === '')
             return (
                 <ConnectButton
                     provider={provider}
@@ -251,10 +272,15 @@ function LayoutDefault({ children }) {
                         </button>
                     </Tippy>
 
-                    {userId ? (
+                    {
                         <div className={cx('user-profile__right')}>
                             {renderConnectMetaMask()}
-                            <MenuProfile items={userMenu} onChange={handleOnChange} userInfo={userInfo} limmitedAccountTime={expriedTime}>
+                            <MenuProfile
+                                items={userMenu}
+                                onChange={handleOnChange}
+                                userInfo={userInfo}
+                                limmitedAccountTime={expriedTime}
+                            >
                                 <div className={cx('user-profile')}>
                                     {userInfo ? (
                                         <img
@@ -268,7 +294,7 @@ function LayoutDefault({ children }) {
                                     )}
                                     <div className={cx('user-profile__text')}>
                                         <span>Hi, </span>
-                                        <p>{userInfo.fullName || userInfo.username || 'Investor'}</p>
+                                        <p>{walletAddress ? walletAddress.slice(0, 10) + '...' : '...'}</p>
                                         <svg
                                             stroke="currentColor"
                                             fill="currentColor"
@@ -286,16 +312,7 @@ function LayoutDefault({ children }) {
                                 </div>
                             </MenuProfile>
                         </div>
-                    ) : (
-                        <div>
-                            <Button className={cx("btn_signIn")} outline onClick={() => navigate('/sign-in')}>
-                                Sign In
-                            </Button>
-                            <Button primary onClick={() => navigate('/sign-up')}>
-                                Sign Up
-                            </Button>
-                        </div>
-                    )}
+                    }
                 </div>
                 {children}
             </div>

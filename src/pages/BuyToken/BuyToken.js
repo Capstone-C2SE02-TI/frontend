@@ -72,7 +72,6 @@ function BuyToken() {
     }, []);
     const onLoadExpriredTime = async () => {
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
-        // console.log(contractPremium)
         const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
         const convertlimmitedAccount = await limmitedAccount.toHexString(16);
         const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
@@ -106,7 +105,6 @@ function BuyToken() {
                         const approveTokenStatus = await axios.get(
                             `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
                         );
-                        console.log({ approveTokenStatus: approveTokenStatus.data });
                         if (approveTokenStatus.data.result.isError === '0') {
                             await onLoadExpriredTime();
                             toast.dismiss();

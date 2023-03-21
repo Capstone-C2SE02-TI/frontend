@@ -13,11 +13,9 @@ function MenuItem({ icon, title, to, key, isPremium, requiredPremium =false }) {
 
     const handleClick1 = (e) => {
         if (isPremium) {
-            // console.log('can premium');
             setOpenModalNotify(true);
             e.preventDefault();
         } else {
-            // console.log('ko can premium');
         }
     };
     const navigate = useNavigate();

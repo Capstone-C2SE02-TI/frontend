@@ -10,7 +10,6 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) 
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
     const handleToggleApprove = () => {
-        console.log('approve');
         setApprove(true);
     };
 

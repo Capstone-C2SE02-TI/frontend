@@ -66,8 +66,6 @@ function TradeItem({ refChild, coinInfoData, historyData }) {
                 return { x: date, y: data.value / 10000000 };
             });
     }, []);
-console.log(datasetsWithDraw);
-console.log(datasetsDeposit);
     return (
         <tr style={{ backgroundColor: '#FFFFFF' }} ref={refChild}>
             <td colSpan="4" style={{ padding: '0' }}>
