@@ -29,6 +29,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
+import { useCallback } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -58,6 +59,8 @@ function LayoutDefault({ children }) {
     const [signerAddress, setSignerAddress] = useState('');
     const [isConnecting, setIsConnecting] = useState(false);
     const [expriedTime, setExpriedTime] = useState('');
+    const [isNotExistMeta, setIsNotExistMeta] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -68,28 +71,27 @@ function LayoutDefault({ children }) {
     const walletAddress = useSelector(getAddressMetaMask);
 
     useEffect(() => {
-        const onLoad = async () => {
-            const provider = await new ethers.providers.Web3Provider(window.ethereum);
-            await setProvider(provider);
-        };
-        window.ethereum.on('accountsChanged', function (accounts) {
-            // Time to reload your interface with accounts[0]!
-           
-            dispatch(setInformationMetaMask(accounts[0]));
-        });
-
-        async function isConnected() {
-            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-            if (accounts.length) {
-                dispatch(setInformationMetaMask(accounts[0]));
-                console.log(`You're connected to: ${accounts[0]}`);
-            } else {
-                console.log('Metamask is not connected');
+        if (!isNotExistMeta) {
+            const onLoad = async () => {
+                const provider = await new ethers.providers.Web3Provider(window.ethereum);
+                await setProvider(provider);
+                window.ethereum.on('accountsChanged', function (accounts) {
+                    // Time to reload your interface with accounts[0]!
+                    dispatch(setInformationMetaMask(accounts[0]));
+                    setIsConnecting(false);
+                });
+            };
+            async function isConnected() {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length) {
+                    dispatch(setInformationMetaMask(accounts[0]));
+                } else {
+                }
             }
+            isConnected();
+            onLoad();
         }
-        isConnected();
-        onLoad();
-    }, []);
+    }, [isNotExistMeta]);
 
     useEffect(() => {
         if (userId) {
@@ -98,29 +100,33 @@ function LayoutDefault({ children }) {
     }, [dispatch, userId]);
 
     const getSigner = async (provider) => {
+        console.log(provider);
         provider.send('eth_requestAccounts', []);
         const signer = provider.getSigner();
         setSigner(signer);
     };
 
     useEffect(() => {
-        const onLoad = async () => {
-            const contractPremium = await new ethers.Contract(
-                FUND_SUBSCRIPTION_ADDRESS,
-                FUND_SUBSCRIPTION_ABI,
-                provider,
-            );
-            const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
-            const convertlimmitedAccount = await limmitedAccount.toHexString(16);
-            const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
-            const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
-            if (isPremiumUser) {
-                setExpriedTime(limmitedAccountTime);
-                dispatch(saveExpiredTime(limmitedAccountTime));
-            }
-            dispatch(saveUserPremium(isPremiumUser));
-        };
-        onLoad();
+        if (smartContractInfo.walletAddress) {
+            const onLoad = async () => {
+                const contractPremium = await new ethers.Contract(
+                    FUND_SUBSCRIPTION_ADDRESS,
+                    FUND_SUBSCRIPTION_ABI,
+                    provider,
+                );
+                const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
+                const convertlimmitedAccount = await limmitedAccount.toHexString(16);
+                const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
+                const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
+                if (isPremiumUser) {
+                    setExpriedTime(limmitedAccountTime);
+                    dispatch(saveExpiredTime(limmitedAccountTime));
+                }
+                dispatch(saveUserPremium(isPremiumUser));
+            };
+            onLoad();
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [smartContractInfo.walletAddress]);
 
@@ -140,6 +146,7 @@ function LayoutDefault({ children }) {
         if (walletAddress) {
             //show balance in wallet
             const loadCommon = async () => {
+                console.log({ isConnecting });
                 setIsConnecting(true);
 
                 const balance = await loadBalance(walletAddress);
@@ -199,7 +206,13 @@ function LayoutDefault({ children }) {
         dispatch(HomeDashboardSlice.actions.actionSidebar());
     };
 
+    const [withCurrent, setWidthCurrent] = useState(window.innerWidth);
     useEffect(() => {
+        if (withCurrent < 1200) {
+            setWidthCurrent(withCurrent);
+            setResize(true);
+        }
+
         const handleResize = (e) => {
             if (window.innerWidth < 1200) {
                 setResize(true);
@@ -239,6 +252,10 @@ function LayoutDefault({ children }) {
         }
     };
 
+    const handleSetStatusMeta = useCallback((status) => {
+        setIsNotExistMeta(status);
+    }, []);
+
     const renderConnectMetaMask = () => {
         if (typeof walletAddress === 'undefined' || walletAddress === '')
             return (
@@ -247,6 +264,8 @@ function LayoutDefault({ children }) {
                     isConnected={isConnecting}
                     signerAddress={smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress}
                     getSigner={getSigner}
+                    setIsNotExistMeta={handleSetStatusMeta}
+                    isNotExistMeta={isNotExistMeta}
                 />
             );
 
@@ -257,6 +276,10 @@ function LayoutDefault({ children }) {
                 Click Upgrade now!
             </button>
         );
+    };
+
+    const handleDisconnect = (status) => {
+        setIsConnecting(status);
     };
 
     return (
@@ -275,42 +298,45 @@ function LayoutDefault({ children }) {
                     {
                         <div className={cx('user-profile__right')}>
                             {renderConnectMetaMask()}
-                            <MenuProfile
-                                items={userMenu}
-                                onChange={handleOnChange}
-                                userInfo={userInfo}
-                                limmitedAccountTime={expriedTime}
-                            >
-                                <div className={cx('user-profile')}>
-                                    {userInfo ? (
-                                        <img
-                                            src={userInfo.avatar || images.userAvatar}
-                                            alt="avatar"
-                                            width={' 50px '}
-                                            className={cx('user-profile-avatar')}
-                                        />
-                                    ) : (
-                                        <Skeleton circle width={50} height={50} />
-                                    )}
-                                    <div className={cx('user-profile__text')}>
-                                        <span>Hi, </span>
-                                        <p>{walletAddress ? walletAddress.slice(0, 10) + '...' : '...'}</p>
-                                        <svg
-                                            stroke="currentColor"
-                                            fill="currentColor"
-                                            strokeWidth="0"
-                                            viewBox="0 0 24 24"
-                                            className="text-gray-400 text-14"
-                                            height="1em"
-                                            width="1em"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path fill="none" d="M0 0h24v24H0V0z"></path>
-                                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-                                        </svg>
+                            {(
+                                <MenuProfile
+                                    items={userMenu}
+                                    onChange={handleOnChange}
+                                    userInfo={userInfo}
+                                    limmitedAccountTime={expriedTime}
+                                    setIsConnecting={handleDisconnect}
+                                >
+                                    <div className={cx('user-profile')}>
+                                        {userInfo ? (
+                                            <img
+                                                src={userInfo.avatar || images.userAvatar}
+                                                alt="avatar"
+                                                width={' 50px '}
+                                                className={cx('user-profile-avatar')}
+                                            />
+                                        ) : (
+                                            <Skeleton circle width={50} height={50} />
+                                        )}
+                                        <div className={cx('user-profile__text')}>
+                                            <span>Hi, </span>
+                                            <p>{walletAddress ? walletAddress.slice(0, 10) + '...' : '...'}</p>
+                                            <svg
+                                                stroke="currentColor"
+                                                fill="currentColor"
+                                                strokeWidth="0"
+                                                viewBox="0 0 24 24"
+                                                className="text-gray-400 text-14"
+                                                height="1em"
+                                                width="1em"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                                            </svg>
+                                        </div>
                                     </div>
-                                </div>
-                            </MenuProfile>
+                                </MenuProfile>
+                            )}
                         </div>
                     }
                 </div>

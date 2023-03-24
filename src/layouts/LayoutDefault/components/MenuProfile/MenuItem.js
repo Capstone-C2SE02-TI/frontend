@@ -10,9 +10,11 @@ function MenuItem({ data, onClick }) {
     });
     
     return (
-        <Button className={classNames} leftIcon={data.icon} onClick={onClick} to={data.to}>
+      <div>
+          <Button className={classNames} leftIcon={data.icon} onClick={onClick} to={data.to}>
             {data.title}
         </Button>
+      </div>
     );
 }
 MenuItem.propTypes = {

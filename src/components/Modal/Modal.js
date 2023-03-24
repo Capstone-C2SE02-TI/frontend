@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 const defaultFunction = () => {};
 
-function Modal({ children, isOpen = false, shouldCloseOverlayClick = true, onRequestClose = defaultFunction }) {
+function Modal({ children, isOpen = false, shouldCloseOverlayClick = true, onRequestClose = defaultFunction , className }) {
     const [closing, setClosing] = useState(false);
     const containerRef = useRef();
 
@@ -47,7 +47,7 @@ function Modal({ children, isOpen = false, shouldCloseOverlayClick = true, onReq
                     className={cx('overlay')}
                     onClick={shouldCloseOverlayClick ? handleRequestClose : defaultFunction}
                 ></div>
-                <div className={cx('container')} ref={containerRef}>
+                <div className={cx('container', className)} ref={containerRef}>
                     <div>{children}</div>
                 </div>
             </div>

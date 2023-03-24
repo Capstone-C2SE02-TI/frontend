@@ -13,18 +13,19 @@ import ModalConfirm from '../ModalConfirm';
 import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { expiredTimeSelector } from '~/modules/user/auth/selectors';
 import images from '~/assets/images';
+import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 
 const cx = classNames.bind(styles);
 
-function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
+function MenuProfile({ setIsConnecting, children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
     const [history, setHistory] = useState([{ data: items }]);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
     const expiredTime = useSelector(expiredTimeSelector);
     const current = history[history.length - 1];
-
+    const dispatch = useDispatch()
     const renderItems = () => {
         return current.data.map((item, index) => {
             const hasParent = !!item.children;
@@ -51,28 +52,9 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
 
     const navigate = useNavigate();
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-
-    function openModal() {
-        setIsOpen(true);
-    }
-
-    function closeModal() {
-        setIsOpen(false);
-    }
-
     const handleLogOut = () => {
-        const fetchApi = async () => {
-            const response = await authService.signOut();
-            if (response.message === 'successfully') {
-                localStorage.removeItem('userInfo');
-                localStorage.removeItem('metamaskConnect');
-                setOpenModalSucceed(true);
-
-
-            }
-        };
-        fetchApi();
+        dispatch(setInformationMetaMask(''));
+        setIsConnecting(false);
     };
 
     const renderResult = (attrs) => {
@@ -100,16 +82,9 @@ function MenuProfile({ children, limmitedAccountTime, items = [], onChange, hide
                     </div>
                     {history.length > 1 && <Header title={current.title} onBack={handleBackMenu}></Header>}
                     <div className={cx('menu-body')}> {renderItems()}</div>
-                    <Button style={{ width: '100%', marginTop: '20px' }} primary onClick={openModal}>
-                        Sign Out
+                    <Button style={{ width: '100%', marginTop: '20px' }} primary onClick={handleLogOut}>
+                        Disconnect
                     </Button>
-                    <ModalConfirm
-                        title="Logout"
-                        description="Are you sure you want to log out?"
-                        modalIsOpen={modalIsOpen}
-                        closeModal={closeModal}
-                        onHandleAction={handleLogOut}
-                    />
                     {openModalSucceed && (
                         <ModalNotify
                             typeSuccess={true}
