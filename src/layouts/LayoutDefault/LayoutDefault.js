@@ -17,7 +17,7 @@ import {
 } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import authSlice, { fetchGetUserInfo, saveExpiredTime, saveUserPremium } from '~/modules/user/auth/authSlice';
+import authSlice, { fetchGetUserInfo, saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
 import { userInfoSelector, smartContractInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
@@ -71,12 +71,11 @@ function LayoutDefault({ children }) {
     const walletAddress = useSelector(getAddressMetaMask);
 
     useEffect(() => {
-            if (!isNotExistMeta) {
-                handleGetStatusMeTamask()
-            }
+        if (!isNotExistMeta) {
+            handleGetStatusMeTamask();
+        }
     }, [isNotExistMeta]);
 
-    
     const handleGetStatusMeTamask = useCallback(() => {
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
@@ -84,8 +83,15 @@ function LayoutDefault({ children }) {
             window.ethereum.on('accountsChanged', function (accounts) {
                 // Time to reload your interface with accounts[0]!
                 dispatch(setInformationMetaMask(accounts[0]));
+                console.log(accounts[0]);
+                console.log(!accounts[0]);
+                if (!accounts[0]) {
+                    dispatch(saveSmartContractInfo({}));
+                    dispatch(setInformationMetaMask(''));
+                }
+                
             });
-            getSigner(provider)
+            getSigner(provider);
         };
         async function isConnected() {
             const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -96,7 +102,7 @@ function LayoutDefault({ children }) {
         }
         isConnected();
         onLoad();
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (userId) {
@@ -105,7 +111,6 @@ function LayoutDefault({ children }) {
     }, [dispatch, userId]);
 
     const getSigner = async (provider) => {
-        console.log(provider);
         await provider.send('eth_requestAccounts', []);
         const signer = await provider.getSigner();
         setSigner(signer);
@@ -157,7 +162,7 @@ function LayoutDefault({ children }) {
                 //load premium price
                 const premiumPrices = await loadPremiumPrices();
                 dispatch(
-                    authSlice.actions.saveSmartContractInfo({
+                    saveSmartContractInfo({
                         walletAddress: walletAddress,
                         balance: balance,
                         ratio: ratio,
@@ -282,10 +287,11 @@ function LayoutDefault({ children }) {
         );
     };
 
-
     const handleDisconnect = () => {
-        handleDisconnect(false)
-    }
+        setIsConnecting(false);  
+        dispatch(saveSmartContractInfo({}));
+        dispatch(setInformationMetaMask(''));
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
@@ -309,7 +315,6 @@ function LayoutDefault({ children }) {
                                     userInfo={userInfo}
                                     limmitedAccountTime={expriedTime}
                                     handleDisconnect={handleDisconnect}
-
                                 >
                                     <div className={cx('user-profile')}>
                                         {userInfo ? (

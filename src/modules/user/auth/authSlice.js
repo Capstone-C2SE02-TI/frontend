@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '~/services';
-
+import _ from 'lodash';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
@@ -16,6 +16,8 @@ const authSlice = createSlice({
     },
 
     reducers: {
+
+
         authSignIn: (state, action) => {
             state.isLoggedIn = !state.isLoggedIn;
             state.user = action.payload;
@@ -24,11 +26,15 @@ const authSlice = createSlice({
             state.emailForgotPassword = action.payload;
         },
         saveSmartContractInfo: (state, action) => {
-            const { walletAddress, balance, ratio, premiumPrices } = action.payload;
-            state.smartContractInfo.walletAddress = walletAddress;
-            state.smartContractInfo.balance = balance;
-            state.smartContractInfo.ratio = ratio;
-            state.smartContractInfo.premiumPrices = premiumPrices;
+            if(!_.isEmpty(action.payload)) {
+                const { walletAddress, balance, ratio, premiumPrices } = action.payload;
+                state.smartContractInfo.walletAddress = walletAddress;
+                state.smartContractInfo.balance = balance;
+                state.smartContractInfo.ratio = ratio;
+                state.smartContractInfo.premiumPrices = premiumPrices;
+            }
+            else state.smartContractInfo =  { walletAddress: '', balance: '', ratio: '', premiumPrices: ['', '', ''] }
+            
         },
         saveUserPremium: (state, action) => {
             state.isPremiumUser = action.payload;

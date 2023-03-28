@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames/bind';
 import axios from 'axios';
 import { Col, Row } from 'antd';
@@ -17,47 +17,54 @@ import { saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modul
 import BuyItem from './BuyItem';
 import { convertUnixTime } from '~/helpers';
 import BuyLevel from './BuyLevel/BuyLevel';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
+import _ from 'lodash'
 
 const cx = classNames.bind(styles);
 
 function BuyToken() {
     const smartContractInfo = useSelector(smartContractInfoSelector);
+    const walletAddress = useSelector(getAddressMetaMask);
+
     const navigate = useNavigate();
     const [provider, setProvider] = useState(undefined);
-    const PREMIUM_PRICES_DEFAULT = [
-        {
-            price: smartContractInfo.premiumPrices[0].price,
-            type: 1,
-        },
-        {
-            price: smartContractInfo.premiumPrices[1].price,
-            type: 2,
-        },
-        {
-            price: smartContractInfo.premiumPrices[2].price,
-            type: 3,
-        },
-    ];
+
+    const PREMIUM_PRICES_DEFAULT = useMemo(() => {
+        if (!_.isEmpty(smartContractInfo)) {
+            return [
+                {
+                    price: smartContractInfo?.premiumPrices[0]?.price,
+                    type: 1,
+                },
+                {
+                    price: smartContractInfo?.premiumPrices[1]?.price,
+                    type: 2,
+                },
+                {
+                    price: smartContractInfo?.premiumPrices[2]?.price,
+                    type: 3,
+                },
+            ];
+        }
+    }, []);
 
     const TIME_UPGRADE_PRICES = [
         {
             type: 'month',
             quantityTime: '1',
-            price: 1
+            price: 1,
         },
         {
             type: 'month',
             quantityTime: '6',
-            price: 5
-
+            price: 5,
         },
         {
             type: 'year',
             quantityTime: '1',
-            price: 10
-
-        }
-    ]
+            price: 10,
+        },
+    ];
 
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
@@ -82,7 +89,7 @@ function BuyToken() {
             PREMIUM_PRICES_DEFAULT[
                 PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice)
             ].type;
-
+            // console.log(PREMIUM_PRICES_DEFAULT,  PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice));
         let ABI = ['function upgradePremium(uint8 _level)'];
         let iface = new ethers.utils.Interface(ABI);
         let params = [
@@ -167,7 +174,7 @@ function BuyToken() {
     };
 
     const handleApprove = async (premiumPrice, handleToggleApprove) => {
-        if (smartContractInfo.walletAddress) {
+        if (walletAddress) {
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
             } else {

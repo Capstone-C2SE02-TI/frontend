@@ -8,7 +8,7 @@ import { memo } from 'react';
 import ModalConfirm from '../../ModalConfirm';
 const cx = classNames.bind(styles);
 
-function MenuItem({ icon, title, to, key, isPremium, requiredPremium =false }) {
+function MenuItem({ icon, title, to, isPremium, requiredPremium =false }) {
     const [openModalNotify, setOpenModalNotify] = useState(false);
 
     const handleClick1 = (e) => {
@@ -22,7 +22,6 @@ function MenuItem({ icon, title, to, key, isPremium, requiredPremium =false }) {
     return (
         <div className={cx('wrapper')}>
             <NavLink
-                key={key}
                 className={(nav) => cx('menu-item', { active: nav.isActive })}
                 to={to}
                 onClick={handleClick1}

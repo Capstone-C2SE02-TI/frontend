@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { PrivateRoute, PublicRoute } from './routes/routes-v1';
+import { PublicRoute } from './routes/routes-v1';
 import Home, {
     Profile,
     EditProfile,
@@ -49,7 +49,7 @@ function App() {
                     <Route
                         path={configs.routes.analyze}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Analyze />
@@ -74,7 +74,7 @@ function App() {
                     <Route
                         path="/support"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Support />
@@ -86,7 +86,7 @@ function App() {
                     <Route
                         path="/report"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Report />
@@ -98,7 +98,7 @@ function App() {
                     <Route
                         path="/setting"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Setting />
@@ -122,7 +122,7 @@ function App() {
                     <Route
                         path={configs.routes.buyToken}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <BuyToken />
@@ -134,7 +134,7 @@ function App() {
                     <Route
                         path={configs.routes.swapToken}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <SwapToken />
@@ -158,7 +158,7 @@ function App() {
                     <Route
                         path={configs.routes.editProfile}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <EditProfile />
@@ -170,7 +170,7 @@ function App() {
                     <Route
                         path={configs.routes.transactionShark}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <TransactionShark />
@@ -183,7 +183,7 @@ function App() {
                     <Route
                         path={configs.routes.gainLoss}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <GainLoss />
@@ -207,7 +207,7 @@ function App() {
                     <Route
                         path={configs.routes.profile}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Profile />
