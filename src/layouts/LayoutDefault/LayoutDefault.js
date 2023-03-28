@@ -309,7 +309,7 @@ function LayoutDefault({ children }) {
                                     userInfo={userInfo}
                                     limmitedAccountTime={expriedTime}
                                     handleDisconnect={handleDisconnect}
-                                    
+
                                 >
                                     <div className={cx('user-profile')}>
                                         {userInfo ? (
@@ -323,7 +323,6 @@ function LayoutDefault({ children }) {
                                             <Skeleton circle width={50} height={50} />
                                         )}
                                         <div className={cx('user-profile__text')}>
-                                            <span>Hi, </span>
                                             <p>{walletAddress ? walletAddress.slice(0, 10) + '...' : '...'}</p>
                                             <svg
                                                 stroke="currentColor"
