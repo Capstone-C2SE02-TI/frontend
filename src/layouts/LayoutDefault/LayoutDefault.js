@@ -71,27 +71,32 @@ function LayoutDefault({ children }) {
     const walletAddress = useSelector(getAddressMetaMask);
 
     useEffect(() => {
-        if (!isNotExistMeta) {
-            const onLoad = async () => {
-                const provider = await new ethers.providers.Web3Provider(window.ethereum);
-                await setProvider(provider);
-                window.ethereum.on('accountsChanged', function (accounts) {
-                    // Time to reload your interface with accounts[0]!
-                    dispatch(setInformationMetaMask(accounts[0]));
-                    setIsConnecting(false);
-                });
-            };
-            async function isConnected() {
-                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                if (accounts.length) {
-                    dispatch(setInformationMetaMask(accounts[0]));
-                } else {
-                }
+            if (!isNotExistMeta) {
+                handleGetStatusMeTamask()
             }
-            isConnected();
-            onLoad();
-        }
     }, [isNotExistMeta]);
+
+    
+    const handleGetStatusMeTamask = useCallback(() => {
+        const onLoad = async () => {
+            const provider = await new ethers.providers.Web3Provider(window.ethereum);
+            await setProvider(provider);
+            window.ethereum.on('accountsChanged', function (accounts) {
+                // Time to reload your interface with accounts[0]!
+                dispatch(setInformationMetaMask(accounts[0]));
+            });
+            getSigner(provider)
+        };
+        async function isConnected() {
+            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length) {
+                dispatch(setInformationMetaMask(accounts[0]));
+            } else {
+            }
+        }
+        isConnected();
+        onLoad();
+    }, [])
 
     useEffect(() => {
         if (userId) {
@@ -101,8 +106,8 @@ function LayoutDefault({ children }) {
 
     const getSigner = async (provider) => {
         console.log(provider);
-        provider.send('eth_requestAccounts', []);
-        const signer = provider.getSigner();
+        await provider.send('eth_requestAccounts', []);
+        const signer = await provider.getSigner();
         setSigner(signer);
     };
 
@@ -146,9 +151,6 @@ function LayoutDefault({ children }) {
         if (walletAddress) {
             //show balance in wallet
             const loadCommon = async () => {
-                console.log({ isConnecting });
-                setIsConnecting(true);
-
                 const balance = await loadBalance(walletAddress);
                 //have ratio to convert eth to TI
                 const ratio = await loadRatio();
@@ -162,6 +164,7 @@ function LayoutDefault({ children }) {
                         premiumPrices: premiumPrices,
                     }),
                 );
+                setIsConnecting(false);
             };
             loadCommon();
         }
@@ -261,11 +264,12 @@ function LayoutDefault({ children }) {
             return (
                 <ConnectButton
                     provider={provider}
-                    isConnected={isConnecting}
                     signerAddress={smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress}
                     getSigner={getSigner}
                     setIsNotExistMeta={handleSetStatusMeta}
                     isNotExistMeta={isNotExistMeta}
+                    setIsConnecting={setIsConnecting}
+                    onGetStatusMeTamask={handleGetStatusMeTamask}
                 />
             );
 
@@ -278,10 +282,10 @@ function LayoutDefault({ children }) {
         );
     };
 
-    const handleDisconnect = (status) => {
-        setIsConnecting(status);
-    };
 
+    const handleDisconnect = () => {
+        handleDisconnect(false)
+    }
     return (
         <div className={cx('wrapper')}>
             <div className={sidebarClassName}>
@@ -298,13 +302,14 @@ function LayoutDefault({ children }) {
                     {
                         <div className={cx('user-profile__right')}>
                             {renderConnectMetaMask()}
-                            {(
+                            {
                                 <MenuProfile
                                     items={userMenu}
                                     onChange={handleOnChange}
                                     userInfo={userInfo}
                                     limmitedAccountTime={expriedTime}
-                                    setIsConnecting={handleDisconnect}
+                                    handleDisconnect={handleDisconnect}
+                                    
                                 >
                                     <div className={cx('user-profile')}>
                                         {userInfo ? (
@@ -336,7 +341,7 @@ function LayoutDefault({ children }) {
                                         </div>
                                     </div>
                                 </MenuProfile>
-                            )}
+                            }
                         </div>
                     }
                 </div>

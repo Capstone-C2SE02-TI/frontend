@@ -17,12 +17,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { expiredTimeSelector } from '~/modules/user/auth/selectors';
 import images from '~/assets/images';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 
-function MenuProfile({ setIsConnecting, children, limmitedAccountTime, items = [], onChange, hideOnClick = false, userInfo }) {
+function MenuProfile({ children, items = [], onChange, hideOnClick = false, userInfo, handleDisconnect }) {
     const [history, setHistory] = useState([{ data: items }]);
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
+    const walletAddress = useSelector(getAddressMetaMask);
+
     const expiredTime = useSelector(expiredTimeSelector);
     const current = history[history.length - 1];
     const dispatch = useDispatch()
@@ -54,7 +57,7 @@ function MenuProfile({ setIsConnecting, children, limmitedAccountTime, items = [
 
     const handleLogOut = () => {
         dispatch(setInformationMetaMask(''));
-        setIsConnecting(false);
+        handleDisconnect()
     };
 
     const renderResult = (attrs) => {
@@ -115,6 +118,7 @@ function MenuProfile({ setIsConnecting, children, limmitedAccountTime, items = [
             render={renderResult}
             onHide={handleResetToFirstPage}
             arrow={true}
+            disabled={!walletAddress}
         // visible
         >
             {children}

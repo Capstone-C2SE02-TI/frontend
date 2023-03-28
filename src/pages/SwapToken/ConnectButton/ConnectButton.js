@@ -4,12 +4,12 @@ import styles from './ConnectButton.module.scss';
 import Modal from '~/components/Modal';
 import Button from '~/components/Button';
 import { CaretDownIcon } from '~/components/Icons';
-import qrMetamask from '~/assets/images/qr-metamask.png'
+import qrMetamask from '~/assets/images/qr-metamask.png';
 
 const cx = classNames.bind(styles);
 
 function ConnectButton(props) {
-    const { isConnected, getSigner, provider, setIsNotExistMeta, isNotExistMeta } = props;
+    const { provider, setIsNotExistMeta, isNotExistMeta, setIsConnecting, onGetStatusMeTamask } = props;
     const [isOpenModalMetamask, setIsOpenModalMetamask] = useState(false);
 
     const openModal = () => {
@@ -18,32 +18,23 @@ function ConnectButton(props) {
 
     const handleConnect = () => {
         if (typeof window.ethereum !== 'undefined') {
-            getSigner(provider);
             setIsNotExistMeta(false);
+            setIsConnecting(true);
+            onGetStatusMeTamask()
             console.log('MetaMask is installed!');
+
         } else {
             console.log('MetaMask is not installed.');
             setIsNotExistMeta(true);
+            setIsConnecting(false);
         }
-    };
-
-    const renderConnecting = () => {
-        return isConnected ? (
-            <div className={cx('loader')}>
-                <div className={cx('scanner')}>
-                    <span>Connecting...</span>
-                </div>
-            </div>
-        ) : (
-            <div className={cx('btn-connect')} onClick={openModal}>
-                <button className={cx('btn-connection')}>Connect Wallet</button>
-            </div>
-        );
     };
 
     return (
         <>
-            {renderConnecting()}
+            <div className={cx('btn-connect')} onClick={openModal}>
+                <button className={cx('btn-connection')}>Connect Wallet</button>
+            </div>
 
             {
                 <Modal
@@ -70,21 +61,21 @@ function ConnectButton(props) {
                             {isNotExistMeta ? (
                                 <div>
                                     <h3>Metamask is not installed</h3>
-                                    
+
                                     <div>
                                         <div className={cx('qr-code')}>
-                                            <img src={qrMetamask}/>
+                                            <img src={qrMetamask} />
                                         </div>
-                                       <div>
-                                       <Button
-                                            rel="noopener noreferrer"
-                                            target="_blank"
-                                            primary
-                                            href="https://metamask.io/download/"
-                                        >
-                                            Install
-                                        </Button>
-                                       </div>
+                                        <div>
+                                            <Button
+                                                rel="noopener noreferrer"
+                                                target="_blank"
+                                                primary
+                                                href="https://metamask.io/download/"
+                                            >
+                                                Install
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             ) : (
