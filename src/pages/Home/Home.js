@@ -65,7 +65,7 @@ function Home() {
                         </section>
                         <section className={cx('col3')}>
                             <ul>
-                                <li>Document</li>
+                                <li>Document v.2</li>
                                 <li>Getting Started</li>
                                 <li>FAQ</li>
                                 <li>Upgrade & payment</li>
