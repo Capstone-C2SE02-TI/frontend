@@ -1,3 +1,5 @@
+## Version 2.0
+
 ## Cryptocurrency Tracking And Analysis System
 
 ### Capstone Project 1 - Source Frontend (User)
