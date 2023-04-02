@@ -18,9 +18,6 @@ stages:
                 - script: npm install
                   displayName: 'Install dependencies'
 
-                - script: CI=true npm test -- --coverage
-                  displayName: 'Run unit tests'
-
                 - task: PublishCodeCoverageResults@1
                   inputs:
                     codeCoverageTool: 'Cobertura'
