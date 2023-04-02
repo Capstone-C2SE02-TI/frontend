@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+.env
+
 # testing
 /coverage
 
@@ -19,7 +21,6 @@
 .env.test.local
 .env.production.local
 .env.development
-.env
 
 npm-debug.log*
 yarn-debug.log*
