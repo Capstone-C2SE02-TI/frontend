@@ -18,6 +18,14 @@ stages:
                 - script: npm install
                   displayName: 'Install dependencies'
 
+                - script: CI=true npm test -- --coverage
+                  displayName: 'Run unit tests'
+
+                - task: PublishCodeCoverageResults@1
+                  inputs:
+                    codeCoverageTool: 'Cobertura'
+                    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
+
     - stage: Build
       dependsOn: QualityCheck
       condition: succeeded('QualityCheck')
