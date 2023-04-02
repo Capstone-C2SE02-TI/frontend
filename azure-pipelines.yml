@@ -1,28 +1,51 @@
 trigger:
-    - main
+    - master
 pr:
     - feature/*
     - fix/*
     - hostfix/*
-    - main
+    - master
 
 pool:
     vmImage: ubuntu-latest
 
-steps:
-    - script: npm install
-      displayName: 'Install dependencies'
+stages:
+    - stage: QualityCheck
+      displayName: 'QualityCheck'
+      jobs:
+          - job: Test
+            steps:
+                - script: npm install
+                  displayName: 'Install dependencies'
 
-    - script: npm run build
-      displayName: 'Run build'
+                - task: PublishCodeCoverageResults@1
+                  inputs:
+                    codeCoverageTool: 'Cobertura'
+                    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml'
 
-    - task: ArchiveFiles@2
-      inputs:
-          rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    - stage: Build
+      dependsOn: QualityCheck
+      condition: succeeded('QualityCheck')
+      jobs:
+          - job: BuildJob
+            steps:
+                - task: CmdLine@2
+                  inputs:
+                      script: 'echo REACT_APP_BASE_URL = $(REACT_APP_BASE_URL) > .env'
+                  displayName: 'Setting environment variables'
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+                - script: |
+                      npm install
+                      npm run build
+                  displayName: 'Run build'
+
+                - task: ArchiveFiles@2
+                  inputs:
+                      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
+                      includeRootFolder: false
+                      archiveType: 'zip'
+                      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+
+                - task: PublishBuildArtifacts@1
+                  inputs:
+                      pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
