@@ -8,6 +8,7 @@ import transactionSharkSlice from './TransactionShark/transactionSharkSlice';
 import gainLossSlice from './GainLoss/gainLossSlice';
 import sharkFollowedSlice from './SharkFollowed/sharkFollowedSlice';
 import portfolioSlice from './Portfolio/portfolioSlice';
+import MetaMaskSlice from './MetaMask/metaMaskSlice';
 
 const store = configureStore({
     reducer: {
@@ -19,7 +20,8 @@ const store = configureStore({
         transactionShark: transactionSharkSlice.reducer,
         gainLoss: gainLossSlice.reducer,
         sharkFollowed: sharkFollowedSlice.reducer,
-        portfolio: portfolioSlice.reducer
+        portfolio: portfolioSlice.reducer,
+        metaMask: MetaMaskSlice.reducer
     },
 });
 export default store;

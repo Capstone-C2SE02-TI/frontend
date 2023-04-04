@@ -13,11 +13,13 @@ import Button from '~/components/Button';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import authSlice from '~/modules/user/auth/authSlice';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 
 function SwapToken() {
     const dispatch = useDispatch();
+    const walletAddress = useSelector(getAddressMetaMask);
 
     const smartContractInfo = useSelector(smartContractInfoSelector);
     const [provider, setProvider] = useState(undefined);
@@ -29,10 +31,8 @@ function SwapToken() {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
         };
-
         onLoad();
     }, []);
-
 
     const handleChange = (e) => {
         setEthValues(e.target.value);
@@ -44,7 +44,7 @@ function SwapToken() {
 
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);
-
+        console.log({ smartContractInfo, walletAddress });
         let params = [
             {
                 from: smartContractInfo.walletAddress,
@@ -62,10 +62,15 @@ function SwapToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    dispatch(authSlice.actions.saveSmartContractInfo({...smartContractInfo,  balance: ethChange + smartContractInfo.balance  }))
+                    dispatch(
+                        authSlice.actions.saveSmartContractInfo({
+                            ...smartContractInfo,
+                            balance: ethChange + smartContractInfo.balance,
+                        }),
+                    );
                     // setBalance((pre) => pre + ethChange);
                     toast.dismiss();
-                    toast.success('Swap successfully',{ icon: '👻' });
+                    toast.success('Swap successfully', { icon: '👻' });
                 }
                 const handleRequestStatus = async () => {
                     const statusSwapToken = await axios.get(
@@ -100,16 +105,12 @@ function SwapToken() {
                 <h1>SWAP TOKEN</h1>
             </div>
             <div className={cx('app-body')}>
-        
-
                 <div className={cx('swap-container')}>
                     <div className={cx('swap-header')}>
                         <span className={cx('swap-text__header')}>Swap</span>
                         <span className={cx('gear-container')}>
                             <Button linearGradientPrimary>
-                                {smartContractInfo.walletAddress
-                                    ? smartContractInfo.walletAddress.slice(0, 10) + '...'
-                                    : '...'}
+                                {walletAddress ? walletAddress.slice(0, 10) + '...' : '...'}
                             </Button>
                         </span>
                     </div>

@@ -52,8 +52,6 @@ function DoughnutChart({ cryptosSharkWallet }) {
         return otherPercentLabel !== 0 ? [...labelPercent, otherPercentLabel] : labelPercent;
 
     }, [cryptosSharkWallet, totalAssetCrypto]);
-    // console.log(labelsDoughnut);
-    // console.log(dataDoughnut);
 
     return (
         <div className={cx('chart-circle')}>

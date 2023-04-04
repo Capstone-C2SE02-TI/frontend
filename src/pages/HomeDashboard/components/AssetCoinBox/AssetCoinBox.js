@@ -23,7 +23,6 @@ function AssetCoinItem({ title, iconBox, data, type }) {
         'hide-box': !statusSidebarSelector,
     });
     const priceValueChange24ClassName = cx('coin-asset__percent', type === 'trending' ? 'trending-coin' : 'loss-coin');
-    console.log(data);
     const handleIsPremium = () => {
         if (userIsPremium) {
             navigate('/gain-loss')

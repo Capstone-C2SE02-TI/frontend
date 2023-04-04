@@ -1,9 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { PrivateRoute, PublicRoute } from './routes/routes-v1';
+import { PublicRoute } from './routes/routes-v1';
 import Home, {
-    Signup,
-    SignIn,
-    ChangePassword,
     Profile,
     EditProfile,
     HomeDashboard,
@@ -18,19 +15,14 @@ import Home, {
     PortfolioSharkFollow,
 } from './pages';
 
-import { Chart, registerables, Interaction } from 'chart.js';
-import ModalSubmitCode from './pages/SignIn/components/ModalFindCode/ModalSubmitCode';
-import ResetPassword from './pages/SignIn/components/ModalFindCode/ResetPassword';
-import ModalFindCode from './pages/SignIn/components/ModalFindCode/ModalFindCode';
+import { Chart, registerables } from 'chart.js';
 import BuyToken from './pages/BuyToken';
 import SwapToken from './pages/SwapToken';
 import { ToastContainer } from 'react-toastify';
 import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
-import { CrosshairPlugin, Interpolate } from 'chartjs-plugin-crosshair';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import { useFetchInterval } from './hooks';
 
 
 Chart.register(zoomPlugin, ...registerables);
@@ -57,7 +49,7 @@ function App() {
                     <Route
                         path={configs.routes.analyze}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Analyze />
@@ -82,7 +74,7 @@ function App() {
                     <Route
                         path="/support"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Support />
@@ -94,7 +86,7 @@ function App() {
                     <Route
                         path="/report"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Report />
@@ -106,7 +98,7 @@ function App() {
                     <Route
                         path="/setting"
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Setting />
@@ -130,7 +122,7 @@ function App() {
                     <Route
                         path={configs.routes.buyToken}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <BuyToken />
@@ -142,7 +134,7 @@ function App() {
                     <Route
                         path={configs.routes.swapToken}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <SwapToken />
@@ -166,7 +158,7 @@ function App() {
                     <Route
                         path={configs.routes.editProfile}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <EditProfile />
@@ -178,7 +170,7 @@ function App() {
                     <Route
                         path={configs.routes.transactionShark}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <TransactionShark />
@@ -187,22 +179,11 @@ function App() {
                             />
                         }
                     />
-                    <Route
-                        path={configs.routes.changePassword}
-                        element={
-                            <PrivateRoute
-                                element={
-                                    <LayoutDefault>
-                                        <ChangePassword />
-                                    </LayoutDefault>
-                                }
-                            />
-                        }
-                    />
+                  
                     <Route
                         path={configs.routes.gainLoss}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <GainLoss />
@@ -226,7 +207,7 @@ function App() {
                     <Route
                         path={configs.routes.profile}
                         element={
-                            <PrivateRoute
+                            <PublicRoute
                                 element={
                                     <LayoutDefault>
                                         <Profile />
@@ -235,13 +216,7 @@ function App() {
                             />
                         }
                     />
-                    <Route path={'/resend-code'} element={<ModalSubmitCode />} />
-                    <Route path={'/reset-password'} element={<ResetPassword />} />
-                    <Route path={'/forgot-password'} element={<ModalFindCode />} />
-
                     {/* Authentication router */}
-                    <Route path={configs.routes.signIn} element={<SignIn />} />
-                    <Route path={configs.routes.signUp} element={<Signup />} />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Router>

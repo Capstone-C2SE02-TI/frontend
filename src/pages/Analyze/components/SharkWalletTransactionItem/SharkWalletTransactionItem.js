@@ -7,7 +7,6 @@ import { convertDate, convertTime, numberWithCommas } from '~/helpers';
 const cx = classNames.bind(styles);
 
 function SharkWalletTransactionItem({ data, sharkAddress }) {
-    // console.log(sharkAddress)
     const handleTransactionTo = useCallback(() => {
         if (sharkAddress === data.to) {
             return `${data.from} → Wallet`;
@@ -23,7 +22,6 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
             return false;
         }
     }
-    console.log(data)
 
     return (
         <tr className={cx('tr-crypto__item')}>

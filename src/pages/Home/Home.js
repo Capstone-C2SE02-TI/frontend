@@ -26,16 +26,6 @@ function Home() {
                             <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
                         </Link>
                         <NavHeader />
-                        {!currentUser && (
-                            <div className={cx('header-group')}>
-                                <Link to="/sign-in">
-                                    <button className={cx('btn-signIn')}>Sign in</button>
-                                </Link>
-                                <Link to="/sign-up">
-                                    <button className={cx('btn')}>Sign up</button>
-                                </Link>
-                            </div>
-                        )}
                     </div>
                 </section>
             </header>

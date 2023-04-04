@@ -39,7 +39,6 @@ function SharkWalletCryptoItem({ data, index, totalAssetCrypto }) {
         }
     }, [isShowTrade, dispatch, sharkIdSelected, data.symbol]);
 
-    // console.log({ tradeTransactionHistory });
     return (
         <Fragment>
             <tr

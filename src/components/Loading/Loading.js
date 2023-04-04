@@ -6,7 +6,7 @@ import SyncLoader from 'react-spinners/SyncLoader';
 const cx = classNames.bind(styles);
 
 function Loading({ loading }) {
-    console.log(loading);
+
     if(!loading) {
         return;
     }
