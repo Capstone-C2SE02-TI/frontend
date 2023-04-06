@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { FUND_SUBSCRIPTION_ADDRESS, TI_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, TI_ABI } from '~/abi';
 import { useState, useEffect } from 'react';
 import styles from './BuyToken.module.scss';
@@ -18,7 +18,7 @@ import BuyItem from './BuyItem';
 import { convertUnixTime } from '~/helpers';
 import BuyLevel from './BuyLevel/BuyLevel';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
-import _ from 'lodash'
+import _ from 'lodash';
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +29,8 @@ function BuyToken() {
     const navigate = useNavigate();
     const [provider, setProvider] = useState(undefined);
 
-    const PREMIUM_PRICES_DEFAULT = useMemo(() => {
+    const PREMIUM_PRICES_DEFAULT = useMemo( () => {
+        console.log(smartContractInfo.premiumPrices);
         if (!_.isEmpty(smartContractInfo)) {
             return [
                 {
@@ -46,7 +47,7 @@ function BuyToken() {
                 },
             ];
         }
-    }, []);
+    }, [smartContractInfo]);
 
     const TIME_UPGRADE_PRICES = [
         {
@@ -85,18 +86,24 @@ function BuyToken() {
         dispatch(saveExpiredTime(limmitedAccountTime));
     };
     const upgradePremium = async (premiumPrice) => {
+        console.log({ address: smartContractInfo.walletAddress });
+        const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
+        console.log(PREMIUM_PRICES_DEFAULT, premiumPrice);
         const ide =
             PREMIUM_PRICES_DEFAULT[
                 PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice)
             ].type;
-            // console.log(PREMIUM_PRICES_DEFAULT,  PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice));
+        console.log(ide, PREMIUM_PRICES_DEFAULT, premiumPrice);
+        const estimationUpgrade = await contractPremium
+            .connect(provider.getSigner())
+            .estimateGas.upgradePremium(BigNumber.from(ide));
+
         let ABI = ['function upgradePremium(uint8 _level)'];
-        let iface = new ethers.utils.Interface(ABI);
         let params = [
             {
                 from: smartContractInfo.walletAddress,
                 to: FUND_SUBSCRIPTION_ADDRESS,
-                gas: '0x3F7A0',
+                gas: estimationUpgrade.toHexString(16),
                 gasPrice: '0x104C533C00',
                 data: '0x0ea063a0000000000000000000000000000000000000000000000000000000000000000' + ide,
             },
@@ -137,11 +144,14 @@ function BuyToken() {
     const approveToken = async (premiumPrice, handleToggleApprove) => {
         let ABI = ['function approve(address _spender, uint _value)'];
         let iface = new ethers.utils.Interface(ABI);
+        const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
+        const estimationApprove = await contractTi.estimateGas.approve(FUND_SUBSCRIPTION_ADDRESS, premiumPrice);
+        console.log({ estimationApprove, Int16Array: estimationApprove.toHexString(16) });
         let params = [
             {
                 from: smartContractInfo.walletAddress,
                 to: TI_SMART_CONTRACT_ADDRESS,
-                gas: '0x1FBD0',
+                gas: estimationApprove.toHexString(16),
                 gasPrice: '0x1BF08EB000',
                 data: iface.encodeFunctionData('approve', [FUND_SUBSCRIPTION_ADDRESS, premiumPrice]),
             },

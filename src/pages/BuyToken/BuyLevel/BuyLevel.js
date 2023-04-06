@@ -6,7 +6,7 @@ import styles from './BuyLevel.module.scss';
 const cx = classNames.bind(styles);
 
 function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) {
-    const [approve, setApprove] = useState(false);
+    const [approve, setApprove] = useState(true);
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
     const handleToggleApprove = () => {

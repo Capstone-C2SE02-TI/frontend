@@ -61,67 +61,30 @@ const authSlice = createSlice({
                 state.user = action.payload;
                 state.status = 'idle';
             })
-            .addCase(fetchFindCodeOTP.pending, (state, action) => {
+            .addCase(fetchGetUserSignup.pending, (state, action) => {
                 state.status = 'loading';
             })
-            .addCase(fetchFindCodeOTP.fulfilled, (state, action) => {
-                if (action.payload === 'successfully') {
-                    state.statusFindCodeOTP.successfully = action.payload;
-                    state.statusFindCodeOTP.failed = '';
-                } else {
-                    state.statusFindCodeOTP.failed = action.payload;
-                    state.statusFindCodeOTP.successfully = '';
-                }
-                state.status = 'idle';
+            .addCase(fetchGetUserSignup.fulfilled, (state, action) => {
+                console.log(action);
             })
-            .addCase(fetchSubmitCodeOTP.pending, (state, action) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchSubmitCodeOTP.fulfilled, (state, action) => {
-                if (action.payload === 'successfully') {
-                    state.statusSubmitCodeOTP.successfully = action.payload;
-                    state.statusSubmitCodeOTP.failed = '';
-                } else {
-                    state.statusSubmitCodeOTP.failed = action.payload;
-                    state.statusSubmitCodeOTP.successfully = '';
-                }
-                state.status = 'idle';
-            })
-
-            .addCase(fetchCreateNewPassword.pending, (state, action) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchCreateNewPassword.fulfilled, (state, action) => {
-                state.status = 'idle';
-                if (action.payload === 'successfully') {
-                    state.statusRestPassword.successfully = action.payload;
-                } else state.statusRestPassword.failed = action.payload;
-            });
     },
 });
 
 export const fetchGetUserInfo = createAsyncThunk('auth/fetchGetUserInfo', async (userId) => {
     const response = await authService.getUserInfo(userId);
-
     return response.data;
 });
 
-export const fetchFindCodeOTP = createAsyncThunk('auth/fetchFindCodeOTP', async (email) => {
-    const response = await authService.findCodeOTP({ email });
-
-    return response.message;
+export const fetchGetUserSignup= createAsyncThunk('auth/fetchGetUserSignup', async (userId) => {
+  try {
+    const response = await authService.signUp(userId);
+    return response.data;
+  }
+  catch (err) {
+    console.log(err);
+  }
 });
 
-export const fetchSubmitCodeOTP = createAsyncThunk('auth/fetchSubmitCodeOTP', async (data) => {
-    const response = await authService.submitCodeOTP(data);
-
-    return response.message;
-});
-
-export const fetchCreateNewPassword = createAsyncThunk('auth/fetchCreateNewPassword', async (data) => {
-    const response = await authService.createNewPassword(data);
-    return response.message;
-});
 export default authSlice;
 
 export const { saveExpiredTime, saveUserPremium, saveContractPremium, saveSmartContractInfo, resetAllPassword } =
