@@ -75,9 +75,10 @@ export const fetchGetUserInfo = createAsyncThunk('auth/fetchGetUserInfo', async 
     return response.data;
 });
 
-export const fetchGetUserSignup= createAsyncThunk('auth/fetchGetUserSignup', async (userId) => {
+export const fetchGetUserSignup= createAsyncThunk('auth/fetchGetUserSignup', async (walletData) => {
   try {
-    const response = await authService.signUp(userId);
+    const response = await authService.signUp(walletData);
+    console.log({response});
     return response.data;
   }
   catch (err) {

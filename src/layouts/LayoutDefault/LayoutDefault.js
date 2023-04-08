@@ -5,7 +5,7 @@ import ConnectButton from '~/pages/SwapToken/ConnectButton';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
 import { useSelector, useDispatch } from 'react-redux';
 import { convertUnixTime } from '~/helpers';
-import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon, PortfolioIcon } from '~/components/Icons';
+import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon } from '~/components/Icons';
 import { ethers } from 'ethers';
 import {
     TI_ABI,
@@ -17,12 +17,17 @@ import {
 } from '../../abi';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
-import authSlice, { fetchGetUserInfo, saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
-import { userInfoSelector, smartContractInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
+import {
+    fetchGetUserInfo,
+    fetchGetUserSignup,
+    saveExpiredTime,
+    saveSmartContractInfo,
+    saveUserPremium,
+} from '~/modules/user/auth/authSlice';
+import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
-import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,9 +35,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import { useCallback } from 'react';
-
+import { useMemo } from 'react';
 const cx = classNames.bind(styles);
-
 const userMenu = [
     {
         icon: <AvatarIcon />,
@@ -60,6 +64,7 @@ function LayoutDefault({ children }) {
     const [isConnecting, setIsConnecting] = useState(false);
     const [expriedTime, setExpriedTime] = useState('');
     const [isNotExistMeta, setIsNotExistMeta] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -67,29 +72,38 @@ function LayoutDefault({ children }) {
     const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
     const statusSidebarSelector = useSelector(SidebarSelector);
     const userInfo = useSelector(userInfoSelector);
-    const smartContractInfo = useSelector(smartContractInfoSelector);
     const walletAddress = useSelector(getAddressMetaMask);
 
     useEffect(() => {
-        if (!isNotExistMeta) {
-            handleGetStatusMeTamask();
+        const eth_address = localStorage.getItem('eth_address');
+        if (eth_address) {
+            setIsConnecting(true);
         }
-    }, [isNotExistMeta]);
+        if (!isNotExistMeta) {
+            if (isConnecting) handleGetStatusMeTamask();
+        }
+    }, [isNotExistMeta, isConnecting]);
 
     const handleGetStatusMeTamask = useCallback(() => {
         const onLoad = async () => {
             const provider = await new ethers.providers.Web3Provider(window.ethereum);
             await setProvider(provider);
+            console.log('run status');
             window.ethereum.on('accountsChanged', function (accounts) {
-                // Time to reload your interface with accounts[0]!
-                dispatch(setInformationMetaMask(accounts[0]));
-                console.log(accounts[0]);
-                console.log(!accounts[0]);
                 if (!accounts[0]) {
                     dispatch(saveSmartContractInfo({}));
                     dispatch(setInformationMetaMask(''));
+                    localStorage.removeItem('eth_address');
+                } else {
+                    localStorage.setItem('eth_address', accounts[0]);
+                    dispatch(setInformationMetaMask(accounts[0]));
+                    console.log(accounts[0]);
+                    // dispatch(
+                    //     fetchGetUserSignup({
+                    //         walletAddress: accounts[0],
+                    //     }),
+                    // );
                 }
-                
             });
             getSigner(provider);
         };
@@ -117,28 +131,39 @@ function LayoutDefault({ children }) {
     };
 
     useEffect(() => {
-        if (smartContractInfo.walletAddress) {
+        if (walletAddress) {
+            const handleSignup = async () => {
+                dispatch(
+                    fetchGetUserSignup({
+                        walletAddress,
+                    }),
+                );
+            };
+
             const onLoad = async () => {
+                setLoading(true);
                 const contractPremium = await new ethers.Contract(
                     FUND_SUBSCRIPTION_ADDRESS,
                     FUND_SUBSCRIPTION_ABI,
                     provider,
                 );
-                const limmitedAccount = await contractPremium.getExpriedTime(smartContractInfo.walletAddress);
+                const limmitedAccount = await contractPremium.getExpriedTime(walletAddress);
                 const convertlimmitedAccount = await limmitedAccount.toHexString(16);
                 const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
-                const isPremiumUser = await contractPremium.isPremiumUser(smartContractInfo.walletAddress);
+                const isPremiumUser = await contractPremium.isPremiumUser(walletAddress);
                 if (isPremiumUser) {
                     setExpriedTime(limmitedAccountTime);
                     dispatch(saveExpiredTime(limmitedAccountTime));
                 }
                 dispatch(saveUserPremium(isPremiumUser));
+                setLoading(false);
             };
             onLoad();
+            handleSignup();
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [smartContractInfo.walletAddress]);
+    }, [walletAddress]);
 
     useEffect(() => {
         if (signer) getWalletAddress();
@@ -264,12 +289,12 @@ function LayoutDefault({ children }) {
         setIsNotExistMeta(status);
     }, []);
 
-    const renderConnectMetaMask = () => {
+    const renderConnectMetaMask = useMemo(() => {
         if (typeof walletAddress === 'undefined' || walletAddress === '')
             return (
                 <ConnectButton
                     provider={provider}
-                    signerAddress={smartContractInfo.walletAddress ? smartContractInfo.walletAddress : signerAddress}
+                    signerAddress={walletAddress ? walletAddress : signerAddress}
                     getSigner={getSigner}
                     setIsNotExistMeta={handleSetStatusMeta}
                     isNotExistMeta={isNotExistMeta}
@@ -277,18 +302,39 @@ function LayoutDefault({ children }) {
                     onGetStatusMeTamask={handleGetStatusMeTamask}
                 />
             );
-
-        return userIsPremium ? (
-            <button className={cx('btn-connection')}>Premium!</button>
-        ) : (
-            <button className={cx('btn-connection')} onClick={() => navigate('/upgrade')}>
-                Click Upgrade now!
-            </button>
-        );
-    };
+        if (walletAddress) {
+            if (loading) {
+                return (
+                    <div className={cx('loader')}>
+                        <div className={cx('scanner')}>
+                            <span>Connecting...</span>
+                        </div>
+                    </div>
+                );
+            } else {
+                return userIsPremium ? (
+                    <button className={cx('btn-connection')}>Premium!</button>
+                ) : (
+                    <button className={cx('btn-connection')} onClick={() => navigate('/upgrade')}>
+                        Click Upgrade now!
+                    </button>
+                );
+            }
+        }
+    }, [
+        walletAddress,
+        provider,
+        signerAddress,
+        handleSetStatusMeta,
+        isNotExistMeta,
+        handleGetStatusMeTamask,
+        loading,
+        userIsPremium,
+        navigate,
+    ]);
 
     const handleDisconnect = () => {
-        setIsConnecting(false);  
+        setIsConnecting(false);
         dispatch(saveSmartContractInfo({}));
         dispatch(setInformationMetaMask(''));
     };
@@ -299,15 +345,18 @@ function LayoutDefault({ children }) {
             </div>
             <div className={containerClassName}>
                 <div className={cx('header-menu')}>
-                    <Tippy content="Menu" {...defaultPropsTippy}>
-                        <button onClick={toggleMenu} className={cx('icon-menu')}>
-                            <MenuIcon />
-                        </button>
-                    </Tippy>
+                    <div className={cx('header-menu-tippy')}>
+                        <Tippy content="Menu" {...defaultPropsTippy}>
+                            <button onClick={toggleMenu} className={cx('icon-menu')}>
+                                <MenuIcon />
+                            </button>
+                        </Tippy>
+                       
+                    </div>
 
                     {
                         <div className={cx('user-profile__right')}>
-                            {renderConnectMetaMask()}
+                            {renderConnectMetaMask}
                             {
                                 <MenuProfile
                                     items={userMenu}
