@@ -26,7 +26,6 @@ function TokenDetailEachCoin({ data, community }) {
         placement: 'top',
         delay: [1, 200],
     };
-    console.log(data)
     return (
         <section className={cx('token-container')}>
             <div className={cx('token-content__price')}>

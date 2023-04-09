@@ -1,0 +1,127 @@
+
+.scanner span {
+    color: transparent;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.scanner span::before {
+    content: 'Connecting...';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    border-right: 4px solid rgb(56, 97, 251);
+    overflow: hidden;
+    color: rgb(56, 97, 251);
+    animation: load-infinite 2s linear infinite;
+}
+
+@keyframes load-infinite {
+    0%,
+    10%,
+    100% {
+        width: 0;
+    }
+
+    10%,
+    20%,
+    30%,
+    40%,
+    50%,
+    60%,
+    70%,
+    80%,
+    90%,
+    100% {
+        border-right-color: transparent;
+    }
+
+    11%,
+    21%,
+    31%,
+    41%,
+    51%,
+    61%,
+    71%,
+    81%,
+    91% {
+        border-right-color: rgb(56, 97, 251);
+    }
+
+    60%,
+    80% {
+        width: 100%;
+    }
+}
+
+@keyframes ani {
+    0% {
+        background-position: 0%;
+    }
+
+    100% {
+        background-position: 400%;
+    }
+}
+
+
+
+.btn-connection {
+    --border-radius: 15px;
+    --border-width: 4px;
+    appearance: none;
+    position: relative;
+    padding: 0.6em 2em;
+    border: 0;
+    background-color: #fff;
+    font-family: 'Roboto', Arial, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(156, 163, 175);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.btn-connection::after {
+    --m-i: linear-gradient(#000, #000);
+    --m-o: content-box, padding-box;
+    --border-radius: 15px;
+    --border-width: 4px;
+
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: var(--border-width);
+    border-radius: var(--border-radius);
+    background-image: conic-gradient(#488cfb, #29dbbc, #ddf505, #ff9f0e, #e440bb, #655adc, #488cfb);
+    -webkit-mask-image: var(--m-i), var(--m-i);
+    mask-image: var(--m-i), var(--m-i);
+    -webkit-mask-origin: var(--m-o);
+    mask-origin: var(--m-o);
+    -webkit-mask-clip: var(--m-o);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+    filter: hue-rotate(0);
+    animation: rotate-hue linear 1000ms infinite;
+    animation-play-state: paused;
+}
+
+.btn-connection::after {
+    animation-play-state: running;
+}
+
+.btn_signIn {
+    margin-right: 10px;
+}
+
+@keyframes rotate-hue {
+    to {
+        filter: hue-rotate(1turn);
+    }
+}

@@ -6,24 +6,16 @@ const authSlice = createSlice({
     initialState: {
         status: 'idle',
         user: {},
-        statusFindCodeOTP: {},
-        statusSubmitCodeOTP: {},
-        statusRestPassword: {},
         smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['', '', ''] },
-        emailForgotPassword: '',
         isPremiumUser: '',
         expiredTime: '',
+        listUser: []
     },
 
     reducers: {
-
-
         authSignIn: (state, action) => {
             state.isLoggedIn = !state.isLoggedIn;
             state.user = action.payload;
-        },
-        authEmailForgotPassword: (state, action) => {
-            state.emailForgotPassword = action.payload;
         },
         saveSmartContractInfo: (state, action) => {
             if(!_.isEmpty(action.payload)) {
@@ -42,14 +34,7 @@ const authSlice = createSlice({
         saveExpiredTime: (state, action) => {
             state.expiredTime = action.payload;
         },
-        // saveContractPremium: (state, action) => {
-        //     state.contractPremium = action.payload;
-        // },
-        resetAllPassword: (state, action) => {
-            state.statusRestPassword = {};
-            state.statusSubmitCodeOTP = {};
-            state.statusFindCodeOTP = {};
-        },
+
     },
 
     extraReducers: (builder) => {
@@ -65,20 +50,22 @@ const authSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(fetchGetUserSignup.fulfilled, (state, action) => {
-                console.log(action);
+
+            })
+            .addCase(fetchGetAllUser.fulfilled, (state, action) => {
+                state.listUser = action.payload;
             })
     },
 });
 
-export const fetchGetUserInfo = createAsyncThunk('auth/fetchGetUserInfo', async (userId) => {
-    const response = await authService.getUserInfo(userId);
+export const fetchGetUserInfo = createAsyncThunk('auth/fetchGetUserInfo', async (walletAddress) => {
+    const response = await authService.getUserInfo(walletAddress);
     return response.data;
 });
 
 export const fetchGetUserSignup= createAsyncThunk('auth/fetchGetUserSignup', async (walletData) => {
   try {
     const response = await authService.signUp(walletData);
-    console.log({response});
     return response.data;
   }
   catch (err) {
@@ -86,7 +73,17 @@ export const fetchGetUserSignup= createAsyncThunk('auth/fetchGetUserSignup', asy
   }
 });
 
+export const fetchGetAllUser = createAsyncThunk('auth/fetchGetAllUser', async (walletData) => {
+    try {
+      const response = await authService.getAllUser();
+      return response.data;
+    }
+    catch (err) {
+      console.log(err);
+    }
+  });
+
 export default authSlice;
 
-export const { saveExpiredTime, saveUserPremium, saveContractPremium, saveSmartContractInfo, resetAllPassword } =
+export const { saveExpiredTime, saveUserPremium, saveContractPremium, saveSmartContractInfo } =
     authSlice.actions;

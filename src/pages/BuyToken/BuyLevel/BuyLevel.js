@@ -5,12 +5,12 @@ import { smartContractInfoSelector } from '~/modules/user/auth/selectors';
 import styles from './BuyLevel.module.scss';
 const cx = classNames.bind(styles);
 
-function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) {
-    const [approve, setApprove] = useState(true);
+function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times, isApprove }) {
+    const [approve, setApprove] = useState(false);
     const smartContractInfo = useSelector(smartContractInfoSelector);
 
-    const handleToggleApprove = () => {
-        setApprove(true);
+    const handleToggleApprove = (status) => {
+        setApprove(status);
     };
 
     return (
@@ -46,7 +46,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) 
                             </svg>
                             <span>Shark wallet" Detail information</span>
                         </li>
-                    </ul>
+                    </ul>   
                 </div>
                 <div className={cx('button-get-plan')}>
                     {!approve ? (
@@ -56,7 +56,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times }) 
                     ) : (
                         <p
                             onClick={async () => {
-                                await handleUpgradePremium(premiumPrice.price);
+                                await handleUpgradePremium(premiumPrice.price, handleToggleApprove);
                                 // setApprove(false);
                             }}
                         >

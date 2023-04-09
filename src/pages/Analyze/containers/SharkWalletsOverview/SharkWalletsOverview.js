@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
-import { newSharkListRemainingSelector, newSharkListSelector, newSharkQuantitySelector, newSharkSelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
+import { newSharkListRemainingSelector, newSharkQuantitySelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -66,7 +66,6 @@ function SharkWalletsOverview() {
         }
     }, [newSharkList, paginationState, sharksCoin, tabOverviewTransaction]);
 
-    // console.log(newSharkList);
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected + 1);
     };
@@ -78,7 +77,6 @@ function SharkWalletsOverview() {
     const newSharkClassName = useMemo(() => {
         return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'newShark' });
     }, [tabOverviewTransaction]);
-    // console.log({ newSharkQuantity });
     return (
         <div className={cx('shark-container')}>
             <div className={cx('shark-overview')}>
