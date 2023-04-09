@@ -1,11 +1,11 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-export const getSharkWallet = async (id) => {
+export const getSharkWallet = async (walletAddress) => {
     try {
 
         const response = await httpRequest.get('/display/sharks', {
             params: {
-                userId: id,
+                walletAddress
             },
         });
         return response.data;

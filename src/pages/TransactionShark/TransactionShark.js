@@ -3,24 +3,19 @@ import ReactPaginate from 'react-paginate';
 import classNames from 'classnames/bind';
 import styles from './TransactionShark.module.scss';
 import Button from '~/components/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import { transactionSharkService } from '~/services';
 import TransactionSharkItem from './components/TransactionSharkItem/TransactionSharkItem';
-import { sharkWalletAddressSelector } from '~/modules/SharkWallet/selector';
-
 
 const cx = classNames.bind(styles);
 
 function TransactionShark() {
-    const sharkAddress = useSelector(sharkWalletAddressSelector);
     const [transactionShark, setTransactionShark] = useState([])
     const [transactionSharkLength, setTransactionSharkLength] = useState('')
     const [valueFilter, setValueFilter] = useState('');
     const [currentPage, setCurrentPage] = useState('');
     const dispatch = useDispatch();
-    console.log(transactionShark);
-    console.log(sharkAddress)
     useEffect(() => {
         dispatch(fetchSharkWallet());
         getLength()
@@ -48,7 +43,6 @@ function TransactionShark() {
                     },
                 }
             );
-            console.log(data.data[0].transactionsLength)
             setTransactionSharkLength(data.data[0].transactionsLength)
         };
         fetchApi();
@@ -66,7 +60,6 @@ function TransactionShark() {
                     },
                 }
             );
-            console.log(data.datas)
             setTransactionShark(data.datas)
         };
         fetchApi();
@@ -100,7 +93,6 @@ function TransactionShark() {
                     <tbody>
                         {/* {transactionShark.length === 0 && <div className="text-center">No data</div>} */}
                         {transactionShark.map((trans, index) => {
-                            console.log(sharkAddress);
                             return <TransactionSharkItem key={index} data={trans} index={index} sharkAddress={trans.walletAddress} />
                         }
                         )}

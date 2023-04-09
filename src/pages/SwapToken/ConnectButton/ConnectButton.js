@@ -9,7 +9,7 @@ import qrMetamask from '~/assets/images/qr-metamask.png';
 const cx = classNames.bind(styles);
 
 function ConnectButton(props) {
-    const { provider, setIsNotExistMeta, isNotExistMeta, setIsConnecting, onGetStatusMeTamask } = props;
+    const { setIsNotExistMeta, isNotExistMeta, handleSetIsConnecting, onGetStatusMeTamask } = props;
     const [isOpenModalMetamask, setIsOpenModalMetamask] = useState(false);
 
     const openModal = () => {
@@ -19,14 +19,12 @@ function ConnectButton(props) {
     const handleConnect = () => {
         if (typeof window.ethereum !== 'undefined') {
             setIsNotExistMeta(false);
-            setIsConnecting(true);
+            handleSetIsConnecting(true);
             onGetStatusMeTamask()
-            console.log('MetaMask is installed!');
 
         } else {
-            console.log('MetaMask is not installed.');
             setIsNotExistMeta(true);
-            setIsConnecting(false);
+            handleSetIsConnecting(false);
         }
     };
 

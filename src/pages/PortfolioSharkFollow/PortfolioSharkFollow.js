@@ -28,7 +28,6 @@ function PortfolioSharkFollow() {
     const loadingShark = useSelector(sharkLoadingSelector);
     const loadingTransaction = useSelector(loadingTransactionSelector);
 
-    console.log(userInfo)
 
     useEffect(() => {
         dispatch(fetchSharkFollowed(userName.userId));

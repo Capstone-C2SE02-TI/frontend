@@ -7,7 +7,6 @@ import { Bar, Line } from 'react-chartjs-2';
 import { convertDate, convertStringToTimeCurrent, convertTime } from '~/helpers';
 import styles from './ChartTrading.module.scss';
 function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
-    console.log(dataTransactionHistory);
 
     const pastPriceData = useMemo(() => {
         return dataTransactionHistory
