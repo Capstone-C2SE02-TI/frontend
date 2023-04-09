@@ -212,18 +212,7 @@ function App() {
               />
             }
           />
-          <Route
-            path={configs.routes.blog}
-            element={
-              <PublicRoute
-                element={
-                  <LayoutDefault>
-                    <Blog />
-                  </LayoutDefault>
-                }
-              />
-            }
-          />
+          <Route path={configs.routes.blog} element={<PublicRoute element={<Blog />} />} />
           {/* Authentication router */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
