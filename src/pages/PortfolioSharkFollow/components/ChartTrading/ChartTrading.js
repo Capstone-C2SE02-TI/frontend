@@ -1,13 +1,11 @@
 import 'chartjs-plugin-zoom';
 import React, { memo } from 'react';
-import { useMemo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
-import { convertDate, convertStringToTimeCurrent, convertTime } from '~/helpers';
+import { useMemo } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { convertDate, convertTime } from '~/helpers';
 import styles from './ChartTrading.module.scss';
 function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
-
+console.log(dataTransactionHistory);
     const pastPriceData = useMemo(() => {
         return dataTransactionHistory
             .slice()
@@ -15,7 +13,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
                 return {
-                    y: trans.pastPrice,
+                    y: +trans.pastPrice*100/trans.presentPrice,
                     x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`,
                     z: trans.tokenSymbol.toUpperCase(),
                 };
@@ -29,7 +27,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
                 return {
-                    y: trans.presentPrice,
+                    y: 100,
                     x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`,
                     z: trans.tokenSymbol.toUpperCase(),
                 };

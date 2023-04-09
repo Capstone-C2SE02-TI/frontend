@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './PortfolioSharkFollow.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadingTransactionSelector, sharkFollowedSelector, sharkLoadingSelector, transactionHistorySelector } from '~/modules/SharkFollowed/selector';
+import { sharkFollowedSelector, transactionHistorySelector } from '~/modules/SharkFollowed/selector';
 import { fetchSharkFollowed, fetchTransactionHistoryPortfolio, removeSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
 import PortfolioSharkFollowItem from './components/PortfolioSharkFollowItem/PortfolioSharkFollowItem';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
@@ -11,9 +11,8 @@ import ChartTrading from './components/ChartTrading/ChartTrading';
 import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import Button from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { fetchTransactionHistorySharkWallet, resetSharkDetail } from '~/modules/SharkWallet/sharkWalletSlice';
-import Loading from '~/components/Loading';
+import { resetSharkDetail } from '~/modules/SharkWallet/sharkWalletSlice';
+import Rechart from './components/Rechart/Rechart';
 
 const cx = classNames.bind(styles);
 
@@ -25,14 +24,12 @@ function PortfolioSharkFollow() {
     const userInfo = useSelector(userInfoSelector);
     const sharkFollowedSelected = useSelector(sharkFollowedSelectedSelector);
     const transactionHistory = useSelector(transactionHistorySelector);
-    const loadingShark = useSelector(sharkLoadingSelector);
-    const loadingTransaction = useSelector(loadingTransactionSelector);
-
+    const ethAddress = localStorage.getItem('eth_address');
 
     useEffect(() => {
-        dispatch(fetchSharkFollowed(userName.userId));
+        dispatch(fetchSharkFollowed(ethAddress));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch]);
+    }, [dispatch, ethAddress]);
 
     useEffect(() => {
         if (sharkFolloweds.length > 0) {
@@ -66,7 +63,7 @@ function PortfolioSharkFollow() {
                 <div>
                     <div>
                         <div className={cx('portfolio-h1')}>
-                            <h1>Portfolio: {userInfo.fullName ? userInfo.fullName : 'No data'}</h1>
+                            <h1>Portfolio</h1>
                         </div>
                         {/* <DoughnutChart classNames={cx('chart-shark')} cryptosSharkWallet={sharkCrypto} /> */}
                         <table className={cx('portfolio-table')}>
@@ -104,6 +101,9 @@ function PortfolioSharkFollow() {
                             name={sharkFollowedSelected.sharkId}
                         />
                     )}
+                    {/* <div style={{height: '700px'}}>
+                        <Rechart />
+                    </div> */}
                 </div>
             ) : (
                 <div className={cx('d-flex flex-column align-items-center')}>
