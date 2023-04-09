@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './SharkWalletsOverview.module.scss';
 import SharkWalletsOverviewItem from '../../components/SharkWalletsOverviewItem/';
 import { useSelector, useDispatch } from 'react-redux';
-import { newSharkListRemainingSelector, newSharkListSelector, newSharkQuantitySelector, newSharkSelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
+import { newSharkListRemainingSelector, newSharkQuantitySelector, sharkCryptoStatusSelector, sharkRemainingSelector } from '~/modules/SharkWallet/selector';
 import sharkWalletSlice, { fetchSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import NoData from '~/components/NoData';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +14,7 @@ import { userInfoSelector } from '~/modules/user/auth/selectors';
 import ReactPaginate from 'react-paginate';
 import { sliceArrayToPagination } from '~/helpers';
 import { useMemo } from 'react';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 40;
@@ -23,14 +24,14 @@ function SharkWalletsOverview() {
     const sharksCoin = useSelector(sharkRemainingSelector);
     const newSharkList = useSelector(newSharkListRemainingSelector);
     const newSharkQuantity = useSelector(newSharkQuantitySelector);
-    ;
+
     const status = useSelector(sharkCryptoStatusSelector);
     const userInfo = useSelector(userInfoSelector);
-    const currentUser = JSON.parse(localStorage.getItem('userInfo'));
+    const ethAddress = localStorage.getItem('eth_address');
 
     useEffect(() => {
-        dispatch(fetchSharkWallet(currentUser.userId));
-    }, [dispatch]);
+        dispatch(fetchSharkWallet(ethAddress));
+    }, [dispatch, ethAddress]);
 
     useEffect(() => {
         if (sharksCoin.length > 0) {
@@ -66,7 +67,6 @@ function SharkWalletsOverview() {
         }
     }, [newSharkList, paginationState, sharksCoin, tabOverviewTransaction]);
 
-    // console.log(newSharkList);
     const handlePageClick = (selectedItem) => {
         setPaginationState(selectedItem.selected + 1);
     };
@@ -78,7 +78,6 @@ function SharkWalletsOverview() {
     const newSharkClassName = useMemo(() => {
         return cx('tab-shark', { 'active-shark': tabOverviewTransaction === 'newShark' });
     }, [tabOverviewTransaction]);
-    // console.log({ newSharkQuantity });
     return (
         <div className={cx('shark-container')}>
             <div className={cx('shark-overview')}>

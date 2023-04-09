@@ -83,9 +83,7 @@ const sharkWalletSlice = createSlice({
                 state.status = 'idle';
             })
 
-            .addCase(fetchFollowSharkWallet.pending, (state, action) => {
-                state.status = 'loading';
-            })
+ 
             .addCase(fetchFollowSharkWallet.fulfilled, (state, action) => {
                 const { data } = action.payload;
 
@@ -100,9 +98,6 @@ const sharkWalletSlice = createSlice({
                 state.sharkList = newShark;
             })
 
-            .addCase(fetchUnFollowSharkWallet.pending, (state, action) => {
-                state.status = 'loading';
-            })
             .addCase(fetchUnFollowSharkWallet.fulfilled, (state, action) => {
                 const { data } = action.payload;
 
@@ -135,8 +130,8 @@ const sharkWalletSlice = createSlice({
     },
 });
 
-export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async (id) => {
-    const response = await sharkWalletService.getSharkWallet(id);
+export const fetchSharkWallet = createAsyncThunk('sharkWallet/fetchSharkWallet', async (walletAddress) => {
+    const response = await sharkWalletService.getSharkWallet(walletAddress);
     return response.datas;
 });
 

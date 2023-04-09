@@ -32,6 +32,7 @@ function AssetCoins() {
         <section className={cx('asset')}>
             <div className={cx('asset-content')}>
                 <h2>NEWS</h2>
+                
             </div>
             <div className={cx('asset-coin')}>
                 <div className={cx('asset-coin-flex')}>
