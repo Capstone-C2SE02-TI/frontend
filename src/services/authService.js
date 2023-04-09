@@ -27,11 +27,11 @@ export const signOut = async () => {
     }
 };
 
-export const getUserInfo = async (userId) => {
+export const getUserInfo = async (walletAddress) => {
     try {
         const response = await httpRequest.get('/user/profile', {
             params: {
-                userId,
+                walletAddress,
             },
         });
         return response.data;
@@ -49,39 +49,11 @@ export const updateUserInfo = async (body, userId, options = {}) => {
     }
 };
 
-export const changePassword = async (body) => {
+export const getAllUser = async () => {
     try {
-        const response = await httpRequest.post(`/change-password`, body);
+        const response = await httpRequest.get('/display/users');
         return response.data;
     } catch (error) {
-        return error.response.data;
+        console.log(error);
     }
 };
-
-export const findCodeOTP = async (body) => {
-    try {
-        const response = await httpRequest.post(`/forgot-password/submit-email`, body);
-        return response.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const submitCodeOTP = async (body) => {
-    try {
-        const response = await httpRequest.post(`/forgot-password/submit-code`, body);
-        return response.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const createNewPassword = async (body) => {
-    try {
-        const response = await httpRequest.post(`/forgot-password/create-new-password`, body);
-        return response.data;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-

@@ -27,7 +27,6 @@ function TokenDetail() {
     const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
     const coinDetail = useSelector(coinsDetailSelector);
     const trendingTokens = useSelector(trendingTokensSelector);
-    console.log(coinDetail)
     useScrollToTop();
     useEffect(() => {
         dispatch(fetchCoinsDetail(symbol));

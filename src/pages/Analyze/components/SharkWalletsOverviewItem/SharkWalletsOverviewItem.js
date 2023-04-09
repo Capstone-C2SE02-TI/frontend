@@ -10,6 +10,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { sharkInfoSelector } from '~/modules/SharkWallet/selector';
 import millify from 'millify';
 import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
     const [confirmContent, setConfirmContent] = useState({});
 
     const dispatch = useDispatch();
+    const walletAddress = useSelector(getAddressMetaMask);
 
     const classNamesStatusCoin24h = cx(data.percent24h >= 0 ? 'increase' : 'reduce');
 
@@ -34,9 +36,9 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
 
     const handleFollowAndUnFollow = () => {
         if (confirmContent.type === 'follow') {
-            dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+            dispatch(fetchFollowSharkWallet({ walletAddress, sharkId: data.sharkId }));
         } else {
-            dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+            dispatch(fetchUnFollowSharkWallet({ walletAddress, sharkId: data.sharkId }));
         }
     };
 
@@ -60,6 +62,7 @@ function SharkWalletsOverviewItem({ data, userInfo }) {
         const div = parentRef.current;
         div.addEventListener('scroll', handleScroll);
     }, [handleScroll]);
+    console.log({data});
     return (
         <tr
             className={cx('react-bootstrap-table', { 'shark-active': data.sharkId === sharkInfoCurrent.sharkId })}

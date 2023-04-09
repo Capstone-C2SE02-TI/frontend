@@ -14,6 +14,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import authSlice from '~/modules/user/auth/authSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
+import { TransactionResponse } from '~/configs/api';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,6 @@ function SwapToken() {
 
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);
-        console.log({ smartContractInfo, walletAddress });
         let params = [
             {
                 from: smartContractInfo.walletAddress,
@@ -74,9 +74,8 @@ function SwapToken() {
                 }
                 const handleRequestStatus = async () => {
                     const statusSwapToken = await axios.get(
-                        `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
+                        TransactionResponse(txhash)
                     );
-                    console.log({ statusSwapToken: statusSwapToken.data });
                 };
                 setTimeout(handleRequestStatus, 10000);
             });

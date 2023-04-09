@@ -14,14 +14,30 @@ import ModalNotify from '~/components/ModalNotify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { saveExpiredTime, saveSmartContractInfo, saveUserPremium } from '~/modules/user/auth/authSlice';
-import BuyItem from './BuyItem';
 import { convertUnixTime } from '~/helpers';
 import BuyLevel from './BuyLevel/BuyLevel';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import _ from 'lodash';
+import { TransactionResponse } from '~/configs/api';
 
 const cx = classNames.bind(styles);
-
+const TIME_UPGRADE_PRICES = [
+    {
+        type: 'month',
+        quantityTime: '1',
+        price: 1,
+    },
+    {
+        type: 'month',
+        quantityTime: '6',
+        price: 5,
+    },
+    {
+        type: 'year',
+        quantityTime: '1',
+        price: 10,
+    },
+];
 function BuyToken() {
     const smartContractInfo = useSelector(smartContractInfoSelector);
     const walletAddress = useSelector(getAddressMetaMask);
@@ -29,43 +45,14 @@ function BuyToken() {
     const navigate = useNavigate();
     const [provider, setProvider] = useState(undefined);
 
-    const PREMIUM_PRICES_DEFAULT = useMemo( () => {
-        console.log(smartContractInfo.premiumPrices);
-        if (!_.isEmpty(smartContractInfo)) {
-            return [
-                {
-                    price: smartContractInfo?.premiumPrices[0]?.price,
-                    type: 1,
-                },
-                {
-                    price: smartContractInfo?.premiumPrices[1]?.price,
-                    type: 2,
-                },
-                {
-                    price: smartContractInfo?.premiumPrices[2]?.price,
-                    type: 3,
-                },
-            ];
-        }
+    const PREMIUM_PRICES_DEFAULT = useMemo(() => {
+        return smartContractInfo.premiumPrices.map((premiumPrices, index) => {
+            return {
+                price: premiumPrices.price,
+                type: index + 1
+            }
+        })
     }, [smartContractInfo]);
-
-    const TIME_UPGRADE_PRICES = [
-        {
-            type: 'month',
-            quantityTime: '1',
-            price: 1,
-        },
-        {
-            type: 'month',
-            quantityTime: '6',
-            price: 5,
-        },
-        {
-            type: 'year',
-            quantityTime: '1',
-            price: 10,
-        },
-    ];
 
     const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
@@ -85,20 +72,16 @@ function BuyToken() {
         const limmitedAccountTime = convertUnixTime(convertlimmitedAccount);
         dispatch(saveExpiredTime(limmitedAccountTime));
     };
-    const upgradePremium = async (premiumPrice) => {
-        console.log({ address: smartContractInfo.walletAddress });
+    const upgradePremium = async (premiumPrice, handleToggleApprove) => {
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
-        console.log(PREMIUM_PRICES_DEFAULT, premiumPrice);
         const ide =
             PREMIUM_PRICES_DEFAULT[
                 PREMIUM_PRICES_DEFAULT.findIndex((premiumData) => premiumData.price === premiumPrice)
             ].type;
-        console.log(ide, PREMIUM_PRICES_DEFAULT, premiumPrice);
         const estimationUpgrade = await contractPremium
             .connect(provider.getSigner())
             .estimateGas.upgradePremium(BigNumber.from(ide));
 
-        let ABI = ['function upgradePremium(uint8 _level)'];
         let params = [
             {
                 from: smartContractInfo.walletAddress,
@@ -114,11 +97,9 @@ function BuyToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    // dispatch(saveUserPremium(!!result));
+                    console.log({result});
                     const handleRequestStatus = async () => {
-                        const approveTokenStatus = await axios.get(
-                            `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
-                        );
+                        const approveTokenStatus = await axios.get(TransactionResponse(txhash));
                         if (approveTokenStatus.data.result.isError === '0') {
                             await onLoadExpriredTime();
                             toast.dismiss();
@@ -130,12 +111,13 @@ function BuyToken() {
                                 }),
                             );
                             dispatch(saveUserPremium(true));
+                            handleToggleApprove(false)
                         } else {
                             toast.dismiss();
                             toast.error('Upgrade Premium failed');
                         }
                     };
-                    setTimeout(handleRequestStatus, 15000);
+                    setTimeout(handleRequestStatus, 1000)
                 }
             });
         });
@@ -146,7 +128,6 @@ function BuyToken() {
         let iface = new ethers.utils.Interface(ABI);
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
         const estimationApprove = await contractTi.estimateGas.approve(FUND_SUBSCRIPTION_ADDRESS, premiumPrice);
-        console.log({ estimationApprove, Int16Array: estimationApprove.toHexString(16) });
         let params = [
             {
                 from: smartContractInfo.walletAddress,
@@ -162,22 +143,19 @@ function BuyToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    // dispatch(saveUserPremium(!!result));
                     const handleRequestStatus = async () => {
-                        const approveTokenStatus = await axios.get(
-                            `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`,
-                        );
+                        const approveTokenStatus = await axios.get(TransactionResponse(txhash));
 
                         if (approveTokenStatus.data.result.isError === '0') {
                             toast.dismiss();
                             toast.success('Approve Token successfully', { icon: '👻' });
-                            handleToggleApprove();
+                            handleToggleApprove(true);
                         } else {
                             toast.dismiss();
                             toast.error('Approve Token failed');
                         }
                     };
-                    setTimeout(handleRequestStatus, 15000);
+                    handleRequestStatus();
                 }
             });
         });
@@ -236,6 +214,7 @@ function BuyToken() {
                     return (
                         <Col xl={8} lg={12} md={24} key={index}>
                             <BuyLevel
+                                isApprove={false}
                                 times={TIME_UPGRADE_PRICES[index]}
                                 premiumPrice={premiumPrice}
                                 handleApprove={handleApprove}

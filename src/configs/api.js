@@ -8,3 +8,6 @@ export const HistoricalChart = (id, days = 365, currency) =>
 
 export const TrendingCoins = (currency) =>
     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h`;
+
+export const TransactionResponse = (txhash) =>
+    `https://api-goerli.etherscan.io/api?module=transaction&action=getstatus&txhash=${txhash}&apikey=P4UEFZVG1N5ZYMPDKVQI7FFU7AZN742U3E`;
