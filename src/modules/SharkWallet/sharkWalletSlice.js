@@ -83,19 +83,17 @@ const sharkWalletSlice = createSlice({
                 state.status = 'idle';
             })
 
- 
             .addCase(fetchFollowSharkWallet.fulfilled, (state, action) => {
                 const { data } = action.payload;
-
                 state.sharkDetail = data;
 
                 state.status = 'idle';
-                const newShark = state.sharkList.map((shark) => {
-                    if (shark.sharkId === data._doc.sharkId) {
+                const newListShark = state.sharkList.map((shark) => {
+                    if (shark.sharkId === data.sharkId) {
                         return { ...shark, isFollowed: true };
                     } else return shark;
                 });
-                state.sharkList = newShark;
+                state.sharkList = newListShark;
             })
 
             .addCase(fetchUnFollowSharkWallet.fulfilled, (state, action) => {
@@ -104,7 +102,7 @@ const sharkWalletSlice = createSlice({
                 state.sharkDetail = data;
                 state.status = 'idle';
                 const newShark = state.sharkList.map((shark) => {
-                    if (shark.sharkId === data._doc.sharkId) {
+                    if (shark.sharkId === data.sharkId) {
                         return { ...shark, isFollowed: false };
                     } else return shark;
                 });

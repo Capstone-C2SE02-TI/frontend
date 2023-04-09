@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useMemo } from 'react';
 import { fetchCryptoSharkWallet } from '~/modules/SharkWallet/sharkWalletSlice';
 import {
-    sharkCryptoSelector,
     sharkCryptoStatusSelector,
     sharkWalletIdSelector,
     sharkRemainingSelector,
@@ -34,7 +33,6 @@ function SharkWalletCrypto({ currentTabSharkWallet }) {
         if (sharkIdSelected) dispatch(fetchCryptoSharkWallet(sharkIdSelected));
     }, [dispatch, sharkIdSelected]);
 
-console.log({sharkCryptoStatus});
     return (
         currentTabSharkWallet === 'crypto' && (
             <Spin spinning={sharkCryptoStatus === 'loading' ? true : false}>
