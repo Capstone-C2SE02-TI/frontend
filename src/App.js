@@ -13,6 +13,7 @@ import Home, {
     TransactionShark,
     GainLoss,
     PortfolioSharkFollow,
+    Blog,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -179,7 +180,7 @@ function App() {
                             />
                         }
                     />
-                  
+
                     <Route
                         path={configs.routes.gainLoss}
                         element={
@@ -211,6 +212,18 @@ function App() {
                                 element={
                                     <LayoutDefault>
                                         <Profile />
+                                    </LayoutDefault>
+                                }
+                            />
+                        }
+                    />
+                    <Route
+                        path={configs.routes.blog}
+                        element={
+                            <PublicRoute
+                                element={
+                                    <LayoutDefault>
+                                        <Blog />
                                     </LayoutDefault>
                                 }
                             />

@@ -16,5 +16,6 @@ const routes = {
     transactionShark: '/transaction-shark',
     gainLoss: '/gain-loss',
     portfolioSharkFollow: '/portfolio-shark-follow',
+    blog: '/blog',
 };
 export default routes;
