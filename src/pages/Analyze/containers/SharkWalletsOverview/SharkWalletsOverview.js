@@ -14,6 +14,7 @@ import { userInfoSelector } from '~/modules/user/auth/selectors';
 import ReactPaginate from 'react-paginate';
 import { sliceArrayToPagination } from '~/helpers';
 import { useMemo } from 'react';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 40;
@@ -23,14 +24,14 @@ function SharkWalletsOverview() {
     const sharksCoin = useSelector(sharkRemainingSelector);
     const newSharkList = useSelector(newSharkListRemainingSelector);
     const newSharkQuantity = useSelector(newSharkQuantitySelector);
-    ;
+
     const status = useSelector(sharkCryptoStatusSelector);
     const userInfo = useSelector(userInfoSelector);
-    const currentUser = JSON.parse(localStorage.getItem('userInfo'));
+    const ethAddress = localStorage.getItem('eth_address');
 
     useEffect(() => {
-        dispatch(fetchSharkWallet(currentUser.userId));
-    }, [dispatch]);
+        dispatch(fetchSharkWallet(ethAddress));
+    }, [dispatch, ethAddress]);
 
     useEffect(() => {
         if (sharksCoin.length > 0) {

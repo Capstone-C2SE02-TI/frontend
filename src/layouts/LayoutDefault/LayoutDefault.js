@@ -20,7 +20,6 @@ import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import ConnectWallet from './components/ConnectWallet/ConnectWallet';
 import { useCallback } from 'react';
-import { listUserSelector } from '~/modules/user/auth/selectors';
 const cx = classNames.bind(styles);
 const userMenu = [
     {
