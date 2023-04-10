@@ -9,19 +9,22 @@ import gainLossSlice from './GainLoss/gainLossSlice';
 import sharkFollowedSlice from './SharkFollowed/sharkFollowedSlice';
 import portfolioSlice from './Portfolio/portfolioSlice';
 import MetaMaskSlice from './MetaMask/metaMaskSlice';
+import blogSlice from './Blog/blogSlice';
 
 const store = configureStore({
-    reducer: {
-        auth: authSlice.reducer,
-        homeDashboard: homeDashboardSlice.reducer,
-        discoverCoins: discoverSlice.reducer,
-        coinDetail: coinDetailSlice.reducer,
-        sharkWallet: sharkWalletSlice.reducer,
-        transactionShark: transactionSharkSlice.reducer,
-        gainLoss: gainLossSlice.reducer,
-        sharkFollowed: sharkFollowedSlice.reducer,
-        portfolio: portfolioSlice.reducer,
-        metaMask: MetaMaskSlice.reducer
-    },
+  reducer: {
+    auth: authSlice.reducer,
+    homeDashboard: homeDashboardSlice.reducer,
+    discoverCoins: discoverSlice.reducer,
+    coinDetail: coinDetailSlice.reducer,
+    sharkWallet: sharkWalletSlice.reducer,
+    transactionShark: transactionSharkSlice.reducer,
+    gainLoss: gainLossSlice.reducer,
+    sharkFollowed: sharkFollowedSlice.reducer,
+    portfolio: portfolioSlice.reducer,
+    metaMask: MetaMaskSlice.reducer,
+    blog: blogSlice.reducer,
+  },
 });
+
 export default store;

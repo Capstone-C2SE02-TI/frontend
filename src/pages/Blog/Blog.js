@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { fetchAllBlogs } from './blogSlice';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllBlogs } from '~/modules/Blog/blogSlice';
 import {
   allBlogsSelector,
   baocaoBlogsSelector,
   phantichBlogsSelector,
   quydautuBlogsSelector,
   detailBlogSelector,
-} from './selector';
+} from '~/modules/Blog/selector';
 import Profile from './components/Profile';
 import NavHeader from './components/NavHeader';
 import SearchBar from './components/SearchBar';
@@ -17,29 +17,16 @@ import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
 import styles from './Blog.module.scss';
-import httpRequest from '~/utils/httpRequest';
 
 const cx = classNames.bind(styles);
 
 function Blog() {
-  const [blogs, setBlogs] = useState();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const allBlogs = useSelector(allBlogsSelector);
-
-  const getBlogs = async () => {
-    const response = await httpRequest.get('/blog/all?type=bao-cao');
-    setBlogs(response.data.data);
-  };
+  const allBlogs = useSelector(allBlogsSelector);
 
   useEffect(() => {
-    getBlogs();
+    dispatch(fetchAllBlogs());
   }, []);
-
-  // useEffect(async () => {
-  //   dispatch(fetchAllBlogs());
-  //   console.log(allBlogs);
-  // }, [dispatch, null]);
 
   const renderListBlogs = (blogs) => {
     return blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
@@ -61,7 +48,7 @@ function Blog() {
           </div>
         </section>
       </header>
-      <div>{blogs && renderListBlogs(blogs)}</div>
+      <div>{allBlogs && renderListBlogs(allBlogs)}</div>
     </div>
   );
 }

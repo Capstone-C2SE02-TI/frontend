@@ -6,13 +6,11 @@ const blogSlice = createSlice({
   name: 'blog',
   initialState: {
     status: 'idle',
-    blog: {
-      all: [],
-      baocao: [],
-      phantich: [],
-      quydautu: [],
-      detail: {},
-    },
+    all: [],
+    baocao: [],
+    phantich: [],
+    quydautu: [],
+    detail: {},
   },
   reducers: {
     actionSidebar: (state) => {
@@ -25,7 +23,7 @@ const blogSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchAllBlogs.fulfilled, (state, action) => {
-        state.blog = { all: action.payload };
+        state.all = action.payload;
         state.status = 'idle';
       })
       .addCase(fetchBlogsByType.pending, (state, action) => {
@@ -39,7 +37,7 @@ const blogSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchDetailBlog.fulfilled, (state, action) => {
-        state.blog = { detail: action.payload };
+        state.detail = action.payload;
         state.status = 'idle';
       });
   },

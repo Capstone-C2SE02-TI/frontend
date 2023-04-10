@@ -9,7 +9,7 @@ function NavHeader() {
             <ul className={cx('NavHeader-list')}>
                 <li><Link to={""}>Documentation</Link></li>
                 <li><Link to={""}>Scan Wallets</Link></li>
-                <li><Link to={""}>Blog</Link></li>
+                <li><Link to={"/blog"}>Blog</Link></li>
                 <li><Link to={""}>Contact</Link></li>
                 <li><Link to={""}>About us</Link></li>
             </ul>
