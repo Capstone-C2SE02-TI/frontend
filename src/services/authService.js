@@ -40,9 +40,9 @@ export const getUserInfo = async (walletAddress) => {
     }
 };
 
-export const updateUserInfo = async (body, userId, options = {}) => {
+export const updateUserInfo = async (body, ethAddress, options = {}) => {
     try {
-        const response = await httpRequest.post(`/user/profile/update?userId=${userId}`, body, options);
+        const response = await httpRequest.post(`/user/profile/update?walletAddress=${ethAddress}`, body, options);
         return response.data;
     } catch (error) {
         return error.response.data;

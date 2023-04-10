@@ -43,6 +43,7 @@ function EditProfile() {
 
     const userInfoDetail = useSelector(userInfoSelector);
     const { userId } = JSON.parse(localStorage.getItem('userInfo'));
+    const ethAddress = localStorage.getItem('eth_address');
 
     const handleChange = (e) => {
         const { value, name } = e.target;
@@ -54,8 +55,8 @@ function EditProfile() {
     };
 
     useEffect(() => {
-        if (userId) {
-            dispatch(fetchGetUserInfo(userId));
+        if (ethAddress) {
+            dispatch(fetchGetUserInfo(ethAddress));
         }
     }, [dispatch, userId]);
 
@@ -109,7 +110,7 @@ function EditProfile() {
                         ...formValues,
                         avatar: selectedAvatarImage ? selectedAvatarImage : '',
                     },
-                    userId,
+                    ethAddress,
                 );
                 setLoading(false);
 

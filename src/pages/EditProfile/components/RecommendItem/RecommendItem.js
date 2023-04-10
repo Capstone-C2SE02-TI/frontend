@@ -21,12 +21,13 @@ function RecommendItem({ key, data, userInfo }) {
     const dispatch = useDispatch();
 
     const loading = useSelector(loadingSelector);
+    const ethAddress = localStorage.getItem('eth_address');
 
     const handleFollowAndUnFollow = () => {
         if (confirmContent.type === 'follow') {
-            dispatch(fetchFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+            dispatch(fetchFollowSharkWallet({ walletAddress: ethAddress, sharkId: data.sharkId }));
         } else {
-            dispatch(fetchUnFollowSharkWallet({ userId: userInfo.userId, sharkId: data.sharkId }));
+            dispatch(fetchUnFollowSharkWallet({ walletAddress: ethAddress, sharkId: data.sharkId }));
         }
     };
 
