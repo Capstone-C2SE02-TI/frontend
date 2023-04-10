@@ -47,15 +47,14 @@
 
 .navbar-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   z-index: 100;
   width: 100%;
   background: #fff;
-  border-bottom: 1px solid #b8f8;
+  border-bottom: 1px solid rgba(187, 136, 255, 0.5333333333);
+  position: fixed;
+  top: 70px;
+  left: 0;
 }
 
 .SearchBar {
@@ -124,7 +123,6 @@
   }
 }
 
-// Nav header
 .NavHeader {
   width: 35%;
 }
@@ -133,21 +131,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: wheat;
   margin-bottom: 0;
 
   li {
     position: relative;
-    margin-right: 8px;
     transition: 0.5s linear;
     list-style: none;
     border-bottom: 1px solid transparent;
 
     a {
-      color: #6b53f8;
+      color: #000000;
       padding: 20px;
+      margin-right: 30px;
     }
 
     &:hover {
@@ -156,17 +154,17 @@
       }
     }
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-      height: 2px;
-      width: 100%;
-      background-color: #6b53f8;
-      transform: scale(0);
-      transition: 0.5s linear;
-    }
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   left: 0;
+    //   bottom: -10px;
+    //   height: 2px;
+    //   width: 100%;
+    //   background-color: #6b53f8;
+    //   transform: scale(0);
+    //   transition: 0.5s linear;
+    // }
 
     &:first-child {
       margin-right: 0;
@@ -178,7 +176,6 @@
   }
 }
 
-// banner
 .banner {
   position: relative;
   margin-bottom: 32px;
@@ -233,16 +230,6 @@
   }
 }
 
-// Ads
-.ads {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-bottom: 75px;
-}
-
 .col {
   width: 30%;
 
@@ -256,20 +243,6 @@
     font-size: 1.75rem;
     font-weight: 300;
     color: #344054;
-  }
-}
-
-.ads2 {
-  padding: 0px 0 0px 0;
-  transform: translateY(50%);
-  margin-top: 5%;
-  h1 {
-    font-size: 4rem;
-    font-weight: bold;
-    color: rgb(56, 97, 251);
-    text-align: center;
-    text-transform: uppercase;
-    padding-bottom: 40px;
   }
 }
 
