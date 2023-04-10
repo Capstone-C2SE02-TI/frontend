@@ -9,36 +9,44 @@ import {
   quydautuBlogsSelector,
   detailBlogSelector,
 } from './selector';
-import Profile from './components/NavHeader/Profile';
-import NavHeader from './components/NavHeader/NavHeader';
-import SearchBar from './components/NavHeader/SearchBar';
+import Profile from './components/Profile';
+import NavHeader from './components/NavHeader';
+import SearchBar from './components/SearchBar';
+import BlogItem from './components/BlogItem';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
 import styles from './Blog.module.scss';
+import httpRequest from '~/utils/httpRequest';
 
 const cx = classNames.bind(styles);
 
 function Blog() {
-  // const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const allBlogs = useSelector(allBlogsSelector);
+  // const allBlogs = useSelector(allBlogsSelector);
 
-  const getBlogs = async () => {};
-
-  // useEffect(async () => {
-  //   await getBlogs();
-  // }, []);
+  const getBlogs = async () => {
+    const response = await httpRequest.get('/blog/all?type=bao-cao');
+    setBlogs(response.data.data);
+  };
 
   useEffect(() => {
-    dispatch(fetchAllBlogs());
-  }, [dispatch, null]);
+    getBlogs();
+  }, []);
+
+  // useEffect(async () => {
+  //   dispatch(fetchAllBlogs());
+  //   console.log(allBlogs);
+  // }, [dispatch, null]);
+
+  const renderListBlogs = (blogs) => {
+    return blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
+  };
 
   return (
     <div className={cx('wrapper')}>
-      {console.log(allBlogs)}
-
       <header className={cx('header')}>
         <section className={cx('header-section')}>
           <div className={cx('header-box')}>
@@ -53,6 +61,7 @@ function Blog() {
           </div>
         </section>
       </header>
+      <div>{blogs && renderListBlogs(blogs)}</div>
     </div>
   );
 }

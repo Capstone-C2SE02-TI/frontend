@@ -9,13 +9,16 @@ function NavHeader() {
     <nav className={cx('NavHeader')}>
       <ul className={cx('NavHeader-list')}>
         <li>
-          <Link to={''}>Report</Link>
+          <Link to={'/blog'}>Research</Link>
         </li>
         <li>
-          <Link to={''}>Analyze</Link>
+          <Link to={'/blog?type=bao-cao'}>Report</Link>
         </li>
         <li>
-          <Link to={''}>Investment Funds</Link>
+          <Link to={'/blog?type=phan-tich'}>Analyze</Link>
+        </li>
+        <li>
+          <Link to={'/blog?type=quy-dau-tu'}>Investment Funds</Link>
         </li>
       </ul>
     </nav>

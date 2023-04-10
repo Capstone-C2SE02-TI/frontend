@@ -6,7 +6,13 @@ const blogSlice = createSlice({
   name: 'blog',
   initialState: {
     status: 'idle',
-    blog: {},
+    blog: {
+      all: [],
+      baocao: [],
+      phantich: [],
+      quydautu: [],
+      detail: {},
+    },
   },
   reducers: {
     actionSidebar: (state) => {
@@ -41,17 +47,17 @@ const blogSlice = createSlice({
 
 export const fetchAllBlogs = createAsyncThunk('blog/fetchAllBlogs', async () => {
   const response = await blogService.getAllBlogs();
-  return response.datas;
+  return response.data;
 });
 
 export const fetchBlogsByType = createAsyncThunk('blog/fetchBlogsByType', async (type) => {
   const response = await blogService.getBlogsByType(type);
-  return response.datas;
+  return response.data;
 });
 
 export const fetchDetailBlog = createAsyncThunk('blog/fetchDetailBlog', async (blogId) => {
   const response = await blogService.getDetailBlog(blogId);
-  return response.datas;
+  return response.data;
 });
 
 export default blogSlice;
