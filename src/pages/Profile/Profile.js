@@ -16,12 +16,13 @@ function Profile() {
     const userInfoDetail = useSelector(userInfoSelector);
     const { userId } = JSON.parse(localStorage.getItem('userInfo'));
     const navigate = useNavigate();
+    const ethAddress = localStorage.getItem('eth_address');
 
     useEffect(() => {
-        if (userId) {
-            dispatch(fetchGetUserInfo(userId));
+        if (ethAddress) {
+            dispatch(fetchGetUserInfo(ethAddress));
         }
-    }, [dispatch, userId]);
+    }, [dispatch, ethAddress]);
 
     const renderProfile = () => {
         return (
@@ -36,7 +37,7 @@ function Profile() {
 
                     <div className={cx('profile-info')}>
                         <span className={cx('profile-info-username')}>
-                            Username: <span className="font-italic">{userInfoDetail.username}</span>
+                            WalletAddress: <span className="font-italic">{ethAddress.slice(0,16)}...</span>
                         </span>
                         <p className={cx('profile-info-email')}> {userInfoDetail.email}</p>
                         <div className="d-flex justify-content-between">
