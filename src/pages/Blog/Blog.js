@@ -6,7 +6,6 @@ import { allBlogsSelector, blogsByTypeSelector } from '~/modules/Blog/selector';
 import useQuery from '~/hooks/useQuery';
 import Profile from './components/Profile';
 import NavHeader from './components/NavHeader';
-import SearchBar from './components/SearchBar';
 import BlogItem from './components/BlogItem';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
@@ -44,11 +43,10 @@ function Blog() {
             <Link to={'/'}>
               <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
             </Link>
-            <SearchBar />
+            <div className={cx('navbar-box')}>
+              <NavHeader activeTab={tab} />
+            </div>
             <Profile />
-          </div>
-          <div className={cx('navbar-box')}>
-            <NavHeader activeTab={tab} />
           </div>
         </section>
       </header>

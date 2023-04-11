@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBlogDetail } from '~/modules/BlogDetail/blogDetailSlice';
 import { blogDetailSelector } from '~/modules/BlogDetail/selector';
 import { convertHTMLToJSX, formatPublishDateTime } from '~/helpers';
-
-import Profile from './components/Profile';
+import Profile from '~/pages/Blog/components/Profile';
+import NavHeader from '~/pages/Blog/components/NavHeader';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
@@ -27,7 +27,7 @@ function BlogDetail() {
           <h2>{title}</h2>
         </div>
         <div className={cx('BlogItem-publishDate')}>
-          <h5>{formatPublishDateTime(publishDate)}</h5>
+          <h5>{publishDate && formatPublishDateTime(publishDate)}</h5>
         </div>
         <div className={cx('BlogItem-image')}>
           <img src={thumbnail} alt={title} />
@@ -53,6 +53,9 @@ function BlogDetail() {
             <Link to={'/'}>
               <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
             </Link>
+            <div className={cx('navbar-box')}>
+              <NavHeader activeTab={'research'} />
+            </div>
             <Profile />
           </div>
         </section>

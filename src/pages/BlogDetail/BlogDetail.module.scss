@@ -44,13 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
   background: #fff;
-  border-top: 1px solid #b8f8;
-  position: fixed;
-  z-index: 100;
-  top: 70px;
-  left: 0;
   padding: 20px 0;
 
   .NavHeader-list {
@@ -78,8 +72,8 @@
   .profile-image {
     border-radius: 50%;
     object-fit: cover;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
 
   .profile-name {
@@ -91,6 +85,11 @@
       line-height: 21px;
       color: #352e5b;
       transition: 0.5s;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100px;
+      height: 1.2em;
     }
     h6 {
       color: #aeaeae;
@@ -119,7 +118,7 @@
   .BlogItem-publishDate {
     font-size: 18px;
     text-align: right;
-    padding-right: 100px;
+    padding-right: 80px;
     margin-bottom: 10px;
   }
 
@@ -127,8 +126,8 @@
     text-align: center;
     img {
       margin: auto;
-      width: 80%;
-      height: 600px;
+      width: 100%;
+      height: 500px;
       border-radius: 16px;
     }
   }
@@ -137,7 +136,7 @@
     font-size: 26px;
     color: #aeaeae;
     text-align: center;
-    padding: 0 200px;
+    // padding: 0 200px;
     margin: 30px 0;
     font-style: italic;
   }
