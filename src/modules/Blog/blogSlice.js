@@ -7,10 +7,7 @@ const blogSlice = createSlice({
   initialState: {
     status: 'idle',
     all: [],
-    baocao: [],
-    phantich: [],
-    quydautu: [],
-    detail: {},
+    byType: [],
   },
   reducers: {
     actionSidebar: (state) => {
@@ -30,14 +27,7 @@ const blogSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchBlogsByType.fulfilled, (state, action) => {
-        state.blog = { [action.type]: action.payload };
-        state.status = 'idle';
-      })
-      .addCase(fetchDetailBlog.pending, (state, action) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchDetailBlog.fulfilled, (state, action) => {
-        state.detail = action.payload;
+        state.byType = action.payload;
         state.status = 'idle';
       });
   },
@@ -50,11 +40,6 @@ export const fetchAllBlogs = createAsyncThunk('blog/fetchAllBlogs', async () => 
 
 export const fetchBlogsByType = createAsyncThunk('blog/fetchBlogsByType', async (type) => {
   const response = await blogService.getBlogsByType(type);
-  return response.data;
-});
-
-export const fetchDetailBlog = createAsyncThunk('blog/fetchDetailBlog', async (blogId) => {
-  const response = await blogService.getDetailBlog(blogId);
   return response.data;
 });
 

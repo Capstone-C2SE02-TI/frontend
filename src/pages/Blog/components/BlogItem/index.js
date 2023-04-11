@@ -1,19 +1,20 @@
+import { Link } from 'react-router-dom';
+import { formatPublishDateTime } from '~/helpers';
 import classNames from 'classnames/bind';
 import styles from '../../Blog.module.scss';
-import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function BlogItem({ blog }) {
-  const { _id, title, thumbnail, description, content, publishDate } = blog;
-
+  const { _id, title, thumbnail, publishDate } = blog;
   return (
     <div className={cx('BlogItem')}>
       <Link to={`/blog/detail/${_id}`}>
-        <img src={thumbnail} alt={title} />
-        <h5>{title}</h5>
-        <h6>{description}</h6>
-        <div>{publishDate}</div>
+        <div className={cx('BlogItem-image')}>
+          <img src={thumbnail} alt={title} />
+        </div>
+        <h4 className={cx('BlogItem-title')}>{title}</h4>
+        <h5 className={cx('BlogItem-publishDate')}>{formatPublishDateTime(publishDate)}</h5>
       </Link>
     </div>
   );

@@ -17,12 +17,3 @@ export const getBlogsByType = async (type) => {
     console.log(error);
   }
 };
-
-export const getDetailBlog = async (blogId) => {
-  try {
-    const response = await httpRequest.get(`/blog/detail/${blogId}`);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};

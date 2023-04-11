@@ -14,6 +14,7 @@ import Home, {
   GainLoss,
   PortfolioSharkFollow,
   Blog,
+  BlogDetail,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -212,6 +213,7 @@ function App() {
               />
             }
           />
+          <Route path={configs.routes.blogDetail} element={<PublicRoute element={<BlogDetail />} />} />
           <Route path={configs.routes.blog} element={<PublicRoute element={<Blog />} />} />
           {/* Authentication router */}
           <Route path="*" element={<Navigate to="/" />} />
