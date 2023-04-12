@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
@@ -38,12 +38,12 @@ function Profile() {
       {walletAddress === '' ? (
         <ConnectWallet handleSetIsConnecting={handleSetIsConnecting} isConnecting={isConnecting} />
       ) : (
-        <>
+        <Fragment>
           <Image className={cx('profile-image')} src={DefaultAvatar} alt="logo" />
           <div className={cx('profile-name')}>
             <h5>{walletAddress}</h5>
           </div>
-        </>
+        </Fragment>
       )}
     </div>
   );
