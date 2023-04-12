@@ -4,29 +4,42 @@ import styles from '../../Blog.module.scss';
 
 const cx = classNames.bind(styles);
 
-function NavHeader({ activeTab }) {
+function NavHeader({ activeTab = 'research', setTab }) {
+  const handleClickTab = (tab) => {
+    setTab(tab);
+  };
+
+  const getTabClassName = (currentTab) => {
+    return currentTab === activeTab ? cx('NavHeader-item-active') : '';
+  };
+
   return (
     <nav className={cx('NavHeader')}>
       <ul className={cx('NavHeader-list')}>
         <li>
-          <Link to={'/blog'} className={activeTab === 'research' ? cx('NavHeader-item-active') : ''}>
+          <Link to={'/blog'} className={getTabClassName('research')} onClick={() => handleClickTab('research')}>
             Research
           </Link>
         </li>
         <li>
-          <Link to={'/blog?type=report'} className={activeTab === 'report' ? cx('NavHeader-item-active') : ''}>
+          <Link to={'/blog?type=report'} className={getTabClassName('report')} onClick={() => handleClickTab('report')}>
             Report
           </Link>
         </li>
         <li>
-          <Link to={'/blog?type=analyze'} className={activeTab === 'analyze' ? cx('NavHeader-item-active') : ''}>
+          <Link
+            to={'/blog?type=analyze'}
+            className={getTabClassName('analyze')}
+            onClick={() => handleClickTab('analyze')}
+          >
             Analyze
           </Link>
         </li>
         <li>
           <Link
             to={'/blog?type=investment-funds'}
-            className={activeTab === 'investment-funds' ? cx('NavHeader-item-active') : ''}
+            className={getTabClassName('investment-funds')}
+            onClick={() => handleClickTab('investment-funds')}
           >
             Investment Funds
           </Link>

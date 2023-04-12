@@ -44,7 +44,7 @@ function Blog() {
               <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
             </Link>
             <div className={cx('navbar-box')}>
-              <NavHeader activeTab={tab} />
+              <NavHeader activeTab={tab} setTab={setTab} />
             </div>
             <Profile />
           </div>
