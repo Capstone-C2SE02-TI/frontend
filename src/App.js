@@ -13,6 +13,8 @@ import Home, {
   TransactionShark,
   GainLoss,
   PortfolioSharkFollow,
+  Blog,
+  BlogDetail,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -43,7 +45,6 @@ function App() {
       <Router>
         <Routes>
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
-
           <Route
             path={configs.routes.analyze}
             element={
@@ -68,7 +69,30 @@ function App() {
               />
             }
           />
-
+          <Route
+            path={configs.routes.editProfile}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <EditProfile />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.transactionShark}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <TransactionShark />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
           <Route
             path="/support"
             element={
@@ -154,31 +178,6 @@ function App() {
             }
           />
           <Route
-            path={configs.routes.editProfile}
-            element={
-              <PublicRoute
-                element={
-                  <LayoutDefault>
-                    <EditProfile />
-                  </LayoutDefault>
-                }
-              />
-            }
-          />
-          <Route
-            path={configs.routes.transactionShark}
-            element={
-              <PublicRoute
-                element={
-                  <LayoutDefault>
-                    <TransactionShark />
-                  </LayoutDefault>
-                }
-              />
-            }
-          />
-
-          <Route
             path={configs.routes.gainLoss}
             element={
               <PublicRoute
@@ -214,6 +213,8 @@ function App() {
               />
             }
           />
+          <Route path={configs.routes.blogDetail} element={<PublicRoute element={<BlogDetail />} />} />
+          <Route path={configs.routes.blog} element={<PublicRoute element={<Blog />} />} />
           {/* Authentication router */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

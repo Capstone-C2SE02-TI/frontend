@@ -6,3 +6,5 @@ export { default as deleteKeyObject } from './deleteKeyObject';
 export { default as convertUnixTime } from './convertUnixTime';
 export { default as convertDate } from './convertDate';
 export { default as convertTime } from './convertTime';
+export { default as convertHTMLToJSX } from './convertHTMLToJSX';
+export { default as formatPublishDateTime } from './formatPublishDateTime';
