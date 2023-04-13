@@ -22,7 +22,13 @@ function Blog() {
   const allBlogs = useSelector(allBlogsSelector);
   const blogsByType = useSelector(blogsByTypeSelector);
 
+  const renderListBlogs = (blogs) => {
+    return blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
+  };
+
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (type) {
       setTab(type);
       dispatch(fetchBlogsByType(type));
@@ -30,10 +36,6 @@ function Blog() {
       dispatch(fetchAllBlogs());
     }
   }, [type]);
-
-  const renderListBlogs = (blogs) => {
-    return blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
-  };
 
   return (
     <div className={cx('wrapper')}>

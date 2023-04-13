@@ -8,3 +8,4 @@ export { default as convertDate } from './convertDate';
 export { default as convertTime } from './convertTime';
 export { default as convertHTMLToJSX } from './convertHTMLToJSX';
 export { default as formatPublishDateTime } from './formatPublishDateTime';
+export { default as convertDateToCreatedDate } from './convertDateToCreatedDate';

@@ -8,3 +8,21 @@ export const getDetailBlog = async (blogId) => {
     console.log(error);
   }
 };
+
+export const getBlogCommentList = async (blogId) => {
+  try {
+    const response = await httpRequest.get(`/comment/list?blogId=${blogId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createBlogComment = async (comment) => {
+  try {
+    const response = await httpRequest.post('/comment/create', comment);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
