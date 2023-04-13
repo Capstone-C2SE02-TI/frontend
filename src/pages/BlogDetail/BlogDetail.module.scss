@@ -150,6 +150,18 @@
 }
 
 .comment-box {
-  // padding: 0 200px;
-  // text-align: center;
+  padding: 0 400px;
+  margin-top: 30px;
+  padding-bottom: 60px;
+
+  .comment-input {
+    height: 52px !important;
+    width: 500px !important;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .comment-button {
+    
+  }
 }

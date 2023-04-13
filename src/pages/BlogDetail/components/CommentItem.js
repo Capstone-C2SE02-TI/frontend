@@ -1,15 +1,16 @@
 import { Comment } from 'semantic-ui-react';
+import { convertDateToCreatedDate } from '~/helpers';
 
 const CommentItem = ({ comment }) => {
-  const { avatar, name, createdAt, content } = comment;
+  const { userAvatar, userFullName, createdAt, content } = comment;
 
   return (
     <Comment>
-      <Comment.Avatar src={avatar} />
+      <Comment.Avatar src={userAvatar} />
       <Comment.Content>
-        <Comment.Author as="a">{name}</Comment.Author>
+        <Comment.Author as="a">{userFullName}</Comment.Author>
         <Comment.Metadata>
-          <div>{createdAt}</div>
+          <div>{convertDateToCreatedDate(createdAt)}</div>
         </Comment.Metadata>
         <Comment.Text>{content}</Comment.Text>
         <Comment.Actions>

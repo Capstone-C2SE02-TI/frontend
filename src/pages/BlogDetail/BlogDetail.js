@@ -43,11 +43,10 @@ function BlogDetail() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setReRender(true);
     dispatch(fetchBlogDetail(blogId));
-    dispatch(fetchBlogCommentList());
-  }, []);
+    dispatch(fetchBlogCommentList(blogId));
+  }, [reRender]);
 
   return (
     <div className={cx('wrapper')}>
@@ -67,7 +66,7 @@ function BlogDetail() {
       <div className={cx('content-box')}>{blogDetail && renderDetailBlog(blogDetail)}</div>
       {blogCommentList && (
         <div className={cx('comment-box')}>
-          <CommentPart commentList={blogCommentList} />
+          <CommentPart commentList={blogCommentList} reRender={reRender} setReRender={setReRender} />
         </div>
       )}
     </div>

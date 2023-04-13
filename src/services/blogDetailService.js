@@ -9,11 +9,18 @@ export const getDetailBlog = async (blogId) => {
   }
 };
 
-export const getBlogCommentList = async () => {
+export const getBlogCommentList = async (blogId) => {
   try {
-    console.log('hiiiiiiiiiiiiiiiiiiii');
-    const response = await httpRequest.get('/comment/list');
-    console.log(response.data);
+    const response = await httpRequest.get(`/comment/list?blogId=${blogId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createBlogComment = async (comment) => {
+  try {
+    const response = await httpRequest.post('/comment/create', comment);
     return response.data;
   } catch (error) {
     console.log(error);
