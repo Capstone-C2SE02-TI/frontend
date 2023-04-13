@@ -15,6 +15,8 @@ function Profile() {
   const walletAddress = useSelector(getAddressMetaMask);
   const [isConnecting, setIsConnecting] = useState(false);
 
+  console.log(walletAddress);
+
   const handleGetStatusMeTamask = useCallback(() => {
     async function isConnected() {
       const accounts = await window.ethereum.request({ method: 'eth_accounts' });

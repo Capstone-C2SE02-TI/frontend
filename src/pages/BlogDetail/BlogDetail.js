@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBlogDetail } from '~/modules/BlogDetail/blogDetailSlice';
-import { blogDetailSelector } from '~/modules/BlogDetail/selector';
+import { fetchBlogDetail, fetchBlogCommentList } from '~/modules/BlogDetail/blogDetailSlice';
+import { blogDetailSelector, blogCommentListSelector } from '~/modules/BlogDetail/selector';
 import { convertHTMLToJSX, formatPublishDateTime } from '~/helpers';
 import Profile from '~/pages/Blog/components/Profile';
 import NavHeader from '~/pages/Blog/components/NavHeader';
+import CommentPart from './components/CommentPart';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
@@ -18,6 +19,7 @@ function BlogDetail() {
   const { blogId } = useParams();
   const dispatch = useDispatch();
   const blogDetail = useSelector(blogDetailSelector);
+  const blogCommentList = useSelector(blogCommentListSelector);
 
   const renderDetailBlog = (blog) => {
     const { title, publishDate, thumbnail, description, content } = blog;
@@ -41,8 +43,10 @@ function BlogDetail() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setReRender(true);
     dispatch(fetchBlogDetail(blogId));
+    dispatch(fetchBlogCommentList());
   }, []);
 
   return (
@@ -61,6 +65,11 @@ function BlogDetail() {
         </section>
       </header>
       <div className={cx('content-box')}>{blogDetail && renderDetailBlog(blogDetail)}</div>
+      {blogCommentList && (
+        <div className={cx('comment-box')}>
+          <CommentPart commentList={blogCommentList} />
+        </div>
+      )}
     </div>
   );
 }
