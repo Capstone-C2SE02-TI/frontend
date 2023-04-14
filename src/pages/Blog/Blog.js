@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllBlogs, fetchBlogsByType } from '~/modules/Blog/blogSlice';
-import { allBlogsSelector, blogsByTypeSelector } from '~/modules/Blog/selector';
+import { fetchBlogsByType } from '~/modules/Blog/blogSlice';
+import { blogsByTypeSelector } from '~/modules/Blog/selector';
 import useQuery from '~/hooks/useQuery';
 import Profile from './components/Profile';
 import NavHeader from './components/NavHeader';
 import BlogItem from './components/BlogItem';
+import BlogVideoItem from './components/BlogVideoItem';
+import BlogFooter from './components/BlogFooter';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
@@ -17,24 +19,19 @@ const cx = classNames.bind(styles);
 function Blog() {
   const query = useQuery();
   const type = query.get('type');
-  const [tab, setTab] = useState(type || 'research');
+  const [tab, setTab] = useState(type || 'report');
   const dispatch = useDispatch();
-  const allBlogs = useSelector(allBlogsSelector);
   const blogsByType = useSelector(blogsByTypeSelector);
 
   const renderListBlogs = (blogs) => {
-    return blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
+    return type === 'video'
+      ? blogs.map((blog, index) => <BlogVideoItem blog={blog} key={index} />)
+      : blogs.map((blog, index) => <BlogItem blog={blog} key={index} />);
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    if (type) {
-      setTab(type);
-      dispatch(fetchBlogsByType(type));
-    } else {
-      dispatch(fetchAllBlogs());
-    }
+    dispatch(fetchBlogsByType(type));
   }, [type]);
 
   return (
@@ -52,9 +49,8 @@ function Blog() {
           </div>
         </section>
       </header>
-      <div className={cx('content-box')}>
-        {type ? blogsByType && renderListBlogs(blogsByType) : allBlogs && renderListBlogs(allBlogs)}
-      </div>
+      <div className={cx('content-box')}>{blogsByType && renderListBlogs(blogsByType)}</div>
+      <BlogFooter />
     </div>
   );
 }

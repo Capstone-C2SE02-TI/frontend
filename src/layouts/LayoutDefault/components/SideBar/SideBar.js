@@ -85,12 +85,10 @@ function SideBar() {
             isPremium={menu.isPremium}
           />
         ))}
-
-        {/*  */}
       </Menu>
 
       <div className={cx('sidebar-guide')}>
-        <Button className={cx('sidebar-guide__btn')} to="/blog">
+        <Button className={cx('sidebar-guide__btn')} to="/blog?type=report">
           Blog
         </Button>
       </div>
