@@ -2,12 +2,11 @@ import { useEffect, useState, useCallback, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
-import ConnectWallet from '~/layouts/LayoutDefault/components/ConnectWallet/ConnectWallet';
-import Image from '~/components/Image/Image';
-import classNames from 'classnames/bind';
-import styles from '../../Blog.module.scss';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
+import ConnectWallet from '~/layouts/LayoutDefault/components/ConnectWallet/ConnectWallet';
+import classNames from 'classnames/bind';
+import styles from '../../Blog.module.scss';
 
 const cx = classNames.bind(styles);
 
