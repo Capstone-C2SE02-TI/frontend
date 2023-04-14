@@ -32,6 +32,7 @@
     "http-proxy-middleware": "^2.0.6",
     "js-cookie": "^3.0.1",
     "jsbi": "^3.2.5",
+    "lightweight-charts": "^4.0.1",
     "millify": "^5.0.1",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
