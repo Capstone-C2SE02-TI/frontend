@@ -7,6 +7,7 @@ import { convertHTMLToJSX, formatPublishDateTime } from '~/helpers';
 import Profile from '~/pages/Blog/components/Profile';
 import NavHeader from '~/pages/Blog/components/NavHeader';
 import CommentPart from './components/CommentPart';
+import BlogFooter from '../Blog/components/BlogFooter';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
@@ -69,6 +70,7 @@ function BlogDetail() {
           <CommentPart commentList={blogCommentList} reRender={reRender} setReRender={setReRender} />
         </div>
       )}
+      <BlogFooter />
     </div>
   );
 }

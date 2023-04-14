@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import NavHeader from './components/NavHeader';
 import BlogItem from './components/BlogItem';
 import BlogVideoItem from './components/BlogVideoItem';
+import BlogFooter from './components/BlogFooter';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
@@ -49,6 +50,7 @@ function Blog() {
         </section>
       </header>
       <div className={cx('content-box')}>{blogsByType && renderListBlogs(blogsByType)}</div>
+      <BlogFooter />
     </div>
   );
 }
