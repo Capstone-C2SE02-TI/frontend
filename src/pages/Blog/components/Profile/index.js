@@ -41,7 +41,7 @@ function Profile() {
         <Fragment>
           <Image className={cx('profile-image')} src={DefaultAvatar} alt="logo" />
           <div className={cx('profile-name')}>
-            <h5>{walletAddress}</h5>
+            <h5>{walletAddress.slice(0, 10) + '...'}</h5>
           </div>
         </Fragment>
       )}

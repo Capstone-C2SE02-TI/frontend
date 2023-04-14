@@ -33,6 +33,7 @@ const CommentPart = ({ commentList, reRender, setReRender }) => {
         const newComment = {
           blogId: blogId,
           userId: userInfo._id,
+          userWalletAddress: userInfo.walletAddress,
           userAvatar: userInfo.avatar,
           userFullName: userInfo.fullName,
           content: commentInputRef.current.value,
