@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { userInfoSelector } from '~/modules/user/auth/selectors';
 import { transactionSharkService } from '~/services';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 
 const DOLLAR = 10000000;
 
@@ -73,10 +74,11 @@ function Analyze() {
     }, [newSharkStatus]);
 
     const formatter = (value) => `$ ${millify(value * DOLLAR)}`;
+    const walletAddress = useSelector(getAddressMetaMask);
 
     const handleSubmitAddNewShark = (e) => {
         e.preventDefault();
-        dispatch(fetchAddNewShark({ walletAddress: sharkAddressText, userId: userInfoDetail.userId }));
+        dispatch(fetchAddNewShark({ sharkWalletAddress: sharkAddressText, walletAddress: walletAddress }));
         setSharkAddressText('')
     };
 
