@@ -4,7 +4,7 @@ import styles from '../../Blog.module.scss';
 
 const cx = classNames.bind(styles);
 
-function NavHeader({ activeTab = 'research', setTab }) {
+function NavHeader({ activeTab = 'report', setTab }) {
   const handleClickTab = (tab) => {
     setTab(tab);
   };
@@ -16,11 +16,6 @@ function NavHeader({ activeTab = 'research', setTab }) {
   return (
     <nav className={cx('NavHeader')}>
       <ul className={cx('NavHeader-list')}>
-        <li>
-          <Link to={'/blog'} className={getTabClassName('research')} onClick={() => handleClickTab('research')}>
-            Research
-          </Link>
-        </li>
         <li>
           <Link to={'/blog?type=report'} className={getTabClassName('report')} onClick={() => handleClickTab('report')}>
             Report
@@ -42,6 +37,11 @@ function NavHeader({ activeTab = 'research', setTab }) {
             onClick={() => handleClickTab('investment-funds')}
           >
             Investment Funds
+          </Link>
+        </li>
+        <li>
+          <Link to={'/blog?type=video'} className={getTabClassName('video')} onClick={() => handleClickTab('video')}>
+            Video
           </Link>
         </li>
       </ul>
