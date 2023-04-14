@@ -57,7 +57,7 @@ export const newSharkListRemainingSelector = createSelector(
     searchFilterChangeSelector,
     (newSharkList, searchFilterChange) => {
         return newSharkList.filter((newShark) => {
-            return newShark.sharkId.toString().includes(searchFilterChange);
+            return newShark._id.includes(searchFilterChange);
         });
     },
 );
