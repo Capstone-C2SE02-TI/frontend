@@ -40,3 +40,26 @@
         }
     }
 }
+
+.profile-area {
+    width: 99%;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.12) 0 2px 12px;
+    padding: 16px;
+    h4 {
+        font-size: 21px;
+        font-weight: 500px;
+        border-bottom: 1px solid #333;
+        text-align: center;
+    }
+    margin-bottom: 10px;
+}
+
+.portfolio-table {
+    .portfolio-th {
+        border-right: 1px solid #eff2f5;
+        text-align: center;
+   }
+
+}

@@ -33,6 +33,20 @@ function Profile() {
                     }}
                 />
             </div>
+            <div className={cx('profile-area')}>
+                <h4>Token holders chart</h4>
+            </div>
+            <table className={cx('portfolio-table')}>
+                <thead>
+                    <tr>
+                        <th className={cx('portfolio-th')}>Shark</th>
+                        <th className={cx('portfolio-th')}>Total assets</th>
+                        <th className={cx('portfolio-th')}>Total transaction</th>
+                        <th className={cx('portfolio-th')}>Address</th>
+                        <th className={cx('portfolio-th')}>Actual growth</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     );
 
