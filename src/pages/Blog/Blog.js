@@ -13,8 +13,6 @@ import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
 import styles from './Blog.module.scss';
-import { PowerBIEmbed } from "powerbi-client-react";
-import { models } from "powerbi-client";
 
 const cx = classNames.bind(styles);
 
@@ -38,22 +36,36 @@ function Blog() {
 
   return (
     <div className={cx('wrapper')}>
-      <header className={cx('header')}>
-        <section className={cx('header-section')}>
-          <div className={cx('header-box')}>
-            <Link to={'/'}>
-              <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
-            </Link>
-            <div className={cx('navbar-box')}>
-              <NavHeader activeTab={tab} setTab={setTab} />
+      <div className={cx('container-fluid')}>
+        <header className={cx('header')}>
+          <section className={cx('header-section')}>
+            <div className={cx('header-box')}>
+              <Link to={'/'}>
+                <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
+              </Link>
+              <div className={cx('navbar-box')}>
+                <NavHeader activeTab={tab} setTab={setTab} />
+              </div>
+              <Profile />
             </div>
-            <Profile />
-          </div>
-        </section>
-      </header>
+          </section>
+        </header>
+      </div>
 
-      <div className={cx('content-box')}>{blogsByType && renderListBlogs(blogsByType)}</div>
-      <BlogFooter />
+      <div className={cx('content-box')}>
+        <div className={cx('content-box--left')}>
+          {blogsByType && renderListBlogs(blogsByType)}
+        </div>
+        <div className={cx('content-box--left')}>
+          <div className={cx('content-box--first')}>
+
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div className={cx('container-fluid-footer')}>
+        <BlogFooter />
+      </div>
     </div>
   );
 }
