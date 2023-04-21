@@ -24,10 +24,19 @@ const SYMBOLS_DATA = symbols;
 
 function TokenDetail() {
   const [filterChartByTime, setFilterChartByTime] = useState('day');
-  const [filterChartBySymbol, setFilterChartBySymbol] = useState(SYMBOLS_DATA[0].symbol);
-  const [isFilterSymbol, setIsFilterSymbol] = useState(false);
+  const [filterChartBySymbol, setFilterChartBySymbol] = useState();
+  const [filterIndicatorData, setFilterIndicatorData] = useState({
+    time: '1m',
+    period: '7',
+    type: 'candlestick'
+  });
+  const [isFilterIndicator, setIsFilterIndicator] = useState({
+    timePeriod: '',
+    typeChart: ''
+  })
   const dispatch = useDispatch();
   const [candlestick, setCandlestick] = useState([]);
+  const [candlestickLastUpdate, setCandlestickLastUpdate] = useState([]);
   const { symbol } = useParams();
 
   const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
@@ -45,16 +54,30 @@ function TokenDetail() {
     dispatch(fetchTrendingTokens());
   }, [dispatch]);
 
-
   useEffect(() => {
-    fetch(`http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=1m`)
+    fetch(
+      `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${
+        filterIndicatorData.time
+      }&period=${filterIndicatorData.period}`,
+    )
       .then((response) => response.json())
       .then((data) => {
-		
         setCandlestick(data.data);
       });
-  }, [symbol]);
-
+  }, []);
+  useEffect(() => {
+    if(isFilterIndicator) {
+      fetch(
+        `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${
+          filterIndicatorData.time
+        }&period=${filterIndicatorData.period}`,
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setCandlestickLastUpdate(data.data);
+        });
+    }
+  }, [filterIndicatorData.time, filterIndicatorData.period]);
   const handleFilterChart = (time) => {
     setFilterChartByTime(time);
   };
@@ -67,16 +90,24 @@ function TokenDetail() {
     }
   };
   const onChange = (value) => {
-    setFilterChartBySymbol(value)
-    setIsFilterSymbol(true)
+    setFilterChartBySymbol(value);
   };
-  
-  const onSearch = (value) => {
-    setFilterChartBySymbol(value)
-    setIsFilterSymbol(true)
 
+  const onSearch = (value) => {
+    setFilterChartBySymbol(value);
   };
-  
+
+  const onChangeFilterIndicatorData = (key, value) => {
+
+    setFilterIndicatorData({
+      ...filterIndicatorData,
+      [key]: value,
+    });
+    setIsFilterIndicator({
+      timePeriod: value
+    })
+  };
+
   return (
     <div className={cx('wrapper')}>
       <Loading loading={statusFetchCoinDetail === 'loading'} />
@@ -133,17 +164,24 @@ function TokenDetail() {
                 onSearch={onSearch}
                 defaultValue={SYMBOLS_DATA[0].symbol}
                 filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-                options={SYMBOLS_DATA.map(d => ({label: d.symbol, value: d.symbol}))}
+                options={SYMBOLS_DATA.map((d) => ({ label: d.symbol, value: d.symbol }))}
               /> */}
-              
             </Col>
             <Col xl={6} lg={6} md={0}>
               <TrendingTokens data={trendingTokens} />
             </Col>
           </Row>
           <div>
-                <ChartIndicator candlestick={candlestick} isFilterSymbol={isFilterSymbol}/>
-              </div>
+            {candlestick.length > 0 && (
+              <ChartIndicator
+                onChangeFilterIndicatorData={onChangeFilterIndicatorData}
+                candlestickLastUpdate={candlestickLastUpdate}
+                candlestick={candlestick}
+                isFilterIndicator={isFilterIndicator}
+                filterIndicatorData={filterIndicatorData}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
