@@ -26,3 +26,12 @@ export const createBlogComment = async (comment) => {
     console.log(error);
   }
 };
+
+export const replyBlogComment = async (comment) => {
+  try {
+    const response = await httpRequest.post('/comment/reply', comment);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -8,6 +8,7 @@ const blogDetailSlice = createSlice({
     blogDetail: {},
     commentList: [],
     newComment: {},
+    newReplyComment: {},
   },
   reducers: {
     actionSidebar: (state) => {
@@ -36,6 +37,13 @@ const blogDetailSlice = createSlice({
       .addCase(fetchCreateBlogComment.fulfilled, (state, action) => {
         state.newComment = action.payload;
         state.status = 'idle';
+      })
+      .addCase(fetchReplyBlogComment.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchReplyBlogComment.fulfilled, (state, action) => {
+        state.newReplyComment = action.payload;
+        state.status = 'idle';
       });
   },
 });
@@ -52,6 +60,11 @@ export const fetchBlogCommentList = createAsyncThunk('blogDetail/fetchBlogCommen
 
 export const fetchCreateBlogComment = createAsyncThunk('blogDetail/fetchCreateBlogComment', async (comment) => {
   const response = await blogDetailService.createBlogComment(comment);
+  return response.data;
+});
+
+export const fetchReplyBlogComment = createAsyncThunk('blogDetail/fetchReplyBlogComment', async (comment) => {
+  const response = await blogDetailService.replyBlogComment(comment);
   return response.data;
 });
 
