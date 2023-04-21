@@ -64,7 +64,9 @@ function BlogDetail() {
           </div>
         </section>
       </header>
-      <div className={cx('content-box')}>{blogDetail && renderDetailBlog(blogDetail)}</div>
+      <div className={cx('content-box')}>
+        {blogDetail && renderDetailBlog(blogDetail)}
+      </div>
       {blogCommentList && (
         <div className={cx('comment-box')}>
           <CommentPart commentList={blogCommentList} setReRender={setReRender} />

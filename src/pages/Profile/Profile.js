@@ -1,123 +1,56 @@
+import { useEffect, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import classNames from 'classnames/bind';
 import styles from './Profile.module.scss';
-
-import RecommendAccountFollow from '../EditProfile/containers/RecommendAccountFollow';
-import { useDispatch, useSelector } from 'react-redux';
-import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
-import { useEffect } from 'react';
-import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
-import Button from '~/components/Button';
+import Image from '~/components/Image/Image';
 import images from '~/assets/images';
+import Share from './components/share';
+import { fetchGetUserInfo } from '~/modules/user/auth/authSlice';
 
 const cx = classNames.bind(styles);
+
 function Profile() {
     const dispatch = useDispatch();
-    const userInfoDetail = useSelector(userInfoSelector);
-    const { userId } = JSON.parse(localStorage.getItem('userInfo'));
-    const navigate = useNavigate();
-    const ethAddress = localStorage.getItem('eth_address');
+    const walletAddress = useSelector(getAddressMetaMask);
+    const userWalletAddress = localStorage.getItem('eth_address');
 
     useEffect(() => {
-        if (ethAddress) {
-            dispatch(fetchGetUserInfo(ethAddress));
-        }
-    }, [dispatch, ethAddress]);
-
-    const renderProfile = () => {
-        return (
-            <div className={cx('wrapper')}>
-                <div className={cx('profile')}>
-                    <div className={cx('profile-avatar')}>
-                        <div className={cx('profile-avatar-detail')}>
-                            <img src={userInfoDetail.avatar || images.userAvatar} alt="" />
-                        </div>
-                        <span>{userInfoDetail.fullName || ''}</span>
-                    </div>
-
-                    <div className={cx('profile-info')}>
-                        <span className={cx('profile-info-username')}>
-                            WalletAddress: <span className="font-italic">{ethAddress.slice(0,16)}...</span>
-                        </span>
-                        <p className={cx('profile-info-email')}> {userInfoDetail.email}</p>
-                        <div className="d-flex justify-content-between">
-                            <div className={cx('profile-info-follow')} style={{ cursor: 'pointer' }}>
-                                <span>0</span>
-                                <p>Following</p>
-                            </div>
-                            <div className={cx('profile-info-follow')} style={{ cursor: 'pointer' }}>
-                                <span>0</span>
-                                <p>Follower</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={cx('profile-edit')} onClick={() => navigate('/edit-profile')}>
-                        <img
-                            src="https://s2.coinmarketcap.com/static/cloud/img/icon/editor.svg?_=b8777e5"
-                            alt="editorIcon"
-                        />
-                        <span>Edit</span>
-                    </div>
-                </div>
-                <div className="mt-8 p-8" style={{ marginLeft: '36px', marginTop: '50px' }}>
-                    <p className={cx('profile-detail-title')}>
-                        Phone number:
-                        <span className={cx('profile-detail-value')}>{userInfoDetail.phoneNumber}</span>
-                    </p>
-
-                    <p className={cx('profile-detail-title')}>
-                        Created date:
-                        <span className={cx('profile-detail-value')}>
-                            {userInfoDetail?.createdAt?.split('T')[0] || ''}
-                        </span>
-                    </p>
-                    <p className={cx('profile-detail-title')}>
-                        Updated date:
-                        <span className={cx('profile-detail-value')}>
-                            {userInfoDetail?.updatedAt?.split('T')[0] || ''}
-                        </span>
-                    </p>
-                    <p className={cx('profile-detail-title')}>
-                        My website:
-                        <span className={cx('profile-detail-value')}>
-                            <a
-                                href={userInfoDetail.website || ''}
-                                rel="noopener noreferrer"
-                                target="_blank"
-                                style={{ color: '#1890ff' }}
-                            >
-                                {userInfoDetail.website?.split('/')[2] || ''}
-                            </a>
-                        </span>
-                    </p>
-                </div>
-         
-                <div className={cx('d-flex flex-column align-items-center')}>
-                    <img
-                        width="216"
-                        src="https://s2.coinmarketcap.com/static/cloud/img/posts/no-post.png?_=b8777e5"
-                        alt="nothing-here"
-                    />
-                    <p style={{ margin: '0px', color: 'rgb(34, 37, 49)', fontSize: '28px', fontWeight: ' 700' }}>
-                        Nothing here!
-                    </p>
-                    <p style={{ color: 'rgb(128, 138, 157)' }}>
-                        You can discover and follow shark accounts that interest you! If you update your premium
-                        account!
-                    </p>
-                    {/* <Button primary>Create new Post</Button> */}
-                </div>
-            </div>
-        );
-    };
-    const userIsPremium = useSelector(userIsPremiumSelector);
-
+        dispatch(fetchGetUserInfo(userWalletAddress));
+    }, []);
     return (
-        <div className="d-flex justify-content-between">
-            {renderProfile()}
-            {userIsPremium && <RecommendAccountFollow />}
+        <div className={cx('wrapper')}>
+            <div className={cx('header_profile')}>
+                <h1>Portfolio shark followed</h1>
+                <Share />
+            </div>
+            <Image width="80" className={cx('header-image')} src={images.avatarPort} alt="avatar-default-port" />
+            <div className={cx('profile-name')}>
+                <h5>{walletAddress}</h5>
+                <Image width="20" className={cx('copy-image')} src={images.copy} alt="copy"
+                    onClick={() => {
+                        navigator.clipboard.writeText(walletAddress);
+                    }}
+                />
+            </div>
+            <div className={cx('profile-area')}>
+                <h4>Token holders chart</h4>
+            </div>
+            <table className={cx('portfolio-table')}>
+                <thead>
+                    <tr>
+                        <th className={cx('portfolio-th')}>Shark</th>
+                        <th className={cx('portfolio-th')}>Total assets</th>
+                        <th className={cx('portfolio-th')}>Total transaction</th>
+                        <th className={cx('portfolio-th')}>Address</th>
+                        <th className={cx('portfolio-th')}>Actual growth</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     );
+
+
 }
 
 export default Profile;
