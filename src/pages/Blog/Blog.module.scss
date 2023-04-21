@@ -13,21 +13,22 @@
 
 .header-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
   width: 100%;
-  background: #fff;
+  background: #F8F7FF;
+}
+
+.container-fluid {
+  width: 100%;
+  background-color: #F8F7FF;
 }
 
 .navbar-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #fff;
+  background: #F8F7FF;
   padding: 20px 0;
 }
 
@@ -46,12 +47,34 @@
     list-style: none;
     border-bottom: 1px solid transparent;
     line-height: 20px;
-    font-size: 20px;
+    font-size: 14px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      height: 2px;
+      width: 100%;
+      background-color: #6B53F8;
+      transform: scale(0);
+      transition: 0.5s linear;
+    }
+
+    &:hover {
+      &::before {
+          transform: scale(1);
+      }
+    }
 
     a {
       color: #000000;
       padding: 20px;
-      margin-right: 30px;
+    }
+
+    a {
+      color: #000000;
+      padding: 20px;
     }
 
     &:hover {
@@ -68,6 +91,7 @@
     .NavHeader-item-active {
       color: #a8a8fb;
       font-weight: bold;
+      font-size: 14px;
     }
   }
 }
@@ -103,9 +127,11 @@
 
 .content-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
-  margin-top: 80px;
+  margin-top: 0px;
+  // width: 1400px;
+  margin: 0 auto;
 }
 
 .BlogItem {
@@ -115,7 +141,7 @@
   padding: 6px;
 
   .BlogItem-image {
-    height: 320px;
+    height: 250px;
     width: 100%;
     background-color: #f1f1f1;
     overflow: hidden;
@@ -147,10 +173,17 @@
   }
 }
 
+.container-fluid-footer {
+  width: 100%;
+  background-color: #f5f5f5;
+
+}
+
 .BlogFooter {
   height: 100px;
+  width: 1400px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  background-color: #f5f5f5;
+  margin: 0 auto;
 }
