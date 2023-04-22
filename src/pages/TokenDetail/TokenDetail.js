@@ -28,12 +28,12 @@ function TokenDetail() {
   const [filterIndicatorData, setFilterIndicatorData] = useState({
     time: '1m',
     period: '7',
-    type: 'candlestick'
+    type: ['candlestick'],
   });
   const [isFilterIndicator, setIsFilterIndicator] = useState({
     timePeriod: '',
-    typeChart: ''
-  })
+    typeChart: '',
+  });
   const dispatch = useDispatch();
   const [candlestick, setCandlestick] = useState([]);
   const [candlestickLastUpdate, setCandlestickLastUpdate] = useState([]);
@@ -66,7 +66,7 @@ function TokenDetail() {
       });
   }, []);
   useEffect(() => {
-    if(isFilterIndicator) {
+    if (isFilterIndicator) {
       fetch(
         `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${
           filterIndicatorData.time
@@ -98,14 +98,29 @@ function TokenDetail() {
   };
 
   const onChangeFilterIndicatorData = (key, value) => {
+    if (key === 'type') {
+      setFilterIndicatorData({
+        ...filterIndicatorData,
+        [key]: [...filterIndicatorData.type, value],
+      });
+    } 
+    
+    if(key === 'all') {
+      setFilterIndicatorData({
+        ...filterIndicatorData,
+        type: ['candlestick', ...value],
+      });
+    }
+    else {
+      setFilterIndicatorData({
+        ...filterIndicatorData,
+        [key]: value,
+      });
+    }
 
-    setFilterIndicatorData({
-      ...filterIndicatorData,
-      [key]: value,
-    });
     setIsFilterIndicator({
-      timePeriod: value
-    })
+      timePeriod: value,
+    });
   };
 
   return (
@@ -182,6 +197,7 @@ function TokenDetail() {
               />
             )}
           </div>
+          <div></div>
         </div>
       </div>
     </div>

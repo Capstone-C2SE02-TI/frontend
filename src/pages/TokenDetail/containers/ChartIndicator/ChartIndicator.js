@@ -1,4 +1,4 @@
-import { memo,  useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useState } from 'react';
 import { createChart, CrosshairMode } from 'lightweight-charts';
 import { useRef } from 'react';
@@ -36,7 +36,7 @@ const TIME_FILTER = [
   },
 ];
 
-const CHART_FILTER = ['candlestick', 'sma', 'ema', 'rsi', 'macd', 'indicator'];
+const CHART_FILTER = ['sma', 'ema', 'rsi', 'markers', 'macd'];
 function ChartIndicator({
   filterIndicatorData,
   candlestick,
@@ -44,6 +44,9 @@ function ChartIndicator({
   candlestickLastUpdate,
   onChangeFilterIndicatorData,
 }) {
+  const [isCheckAll, setIsCheckAll] = useState(false);
+  const [isCheck, setIsCheck] = useState([]);
+
   const { symbol } = useParams();
 
   const elRef = useRef();
@@ -64,24 +67,48 @@ function ChartIndicator({
   const renderChart = (data) => {
     console.log(data);
     chartRef.current = createChart(elRef.current, {
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: true,
-      }
+      leftPriceScale: {
+        visible: true,
+        scaleMargins: {
+          top: 0.2,
+          bottom: 0.2,
+        },
+      },
+      rightPriceScale: {
+        scaleMargins: {
+          top: 0.2,
+          bottom: 0.2,
+        },
+      },
+      height: 400,
     });
-    // smaSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 0 });
-    // const sma_data = data.filter((d) => d.sma).map((d) => ({ time: d.time, value: d.sma }));
-    // smaSeries.current.setData(sma_data);
 
-    // macdSlowSeries.current = chartRef.current.addLineSeries({ color: 'green', lineWidth: 1, pane: 2 });
-    // const macd_slow_series = data.filter((d) => d.macd_slow).map((d) => ({ time: d.time, value: d.macd_slow }));
-    // macdSlowSeries.current.setData(macd_slow_series);
+    candlestickSeriesRef.current = chartRef.current.addCandlestickSeries();
+    candlestickSeriesRef.current.setData(data);
 
-    if (filterIndicatorData.type === CHART_FILTER[0]) {
-      candlestickSeriesRef.current = chartRef.current.addCandlestickSeries();
-      candlestickSeriesRef.current.setData(data);
+    //SMA
+    if (isCheck.includes('sma')) {
+      smaSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 0 });
+      const sma_data = data.filter((d) => d.sma).map((d) => ({ time: d.time, value: d.sma }));
+      smaSeries.current.setData(sma_data);
+    }
 
-      //MARKERS
+    //EMA
+    if (isCheck.includes('ema')) {
+      emaSeries.current = chartRef.current.addLineSeries({ color: 'green', lineWidth: 0 });
+      const ema_data = data.filter((d) => d.ema).map((d) => ({ time: d.time, value: d.ema }));
+      emaSeries.current.setData(ema_data);
+    }
+
+    //RSI
+    if (isCheck.includes('rsi')) {
+      rsiSeries.current = chartRef.current.addLineSeries({ color: 'purple', lineWidth: 1, priceScaleId: 'secondary' });
+      const rsi_data = data.filter((d) => d.rsi).map((d) => ({ time: d.time, value: d.rsi }));
+      rsiSeries.current.setData(rsi_data);
+    }
+
+    //MARKERS
+    if (isCheck.includes('markers')) {
       candlestickSeriesRef.current.setMarkers(
         data
           .filter((d) => d.long || d.short)
@@ -105,40 +132,19 @@ function ChartIndicator({
       );
     }
 
-    if (filterIndicatorData.type === CHART_FILTER[1]) {
-      //SMA
-      smaSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 0 });
-      const sma_data = data.filter((d) => d.sma).map((d) => ({ time: d.time, value: d.sma }));
-      smaSeries.current.setData(sma_data);
-    }
-
-    if (filterIndicatorData.type === CHART_FILTER[2]) {
-      //EMA
-      emaSeries.current = chartRef.current.addLineSeries({ color: 'green', lineWidth: 0 });
-      const ema_data = data.filter((d) => d.ema).map((d) => ({ time: d.time, value: d.ema }));
-      emaSeries.current.setData(ema_data);
-    }
-
-    if (filterIndicatorData.type === CHART_FILTER[3]) {
-      //RSI
-      rsiSeries.current = chartRef.current.addLineSeries({ color: 'purple', lineWidth: 1, pane: 1 });
-      const rsi_data = data.filter((d) => d.rsi).map((d) => ({ time: d.time, value: d.rsi }));
-      rsiSeries.current.setData(rsi_data);
-    }
-
-    if (filterIndicatorData.type === CHART_FILTER[4]) {
+    if (isCheck.includes('macd')) {
       //MACD FAST
-      macdFastSeries.current = chartRef.current.addLineSeries({ color: 'blue', lineWidth: 1, pane: 2 });
+      macdFastSeries.current = chartRef.current.addLineSeries({ color: 'blue', lineWidth: 1,priceScaleId: 'high' });
       const macd_fast_data = data.filter((d) => d.macd_fast).map((d) => ({ time: d.time, value: d.macd_fast }));
       macdFastSeries.current.setData(macd_fast_data);
 
       //MACD SLOW
-      macdSlowSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 1, pane: 2 });
+      macdSlowSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 1,priceScaleId: 'high' });
       const macd_slow_series = data.filter((d) => d.macd_slow).map((d) => ({ time: d.time, value: d.macd_slow }));
       macdSlowSeries.current.setData(macd_slow_series);
 
       //MACD HISTOGRAM
-      macdHistogramSeries.current = chartRef.current.addHistogramSeries({ pane: 2 });
+      macdHistogramSeries.current = chartRef.current.addHistogramSeries({priceScaleId: 'high' });
       const macd_histogram_data = data
         .filter((d) => d.macd_histogram)
         .map((d) => ({
@@ -150,11 +156,11 @@ function ChartIndicator({
     }
   };
   useEffect(() => {
-    if (isFilterIndicator.timePeriod) {
+    if (chartRef.current) {
       chartRef.current.remove();
       renderChart(candlestickLastUpdate);
     }
-  }, [isFilterIndicator.timePeriod, candlestickLastUpdate]);
+  }, [isFilterIndicator.timePeriod, candlestickLastUpdate, isCheck]);
 
   useEffect(() => {
     const handler = () => {
@@ -166,10 +172,26 @@ function ChartIndicator({
     };
   }, []);
 
+  const handleSelectAll = (e) => {
+    setIsCheckAll(!isCheckAll);
+    setIsCheck(CHART_FILTER.map((li) => li));
+    if (isCheckAll) {
+      setIsCheck([]);
+    }
+  };
+
+  const handleClick = (e) => {
+    const { id, checked } = e.target;
+    setIsCheck([...isCheck, id]);
+    if (!checked) {
+      setIsCheck(isCheck.filter((item) => item !== id));
+    }
+  };
+
   return (
     <div className={styles.chartcontainer}>
       <div className={styles.filter}>
-        <div className={styles.time}>
+        <div className={styles.period}>
           {TIME_FILTER.map((timer, index) => (
             <p
               key={index}
@@ -183,15 +205,34 @@ function ChartIndicator({
           ))}
         </div>
         <div className={styles.time}>
+          <p className={cx('active')}>
+            <button>CANDLESTICK</button>
+          </p>
+        </div>
+        <div className={styles.time}>
           {CHART_FILTER.map((typeChart, index) => (
-            <p
-              key={index}
-              className={cx(filterIndicatorData.type === typeChart ? 'active' : '')}
-              onClick={() => onChangeFilterIndicatorData('type', typeChart)}
-            >
-              <button>{typeChart.toUpperCase()}</button>
-            </p>
+            <div className={cx('time-check')} key={index}>
+              <label className={cx('checkbox-container')}>
+                <input type="checkbox" id={typeChart} onChange={(e) => handleClick(e, 'type', typeChart)} checked={isCheck.includes(typeChart)} />
+                <div className={cx('checkmark')} />
+              </label>
+              <p
+                key={index}
+                className={cx(isCheck.includes(typeChart) ? 'active' : '')}
+              >
+                <button>{typeChart.toUpperCase()}</button>
+              </p>
+            </div>
           ))}
+          <div className={cx('time-check')}>
+            <label className={cx('checkbox-container')}>
+              <input type="checkbox" id="selectAll" onChange={handleSelectAll} checked={isCheckAll} />
+              <div className={cx('checkmark')} />
+            </label>
+            <p>
+              <button>All</button>
+            </p>
+          </div>
         </div>
       </div>
       <h3 className={styles.heading}>Indicators TradingView({symbol})</h3>
