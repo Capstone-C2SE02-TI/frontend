@@ -15,6 +15,8 @@ const images = {
   introduction2: require('./introduction2.jpg'),
   introduction3: require('./space3.jpg'),
   tick: require('./Vector.png'),
+  copy: require('./copy.png'),
+  avatarPort: require('./avatar-port.png'),
   facebookIcon: require('./facebook.png'),
   telegramIcon: require('./telegram.png'),
   youtubeIcon: require('./youtube.png'),

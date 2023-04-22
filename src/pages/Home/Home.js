@@ -14,9 +14,6 @@ const cx = classNames.bind(styles);
 
 function Home() {
         const currentUser = JSON.parse(localStorage.getItem('userInfo'));
-
-
-
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header')}>

@@ -36,21 +36,36 @@ function Blog() {
 
   return (
     <div className={cx('wrapper')}>
-      <header className={cx('header')}>
-        <section className={cx('header-section')}>
-          <div className={cx('header-box')}>
-            <Link to={'/'}>
-              <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
-            </Link>
-            <div className={cx('navbar-box')}>
-              <NavHeader activeTab={tab} setTab={setTab} />
+      <div className={cx('container-fluid')}>
+        <header className={cx('header')}>
+          <section className={cx('header-section')}>
+            <div className={cx('header-box')}>
+              <Link to={'/'}>
+                <Image width="70" className={cx('header-image')} src={images.logo} alt="logo" />
+              </Link>
+              <div className={cx('navbar-box')}>
+                <NavHeader activeTab={tab} setTab={setTab} />
+              </div>
+              <Profile />
             </div>
-            <Profile />
+          </section>
+        </header>
+      </div>
+
+      <div className={cx('content-box')}>
+        <div className={cx('content-box--left')}>
+          {blogsByType && renderListBlogs(blogsByType)}
+        </div>
+        <div className={cx('content-box--left')}>
+          <div className={cx('content-box--first')}>
+
           </div>
-        </section>
-      </header>
-      <div className={cx('content-box')}>{blogsByType && renderListBlogs(blogsByType)}</div>
-      <BlogFooter />
+        </div>
+        <div></div>
+      </div>
+      <div className={cx('container-fluid-footer')}>
+        <BlogFooter />
+      </div>
     </div>
   );
 }
