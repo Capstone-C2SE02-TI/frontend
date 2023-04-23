@@ -7,6 +7,8 @@ const routes = {
   discover: '/discover',
   tokenDetailL: '/discover/detail/:symbol',
   homeDashboard: '/home-dashboard',
+  reportOverview: '/report-overview',
+  report: 'report',
   analyze: '/analyze',
   editProfile: '/edit-profile',
   changePassword: '/change-password',

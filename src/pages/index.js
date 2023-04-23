@@ -3,6 +3,7 @@ export { default as TokenDetail } from './TokenDetail';
 export { default as Support } from './Support';
 export { default as Setting } from './Setting';
 export { default as Report } from './Report';
+export { default as ReportOverview } from './ReportOverview';
 export { default as Profile } from './Profile';
 export { default as HomeDashboard } from './HomeDashboard';
 export { default as EditProfile } from './EditProfile';
