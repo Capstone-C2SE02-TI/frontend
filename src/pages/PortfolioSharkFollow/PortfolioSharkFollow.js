@@ -84,7 +84,6 @@ function PortfolioSharkFollow() {
                                     .map((sharkFollowed, index) => (
                                         <PortfolioSharkFollowItem
                                             onChangeSharkSelelected={handleChangeSharkSelelected}
-                                            userId={userName.userId}
                                             key={sharkFollowed.sharkId}
                                             dataSharkFollowed={sharkFollowed}
                                             isActiveDefault={index === 0}

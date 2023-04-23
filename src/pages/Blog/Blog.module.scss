@@ -130,15 +130,15 @@
   .content-box--left {
     margin-left: 1%;
     width: 30%;
-    margin-right: 2%;
+    margin-right: 1%;
   }
   .content-box--right {
     width: 30%;
+    margin-left: 1%;
+    margin-right: 1%;
   }
   .content-box--center {
-    width: 34%;
-    margin-left: 2%;
-    margin-right: 1%;
+    width: 36%;
   }
 
 }
@@ -199,5 +199,9 @@
 }
 
 .content-box--first {
-  
+    img {
+      border-radius: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
 }

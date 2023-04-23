@@ -16,6 +16,12 @@ import styles from './Blog.module.scss';
 
 const cx = classNames.bind(styles);
 
+// CSS for comment blog
+const styleLink = document.createElement('link');
+styleLink.rel = 'stylesheet';
+styleLink.href = 'https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css';
+document.head.appendChild(styleLink);
+
 function Blog() {
   const query = useQuery();
   const type = query.get('type');
@@ -52,17 +58,39 @@ function Blog() {
         </header>
       </div>
 
-      <div className={cx('content-box')}>
-        <div className={cx('content-box--left')}>
-          {blogsByType && renderListBlogs(blogsByType)}
-        </div>
-        <div className={cx('content-box--left')}>
-          <div className={cx('content-box--first')}>
-
+      {blogsByType === 'report' ? (
+        <div className={cx('content-box')}>
+          <div className={cx('content-box--left')}>
+            {blogsByType && renderListBlogs(blogsByType)}
+          </div>
+          <div className={cx('content-box--center')}>
+            <div className={cx('content-box--first')}>
+              {blogsByType && renderListBlogs(blogsByType)}
+            </div>
+          </div>
+          <div className={cx('content-box--right')}>
+            {blogsByType && renderListBlogs(blogsByType)}
           </div>
         </div>
-        <div></div>
-      </div>
+      ) : (
+        <div className={cx('content-box')}>
+          <div className={cx('content-box--left')}>
+            {blogsByType && renderListBlogs(blogsByType)}
+          </div>
+          <div className={cx('content-box--center')}>
+            <div className={cx('content-box--first')}>
+              <div className={cx('blog-thumbnail')}>
+                {/* <img src={blogsByType[0].thumbnail} alt={blogsByType[0].title} /> */}
+              </div>
+              {console.log(blogsByType[0])}
+            </div>
+          </div>
+          <div className={cx('content-box--right')}>
+            {blogsByType && renderListBlogs(blogsByType)}
+          </div>
+        </div>
+      )}
+
       <div className={cx('container-fluid-footer')}>
         <BlogFooter />
       </div>
