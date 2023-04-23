@@ -15,6 +15,7 @@ import Home, {
   PortfolioSharkFollow,
   Blog,
   BlogDetail,
+  ReportOverview,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -190,6 +191,20 @@ function App() {
                   </LayoutDefault>
                 }
               />
+              
+            }
+          />
+          <Route
+            path={configs.routes.reportOverview}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <ReportOverview />
+                  </LayoutDefault>
+                }
+              />
+              
             }
           />
           <Route

@@ -10,6 +10,7 @@ import {
   ReportIcon,
   SettingIcon,
   DolarIcon,
+  GainLostIcon
 } from '~/components/Icons';
 import MenuItem from './Menu/MenuItem';
 import Menu from './Menu';
@@ -60,8 +61,15 @@ function SideBar() {
     },
     {
       title: 'Gain & Loss',
-      icon: <ReportIcon />,
+      icon: <GainLostIcon />,
       to: configs.routes.gainLoss,
+      isPremium: userIsPremium ? false : true,
+      requiredPremium: true,
+    },
+    {
+      title: 'Report',
+      icon: <HomeIcon />,
+      to: configs.routes.report,
       isPremium: userIsPremium ? false : true,
       requiredPremium: true,
     },
