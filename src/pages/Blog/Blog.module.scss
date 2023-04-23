@@ -199,9 +199,31 @@
 }
 
 .content-box--first {
-    img {
+  .blog-thumbnail {
+    position: relative;
+    h2 {
+      position: absolute;
+      bottom: 25px;
+      left: 5px;
+      color: #fff;
+      text-align: center;
+    }
+    p {
+      position: absolute;
+      bottom: 15px;
+      left: 8px;
+      width: 90%;
+      overflow: hidden;
+      white-space: nowrap; 
+      text-overflow: ellipsis;
+    }
+  }
+  img {
       border-radius: 16px;
       margin-top: 10px;
       width: 100%;
-    }
+      height: 300px;
+  }
+
+
 }

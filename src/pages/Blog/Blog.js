@@ -79,9 +79,13 @@ function Blog() {
           </div>
           <div className={cx('content-box--center')}>
             <div className={cx('content-box--first')}>
-              <div className={cx('blog-thumbnail')}>
-                {/* <img src={blogsByType[0].thumbnail} alt={blogsByType[0].title} /> */}
-              </div>
+              <Link to={`/blog/detail/${blogsByType[0]._id}`}>
+                <div className={cx('blog-thumbnail')}>
+                  <img src={blogsByType[0].thumbnail} alt={blogsByType[0].title} />
+                  <h2>{blogsByType[0].title}</h2>
+                  <p>{blogsByType[0].description}</p>
+                </div>
+              </Link>
               {console.log(blogsByType[0])}
             </div>
           </div>
