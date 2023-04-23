@@ -161,7 +161,7 @@ export const SupportIcon = ({ width = 20, height = 23 }) => {
     );
 };
 
-export const ReportIcon = ({ width = 20, height = 23 }) => {
+export const GainLostIcon = ({ width = 20, height = 23 }) => {
     return (
         <svg width={width} height={height} viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
