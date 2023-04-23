@@ -17,6 +17,7 @@ const routes = {
   gainLoss: '/gain-loss',
   portfolioSharkFollow: '/portfolio-shark-follow',
   blog: '/blog',
+  copyTrading: '/copy-trading',
   blogDetail: '/blog/detail/:blogId',
 };
 

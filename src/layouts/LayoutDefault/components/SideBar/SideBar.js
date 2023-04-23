@@ -65,6 +65,13 @@ function SideBar() {
       isPremium: userIsPremium ? false : true,
       requiredPremium: true,
     },
+    {
+      title: 'Copy trading',
+      icon: <ReportIcon />,
+      to: configs.routes.copyTrading,
+      isPremium: userIsPremium ? false : true,
+      requiredPremium: true,
+    },
   ];
   return (
     <React.Fragment>

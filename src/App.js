@@ -15,6 +15,7 @@ import Home, {
   PortfolioSharkFollow,
   Blog,
   BlogDetail,
+  CopyTrading,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -196,6 +197,18 @@ function App() {
                 element={
                   <LayoutDefault>
                     <PortfolioSharkFollow />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.copyTrading}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <CopyTrading />
                   </LayoutDefault>
                 }
               />
