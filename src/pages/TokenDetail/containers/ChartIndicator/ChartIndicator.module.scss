@@ -1,6 +1,5 @@
 #tvchart {
     margin-top: 30px;
-    height: 400px;
     width: 1200px;
     padding: 0 12px;
 }
@@ -26,7 +25,7 @@
     display: flex;
 }
 
-.time {
+.period {
     display: flex;
 
     p {
@@ -57,9 +56,104 @@
     }
 }
 
+.time {
+    display: flex;
+    flex-direction: column;
+
+    p {
+        color: rgb(56, 97, 251);
+    }
+
+    button {
+        padding: 0px 14px;
+        margin-right: 4px !important;
+        background-color: transparent !important;
+        color: #000 !important;
+        align-items: center;
+        background: transparent;
+        border: 0px;
+        border-radius: 8px;
+        display: inline-flex;
+        color: rgb(0, 0, 0);
+        justify-content: center;
+        outline: 0px;
+        font-weight: 600;
+        width: auto;
+        cursor: pointer;
+        height: 32px;
+        font-size: 12px;
+        padding: 0px 16px;
+        line-height: 18px;
+
+    }
+}
+
+.time-check {
+    display: flex;
+    align-items: center;
+}
+
 .active button {
 
     background-color: rgb(240, 246, 255) !important;
     color: rgb(56, 97, 251) !important;
     font-weight: 700 !important;
 }
+
+/* Hide the default checkbox */
+.checkbox-container input {
+    display: none;
+  }
+  
+  .checkbox-container {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: #2196F300;
+    border-radius: 0.25em;
+    transition: all 0.25s;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    transform: rotate(0deg);
+    border: 0.1em solid black;
+    left: 0;
+    top: 0;
+    width: 21px;
+    height: 21px;
+    border-radius: 0.25em;
+    transition: all 0.25s, border-width 0.1s;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox-container input:checked ~ .checkmark:after {
+    left: 0.4em;
+    top: 0.18em;
+    width: 0.25em;
+    height: 0.5em;
+    border-color: #fff0 white white #fff0;
+    border-width: 0 0.15em 0.15em 0;
+    border-radius: 0em;
+    transform: rotate(45deg);
+  }
+  
