@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import styles from './CopyTrading.module.scss';
 import classNames from 'classnames/bind';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import Button from '~/components/Button';
@@ -28,6 +30,10 @@ const CopyTrading = () => {
 
     const navigate = useNavigate();
 
+    // const searchTextShark = useRef();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('bg-copy')}>
@@ -56,17 +62,31 @@ const CopyTrading = () => {
             </div>
             <div className={cx('copy-trading--main')}>
                 <div className={cx('copy-trading--content')}>
-                    <h3>Copy-Trading</h3>
-                    <h6>#Start growing your assets on autopilot</h6>
+                    <div className={cx('copy-trading--text')}>
+                        <h3>Copy-Trading</h3>
+                        <h6>#Start growing your assets on autopilot</h6>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className={cx('container__search')}>
+                            <input
+                                // ref={searchTextShark}
+                                placeholder="Search by ID shark"
+                                spellCheck="false"
+                            // value={searchText}
+                            // onChange={(e) => setSearchText(e.target.value)}
+                            />
+                            <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
+                        </div>
+                    </form>
                 </div>
                 <table>
                     <thead>
                         <tr className={cx('copy-trading--head')}>
                             <th>SHARK</th>
-                            <th className={cx('address-th2')}>ADDRESS</th>
                             <th>TOTAL ASSETS</th>
                             <th>24H%</th>
                             <th>Action</th>
+                            <th>Pair trading</th>
                         </tr>
                     </thead>
                     {userIsPremium ? (
