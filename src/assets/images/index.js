@@ -1,3 +1,5 @@
+import { CopyTrading } from '~/pages';
+
 const images = {
   logo: require('./Layer_1_xA0_Image.png'),
   logoSvg: require('./logo.svg').default,
@@ -20,6 +22,8 @@ const images = {
   facebookIcon: require('./facebook.png'),
   telegramIcon: require('./telegram.png'),
   youtubeIcon: require('./youtube.png'),
+  bgCopyTrading: require('./bg-copytrading.jpg'),
+  bgCopySmall: require('./bg-copysmall.jpg'),
 };
 
 export default images;

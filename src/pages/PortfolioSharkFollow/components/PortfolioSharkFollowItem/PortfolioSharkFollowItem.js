@@ -13,7 +13,7 @@ import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSelelected, isActiveDefault }) {
+function PortfolioSharkFollowItem({ dataSharkFollowed, onChangeSharkSelelected, isActiveDefault }) {
 
     const [sharkACtive, setSharkActive] = useState()
 
@@ -34,7 +34,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
 
     const handleUnFollow = () => {
         if (confirmContent.type === 'unfollow') {
-            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
+            dispatch(fetchUnFollowSharkWallet({ sharkId: dataSharkFollowed.sharkId }));
             onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }

@@ -36,7 +36,7 @@ const Share = () => {
     }, []);
     return (
         <div className={cx('fb-share-button')} data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="">
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fprofile&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fprofile&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Chia sẻ</a>
         </div>
     );
 }
