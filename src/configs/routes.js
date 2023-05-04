@@ -20,6 +20,7 @@ const routes = {
   portfolioSharkFollow: '/portfolio-shark-follow',
   blog: '/blog',
   blogDetail: '/blog/detail/:blogId',
+  copyTrading: '/copy-trading', 
 };
 
 export default routes;

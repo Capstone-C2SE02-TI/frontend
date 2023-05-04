@@ -69,7 +69,14 @@ function SideBar() {
     {
       title: 'Report',
       icon: <HomeIcon />,
-      to: configs.routes.report,
+      to: configs.routes.reportOverview,
+      isPremium: userIsPremium ? false : true,
+      requiredPremium: true,
+    },
+    {
+      title: 'Copy trade',
+      icon: <HomeIcon />,
+      to: configs.routes.copyTrading,
       isPremium: userIsPremium ? false : true,
       requiredPremium: true,
     },

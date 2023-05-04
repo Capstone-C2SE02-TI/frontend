@@ -16,6 +16,7 @@ import Home, {
   Blog,
   BlogDetail,
   ReportOverview,
+  CopyTrading,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -26,7 +27,7 @@ import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import  ChartRenderer from './pages/ChartRenderer/ChartRenderer';
+import ChartRenderer from './pages/ChartRenderer/ChartRenderer';
 
 Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
@@ -46,7 +47,7 @@ function App() {
       />
       <Router>
         <Routes>
-        <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
+          <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
 
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
           <Route
@@ -191,7 +192,7 @@ function App() {
                   </LayoutDefault>
                 }
               />
-              
+
             }
           />
           <Route
@@ -204,7 +205,7 @@ function App() {
                   </LayoutDefault>
                 }
               />
-              
+
             }
           />
           <Route
@@ -226,6 +227,18 @@ function App() {
                 element={
                   <LayoutDefault>
                     <Profile />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.copyTrading}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <CopyTrading />
                   </LayoutDefault>
                 }
               />
