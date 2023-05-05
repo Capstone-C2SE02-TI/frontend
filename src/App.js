@@ -15,6 +15,7 @@ import Home, {
   PortfolioSharkFollow,
   Blog,
   BlogDetail,
+  SettingTrading,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -46,8 +47,17 @@ function App() {
       <Router>
         <Routes>
         <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
-
+        
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
+          <Route path={configs.routes.settingTrading}element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <SettingTrading />
+                  </LayoutDefault>
+                }
+              />
+            } />
           <Route
             path={configs.routes.analyze}
             element={

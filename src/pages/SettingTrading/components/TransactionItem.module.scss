@@ -1,0 +1,36 @@
+.setting-trading-shark__tr {
+            
+    .setting-trading-shark__tr__name {
+        display: flex;
+        justify-content: center;
+
+        img {
+            margin-right: 12px;
+            height: 40px;
+            width: 40px;
+        }
+    }
+
+}
+td {
+    text-align: center;
+
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    padding: 12px 0px;
+    font-size: 14px;
+
+    &:nth-child(2) {
+        color: #3861fb;
+    }
+    &:nth-child(3) {
+        a {
+            color: #482ee8;
+        }
+    }
+
+    &:nth-child(6) {
+        padding-left: 12px !important;
+    }
+}

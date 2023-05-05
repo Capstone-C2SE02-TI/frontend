@@ -18,6 +18,7 @@ const routes = {
   portfolioSharkFollow: '/portfolio-shark-follow',
   blog: '/blog',
   blogDetail: '/blog/detail/:blogId',
+  settingTrading: '/setting/trading'
 };
 
 export default routes;

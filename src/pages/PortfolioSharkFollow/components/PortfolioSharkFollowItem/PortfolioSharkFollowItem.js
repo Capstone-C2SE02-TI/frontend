@@ -10,6 +10,7 @@ import { saveSharkFollowedSelected } from '~/modules/Portfolio/portfolioSlice';
 import { sharkFollowedSelectedSelector } from '~/modules/Portfolio/selector';
 import { useOnclickOutSide } from '~/hooks';
 import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
+import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 const cx = classNames.bind(styles);
 
 
@@ -20,6 +21,8 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
     const [openModal, setOpenModal] = useState(false)
     const [confirmContent, setConfirmContent] = useState({});
     const [isActiveShark, setIsActiveShark] = useState(isActiveDefault);
+    const walletAddress = useSelector(getAddressMetaMask);
+
     const dispatch = useDispatch();
 
     const openModalConfirm = (title, description, type) => {
@@ -34,7 +37,7 @@ function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSele
 
     const handleUnFollow = () => {
         if (confirmContent.type === 'unfollow') {
-            dispatch(fetchUnFollowSharkWallet({ userId: userId, sharkId: dataSharkFollowed.sharkId }));
+            dispatch(fetchUnFollowSharkWallet({ walletAddress: walletAddress, sharkId: dataSharkFollowed.sharkId }));
             onChangeSharkSelelected(dataSharkFollowed.sharkId)
         }
     }
