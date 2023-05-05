@@ -1,4 +1,4 @@
-import Home, { Signup, SignIn, DisplayCoin, BuyToken, SwapToken, Blog, BlogDetail } from '~/pages';
+import Home, { Signup, SignIn, DisplayCoin, BuyToken, SwapToken, Blog, BlogDetail, ReportOverview } from '~/pages';
 
 import configs from '~/configs';
 
@@ -34,6 +34,10 @@ const publicRoutes = [
   {
     path: configs.routes.blogDetail,
     component: BlogDetail,
+  },
+  {
+    path: configs.routes.reportOverview,
+    component: ReportOverview,
   },
 ];
 

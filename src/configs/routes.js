@@ -7,6 +7,8 @@ const routes = {
   discover: '/discover',
   tokenDetailL: '/discover/detail/:symbol',
   homeDashboard: '/home-dashboard',
+  reportOverview: '/report-overview',
+  report: 'report',
   analyze: '/analyze',
   editProfile: '/edit-profile',
   changePassword: '/change-password',
@@ -18,7 +20,8 @@ const routes = {
   portfolioSharkFollow: '/portfolio-shark-follow',
   blog: '/blog',
   blogDetail: '/blog/detail/:blogId',
-  settingTrading: '/setting/trading'
+  settingTrading: '/setting/trading',
+  copyTrading: '/copy-trading', 
 };
 
 export default routes;

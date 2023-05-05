@@ -14,7 +14,7 @@ import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 const cx = classNames.bind(styles);
 
 
-function PortfolioSharkFollowItem({ userId, dataSharkFollowed, onChangeSharkSelelected, isActiveDefault }) {
+function PortfolioSharkFollowItem({ dataSharkFollowed, onChangeSharkSelelected, isActiveDefault }) {
 
     const [sharkACtive, setSharkActive] = useState()
 

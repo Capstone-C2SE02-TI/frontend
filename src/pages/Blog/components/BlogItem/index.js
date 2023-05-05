@@ -16,7 +16,7 @@ function BlogItem({ blog }) {
         <h4 className={cx('BlogItem-title')}>{title}</h4>
         <h5 className={cx('BlogItem-publishDate')}>{formatPublishDateTime(publishDate)}</h5>
       </Link>
-  
+
     </div>
   );
 }
