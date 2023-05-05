@@ -205,7 +205,6 @@ function App() {
                   </LayoutDefault>
                 }
               />
-
             }
           />
           <Route
