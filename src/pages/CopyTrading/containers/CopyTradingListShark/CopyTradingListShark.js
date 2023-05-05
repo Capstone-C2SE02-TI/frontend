@@ -41,34 +41,15 @@ const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
                     <td className={cx("increase")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td> :
                     <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
             }
+            <td className={cx('copy-trading--pair')}>
+                <div className={cx('pair-box')}>
+                    <Select className="basic-single" classNamePrefix="select"/>
+                </div>
+            </td>
             <td className={cx('copy-trading--add')}>
                 <button onClick={handleGetAddress}>Add to trade</button>
             </td>
-            <td className={cx('copy-trading--pair')}>
-                <div className={cx('test')}>
-                    {/* <form>
-                        <select value={value} onChange={handleChange} disabled>
-                            <option value="0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6">WETH/TI</option>
-                            <option value="1">WETH/ETH</option>
-                            <option value="2">WETH/USDT</option>
-                            <option value="3">WETH/KIP</option>
-                        </select>
-                    </form> */}
-                    <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                    // defaultValue={colourOptions[0]}
-                    // isDisabled={isDisabled}
-                    // isLoading={isLoading}
-                    // isClearable={isClearable}
-                    // isRtl={isRtl}
-                    // isSearchable={isSearchable}
-                    // name="color"
-                    // options={colourOptions}
-                    />
-                    
-                </div>
-            </td>
+
         </tr>
     );
 }
