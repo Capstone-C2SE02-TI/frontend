@@ -6,29 +6,28 @@ import Select from 'react-select'
 
 const cx = classNames.bind(styles);
 
-const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
-    const getInitialState = () => {
-        const value = "0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6";
-        return value;
-    };
+const options = [
+    { value: '0xDA01d680F67423C2D6bE049536E19f788d44EBD2', label: 'WETH/TI' },
+    { value: 'strawberry', label: 'WETH/ETH' },
+    { value: 'vanilla', label: 'WETH/USDT' }
+]
 
-    console.log("dataSharkFollowed", dataSharkFollowed)
-    const [value, setValue] = useState(getInitialState);
-    const [address, setAddress] = useState([])
+const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
+
+    const [value, setValue] = useState(options[0].value)
+    const [address, setAddress] = useState('')
+    // const handleGetValue = (e) => {
+    //     setValue(e.options.value)
+    // }
 
     const handleGetAddress = () => {
         setAddress(dataSharkFollowed.walletAddress)
         console.log(address)
-    };
-
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    };
+    }
 
     return (
         <tr className={cx('copy-trading--line')}>
             <td>Shark #{dataSharkFollowed.sharkId}</td>
-            {/* <td >{dataSharkFollowed.walletAddress}</td> */}
             <td>
                 $
                 {millify(dataSharkFollowed.totalAssets, {
@@ -41,34 +40,16 @@ const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
                     <td className={cx("increase")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td> :
                     <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
             }
+            <td className={cx('copy-trading--pair')}>
+                <div className={cx('pair-layout')}>
+                    {/* <Select defaultValue={options[0].value} options={options} onChange={handleGetValue} /> */}
+                    <Select defaultValue={options[0].value} options={options} />
+                </div>
+            </td>
             <td className={cx('copy-trading--add')}>
                 <button onClick={handleGetAddress}>Add to trade</button>
             </td>
-            <td className={cx('copy-trading--pair')}>
-                <div className={cx('test')}>
-                    {/* <form>
-                        <select value={value} onChange={handleChange} disabled>
-                            <option value="0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6">WETH/TI</option>
-                            <option value="1">WETH/ETH</option>
-                            <option value="2">WETH/USDT</option>
-                            <option value="3">WETH/KIP</option>
-                        </select>
-                    </form> */}
-                    <Select
-                        className="basic-single"
-                        classNamePrefix="select"
-                    // defaultValue={colourOptions[0]}
-                    // isDisabled={isDisabled}
-                    // isLoading={isLoading}
-                    // isClearable={isClearable}
-                    // isRtl={isRtl}
-                    // isSearchable={isSearchable}
-                    // name="color"
-                    // options={colourOptions}
-                    />
-                    
-                </div>
-            </td>
+
         </tr>
     );
 }
