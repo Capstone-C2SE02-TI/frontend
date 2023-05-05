@@ -1,11 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './CopyTradingListShark.module.scss';
+import Select from 'react-select'
 
 const cx = classNames.bind(styles);
 
-const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
+const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
+    const getInitialState = () => {
+        const value = "0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6";
+        return value;
+    };
+
+    console.log("dataSharkFollowed", dataSharkFollowed)
+    const [value, setValue] = useState(getInitialState);
+    const [address, setAddress] = useState([])
+
+    const handleGetAddress = () => {
+        setAddress(dataSharkFollowed.walletAddress)
+        console.log(address)
+    };
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    };
+
     return (
         <tr className={cx('copy-trading--line')}>
             <td>Shark #{dataSharkFollowed.sharkId}</td>
@@ -23,14 +42,32 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                     <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
             }
             <td className={cx('copy-trading--add')}>
-                <button>Add to trade</button>
+                <button onClick={handleGetAddress}>Add to trade</button>
             </td>
             <td className={cx('copy-trading--pair')}>
-                <select className={cx('select-copy')}>
-                    <option value="USDT" >ETH/USDT</option>
-                    <option value="BUSD">ETH/BUSD</option>
-                    <option value="WETH">ETH/WETH</option>
-                </select>
+                <div className={cx('test')}>
+                    {/* <form>
+                        <select value={value} onChange={handleChange} disabled>
+                            <option value="0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6">WETH/TI</option>
+                            <option value="1">WETH/ETH</option>
+                            <option value="2">WETH/USDT</option>
+                            <option value="3">WETH/KIP</option>
+                        </select>
+                    </form> */}
+                    <Select
+                        className="basic-single"
+                        classNamePrefix="select"
+                    // defaultValue={colourOptions[0]}
+                    // isDisabled={isDisabled}
+                    // isLoading={isLoading}
+                    // isClearable={isClearable}
+                    // isRtl={isRtl}
+                    // isSearchable={isSearchable}
+                    // name="color"
+                    // options={colourOptions}
+                    />
+                    
+                </div>
             </td>
         </tr>
     );
