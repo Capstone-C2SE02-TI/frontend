@@ -85,8 +85,8 @@ const CopyTrading = () => {
                             <th>SHARK</th>
                             <th>TOTAL ASSETS</th>
                             <th>24H%</th>
-                            <th>Action</th>
                             <th>Pair trading</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     {userIsPremium ? (

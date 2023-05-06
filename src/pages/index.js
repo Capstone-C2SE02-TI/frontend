@@ -18,3 +18,4 @@ export { default as Blog } from './Blog';
 export { default as BlogDetail } from './BlogDetail';
 export { default as SettingTrading } from './SettingTrading';
 export { default as CopyTrading } from './CopyTrading';
+export { default as CopyOverview } from './CopyOverview';

@@ -1,0 +1,43 @@
+.containerfluid-copy-overview {
+    width: 100%;
+}
+
+.container-copy-overview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 5% auto;
+    border-radius: 8px;
+    padding: 40px 30px;
+    border: 3px solid #096279;
+}
+
+.box-copy-overview {
+    &:first-child {
+        margin-right: 2%;
+    }
+    width: 48%;
+    border: 2px solid #096279;
+    border-radius: 8px;
+    h5 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        color: #482ee8;
+        padding: 8px 0;
+        border-bottom: 1px solid #333;
+    }
+    ul {
+        padding: 15px 30px 15px 30px;
+        font-size: 18px;
+        li {
+            padding: 10px 0;
+        }
+    }
+}
+
+.btn-start {
+    margin: 0 auto;
+    margin-bottom: 20px;
+}

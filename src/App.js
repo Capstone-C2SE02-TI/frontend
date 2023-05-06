@@ -18,6 +18,7 @@ import Home, {
   SettingTrading,
   ReportOverview,
   CopyTrading,
+  CopyOverview,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -214,7 +215,6 @@ function App() {
                   </LayoutDefault>
                 }
               />
-
             }
           />
           <Route
@@ -248,6 +248,18 @@ function App() {
                 element={
                   <LayoutDefault>
                     <CopyTrading />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.copyOverview}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <CopyOverview />
                   </LayoutDefault>
                 }
               />
