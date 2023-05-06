@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './CopyTradingListShark.module.scss';
@@ -6,29 +6,43 @@ import Select from 'react-select'
 
 const cx = classNames.bind(styles);
 
-const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
-    const getInitialState = () => {
-        const value = "0xb4fbf271143f4fbf7b91a5ded31805e42b2208d6";
-        return value;
-    };
+const options = [
+    { value: '0xDA01d680F67423C2D6bE049536E19f788d44EBD2', label: 'WETH/TI' },
+    { value: 'strawberry', label: 'WETH/ETH' },
+    { value: 'vanilla', label: 'WETH/USDT' }
+]
 
-    console.log("dataSharkFollowed", dataSharkFollowed)
-    const [value, setValue] = useState(getInitialState);
-    const [address, setAddress] = useState([])
+const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
+    const [value, setValue] = useState(options[0].value)
+    const [address, setAddress] = useState('')
+    const [contractAdd, setContractAdd] = useState([])
+
+    useEffect(() => {
+        async function fetchData() {
+            const promises = [];
+            for (let i = 0; i < dataSharkFollowed.length; i++) {
+                const response = await fetch(`/shark/token_trading?address=${dataSharkFollowed[i].walletAddress}`);
+                const result = await response.json();
+                promises.push({ sharkId: dataSharkFollowed[i].sharkId, data: result.TXs });
+            }
+            const results = await Promise.all(promises);
+            setContractAdd(results);
+        }
+        fetchData();
+    }, []);
+
+    // const handleGetValue = (e) => {
+    //     setValue(e.options.value)
+    // }
 
     const handleGetAddress = () => {
         setAddress(dataSharkFollowed.walletAddress)
         console.log(address)
-    };
-
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    };
+    }
 
     return (
         <tr className={cx('copy-trading--line')}>
             <td>Shark #{dataSharkFollowed.sharkId}</td>
-            {/* <td >{dataSharkFollowed.walletAddress}</td> */}
             <td>
                 $
                 {millify(dataSharkFollowed.totalAssets, {
@@ -42,8 +56,8 @@ const CopyTradingListShark = ({ x, dataSharkFollowed }) => {
                     <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
             }
             <td className={cx('copy-trading--pair')}>
-                <div className={cx('pair-box')}>
-                    <Select className="basic-single" classNamePrefix="select"/>
+                <div className={cx('pair-layout')}>
+                    <Select defaultValue={options[0].value} options={options} />
                 </div>
             </td>
             <td className={cx('copy-trading--add')}>
