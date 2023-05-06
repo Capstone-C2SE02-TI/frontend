@@ -1,18 +1,16 @@
 .setting-trading-shark__tr {
-            
-    .setting-trading-shark__tr__name {
-        display: flex;
-        justify-content: center;
+  .setting-trading-shark__tr__name {
+    display: flex;
+    justify-content: center;
 
-        img {
-            margin-right: 12px;
-            height: 40px;
-            width: 40px;
-        }
+    img {
+      margin-right: 12px;
+      height: 40px;
+      width: 40px;
     }
+  }
 
-}
-td {
+  td {
     text-align: center;
 
     border-left: 1px solid #eee;
@@ -22,15 +20,26 @@ td {
     font-size: 14px;
 
     &:nth-child(2) {
-        color: #3861fb;
+      color: #3861fb;
     }
     &:nth-child(3) {
-        a {
-            color: #482ee8;
-        }
+      a {
+        color: #482ee8;
+      }
     }
 
-    &:nth-child(6) {
-        padding-left: 12px !important;
+    &:nth-child(5) {
+      padding-left: 12px !important;
     }
+  }
+
+  .buy {
+    color: #21ce66;
+    font-weight: 700;
+  }
+
+  .sell {
+    color: #f33a58;
+    font-weight: 700;
+  }
 }
