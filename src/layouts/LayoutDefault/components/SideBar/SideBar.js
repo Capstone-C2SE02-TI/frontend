@@ -76,7 +76,7 @@ function SideBar() {
     {
       title: 'Copy trade',
       icon: <HomeIcon />,
-      to: configs.routes.copyTrading,
+      to: configs.routes.copyOverview,
       isPremium: userIsPremium ? false : true,
       requiredPremium: true,
     },

@@ -21,6 +21,7 @@ const routes = {
   blog: '/blog',
   blogDetail: '/blog/detail/:blogId',
   copyTrading: '/copy-trading', 
+  copyOverview: '/copy-overview',
 };
 
 export default routes;
