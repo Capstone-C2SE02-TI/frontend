@@ -5,13 +5,13 @@ import { sharkFollowedService, sharkWalletService } from '~/services';
 const sharkFollowedSlice = createSlice({
     name: 'sharkFollowed',
     initialState: {
-        status: 'idle', sharkFollowedList: [], transactionHistory: [], loadingTransaction: 'idle'
+        status: 'idle', sharkFollowedList: [], transactionHistory: [], loadingTransaction: 'idle', notifyTransactions: []
     },
 
     reducers: {
         removeSharkFollowed: (state, action) => {
             state.sharkFollowedList = state.sharkFollowedList.filter(shark => shark.sharkId !== action.payload)
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -46,6 +46,15 @@ const sharkFollowedSlice = createSlice({
                 state.transactionHistory = action.payload;
                 state.loadingTransaction = 'idle';
             })
+            .addCase(fetchNewTransactions.pending, (state, action)=>{
+                state.status = 'loading';
+            
+            })
+            .addCase(fetchNewTransactions.fulfilled, (state, action) =>{
+                state.status = 'idle';
+                console.log("payload", action.payload);
+                state.notifyTransactions = action.payload;
+            })
     },
 });
 
@@ -70,6 +79,11 @@ export const fetchTransactionHistoryPortfolio = createAsyncThunk(
     },
 );
 
+export const fetchNewTransactions = createAsyncThunk('sharkFollowed/fetchNewTransactions', async (id) => {
+    const response = await sharkWalletService.getNewTransactions(id);
+    console.log("fetch", response.data.transactionsHistory);
+    return response.data.transactionsHistory;
+});
 
 export default sharkFollowedSlice;
 

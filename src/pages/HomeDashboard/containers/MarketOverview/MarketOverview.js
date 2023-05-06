@@ -9,7 +9,9 @@ import { CaretNextIcon } from '~/components/Icons';
 import {  statusCoinDetailSelector } from '~/modules/CoinDetail/selector';
 import { fetchTrendingCoins } from '~/modules/Discover/discoverSlice';
 import { trendingCoinsSelector } from '~/modules/Discover/selector';
+import { newTransactionsSelector } from '~/modules/SharkFollowed/selector';
 import { useFetchInterval } from '~/hooks';
+import { fetchNewTransactions } from '~/modules/SharkFollowed/sharkFollowedSlice';
 const cx = classNames.bind(styles);
 
 
@@ -18,13 +20,20 @@ function MarketOverview() {
     const dispatch = useDispatch();
     const trendingCoins = useSelector(trendingCoinsSelector);
     const status = useSelector(statusCoinDetailSelector);
+    const notifyTransactions = useSelector(newTransactionsSelector)
 
     useFetchInterval.useFetchTrendingCoinsInterval();
     useEffect(() => {
         dispatch(fetchTrendingCoins());
     }, [dispatch]);
     
+    let trans = [];
 
+    useEffect(() =>{
+        dispatch(fetchNewTransactions("9"))
+    console.log('notifyTransactions', notifyTransactions);
+
+    }, [dispatch])
     return (
         <section className={cx('colMiddle')}>
             <div className={cx('market-content')}>

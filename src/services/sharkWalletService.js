@@ -42,6 +42,16 @@ export const getTransactionHistorySharkWallet = async (id) => {
     }
 };
 
+export const getNewTransactions = async (id) => {
+    try {
+
+        const response = await httpRequest.post(`/display/shark/new-transactions?id=${id}`);
+
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 export const followSharkWallet = async (data) => {
     try {
