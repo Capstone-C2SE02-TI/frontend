@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import classNames from 'classnames/bind';
 import styles from './SettingTrading.module.scss';
-import images from '~/assets/images';
-import Button from '~/components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
 import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
@@ -30,12 +28,24 @@ function SettingTrading() {
         const promises = [];
 
         for (let i = 0; i < sharkFolloweds.length; i++) {
-          const response = await fetch(`/tx/latest/?address=${sharkFolloweds[i].walletAddress}&pages=1`);
+          let formData = new FormData();
+          formData.append('address', sharkFolloweds[i].walletAddress);
+          // const data = {
+          //   address: sharkFolloweds[i].walletAddress,
+          //   contract_address: '',
+          //   pages: 1,
+          // }
+          const response = await fetch(`/shark/latest_tx/`, {
+            method: 'POST',
+         
+            body: formData
+          });
           const result = await response.json();
-          promises.push({sharkId: sharkFolloweds[i].sharkId, data: result.TXs});
+          promises.push({sharkId: sharkFolloweds[i].sharkId, walletAddress: sharkFolloweds[i].walletAddress, data: result.TXs});
         }
 
         const results = await Promise.all(promises);
+        // console.log(results);
         setTransactionsShark(results);
       }
       fetchData();
@@ -52,14 +62,14 @@ function SettingTrading() {
         return transaction.data.map(d => {
           return {
             ...d,
-            sharkId: transaction.sharkId
+            sharkId: transaction.sharkId,
+            walletAddress: transaction.walletAddress
           }
         })
       })
       let transactionSlice = [];
       newTransactionsAddSharkId.forEach(transaction => {
-        const filterTransaction = transaction.filter(tr => +tr.transactionIndex > 0)
-        transactionSlice.push(...filterTransaction)
+        transactionSlice.push(...transaction)
       } )
       setTransactionsSharkRemaining(transactionSlice)
       return sliceArrayToPagination(transactionSlice, paginationState, NUMBER_ITEM_DISPLAY);
@@ -72,9 +82,8 @@ function SettingTrading() {
       <table className={cx('setting-trading-shark-tab')}>
         <thead>
           <tr>
-            <th>Shark's Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Wallet Address</th>
+            <th>Crypto</th>
             <th>Trade transaction %</th>
             <th>Status</th>
             <th>Actions</th>
