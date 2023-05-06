@@ -161,6 +161,7 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
   const loadBalance = async (signerAddress) => {
     const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
     const balance = await contractTi.balanceOf(signerAddress);
+    console.log({balance});
     let convertBalance = await balance.toHexString(16);
     return parseInt(convertBalance, 16);
   };
