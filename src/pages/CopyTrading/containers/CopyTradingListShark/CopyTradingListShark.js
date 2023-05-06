@@ -18,17 +18,24 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     const [contractAdd, setContractAdd] = useState([])
 
     useEffect(() => {
+        // async function fetchData() {
+        //     const promises = []
+        //     const response = await fetch(`/shark/token_trading?address=${dataSharkFollowed.walletAddress}`);
+        //     const result = await response.json();
+        //     console.log("response", result)
+        //     // }
+        //     const results = await Promise.all(promises);
+        //     console.log("response", results)
+
+        //     // setContractAdd(results);
+        // }
+        // fetchData();
         async function fetchData() {
-            const promises = [];
-            for (let i = 0; i < dataSharkFollowed.length; i++) {
-                const response = await fetch(`/shark/token_trading?address=${dataSharkFollowed[i].walletAddress}`);
-                const result = await response.json();
-                promises.push({ sharkId: dataSharkFollowed[i].sharkId, data: result.TXs });
-            }
-            const results = await Promise.all(promises);
-            setContractAdd(results);
+            const response = await fetch(`http://127.0.0.1:8000/shark/token_trading?address=0x72598E10eF4c7C0E651f1eA3CEEe74FCf0A76CF2`);
+            const result = await response.json();
+            console.log(result);
         }
-        fetchData();
+        fetchData()
     }, []);
 
     // const handleGetValue = (e) => {
