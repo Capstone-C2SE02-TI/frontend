@@ -15,7 +15,7 @@ import images from '~/assets/images';
 import { useNavigate } from 'react-router-dom';
 import MenuProfile from './components/MenuProfile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faUser } from '@fortawesome/free-solid-svg-icons';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import ConnectWallet from './components/ConnectWallet/ConnectWallet';
@@ -37,6 +37,10 @@ const userMenu = [
     {
         icon: <FontAwesomeIcon icon={faUser} />,
         title: 'Portfolio',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Setting Trading',
     },
 ];
 
@@ -109,6 +113,9 @@ function LayoutDefault({ children }) {
             case 'Portfolio':
                 navigate('/portfolio-shark-follow');
                 break;
+            case 'Setting Trading':
+                navigate('/setting/trading');
+                break;    
             default:
                 break;
         }
