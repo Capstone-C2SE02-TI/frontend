@@ -25,12 +25,44 @@ import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import  ChartRenderer from './pages/ChartRenderer/ChartRenderer';
+import ChartRenderer from './pages/ChartRenderer/ChartRenderer';
+import { io } from 'socket.io-client';
+import { useEffect } from 'react';
+import { convertUnixTime } from './helpers';
+import { getAddressMetaMask } from './modules/MetaMask/selector';
+import { useSelector } from 'react-redux';
 
 Chart.register(zoomPlugin, ...registerables);
 // Interaction.modes.interpolate = Interpolate;
 
 function App() {
+  const walletAddress = useSelector(getAddressMetaMask);
+  const socket = io('http://localhost:4001/');
+  useEffect(() => {
+    if (walletAddress) {
+      socket.emit('get-wallet-address', walletAddress);
+    }
+    
+  }, [walletAddress]);
+
+  useEffect(()=>{
+    socket.on('new-transactions', (data) => {
+      Notification.requestPermission().then((perm) => {
+        if (perm === 'granted') {
+          for (let transaction of data.newTransactions.transactionsHistory) {
+            const notification = new Notification('New transactions of shark ' + data.sharkId, {
+              body: convertUnixTime(transaction.timeStamp),
+              data: { timestamp: Date.now(), data: 'hi' },
+            });
+            notification.addEventListener('click', (ev) => {
+              window.open('http://localhost:3000/discover');
+            });
+          }
+        }
+      });
+    });
+  },[])
+
   return (
     <div className="app">
       <ToastContainer
@@ -45,7 +77,7 @@ function App() {
       />
       <Router>
         <Routes>
-        <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
+          <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
 
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
           <Route
