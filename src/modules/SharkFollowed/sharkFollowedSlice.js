@@ -59,9 +59,9 @@ export const fetchSharkFollowed = createAsyncThunk('sharkFollowed/fetchSharkFoll
     return response.datas;
 });
 
-export const fetchProfile = createAsyncThunk('sharkFollowed/fetchProfile', async (sharkId) => {
-    const response = await sharkFollowedService.getProfile(sharkId);
-    return response.datas;
+export const fetchProfile = createAsyncThunk('sharkFollowed/fetchProfile', async (userId) => {
+    const response = await sharkFollowedService.getProfile(userId);
+    return response.data;
 });
 
 export const fetchUnFollowPortfolio = createAsyncThunk('sharkFollowed/fetchUnFollowPortfolio', async (data) => {
