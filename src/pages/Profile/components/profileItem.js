@@ -18,14 +18,24 @@ const ProfileItem = ({ key, dataSharkFollowed }) => {
                     decimalSeparator: ',',
                 })}
             </td>
-            {
+            {/* {
                 dataSharkFollowed.percent24h.toFixed(3) > 0 ?
                     <td className={cx("increase")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td> :
                     <td className={cx("decrease")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td>
-            }
+            } */}
             <td>
-
+                {dataSharkFollowed.totalTransactions}
             </td>
+            {dataSharkFollowed.actualGrowth > 0 ? <td className={cx("increase")}>${millify(dataSharkFollowed.actualGrowth, {
+                precision: 3,
+                decimalSeparator: ',',
+            })}</td> :
+                <td className={cx("decrease")}>${millify(dataSharkFollowed.actualGrowth, {
+                    precision: 3,
+                    decimalSeparator: ',',
+                })}</td>
+            }
+
         </tr>
     );
 }
