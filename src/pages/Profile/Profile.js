@@ -21,6 +21,7 @@ function Profile() {
 
     useEffect(() => {
         dispatch(fetchProfile(userWalletAddress));
+        console.log(userWalletAddress)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, userWalletAddress]);
 
@@ -28,6 +29,8 @@ function Profile() {
         dispatch(fetchGetUserInfo(userWalletAddress));
     }, []);
 
+
+    console.log(sharkFolloweds)
 
     return (
         <div className={cx('wrapper')}>
@@ -51,9 +54,9 @@ function Profile() {
                 <thead>
                     <tr>
                         <th className={cx('portfolio-th')}>Shark</th>
+                        <th className={cx('portfolio-th')}>Address</th>
                         <th className={cx('portfolio-th')}>Total assets</th>
                         <th className={cx('portfolio-th')}>Total transaction</th>
-                        <th className={cx('portfolio-th')}>Address</th>
                         <th className={cx('portfolio-th')}>Actual growth</th>
                     </tr>
                 </thead>

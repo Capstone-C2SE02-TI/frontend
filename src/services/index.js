@@ -7,3 +7,4 @@ export * as gainLossService from './gainLossService';
 export * as sharkFollowedService from './sharkFollowedService';
 export * as blogService from './blogService';
 export * as blogDetailService from './blogDetailService';
+export * as profileService from './profileService';
