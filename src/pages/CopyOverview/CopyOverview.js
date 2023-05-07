@@ -22,7 +22,7 @@ const CopyOverview = () => {
                         <li>Stop trades easily</li>
                         <li>Deposit to get started</li>
                     </ul>
-                    <Link to={'/home-dashboard'}>
+                    <Link to={'/setting/trading'}>
                         <Button className={cx('btn-start')} onClick={handleNavigate} linearGradientPrimary>Start</Button>
                     </Link>
 
