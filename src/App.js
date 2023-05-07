@@ -15,6 +15,10 @@ import Home, {
   PortfolioSharkFollow,
   Blog,
   BlogDetail,
+  SettingTrading,
+  ReportOverview,
+  CopyTrading,
+  CopyOverview,
 } from './pages';
 
 import { Chart, registerables } from 'chart.js';
@@ -77,9 +81,17 @@ function App() {
       />
       <Router>
         <Routes>
-          <Route path={'/test'} element={<PublicRoute element={<ChartRenderer />} />} />
-
+    
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
+          <Route path={configs.routes.settingTrading}element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <SettingTrading />
+                  </LayoutDefault>
+                }
+              />
+            } />
           <Route
             path={configs.routes.analyze}
             element={
@@ -222,6 +234,19 @@ function App() {
                   </LayoutDefault>
                 }
               />
+
+            }
+          />
+          <Route
+            path={configs.routes.reportOverview}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <ReportOverview />
+                  </LayoutDefault>
+                }
+              />
             }
           />
           <Route
@@ -243,6 +268,30 @@ function App() {
                 element={
                   <LayoutDefault>
                     <Profile />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.copyTrading}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <CopyTrading />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.copyOverview}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <CopyOverview />
                   </LayoutDefault>
                 }
               />

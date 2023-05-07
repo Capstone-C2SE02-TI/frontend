@@ -45,7 +45,7 @@ function ChartIndicator({
   onChangeFilterIndicatorData,
 }) {
   const [isCheckAll, setIsCheckAll] = useState(false);
-  const [isCheck, setIsCheck] = useState([]);
+  const [isCheck, setIsCheck] = useState(['candlestick']);
 
   const { symbol } = useParams();
 
@@ -101,8 +101,11 @@ function ChartIndicator({
     toolTip.style.borderColor = '#2962FF';
     elRef.current.appendChild(toolTip);
 
-    candlestickSeriesRef.current = chartRef.current.addCandlestickSeries({title: 'CANDLESTICK'});
-    candlestickSeriesRef.current.setData(data);
+    if (isCheck.includes('candlestick'))  {
+
+      candlestickSeriesRef.current = chartRef.current.addCandlestickSeries({title: 'CANDLESTICK'});
+      candlestickSeriesRef.current.setData(data);
+    }
    
     //SMA
     if (isCheck.includes('sma')) {
@@ -225,6 +228,17 @@ function ChartIndicator({
       setIsCheck(isCheck.filter((item) => item !== id));
     }
   };
+ 
+  const handleToggleCandleStick = () => {
+    const defaultValue = 'candlestick'
+    const isExist = isCheck.includes(defaultValue) 
+    if(isExist) {
+      setIsCheck(isCheck.filter((item) => item !== defaultValue))
+    }
+    else {
+      setIsCheck([...isCheck, defaultValue])
+    }
+  }
 
   return (
     <div className={styles.chartcontainer}>
@@ -243,7 +257,7 @@ function ChartIndicator({
           ))}
         </div>
         <div className={styles.time}>
-          <p className={cx('active')}>
+          <p  className={cx(isCheck.includes('candlestick') ? 'active' : '')} onClick={handleToggleCandleStick}>
             <button>CANDLESTICK</button>
           </p>
         </div>

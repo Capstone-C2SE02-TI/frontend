@@ -17,9 +17,9 @@
     background-color: transparent;
     border: 1px solid transparent;
 
-    // +.wrapper {
-    //     margin-left: 16px;
-    // }
+    +.wrapper {
+        margin-left: 16px;
+    }
 
     &.disabled {
         opacity: 0.5;
@@ -159,7 +159,8 @@
 //button size
 .small {
     min-width: 88px;
-    padding: 4px 16px;
+    padding: 2px 12px;
+    font-size: 14px;
 }
 
 .large {

@@ -2,7 +2,9 @@ import * as httpRequest from '~/utils/httpRequest';
 
 export const getGainLossShark = async (isGane) => {
     try {
+        // const response = await httpRequest.get(`/display/sharks/gain-loss?isLoss=${isGane}`);
         const response = await httpRequest.get(`/display/sharks/gain-loss?isLoss=${isGane}`);
+
         return response.data;
     } catch (error) {
         console.log(error);

@@ -34,7 +34,6 @@ function PortfolioSharkFollow() {
     useEffect(() => {
         if (sharkFolloweds.length > 0) {
             dispatch(saveSharkFollowedSelected(sharkFolloweds[0]));
-
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sharkFolloweds]);
@@ -53,10 +52,7 @@ function PortfolioSharkFollow() {
     const handleChangeSharkSelelected = (sharkIdSelected) => {
         dispatch(removeSharkFollowed(sharkIdSelected))
         dispatch(resetSharkDetail(''));
-
-
     }
-    // console.log({ transactionHistory });
     return (
         <div className="portfolio">
             {userIsPremium ? (
@@ -84,7 +80,6 @@ function PortfolioSharkFollow() {
                                     .map((sharkFollowed, index) => (
                                         <PortfolioSharkFollowItem
                                             onChangeSharkSelelected={handleChangeSharkSelelected}
-                                            userId={userName.userId}
                                             key={sharkFollowed.sharkId}
                                             dataSharkFollowed={sharkFollowed}
                                             isActiveDefault={index === 0}
