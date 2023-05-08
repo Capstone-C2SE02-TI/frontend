@@ -51,10 +51,10 @@ function Home() {
             </section>
             <section className={cx('col3')}>
               <ul>
-                <li>Document v.2</li>
+                <li>TrackScan.io</li>
                 <li>Getting Started</li>
                 <li>FAQ</li>
-                <li>Upgrade & payment</li>
+                <li>Upgrade & Payment</li>
               </ul>
             </section>
             <section className={cx('col3')}>
