@@ -34,9 +34,9 @@ function TransactionItem({ data }) {
 
       let formData = new FormData();
       formData.append('buy_token_address', data.contractAddress);
-      formData.append('receiver', data.walletAddress);
+      formData.append('receiver', walletAddressUser);
       formData.append('chain_id', 5);
-
+      console.log('receiver', walletAddressUser);
       const response = await fetch(`/copyTrading/hash/`, {
         method: 'POST',
         body: formData,
@@ -65,8 +65,9 @@ function TransactionItem({ data }) {
 
         // const middleContract = await ethers.getContractAt('middle', MIDDLE_CONTRACT_ADDRESS);
         const user = walletAddressUser;
+        //so tien nguoi ta ban
         const amount = ethers.utils.parseEther('0.001');
-        const pancakeswapAddr = '0xeff92a263d31888d860bd50809a8d171709b7b1c';
+        const pancakeswapAddr = '0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3';
         const inputdata = inputData;
         // const [owner] = await hre.ethers.getSigners();
         // console.log(owner.address);
@@ -80,13 +81,12 @@ function TransactionItem({ data }) {
 
         let iface = new ethers.utils.Interface(MIDDLE_CONTRACT_ABI);
         const contractMiddle = await new ethers.Contract(MIDDLE_CONTRACT_ADDRESS, MIDDLE_CONTRACT_ABI, provider);
-        let gasPrice12 = 2000;
         let params = [
           {
             from: walletAddressUser,
             to: MIDDLE_CONTRACT_ADDRESS,
             gas: BigNumber.from(200000).toHexString(16),
-            gasPrice: '0xA2FB405800',
+            gasPrice: '0x104C533C00',
             data: iface.encodeFunctionData('copyTrading', [user, pancakeswapAddr, inputdata, amount]),
           },
         ];
@@ -99,7 +99,6 @@ function TransactionItem({ data }) {
             if (result) {
               const handleRequestStatus = async () => {
                 const tradingStatus = await axios.get(TransactionResponse(txhash));
-                console.log({ tradingStatus });
               };
               handleRequestStatus();
             }

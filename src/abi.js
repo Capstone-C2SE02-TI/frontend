@@ -8,7 +8,7 @@ const TI_ABI =
                     "indexed": true,
                     "internalType": "address",
                     "name": "_owner",
-                    "type": "address"
+                    "type": "address" 
                 },
                 {
                     "indexed": true,
@@ -428,8 +428,8 @@ const FUND_SUBSCRIPTION_ABI = [
   },
 ];
 
-const FUND_SUBSCRIPTION_ADDRESS = '0x563aef0377c65075fa33ec14640f1d24c8839eaa';
-const MIDDLE_CONTRACT_ADDRESS = '0xd7aC99Fe5Af42A12E84aA13bB36A4552Da086Ee0';
+const FUND_SUBSCRIPTION_ADDRESS = '0x89121b088417ceEb7cB84FcdeFE8B97f19d5833f';
+const MIDDLE_CONTRACT_ADDRESS = '0x9746B3Df8a216c6Ca42Dc2C7AFDc4f67BbE16b91';
 const MIDDLE_CONTRACT_ABI = [
   { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
