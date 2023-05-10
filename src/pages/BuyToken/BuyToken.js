@@ -97,7 +97,7 @@ function BuyToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    console.log({result});
+                    console.log({ result });
                     const handleRequestStatus = async () => {
                         const approveTokenStatus = await axios.get(TransactionResponse(txhash));
                         if (approveTokenStatus.data.result.isError === '0') {
@@ -128,11 +128,13 @@ function BuyToken() {
         let iface = new ethers.utils.Interface(ABI);
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
         const estimationApprove = await contractTi.estimateGas.approve(FUND_SUBSCRIPTION_ADDRESS, premiumPrice);
+        console.log(estimationApprove)
+        console.log(estimationApprove.add(BigNumber.from(1000)))
         let params = [
             {
                 from: smartContractInfo.walletAddress,
                 to: TI_SMART_CONTRACT_ADDRESS,
-                gas: estimationApprove.toHexString(16),
+                gas: BigNumber.from("50000").toHexString(16),
                 gasPrice: '0x1BF08EB000',
                 data: iface.encodeFunctionData('approve', [FUND_SUBSCRIPTION_ADDRESS, premiumPrice]),
             },

@@ -37,11 +37,11 @@ function SettingTrading() {
           // }
           const response = await fetch(`/shark/latest_tx/`, {
             method: 'POST',
-         
+
             body: formData
           });
           const result = await response.json();
-          promises.push({sharkId: sharkFolloweds[i].sharkId, walletAddress: sharkFolloweds[i].walletAddress, data: result.TXs});
+          promises.push({ sharkId: sharkFolloweds[i].sharkId, walletAddress: sharkFolloweds[i].walletAddress, data: result.TXs });
         }
 
         const results = await Promise.all(promises);
@@ -57,9 +57,9 @@ function SettingTrading() {
   };
 
   const viewTransactionsShark = useMemo(() => {
-   
+    if (transactionsShark.length > 0 && transactionsShark[0].data) {
       const newTransactionsAddSharkId = transactionsShark.map(transaction => {
-        return transaction.data.map(d => {
+        return transaction.data?.map(d => {
           return {
             ...d,
             sharkId: transaction.sharkId,
@@ -68,13 +68,13 @@ function SettingTrading() {
         })
       })
       let transactionSlice = [];
-      newTransactionsAddSharkId.forEach(transaction => {
+      newTransactionsAddSharkId?.forEach(transaction => {
         transactionSlice.push(...transaction)
-      } )
+      })
       setTransactionsSharkRemaining(transactionSlice)
       return sliceArrayToPagination(transactionSlice, paginationState, NUMBER_ITEM_DISPLAY);
-    
-    
+    }
+
   }, [transactionsShark, paginationState]);
 
   return (
@@ -90,7 +90,7 @@ function SettingTrading() {
           </tr>
         </thead>
         <tbody>
-          {transactionsShark.length > 0  && viewTransactionsShark.map((transaction, index) => (
+          {transactionsShark.length > 0 && transactionsShark[0].data && viewTransactionsShark.map((transaction, index) => (
             <TransactionItem key={index} data={transaction} />
           ))}
         </tbody>

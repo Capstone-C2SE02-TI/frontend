@@ -37,7 +37,8 @@ function SwapToken() {
 
     const handleChange = (e) => {
         setEthValues(e.target.value);
-        setEthChange(e.target.value / smartContractInfo.ratio);
+        console.log(smartContractInfo.ratio);
+        setEthChange(+e.target.value / +smartContractInfo.ratio);
     };
     const handleSwap = async () => {
         let ABI = ['function buy(uint amount)'];
@@ -45,11 +46,20 @@ function SwapToken() {
 
         let iface = new ethers.utils.Interface(ABI);
         // let ifacetest = new ethers.utils.Interface(ABITEST);
+        const contract = await new ethers.Contract(DEX_SMART_CONTRACT_ADDRESS, DEX_ABI, provider);
+
+        console.log(ethChange);
+        const estimateGas = await contract
+            .estimateGas.buy(ethChange, {
+                value: ethers.utils.parseEther(ethValues)
+            });
+        console.log(estimateGas);
+
         let params = [
             {
                 from: smartContractInfo.walletAddress,
                 to: DEX_SMART_CONTRACT_ADDRESS,
-                gas: '0x1FBD0', // 30400
+                gas: estimateGas.toHexString(16), // 30400
                 gasPrice: '0x1BF08EB000', // 10000000000000
                 value: Number(ethValues * 10 ** 18).toString(16), // 2441406250
                 data: iface.encodeFunctionData('buy', [ethChange]),
@@ -76,6 +86,7 @@ function SwapToken() {
                     const statusSwapToken = await axios.get(
                         TransactionResponse(txhash)
                     );
+                    console.log({ statusSwapToken });
                 };
                 setTimeout(handleRequestStatus, 10000);
             });
@@ -147,7 +158,7 @@ function SwapToken() {
                                     type="number"
                                     name="ti-change"
                                     value={ethValues / smartContractInfo.ratio || 0}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                 />
                             </div>
                         </div>

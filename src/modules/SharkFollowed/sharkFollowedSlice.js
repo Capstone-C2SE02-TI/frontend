@@ -5,7 +5,7 @@ import { sharkFollowedService, sharkWalletService } from '~/services';
 const sharkFollowedSlice = createSlice({
     name: 'sharkFollowed',
     initialState: {
-        status: 'idle', sharkFollowedList: [], transactionHistory: [], loadingTransaction: 'idle'
+        status: 'idle', sharkFollowedList: [], transactionHistory: [], profileList: [], loadingTransaction: 'idle',
     },
 
     reducers: {
@@ -21,6 +21,11 @@ const sharkFollowedSlice = createSlice({
             .addCase(fetchSharkFollowed.fulfilled, (state, action) => {
                 const dataSharkFollowed = action.payload;
                 state.sharkFollowedList = dataSharkFollowed.slice().sort((prev, next) => prev.sharkId - next.sharkId)
+                state.status = 'idle';
+            })
+            .addCase(fetchProfile.fulfilled, (state, action) => {
+                const dataProfile = action.payload;
+                state.profileList = dataProfile.slice().sort((prev, next) => prev.sharkId - next.sharkId)
                 state.status = 'idle';
             })
             .addCase(fetchUnFollowPortfolio.pending, (state, action) => {
@@ -54,10 +59,16 @@ export const fetchSharkFollowed = createAsyncThunk('sharkFollowed/fetchSharkFoll
     return response.datas;
 });
 
+export const fetchProfile = createAsyncThunk('sharkFollowed/fetchProfile', async (userId) => {
+    const response = await sharkFollowedService.getProfile(userId);
+    return response.data;
+});
+
 export const fetchUnFollowPortfolio = createAsyncThunk('sharkFollowed/fetchUnFollowPortfolio', async (data) => {
     const response = await sharkWalletService.followUnSharkWallet(data);
     return response;
 });
+
 
 
 export const fetchTransactionHistoryPortfolio = createAsyncThunk(

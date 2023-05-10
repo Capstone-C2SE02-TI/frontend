@@ -61,5 +61,24 @@
         border-right: 1px solid #eff2f5;
         text-align: center;
    }
+   thead {
+    tr {
+        background: linear-gradient(55deg, #03a9f4, #a762be);
+        color: #ffffff;
+        text-align: left;
+        &:hover {
+            background: linear-gradient(55deg, #03a9f4, #a762be);
+        }
+    }
+    th {
+        text-align: center;
+        text-transform: uppercase;
+        padding: 12px 15px;
+
+        &:nth-child(2) {
+            text-align: center;
+        }
+    }
+}
 
 }
