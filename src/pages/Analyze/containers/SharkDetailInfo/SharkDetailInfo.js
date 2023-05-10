@@ -40,7 +40,7 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
     const totalValueOut = useMemo(() => {
         return sharkTransactionHistory.reduce((totalValue, transaction) => {
             const passValue = transaction.pastPrice === 0 ? 1 : transaction.pastPrice;
-            return sharkAddressSelected.toLowerCase().localeCompare(transaction.to.toLowerCase()) === 0
+            return sharkAddressSelected.toLowerCase().localeCompare(transaction.to?.toLowerCase()) === 0
                 ? totalValue + transaction.numberOfTokens * passValue
                 : totalValue;
         }, 0);
