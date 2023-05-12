@@ -35,10 +35,19 @@ function SharkWalletsOverview() {
 
     useEffect(() => {
         if (sharksCoin.length > 0) {
-            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(sharksCoin[0].sharkId));
-            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(sharksCoin[0].walletAddress));
-            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(sharksCoin[0].totalAsset));
-            dispatch(sharkWalletSlice.actions.actionSharkInfo(sharksCoin[0]));
+            const sharksFollowed = sharksCoin.slice().sort((prev, next) => {
+                if (prev.isFollowed && !next.isFollowed) {
+                    return -1;
+                } else if (!prev.isFollowed && next.isFollowed) {
+                    return 1;
+                } else {
+                    return prev.sharkId - next.sharkId;
+                }
+            })
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletId(sharksFollowed[0].sharkId));
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletAddress(sharksFollowed[0].walletAddress));
+            dispatch(sharkWalletSlice.actions.actionSelectedSharkWalletTotalAssets(sharksFollowed[0].totalAsset));
+            dispatch(sharkWalletSlice.actions.actionSharkInfo(sharksFollowed[0]));
         } else {
             dispatch(sharkWalletSlice.actions.actionSharkNoData(sharksCoin));
         }
@@ -60,7 +69,15 @@ function SharkWalletsOverview() {
     const [paginationState, setPaginationState] = useState(1);
 
     const viewListSharkCoinPagination = useMemo(() => {
-        const sharksFollowed = sharksCoin.slice().sort((a, b) => b.isFollowed? 1 : -1)
+        const sharksFollowed = sharksCoin.slice().sort((prev, next) => {
+            if (prev.isFollowed && !next.isFollowed) {
+                return -1;
+            } else if (!prev.isFollowed && next.isFollowed) {
+                return 1;
+            } else {
+                return prev.sharkId - next.sharkId;
+            }
+        })
         if (tabOverviewTransaction === 'oldShark') {
             return sliceArrayToPagination(sharksFollowed, paginationState, NUMBER_ITEM_DISPLAY);
         } else {

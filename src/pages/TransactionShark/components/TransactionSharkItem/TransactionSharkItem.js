@@ -22,6 +22,7 @@ function TransactionSharkItem({ data, index, sharkAddress }) {
             return false;
         }
     }
+    console.log("data", data)
     return (
         <tr className={cx('transaction-shark__tr')} >
             <td>{convertDate(data.timeStamp * 1000)}

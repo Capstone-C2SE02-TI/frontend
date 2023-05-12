@@ -22,7 +22,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times, is
                 </h2>
                 <div className={cx('etiquet-price')}>
                     <p>
-                        {times.price}TI / {times.quantityTime} {times.type}
+                        {premiumPrice.price}TI / {times.quantityTime} {times.type}
                     </p>
                     <div />
                 </div>
@@ -46,7 +46,7 @@ function BuyLevel({ handleApprove, handleUpgradePremium, premiumPrice, times, is
                             </svg>
                             <span>Shark wallet" Detail information</span>
                         </li>
-                    </ul>   
+                    </ul>
                 </div>
                 <div className={cx('button-get-plan')}>
                     {!approve ? (
