@@ -10,11 +10,11 @@ import { convertUnixTime } from '~/helpers';
 import { ethers } from 'ethers';
 
 import {
-    fetchGetUserInfo,
-    fetchGetUserSignup,
-    saveExpiredTime,
-    saveSmartContractInfo,
-    saveUserPremium,
+  fetchGetUserInfo,
+  fetchGetUserSignup,
+  saveExpiredTime,
+  saveSmartContractInfo,
+  saveUserPremium,
 } from '~/modules/user/auth/authSlice';
 import { listUserSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import { DEX_ABI, DEX_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, FUND_SUBSCRIPTION_ADDRESS, TI_ABI, TI_SMART_CONTRACT_ADDRESS } from '~/abi';
-const DEFAULT_F = () => {}
+const DEFAULT_F = () => { }
 const cx = classNames.bind(styles);
 
 function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTime = DEFAULT_F }) {
@@ -161,7 +161,7 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
   const loadBalance = async (signerAddress) => {
     const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
     const balance = await contractTi.balanceOf(signerAddress);
-    console.log({balance});
+    console.log({ balance });
     let convertBalance = await balance.toHexString(16);
     return parseInt(convertBalance, 16);
   };

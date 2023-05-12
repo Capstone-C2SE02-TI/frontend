@@ -165,6 +165,7 @@ function BuyToken() {
 
     const handleApprove = async (premiumPrice, handleToggleApprove) => {
         if (walletAddress) {
+            console.log(smartContractInfo.balance, premiumPrice);
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
             } else {
@@ -213,6 +214,7 @@ function BuyToken() {
             <h1 className={cx('heading')}>Update premium plan for more features.</h1>
             <Row style={{ height: '100%' }} gutter={[48, 48]}>
                 {smartContractInfo?.premiumPrices?.map((premiumPrice, index) => {
+                    console.log(premiumPrice);
                     return (
                         <Col xl={8} lg={12} md={24} key={index}>
                             <BuyLevel
