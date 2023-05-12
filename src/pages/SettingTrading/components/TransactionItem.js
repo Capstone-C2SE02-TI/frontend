@@ -30,7 +30,7 @@ function TransactionItem({ data }) {
   //trade to get input
   const handleTrade = async () => {
     try {
-      toast.loading('copy trading hash');
+      toast.loading('Get input data loading ...');
 
       let formData = new FormData();
       formData.append('buy_token_address', data.contractAddress);
@@ -45,7 +45,6 @@ function TransactionItem({ data }) {
 
       toast.dismiss();
       if (result.input) {
-        toast.success(result.message);
         setInputData(result.input);
       } else {
         toast.warning(result.message);
@@ -60,7 +59,6 @@ function TransactionItem({ data }) {
     if (inputData) {
       console.log({ inputData });
       const handleTrade = async () => {
-        toast.loading('Confirm trade ...');
         const provider = await new ethers.providers.Web3Provider(window.ethereum);
 
         // const middleContract = await ethers.getContractAt('middle', MIDDLE_CONTRACT_ADDRESS);
@@ -91,14 +89,21 @@ function TransactionItem({ data }) {
           },
         ];
         
-        toast.dismiss();
         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
-          toast.loading('Trading ...');
+          toast.loading('Confirm trade ...');
 
           checkTransactionConfirm(txhash).then((result) => {
             if (result) {
+              toast.dismiss();
+
               const handleRequestStatus = async () => {
                 const tradingStatus = await axios.get(TransactionResponse(txhash));
+                if (tradingStatus.data.result.isError === '0') {
+                  toast.success('Trade successfully');
+              } else {
+                  toast.error('Trade failed');
+              }
+
               };
               handleRequestStatus();
             }

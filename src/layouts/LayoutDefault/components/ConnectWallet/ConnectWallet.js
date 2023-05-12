@@ -104,7 +104,9 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
       const onLoad = async () => {
         setLoading(true);
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
+        console.log(walletAddress);
         const limitedAccount = await contractPremium.getExpriedTime(walletAddress);
+        console.log(limitedAccount);
         const convertLimitedAccount = await limitedAccount.toHexString(16);
         const limitedAccountTime = convertUnixTime(convertLimitedAccount);
         const isPremiumUser = await contractPremium.isPremiumUser(walletAddress);
