@@ -24,6 +24,7 @@ export const sharkRemainingSelector = createSelector(
     filterSharkTotalAssetsSelector,
     searchFilterChangeSelector,
     (sharkList, newSharkList, filterSharkTotalAssets, searchFilterChange) => {
+        console.log(sharkList);
         return sharkList.filter((shark) => {
             if (searchFilterChange) {
                 return (

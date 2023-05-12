@@ -60,6 +60,7 @@ function SharkWalletsOverview() {
     const [paginationState, setPaginationState] = useState(1);
 
     const viewListSharkCoinPagination = useMemo(() => {
+        console.log(sharksCoin);
         const sharksFollowed = sharksCoin.slice().sort((a, b) => b.isFollowed? 1 : -1)
         if (tabOverviewTransaction === 'oldShark') {
             return sliceArrayToPagination(sharksFollowed, paginationState, NUMBER_ITEM_DISPLAY);

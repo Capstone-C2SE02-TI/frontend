@@ -8,7 +8,9 @@ const cx = classNames.bind(styles);
 function TransactionSharkItem({ data, index, sharkAddress }) {
 
     const handleTransactionTo = useCallback(() => {
+
         if (sharkAddress.toLowerCase() === data.to.toLowerCase()) {
+            
             return `${data.from} → Wallet`;
         }
         else {
