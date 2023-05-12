@@ -92,6 +92,7 @@ function BuyToken() {
             },
         ];
 
+       
         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
             toast.loading('Processing Upgrade Premium...');
 

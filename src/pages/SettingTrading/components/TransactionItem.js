@@ -69,7 +69,7 @@ function TransactionItem({ data }) {
         const inputdata = inputData;
         // const [owner] = await hre.ethers.getSigners();
         // console.log(owner.address);
-        // const tx = await middleContract
+        // const tx = await middleContract 
         // .connect(owner)
         // .copyTrading(user, pancakeswapAddr, inputdata, amount, {
         //     gasLimit: 300000, // set your desired gas limit here,
