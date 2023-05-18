@@ -1,7 +1,7 @@
 import 'chartjs-plugin-zoom';
 import React, { memo } from 'react';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { convertDate, convertTime } from '~/helpers';
 import styles from './ChartTrading.module.scss';
 function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
@@ -12,7 +12,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
                 return {
-                    y: +trans.pastPrice*100/trans.presentPrice,
+                    y: +trans.pastPrice,
                     x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`,
                     z: trans.tokenSymbol.toUpperCase(),
                 };
@@ -26,7 +26,8 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
             .sort((prev, next) => +prev.timeStamp - +next.timeStamp)
             .map((trans) => {
                 return {
-                    y: 100,
+                    y: +trans.presentPrice,
+                    // 100,
                     x: `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`,
                     z: trans.tokenSymbol.toUpperCase(),
                 };
@@ -36,7 +37,7 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
     return (
         <div className={styles.container}>
             <h3 className={styles.heading}>Transaction shark {name}</h3>
-            <Bar
+            <Line
                 data={{
                     // labels: dataTransactionHistory.filter(shark => shark.presentPrice > 1 && shark.pastPrice > 1).map((trans) => `${convertDate(+trans.timeStamp * 1000)} ${convertTime(+trans.timeStamp * 1000)}`),
                     datasets: [
@@ -44,14 +45,15 @@ function ChartTrading({ dataTransactionHistory, sharkAddress, name }) {
                             data: pastPriceData,
                             label: 'Past Price',
                             backgroundColor: 'rgb(255, 205, 86)',
-                            fill: true,
+                            borderColor: 'rgb(255, 205, 86)',
+                            // fill: true,
                         },
                         {
                             data: presentPriceData,
                             label: 'Present Price',
-
+                            borderColor: 'rgb(54, 162, 235)',
                             backgroundColor: 'rgb(54, 162, 235)',
-                            fill: true,
+                            // fill: true,
                         },
                     ],
                 }}

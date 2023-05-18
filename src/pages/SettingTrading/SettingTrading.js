@@ -8,6 +8,9 @@ import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
 import TransactionItem from './components/TransactionItem';
 import { sliceArrayToPagination } from '~/helpers';
 import { useMemo } from 'react';
+import Loading from '~/components/Loading/Loading';
+import LoadingCustomize from '~/components/LoadingCustomize/LoadingCustomize';
+import { Spin } from 'antd';
 const cx = classNames.bind(styles);
 const NUMBER_ITEM_DISPLAY = 10;
 function SettingTrading() {
@@ -17,6 +20,7 @@ function SettingTrading() {
   const [transactionsShark, setTransactionsShark] = useState([]);
   const [transactionsSharkRemaining, setTransactionsSharkRemaining] = useState([]);
   const [paginationState, setPaginationState] = useState(1);
+  const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
     dispatch(fetchSharkFollowed(ethAddress));
@@ -26,7 +30,7 @@ function SettingTrading() {
     if (sharkFolloweds.length > 0) {
       async function fetchData() {
         const promises = [];
-
+        setLoadingState(true)
         for (let i = 0; i < sharkFolloweds.length; i++) {
           let formData = new FormData();
           formData.append('address', sharkFolloweds[i].walletAddress);
@@ -37,15 +41,16 @@ function SettingTrading() {
           // }
           const response = await fetch(`/shark/latest_tx/`, {
             method: 'POST',
-         
+
             body: formData
           });
           const result = await response.json();
-          promises.push({sharkId: sharkFolloweds[i].sharkId, walletAddress: sharkFolloweds[i].walletAddress, data: result.TXs});
+          promises.push({ sharkId: sharkFolloweds[i].sharkId, walletAddress: sharkFolloweds[i].walletAddress, data: result.TXs });
         }
 
         const results = await Promise.all(promises);
         // console.log(results);
+        setLoadingState(false);
         setTransactionsShark(results);
       }
       fetchData();
@@ -57,24 +62,24 @@ function SettingTrading() {
   };
 
   const viewTransactionsShark = useMemo(() => {
-   
-      const newTransactionsAddSharkId = transactionsShark.map(transaction => {
-        return transaction.data.map(d => {
-          return {
-            ...d,
-            sharkId: transaction.sharkId,
-            walletAddress: transaction.walletAddress
-          }
-        })
+
+    const newTransactionsAddSharkId = transactionsShark.map(transaction => {
+      return transaction.data.map(d => {
+        return {
+          ...d,
+          sharkId: transaction.sharkId,
+          walletAddress: transaction.walletAddress
+        }
       })
-      let transactionSlice = [];
-      newTransactionsAddSharkId.forEach(transaction => {
-        transactionSlice.push(...transaction)
-      } )
-      setTransactionsSharkRemaining(transactionSlice)
-      return sliceArrayToPagination(transactionSlice, paginationState, NUMBER_ITEM_DISPLAY);
-    
-    
+    })
+    let transactionSlice = [];
+    newTransactionsAddSharkId.forEach(transaction => {
+      transactionSlice.push(...transaction)
+    })
+    setTransactionsSharkRemaining(transactionSlice)
+    return sliceArrayToPagination(transactionSlice, paginationState, NUMBER_ITEM_DISPLAY);
+
+
   }, [transactionsShark, paginationState]);
 
   return (
@@ -90,11 +95,14 @@ function SettingTrading() {
           </tr>
         </thead>
         <tbody>
-          {transactionsShark.length > 0  && viewTransactionsShark.map((transaction, index) => (
+          {transactionsShark.length > 0 && viewTransactionsShark.map((transaction, index) => (
             <TransactionItem key={index} data={transaction} />
           ))}
         </tbody>
       </table>
+      {loadingState && <LoadingCustomize>
+        <Spin />
+      </LoadingCustomize>}
       <div id={cx('transaction-table__pagination')}>
         <ReactPaginate
           previousLabel={'<'}

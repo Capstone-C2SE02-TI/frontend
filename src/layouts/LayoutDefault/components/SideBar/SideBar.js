@@ -10,6 +10,7 @@ import {
   ReportIcon,
   SettingIcon,
   DolarIcon,
+  AvatarIcon,
   GainLostIcon
 } from '~/components/Icons';
 import MenuItem from './Menu/MenuItem';
@@ -68,7 +69,7 @@ function SideBar() {
     },
     {
       title: 'Report',
-      icon: <HomeIcon />,
+      icon: <AvatarIcon />,
       to: configs.routes.reportOverview,
       isPremium: userIsPremium ? false : true,
       requiredPremium: true,

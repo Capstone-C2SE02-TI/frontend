@@ -22,10 +22,10 @@ import ConnectWallet from './components/ConnectWallet/ConnectWallet';
 import { useCallback } from 'react';
 const cx = classNames.bind(styles);
 const userMenu = [
-    {
-        icon: <AvatarIcon />,
-        title: 'Your Profile',
-    },
+    // {
+    //     icon: <AvatarIcon />,
+    //     title: 'Your Profile',
+    // },
     {
         icon: <DiscoverIcon />,
         title: 'Swap Token',
@@ -115,7 +115,7 @@ function LayoutDefault({ children }) {
                 break;
             case 'Setting Trading':
                 navigate('/setting/trading');
-                break;    
+                break;
             default:
                 break;
         }

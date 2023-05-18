@@ -5,7 +5,7 @@ import styles from './CopyOverview.module.scss';
 import Button from '~/components/Button/Button';
 import Modal from '~/components/Modal/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 import { InputNumber, Space } from 'antd';
 import { TransactionResponse } from '~/configs/api';
@@ -15,15 +15,17 @@ import { useSelector } from 'react-redux';
 import { MIDDLE_CONTRACT_ADDRESS } from '~/abi';
 import axios from 'axios';
 import { ethers } from 'ethers';
+import ModalNotify from '~/components/ModalNotify/ModalNotify';
 
 const cx = classNames.bind(styles);
 
 const CopyOverview = () => {
   const [isOpenSendFund, setIsOpenSendFund] = useState(false);
   const [amountData, setAmountData] = useState(1000);
+  const [openModalSucceed, setOpenModalSucceed] = useState(false);
   const walletAddress = useSelector(getAddressMetaMask);
-    const navigate = useNavigate()
-  const handleNavigate = () => {};
+  const navigate = useNavigate()
+  const handleNavigate = () => { };
 
   const onRequestClose = () => {
     setIsOpenSendFund(false);
@@ -33,14 +35,16 @@ const CopyOverview = () => {
   };
 
   const handleSendAmount = async () => {
-      const ethAmount = amountData.toString();
-      console.log(ethers.utils.parseEther(ethAmount)._hex );
-   
+    const ethAmount = amountData.toString();
+    console.log(ethers.utils.parseEther(ethAmount)._hex);
+
     let params = [
       {
         from: walletAddress,
         to: MIDDLE_CONTRACT_ADDRESS,
         value: ethers.utils.parseEther(ethAmount)._hex
+        // value: ethAmount
+
       },
     ];
     await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
@@ -52,9 +56,11 @@ const CopyOverview = () => {
           console.log('result', result);
           const handleRequestStatus = async () => {
             const approveTokenStatus = await axios.get(TransactionResponse(txhash));
+            setIsOpenSendFund(false)
             if (approveTokenStatus.data.result.isError === '0') {
               toast.success('Send amount successfully');
-              navigate('/setting/trading');
+              // navigate('/setting/trading');
+              setOpenModalSucceed(true)
             } else {
               toast.error('Send amount failed');
             }
@@ -117,7 +123,7 @@ const CopyOverview = () => {
             <div>
               <InputNumber
                 defaultValue={1000}
-                formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                 onChange={onChange}
                 className={cx('input-amount')}
@@ -127,12 +133,26 @@ const CopyOverview = () => {
               <Button primary small onClick={handleSendAmount}>
                 OK
               </Button>
-              <Button outlineBrow small>
+              <Button outlineBrow small onClick={() => setIsOpenSendFund(false)}>
                 Cancel
               </Button>
             </div>
           </div>
         </Modal>
+
+        {openModalSucceed && (
+          <ModalNotify
+            typeSuccess={true}
+            icon={<FontAwesomeIcon icon={faCheck} />}
+            isOpen={openModalSucceed}
+            title={"Send successfully "}
+            description="Redirect to trading"
+            onRequestClose={() => {
+              setOpenModalSucceed(false)
+              navigate('/setting/trading');
+            }}
+          />
+        )}
       </div>
     </div>
   );
