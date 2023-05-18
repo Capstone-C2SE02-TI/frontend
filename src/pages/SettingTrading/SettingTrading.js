@@ -59,7 +59,7 @@ function SettingTrading() {
   const viewTransactionsShark = useMemo(() => {
    
       const newTransactionsAddSharkId = transactionsShark.map(transaction => {
-        return transaction.data.map(d => {
+        return transaction.data?.map(d => {
           return {
             ...d,
             sharkId: transaction.sharkId,
@@ -68,8 +68,11 @@ function SettingTrading() {
         })
       })
       let transactionSlice = [];
-      newTransactionsAddSharkId.forEach(transaction => {
-        transactionSlice.push(...transaction)
+      newTransactionsAddSharkId?.forEach(transaction => {
+        if(transaction) {
+
+          transactionSlice.push(...transaction)
+        }
       } )
       setTransactionsSharkRemaining(transactionSlice)
       return sliceArrayToPagination(transactionSlice, paginationState, NUMBER_ITEM_DISPLAY);

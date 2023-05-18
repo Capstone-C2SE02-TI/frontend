@@ -12,11 +12,13 @@ import { useSelector } from 'react-redux';
 import { MIDDLE_CONTRACT_ABI } from '~/abi';
 import { TransactionResponse } from '~/configs/api';
 import axios from 'axios';
+import { InputNumber } from 'antd';
 
 const cx = classNames.bind(styles);
 
 function TransactionItem({ data }) {
   const [inputData, setInputData] = useState('');
+  const [amountValue, setAmount] = useState(0);
   const walletAddressUser = useSelector(getAddressMetaMask);
 
   const isTransactionBuy = useMemo(() => {
@@ -36,7 +38,6 @@ function TransactionItem({ data }) {
       formData.append('buy_token_address', data.contractAddress);
       formData.append('receiver', walletAddressUser);
       formData.append('chain_id', 5);
-      console.log('receiver', walletAddressUser);
       const response = await fetch(`/copyTrading/hash/`, {
         method: 'POST',
         body: formData,
@@ -57,19 +58,19 @@ function TransactionItem({ data }) {
 
   useEffect(() => {
     if (inputData) {
-      console.log({ inputData });
       const handleTrade = async () => {
         const provider = await new ethers.providers.Web3Provider(window.ethereum);
 
         // const middleContract = await ethers.getContractAt('middle', MIDDLE_CONTRACT_ADDRESS);
         const user = walletAddressUser;
         //so tien nguoi ta ban
-        const amount = ethers.utils.parseEther('0.001');
+        console.log(amountValue.toString());
+        const amount = ethers.utils.parseEther(amountValue.toString());
         const pancakeswapAddr = '0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3';
         const inputdata = inputData;
         // const [owner] = await hre.ethers.getSigners();
         // console.log(owner.address);
-        // const tx = await middleContract 
+        // const tx = await middleContract
         // .connect(owner)
         // .copyTrading(user, pancakeswapAddr, inputdata, amount, {
         //     gasLimit: 300000, // set your desired gas limit here,
@@ -88,24 +89,25 @@ function TransactionItem({ data }) {
             data: iface.encodeFunctionData('copyTrading', [user, pancakeswapAddr, inputdata, amount]),
           },
         ];
-        
+
         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
           toast.loading('Confirm trade ...');
 
           checkTransactionConfirm(txhash).then((result) => {
             if (result) {
-              toast.dismiss();
 
               const handleRequestStatus = async () => {
+              toast.dismiss();
+
                 const tradingStatus = await axios.get(TransactionResponse(txhash));
                 if (tradingStatus.data.result.isError === '0') {
                   toast.success('Trade successfully');
-              } else {
+                } else {
                   toast.error('Trade failed');
-              }
-
+                }
               };
-              handleRequestStatus();
+              // handleRequestStatus();
+              setTimeout(handleRequestStatus, 6000);
             }
           });
         });
@@ -128,6 +130,10 @@ function TransactionItem({ data }) {
     };
     return checkTransactionLop();
   };
+
+  const onChange = (value) => {
+    setAmount(value)
+  };
   return (
     <tr className={cx('setting-trading-shark__tr')}>
       <td>
@@ -141,7 +147,14 @@ function TransactionItem({ data }) {
       </td>
       <td>{data.tokenSymbol}</td>
 
-      <td>50%</td>
+      <td>
+        <InputNumber
+          defaultValue={0}
+
+          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+          onChange={onChange}
+        />
+      </td>
       <td>
         <p className={cx(isTransactionBuy ? 'buy' : 'sell')}>{isTransactionBuy ? 'BUY' : 'SELL'}</p>
       </td>
@@ -150,12 +163,6 @@ function TransactionItem({ data }) {
         <p style={{ display: 'flex' }}>
           <Button outline small onClick={handleTrade}>
             Trade
-          </Button>
-          <Button outline small>
-            View Detail
-          </Button>
-          <Button outline small>
-            Delete
           </Button>
         </p>
       </td>
