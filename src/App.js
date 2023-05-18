@@ -46,7 +46,7 @@ function App() {
   //   if (walletAddress) {
   //     socket.emit('get-wallet-address', walletAddress);
   //   }
-    
+
   // }, [walletAddress]);
 
   // useEffect(()=>{
@@ -81,17 +81,17 @@ function App() {
       />
       <Router>
         <Routes>
-    
+
           <Route path={configs.routes.home} element={<PublicRoute element={<Home />} />} />
-          <Route path={configs.routes.settingTrading}element={
-              <PublicRoute
-                element={
-                  <LayoutDefault>
-                    <SettingTrading />
-                  </LayoutDefault>
-                }
-              />
-            } />
+          <Route path={configs.routes.settingTrading} element={
+            <PublicRoute
+              element={
+                <LayoutDefault>
+                  <SettingTrading />
+                </LayoutDefault>
+              }
+            />
+          } />
           <Route
             path={configs.routes.analyze}
             element={
