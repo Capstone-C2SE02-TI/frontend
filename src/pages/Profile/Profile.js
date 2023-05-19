@@ -21,7 +21,6 @@ function Profile() {
 
     useEffect(() => {
         dispatch(fetchProfile(userWalletAddress));
-        console.log(userWalletAddress)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, userWalletAddress]);
 
@@ -30,7 +29,6 @@ function Profile() {
     }, []);
 
 
-    console.log(sharkFolloweds)
 
     return (
         <div className={cx('wrapper')}>

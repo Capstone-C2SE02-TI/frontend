@@ -34,7 +34,6 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { userId } = JSON.parse(localStorage.getItem('userInfo')) || '';
   const walletAddress = useSelector(getAddressMetaMask);
   const listUser = useSelector(listUserSelector);
 
@@ -104,15 +103,16 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
       const onLoad = async () => {
         setLoading(true);
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
-        console.log(walletAddress);
         const limitedAccount = await contractPremium.getExpriedTime(walletAddress);
-        console.log(limitedAccount);
         const convertLimitedAccount = await limitedAccount.toHexString(16);
         const limitedAccountTime = convertUnixTime(convertLimitedAccount);
         const isPremiumUser = await contractPremium.isPremiumUser(walletAddress);
         if (isPremiumUser) {
           handleSetExpiredTime(limitedAccountTime);
           dispatch(saveExpiredTime(limitedAccountTime));
+        }
+        else {
+          navigate('/home-dashboard');
         }
         dispatch(saveUserPremium(isPremiumUser));
         setLoading(false);

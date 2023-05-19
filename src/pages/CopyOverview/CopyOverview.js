@@ -21,11 +21,10 @@ const cx = classNames.bind(styles);
 
 const CopyOverview = () => {
   const [isOpenSendFund, setIsOpenSendFund] = useState(false);
-  const [amountData, setAmountData] = useState(1000);
+  const [amountData, setAmountData] = useState(0);
   const [openModalSucceed, setOpenModalSucceed] = useState(false);
   const walletAddress = useSelector(getAddressMetaMask);
   const navigate = useNavigate()
-  const handleNavigate = () => { };
 
   const onRequestClose = () => {
     setIsOpenSendFund(false);
@@ -36,7 +35,6 @@ const CopyOverview = () => {
 
   const handleSendAmount = async () => {
     const ethAmount = amountData.toString();
-    console.log(ethers.utils.parseEther(ethAmount)._hex);
 
     let params = [
       {
@@ -53,7 +51,6 @@ const CopyOverview = () => {
       checkTransactionConfirm(txhash).then((result) => {
         if (result) {
           toast.dismiss();
-          console.log('result', result);
           const handleRequestStatus = async () => {
             const approveTokenStatus = await axios.get(TransactionResponse(txhash));
             setIsOpenSendFund(false)
@@ -122,7 +119,7 @@ const CopyOverview = () => {
             </p>
             <div>
               <InputNumber
-                defaultValue={1000}
+                defaultValue={0}
                 formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
                 onChange={onChange}

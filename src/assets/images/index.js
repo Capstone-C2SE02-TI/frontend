@@ -24,6 +24,7 @@ const images = {
   youtubeIcon: require('./youtube.png'),
   bgCopyTrading: require('./bg-copytrading.jpg'),
   bgCopySmall: require('./bg-copysmall.jpg'),
+  crown: require('./crown.gif'),
 };
 
 export default images;

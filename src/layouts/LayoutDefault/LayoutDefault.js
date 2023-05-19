@@ -8,7 +8,7 @@ import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon } from '~/components/Icon
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
 import { fetchGetAllUser, saveSmartContractInfo } from '~/modules/user/auth/authSlice';
-import { userInfoSelector } from '~/modules/user/auth/selectors';
+import { userInfoSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import images from '~/assets/images';
@@ -51,7 +51,7 @@ function LayoutDefault({ children }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const userIsPremium = useSelector(userIsPremiumSelector);
     const statusSidebarSelector = useSelector(SidebarSelector);
     const userInfo = useSelector(userInfoSelector);
     const walletAddress = useSelector(getAddressMetaMask);
@@ -152,6 +152,18 @@ function LayoutDefault({ children }) {
 
                     {
                         <div className={cx('user-profile__right')}>
+                            {userIsPremium ?
+                                <img
+                                    src={images.crown}
+                                    alt=''
+                                    className={cx('user-profile__right--icon')}
+                                /> :
+                                <img
+                                    src="https://s2.coinmarketcap.com/static/cloud/img/signup/signupGift.gif?_=e189410"
+                                    alt=''
+                                    className={cx('user-profile__right--icon')}
+                                />
+                            }
                             <ConnectWallet
                                 handleSetExpiredTime={handleSetExpiredTime}
                                 handleSetIsConnecting={handleSetIsConnecting}

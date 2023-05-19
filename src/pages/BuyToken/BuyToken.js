@@ -98,7 +98,6 @@ function BuyToken() {
 
             checkTransactionConfirm(txhash).then((result) => {
                 if (result) {
-                    console.log({ result });
                     const handleRequestStatus = async () => {
                         const approveTokenStatus = await axios.get(TransactionResponse(txhash));
                         if (approveTokenStatus.data.result.isError === '0') {
@@ -129,8 +128,6 @@ function BuyToken() {
         let iface = new ethers.utils.Interface(ABI);
         const contractTi = await new ethers.Contract(TI_SMART_CONTRACT_ADDRESS, TI_ABI, provider);
         const estimationApprove = await contractTi.estimateGas.approve(FUND_SUBSCRIPTION_ADDRESS, premiumPrice);
-        console.log(estimationApprove)
-        console.log(estimationApprove.add(BigNumber.from(1000)))
         let params = [
             {
                 from: smartContractInfo.walletAddress,
@@ -166,7 +163,6 @@ function BuyToken() {
 
     const handleApprove = async (premiumPrice, handleToggleApprove) => {
         if (walletAddress) {
-            console.log(smartContractInfo.balance, premiumPrice);
             if (smartContractInfo.balance >= premiumPrice) {
                 approveToken(premiumPrice, handleToggleApprove);
             } else {
@@ -215,7 +211,6 @@ function BuyToken() {
             <h1 className={cx('heading')}>Update premium plan for more features.</h1>
             <Row style={{ height: '100%' }} gutter={[48, 48]}>
                 {smartContractInfo?.premiumPrices?.map((premiumPrice, index) => {
-                    console.log(premiumPrice);
                     return (
                         <Col xl={8} lg={12} md={24} key={index}>
                             <BuyLevel

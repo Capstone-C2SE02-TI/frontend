@@ -130,4 +130,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
+
+    &--icon {
+        width: 56px;
+    height: 56px;
+    position: absolute;
+    left: -27px;
+    z-index: 100;
+    top: -15px;
+    transform: rotate(8deg);
+    }
 }
