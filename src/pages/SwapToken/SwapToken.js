@@ -37,7 +37,6 @@ function SwapToken() {
 
     const handleChange = (e) => {
         setEthValues(e.target.value);
-        console.log(smartContractInfo.ratio);
         setEthChange(+e.target.value / +smartContractInfo.ratio);
     };
     const handleSwap = async () => {
@@ -48,12 +47,10 @@ function SwapToken() {
         // let ifacetest = new ethers.utils.Interface(ABITEST);
         const contract = await new ethers.Contract(DEX_SMART_CONTRACT_ADDRESS, DEX_ABI, provider);
 
-        console.log(ethChange);
         const estimateGas = await contract
             .estimateGas.buy(ethChange, {
                 value: ethers.utils.parseEther(ethValues)
             });
-        console.log(estimateGas);
 
         let params = [
             {
@@ -86,7 +83,6 @@ function SwapToken() {
                     const statusSwapToken = await axios.get(
                         TransactionResponse(txhash)
                     );
-                    console.log({ statusSwapToken });
                 };
                 setTimeout(handleRequestStatus, 10000);
             });

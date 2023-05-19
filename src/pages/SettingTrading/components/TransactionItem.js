@@ -64,7 +64,6 @@ function TransactionItem({ data }) {
         // const middleContract = await ethers.getContractAt('middle', MIDDLE_CONTRACT_ADDRESS);
         const user = walletAddressUser;
         //so tien nguoi ta ban
-        console.log(amountValue.toString());
         const amount = ethers.utils.parseEther(amountValue.toString());
         const pancakeswapAddr = '0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3';
         const inputdata = inputData;
@@ -91,13 +90,13 @@ function TransactionItem({ data }) {
         ];
 
         await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
-          toast.loading('Confirm trade ...');
+          toast.loading('Confirmed trade ...');
 
           checkTransactionConfirm(txhash).then((result) => {
             if (result) {
 
               const handleRequestStatus = async () => {
-              toast.dismiss();
+                toast.dismiss();
 
                 const tradingStatus = await axios.get(TransactionResponse(txhash));
                 if (tradingStatus.data.result.isError === '0') {
@@ -107,7 +106,7 @@ function TransactionItem({ data }) {
                 }
               };
               // handleRequestStatus();
-              setTimeout(handleRequestStatus, 6000);
+              setTimeout(handleRequestStatus, 3000);
             }
           });
         });
