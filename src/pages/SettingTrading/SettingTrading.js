@@ -86,13 +86,13 @@ function SettingTrading() {
   }, [transactionsShark, paginationState]);
 
   return (
-    <div>
+    <div style={{padding: '46px'}}>
+     
       <table className={cx('setting-trading-shark-tab')}>
         <thead>
           <tr>
             <th>Wallet Address</th>
             <th>Crypto</th>
-            <th>Trade transaction %</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
