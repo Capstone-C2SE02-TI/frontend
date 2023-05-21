@@ -59,6 +59,8 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 12px;
+    height: 46px;
+
     h3 {
         font-size: 30px;
         font-weight: 500;
@@ -130,16 +132,34 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: relative;
+}
 
-    &--icon {
-        width: 56px;
-    height: 56px;
-    position: absolute;
-    left: -27px;
-    z-index: 100;
-    top: -15px;
-    transform: rotate(8deg);
-    }
+.user-profile__box-amount {
+    margin-right: 36px;
+    cursor: pointer;
+}
+
+.user-profile__right-amount {
+    color: #7a6eaa;
+    font-weight: 600;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.user-profile__right-coin {
+    height: 24px;
+    width: 24px;
+    margin-right: 6px;
+    border-radius: 50%;
+    padding: 4px;
+    background: rgb(255 238 141);
+    cursor: pointer;
+    // &:hover {
+    //     background: rgb(255 238 141);
+    //     height: 26px;
+    //     width: 26px;
+    //     transition: width 0.5s ease;
+    //     cursor: pointer;
+    // }
 }

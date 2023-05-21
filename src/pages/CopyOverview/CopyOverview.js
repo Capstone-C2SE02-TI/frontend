@@ -11,11 +11,12 @@ import { InputNumber, Space } from 'antd';
 import { TransactionResponse } from '~/configs/api';
 import { toast } from 'react-toastify';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
-import { useSelector } from 'react-redux';
-import { MIDDLE_CONTRACT_ADDRESS } from '~/abi';
+import { useDispatch, useSelector } from 'react-redux';
+import { MIDDLE_CONTRACT_ABI, MIDDLE_CONTRACT_ADDRESS } from '~/abi';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import ModalNotify from '~/components/ModalNotify/ModalNotify';
+import { saveUserBuyingMetadata } from '~/modules/user/auth/authSlice';
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,9 @@ const CopyOverview = () => {
   const [amountData, setAmountData] = useState(0);
   const [openModalSucceed, setOpenModalSucceed] = useState(false);
   const walletAddress = useSelector(getAddressMetaMask);
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onRequestClose = () => {
     setIsOpenSendFund(false);
@@ -40,9 +43,8 @@ const CopyOverview = () => {
       {
         from: walletAddress,
         to: MIDDLE_CONTRACT_ADDRESS,
-        value: ethers.utils.parseEther(ethAmount)._hex
+        value: ethers.utils.parseEther(ethAmount)._hex,
         // value: ethAmount
-
       },
     ];
     await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
@@ -53,11 +55,16 @@ const CopyOverview = () => {
           toast.dismiss();
           const handleRequestStatus = async () => {
             const approveTokenStatus = await axios.get(TransactionResponse(txhash));
-            setIsOpenSendFund(false)
+            setIsOpenSendFund(false);
+            const provider = await new ethers.providers.Web3Provider(window.ethereum);
+            const contractMiddle = await new ethers.Contract(MIDDLE_CONTRACT_ADDRESS, MIDDLE_CONTRACT_ABI, provider);
+
+            const userBuyingMetadata = await contractMiddle.userBuyingMetadata(walletAddress);
+            const userBuyingMetadataTransfer = parseInt(userBuyingMetadata.toHexString(16), 16) / 10 ** 18;
+            dispatch(saveUserBuyingMetadata(userBuyingMetadataTransfer));
+
             if (approveTokenStatus.data.result.isError === '0') {
-              toast.success('Send amount successfully');
-              // navigate('/setting/trading');
-              setOpenModalSucceed(true)
+              setOpenModalSucceed(true);
             } else {
               toast.error('Send amount failed');
             }
@@ -127,7 +134,14 @@ const CopyOverview = () => {
               />
             </div>
             <div className={cx('actions')}>
-              <Button primary small onClick={handleSendAmount}>
+              <Button
+                primary
+                small
+                onClick={() => {
+                  handleSendAmount();
+                  setIsOpenSendFund(false);
+                }}
+              >
                 OK
               </Button>
               <Button outlineBrow small onClick={() => setIsOpenSendFund(false)}>
@@ -142,10 +156,10 @@ const CopyOverview = () => {
             typeSuccess={true}
             icon={<FontAwesomeIcon icon={faCheck} />}
             isOpen={openModalSucceed}
-            title={"Send successfully "}
+            title={'Send successfully '}
             description="Redirect to trading"
             onRequestClose={() => {
-              setOpenModalSucceed(false)
+              setOpenModalSucceed(false);
               navigate('/setting/trading');
             }}
           />

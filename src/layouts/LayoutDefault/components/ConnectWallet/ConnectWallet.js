@@ -14,6 +14,7 @@ import {
   fetchGetUserSignup,
   saveExpiredTime,
   saveSmartContractInfo,
+  saveUserBuyingMetadata,
   saveUserPremium,
 } from '~/modules/user/auth/authSlice';
 import { listUserSelector, userIsPremiumSelector } from '~/modules/user/auth/selectors';
@@ -21,8 +22,19 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
-import { DEX_ABI, DEX_SMART_CONTRACT_ADDRESS, FUND_SUBSCRIPTION_ABI, FUND_SUBSCRIPTION_ADDRESS, TI_ABI, TI_SMART_CONTRACT_ADDRESS } from '~/abi';
-const DEFAULT_F = () => { }
+import {
+  DEX_ABI,
+  DEX_SMART_CONTRACT_ADDRESS,
+  FUND_SUBSCRIPTION_ABI,
+  FUND_SUBSCRIPTION_ADDRESS,
+  MIDDLE_CONTRACT_ABI,
+  MIDDLE_CONTRACT_ADDRESS,
+  TI_ABI,
+  TI_SMART_CONTRACT_ADDRESS,
+} from '~/abi';
+import { Fragment } from 'react';
+import images from '~/assets/images';
+const DEFAULT_F = () => {};
 const cx = classNames.bind(styles);
 
 function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTime = DEFAULT_F }) {
@@ -102,16 +114,22 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
 
       const onLoad = async () => {
         setLoading(true);
+
         const contractPremium = await new ethers.Contract(FUND_SUBSCRIPTION_ADDRESS, FUND_SUBSCRIPTION_ABI, provider);
         const limitedAccount = await contractPremium.getExpriedTime(walletAddress);
         const convertLimitedAccount = await limitedAccount.toHexString(16);
         const limitedAccountTime = convertUnixTime(convertLimitedAccount);
         const isPremiumUser = await contractPremium.isPremiumUser(walletAddress);
+
+        const contractMiddle = await new ethers.Contract(MIDDLE_CONTRACT_ADDRESS, MIDDLE_CONTRACT_ABI, provider);
+        const userBuyingMetadata = await contractMiddle.userBuyingMetadata(walletAddress);
+        const userBuyingMetadataTransfer = parseInt(userBuyingMetadata.toHexString(16), 16) / 10 ** 18;
+
         if (isPremiumUser) {
           handleSetExpiredTime(limitedAccountTime);
           dispatch(saveExpiredTime(limitedAccountTime));
-        }
-        else {
+          dispatch(saveUserBuyingMetadata(userBuyingMetadataTransfer));
+        } else {
           navigate('/home-dashboard');
         }
         dispatch(saveUserPremium(isPremiumUser));
@@ -191,6 +209,7 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
     setIsNotExistMeta(status);
   }, []);
 
+
   const renderConnectMetaMask = useMemo(() => {
     if (typeof walletAddress === 'undefined' || walletAddress === '')
       return (
@@ -214,12 +233,25 @@ function ConnectWallet({ handleSetIsConnecting, isConnecting, handleSetExpiredTi
           </div>
         );
       } else {
-        return userIsPremium ? (
-          <button className={cx('btn-connection')}>Premium!</button>
-        ) : (
-          <button className={cx('btn-connection')} onClick={() => navigate('/upgrade')}>
-            Click Upgrade now!
-          </button>
+        return (
+          <div style={{position: 'relative'}}>
+            {userIsPremium ? (
+              <button className={cx('btn-connection')}>Premium!</button>
+            ) : (
+              <button className={cx('btn-connection')} onClick={() => navigate('/upgrade')}>
+                Click Upgrade now!
+              </button>
+            )}
+            {userIsPremium ? (
+              <img src={images.crown} alt="" className={cx('user-profile__right--icon')} />
+            ) : (
+              <img
+                src="https://s2.coinmarketcap.com/static/cloud/img/signup/signupGift.gif?_=e189410"
+                alt=""
+                className={cx('user-profile__right--icon')}
+              />
+            )}
+          </div>
         );
       }
     }
