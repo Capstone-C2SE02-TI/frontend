@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './CopyTradingListShark.module.scss';
+import { Select } from 'antd';
 
 const cx = classNames.bind(styles);
+
 
 const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     // const [value, setValue] = useState(options[0].value)
@@ -25,6 +27,8 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
         fetchData()
     }, []);
 
+    // console.log("address", address)
+
     // const handleGetValue = (e) => {
     //     setValue(e.options.value)
     // }
@@ -32,6 +36,9 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     const handleGetAddress = () => {
         setAddress(dataSharkFollowed.walletAddress)
     }
+
+    console.log("dataSharkFollowed", dataSharkFollowed)
+
 
     return (
         <tr className={cx('copy-trading--line')}>
@@ -50,9 +57,22 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
             }
             <td className={cx('copy-trading--pair')}>
                 <div className={cx('pair-layout')}>
-                    <select name='select-pair' id='pair-token'>
-                        <option value={tokenAdd}>{symbolToken}</option>
-                    </select>
+                    <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Search to Select"
+                        optionFilterProp="children"
+                        filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                        filterSort={(optionA, optionB) =>
+                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                        }
+                        options={[
+                            {
+                                // value: 'tokenAdd',
+                                // label: 'symbolToken',
+                            },
+                        ]}
+                    />
                 </div>
             </td>
             <td className={cx('copy-trading--add')}>

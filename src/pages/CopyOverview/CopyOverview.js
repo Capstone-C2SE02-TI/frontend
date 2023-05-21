@@ -6,7 +6,6 @@ import Button from '~/components/Button/Button';
 import Modal from '~/components/Modal/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-
 import { InputNumber, Space } from 'antd';
 import { TransactionResponse } from '~/configs/api';
 import { toast } from 'react-toastify';
@@ -81,6 +80,11 @@ const CopyOverview = () => {
     };
     return checkTransactionLop();
   };
+
+  const handleAuto = () => {
+    navigate('/copy-trading');
+  };
+
   return (
     <div className={cx('containerfluid-copy-overview')}>
       <div className={cx('container-copy-overview')}>
@@ -105,7 +109,7 @@ const CopyOverview = () => {
             <li>Auto invest for beginners</li>
             <li>Deposit to get started</li>
           </ul>
-          <Button className={cx('btn-start')} linearGradientPrimary>
+          <Button className={cx('btn-start')} onClick={handleAuto} linearGradientPrimary>
             Start
           </Button>
         </div>
