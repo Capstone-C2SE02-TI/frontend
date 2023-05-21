@@ -1,25 +1,32 @@
 import classNames from 'classnames/bind';
 import styles from './TransactionItem.module.scss';
 import Button from '~/components/Button/Button';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { BigNumber, ethers } from 'ethers';
 import { MIDDLE_CONTRACT_ADDRESS } from '~/abi';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { MIDDLE_CONTRACT_ABI } from '~/abi';
 import { TransactionResponse } from '~/configs/api';
 import axios from 'axios';
 import { InputNumber } from 'antd';
+import Modal from '~/components/Modal/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { saveUserBuyingMetadata } from '~/modules/user/auth/authSlice';
 
 const cx = classNames.bind(styles);
 
 function TransactionItem({ data }) {
   const [inputData, setInputData] = useState('');
   const [amountValue, setAmount] = useState(0);
+  const [isOpenSendAmount, setIsOpenSendAmount] = useState(false);
   const walletAddressUser = useSelector(getAddressMetaMask);
+
+  const dispatch = useDispatch();
 
   const isTransactionBuy = useMemo(() => {
     if (data.walletAddress === data.to) {
@@ -94,9 +101,13 @@ function TransactionItem({ data }) {
 
           checkTransactionConfirm(txhash).then((result) => {
             if (result) {
-
               const handleRequestStatus = async () => {
                 toast.dismiss();
+
+                const userBuyingMetadata = await contractMiddle.userBuyingMetadata(walletAddressUser);
+                const userBuyingMetadataTransfer = parseInt(userBuyingMetadata.toHexString(16), 16) / 10 ** 18;
+                console.log(userBuyingMetadataTransfer);
+                dispatch(saveUserBuyingMetadata(userBuyingMetadataTransfer));
 
                 const tradingStatus = await axios.get(TransactionResponse(txhash));
                 if (tradingStatus.data.result.isError === '0') {
@@ -131,41 +142,69 @@ function TransactionItem({ data }) {
   };
 
   const onChange = (value) => {
-    setAmount(value)
+    setAmount(value);
   };
   return (
-    <tr className={cx('setting-trading-shark__tr')}>
-      <td>
-        <p className={cx('setting-trading-shark__tr__name')}>
-          {/* <img src={images.userAvatar} alt="shark avatar" /> */}
-          <p>
-            <p>Shark #{data.sharkId}</p>
-            <p>{data.walletAddress}</p>
+    <Fragment>
+      <tr className={cx('setting-trading-shark__tr')}>
+        <td>
+          <p className={cx('setting-trading-shark__tr__name')}>
+            {/* <img src={images.userAvatar} alt="shark avatar" /> */}
+            <p>
+              <p>Shark #{data.sharkId}</p>
+              <p>{data.walletAddress}</p>
+            </p>
           </p>
-        </p>
-      </td>
-      <td>{data.tokenSymbol}</td>
+        </td>
+        <td>{data.tokenSymbol}</td>
+        <td>
+          <p className={cx(isTransactionBuy ? 'buy' : 'sell')}>{isTransactionBuy ? 'BUY' : 'SELL'}</p>
+        </td>
 
-      <td>
-        <InputNumber
-          defaultValue={0}
+        <td>
+          <p style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button outline small onClick={() => setIsOpenSendAmount(true)}>
+              Trade
+            </Button>
+          </p>
+        </td>
+      </tr>
 
-          parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-          onChange={onChange}
-        />
-      </td>
-      <td>
-        <p className={cx(isTransactionBuy ? 'buy' : 'sell')}>{isTransactionBuy ? 'BUY' : 'SELL'}</p>
-      </td>
-
-      <td>
-        <p style={{ display: 'flex' }}>
-          <Button outline small onClick={handleTrade}>
-            Trade
-          </Button>
-        </p>
-      </td>
-    </tr>
+      <Modal isOpen={isOpenSendAmount} onRequestClose={() => setIsOpenSendAmount(false)}>
+        <div className={cx('content')}>
+          <div className={cx('title')}>Trade amount</div>
+          <h4 className={cx('sub-title')}>Send to transaction</h4>
+          <p className={cx('desc')}>
+            <FontAwesomeIcon icon={faCircleExclamation} />
+            <span> Amount you want send to transaction</span>
+          </p>
+          <div>
+            <InputNumber
+              defaultValue={0}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+              onChange={onChange}
+              className={cx('input-amount')}
+            />
+          </div>
+          <div className={cx('actions')}>
+            <Button
+              primary
+              small
+              onClick={() => {
+                setIsOpenSendAmount(false);
+                handleTrade();
+              }}
+            >
+              OK
+            </Button>
+            <Button outlineBrow small onClick={() => setIsOpenSendAmount(false)}>
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </Fragment>
   );
 }
 

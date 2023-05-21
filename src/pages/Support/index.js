@@ -15,9 +15,38 @@ const defaultProps = {
 
 
     return (
-        <Tippy {...defaultProps}>
-            <button id="myButton">My Button</button>
-        </Tippy>
+        <div className={('container')}>
+            <div className={('loader')}>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
     );
 }
 

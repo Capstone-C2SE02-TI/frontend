@@ -9,6 +9,7 @@ const authSlice = createSlice({
         smartContractInfo: { walletAddress: '', balance: '', ratio: '', premiumPrices: ['', '', ''] },
         isPremiumUser: '',
         expiredTime: '',
+        userBuyingMetadataTransfer: '',
         listUser: []
     },
 
@@ -33,6 +34,10 @@ const authSlice = createSlice({
         },
         saveExpiredTime: (state, action) => {
             state.expiredTime = action.payload;
+        },
+        
+        saveUserBuyingMetadata: (state, action) => {
+            state.userBuyingMetadataTransfer = action.payload;
         },
 
     },
@@ -85,5 +90,5 @@ export const fetchGetAllUser = createAsyncThunk('auth/fetchGetAllUser', async (w
 
 export default authSlice;
 
-export const { saveExpiredTime, saveUserPremium, saveContractPremium, saveSmartContractInfo } =
+export const {saveUserBuyingMetadata, saveExpiredTime, saveUserPremium, saveContractPremium, saveSmartContractInfo } =
     authSlice.actions;
