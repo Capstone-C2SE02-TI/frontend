@@ -78,7 +78,7 @@ function MenuProfile({ children, items = [], onChange, hideOnClick = false, user
                             />
                             <div>
                                 <p className={cx('user-name')}> {userInfo.username} </p>
-                                <p className={cx('user-role')}> Expried Time Premium</p>
+                                <p className={cx('user-role')}> Expired Time Premium</p>
                                 <p className={cx('user-email')}> {expiredTime} </p>
                             </div>
                         </div>
