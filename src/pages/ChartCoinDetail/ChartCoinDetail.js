@@ -6,6 +6,8 @@ import { Line } from 'react-chartjs-2';
 import { numberWithCommas } from '~/helpers';
 
 function ChartCoinDetail({ data, typeFilter = 'day', time, symbol, canvasRef }) {
+
+    console.log('chart coin');
     let delayed;
     const getLabelsCoinsDetailSorted = useMemo(() => {
         const dataCoinDetail = data.prices[typeFilter];

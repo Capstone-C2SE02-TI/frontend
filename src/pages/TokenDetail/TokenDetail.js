@@ -17,6 +17,8 @@ import Button from '~/components/Button';
 import Loading from '~/components/Loading';
 import ChartIndicator from './containers/ChartIndicator/ChartIndicator';
 import { symbols } from '~/data/symbols';
+import { ChartComponent } from './ChartTest';
+import { useMemo } from 'react';
 
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
@@ -37,12 +39,12 @@ function TokenDetail() {
   const dispatch = useDispatch();
   const [candlestick, setCandlestick] = useState([]);
   const [candlestickLastUpdate, setCandlestickLastUpdate] = useState([]);
+  const [prediction, setPrediction] = useState([])
   const { symbol } = useParams();
 
   const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
   const coinDetail = useSelector(coinsDetailSelector);
   const trendingTokens = useSelector(trendingTokensSelector);
-
   useScrollToTop();
 
   useEffect(() => {
@@ -56,8 +58,7 @@ function TokenDetail() {
 
   useEffect(() => {
     fetch(
-      `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${
-        filterIndicatorData.time
+      `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${filterIndicatorData.time
       }&period=${filterIndicatorData.period}`,
     )
       .then((response) => response.json())
@@ -68,8 +69,7 @@ function TokenDetail() {
   useEffect(() => {
     if (isFilterIndicator) {
       fetch(
-        `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${
-          filterIndicatorData.time
+        `http://localhost:4000/display/indicators?symbol=${symbol.toUpperCase()}USDT&interval=${filterIndicatorData.time
         }&period=${filterIndicatorData.period}`,
       )
         .then((response) => response.json())
@@ -81,6 +81,20 @@ function TokenDetail() {
   const handleFilterChart = (time) => {
     setFilterChartByTime(time);
   };
+
+
+  useEffect(() => {
+    console.log('asdasd');
+    const fetchChartData = async () => {
+      console.log('runnn');
+      const response = await fetch(`/prediction/${symbol.toUpperCase()}`).then((response) => response.json()).then((data) => {
+        setPrediction(data.prediction)
+      }
+      )
+      const result = await response.json();
+    }
+    fetchChartData()
+  }, [])
 
   const canvasRef = useRef();
 
@@ -103,9 +117,9 @@ function TokenDetail() {
         ...filterIndicatorData,
         [key]: [...filterIndicatorData.type, value],
       });
-    } 
-    
-    if(key === 'all') {
+    }
+
+    if (key === 'all') {
       setFilterIndicatorData({
         ...filterIndicatorData,
         type: ['candlestick', ...value],
@@ -122,6 +136,8 @@ function TokenDetail() {
       timePeriod: value,
     });
   };
+  const chartContainerRef = useRef();
+
 
   return (
     <div className={cx('wrapper')}>
@@ -133,12 +149,12 @@ function TokenDetail() {
               {coinDetail ? (
                 <TokenDetailEachCoin
                   data={coinDetail}
-                  // community={[
-                  //     ...coinDetail.urls.announcement_url,
-                  //     ...coinDetail.urls.subreddit_url,
-                  //     // ...coinDetail.urls.messageBoard,
-                  //     ...coinDetail.urls.announcement_url,
-                  // ]}
+                // community={[
+                //     ...coinDetail.urls.announcement_url,
+                //     ...coinDetail.urls.subreddit_url,
+                //     // ...coinDetail.urls.messageBoard,
+                //     ...coinDetail.urls.announcement_url,
+                // ]}
                 />
               ) : (
                 <DetailEachCoinSkeleton />
@@ -157,15 +173,29 @@ function TokenDetail() {
                   </div>
                 </div>
                 <div>
-                  {coinDetail && coinDetail.prices.day ? (
-                    <ChartCoinDetail
+                  {coinDetail && coinDetail.prices.day && prediction.length > 0 ? (
+                    // <ChartCoinDetail
+                    //   time={filterChartByTime.toLowerCase()}
+                    //   symbol={coinDetail.symbol}
+                    //   data={coinDetail}
+                    //   typeFilter={filterChartByTime}
+                    //   canvasRef={canvasRef}
+                    //   // onResetZoom = {handleResetZoom}
+                    // />
+                    <ChartComponent
+
                       time={filterChartByTime.toLowerCase()}
                       symbol={coinDetail.symbol}
                       data={coinDetail}
-                      typeFilter={filterChartByTime}
+                      typeFilter={'year'}
                       canvasRef={canvasRef}
-                      // onResetZoom = {handleResetZoom}
-                    />
+                      prediction={prediction}
+                    // onResetZoom = {handleResetZoom}
+
+
+                    ></ChartComponent>
+
+
                   ) : (
                     <h2>Chart</h2>
                   )}
