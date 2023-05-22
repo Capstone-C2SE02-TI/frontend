@@ -23,6 +23,7 @@ const routes = {
   settingTrading: '/setting/trading',
   copyTrading: '/copy-trading', 
   copyOverview: '/copy-overview',
+  listSharkTrading: '/list-shark-trading',
 };
 
 export default routes;

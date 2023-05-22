@@ -19,8 +19,8 @@ import Home, {
   ReportOverview,
   CopyTrading,
   CopyOverview,
+  ListTradingSharkAdd,
 } from './pages';
-
 import { Chart, registerables } from 'chart.js';
 import BuyToken from './pages/BuyToken';
 import SwapToken from './pages/SwapToken';
@@ -30,7 +30,7 @@ import LayoutDefault from './layouts/LayoutDefault';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 import ChartRenderer from './pages/ChartRenderer/ChartRenderer';
-// import { io } from 'socket.io-client';
+import { io } from 'socket.io-client';  
 import { useEffect } from 'react';
 import { convertUnixTime } from './helpers';
 import { getAddressMetaMask } from './modules/MetaMask/selector';
@@ -41,31 +41,31 @@ Chart.register(zoomPlugin, ...registerables);
 
 function App() {
   const walletAddress = useSelector(getAddressMetaMask);
-  // const socket = io('http://localhost:4001/');
-  // useEffect(() => {
-  //   if (walletAddress) {
-  //     socket.emit('get-wallet-address', walletAddress);
-  //   }
+  const socket = io('http://localhost:4001/');
+  useEffect(() => {
+    if (walletAddress) {
+      socket.emit('get-wallet-address', walletAddress);
+    }
 
-  // }, [walletAddress]);
+  }, [walletAddress]);
 
-  // useEffect(()=>{
-  //   socket.on('new-transactions', (data) => {
-  //     Notification.requestPermission().then((perm) => {
-  //       if (perm === 'granted') {
-  //         for (let transaction of data.newTransactions.transactionsHistory) {
-  //           const notification = new Notification('New transactions of shark ' + data.sharkId, {
-  //             body: convertUnixTime(transaction.timeStamp),
-  //             data: { timestamp: Date.now(), data: 'hi' },
-  //           });
-  //           notification.addEventListener('click', (ev) => {
-  //             window.open('http://localhost:3000/discover');
-  //           });
-  //         }
-  //       }
-  //     });
-  //   });
-  // },[])
+  useEffect(()=>{
+    socket.on('new-transactions', (data) => {
+      Notification.requestPermission().then((perm) => {
+        if (perm === 'granted') {
+          for (let transaction of data.newTransactions.transactionsHistory) {
+            const notification = new Notification('New transactions of shark ' + data.sharkId, {
+              body: convertUnixTime(transaction.timeStamp),
+              data: { timestamp: Date.now(), data: 'hi' },
+            });
+            notification.addEventListener('click', (ev) => {
+              window.open('http://localhost:3000/discover');
+            });
+          }
+        }
+      });
+    });
+  },[])
 
   return (
     <div className="app">
@@ -292,6 +292,18 @@ function App() {
                 element={
                   <LayoutDefault>
                     <CopyOverview />
+                  </LayoutDefault>
+                }
+              />
+            }
+          />
+          <Route
+            path={configs.routes.listSharkTrading}
+            element={
+              <PublicRoute
+                element={
+                  <LayoutDefault>
+                    <ListTradingSharkAdd />
                   </LayoutDefault>
                 }
               />
