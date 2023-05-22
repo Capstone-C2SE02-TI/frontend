@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import millify from 'millify';
 import classNames from 'classnames/bind';
 import styles from './CopyTradingListShark.module.scss';
@@ -12,7 +13,6 @@ import Button from '~/components/Button/Button';
 
 const cx = classNames.bind(styles);
 
-
 const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
 
     const [address, setAddress] = useState('') //shark address
@@ -23,6 +23,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     const [amoutData, setAmountData] = useState('');
 
     const userAddress = localStorage.getItem("eth_address");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -76,8 +77,11 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                 )
             });
             const result = await response.json();
-
             toast.dismiss();
+            if (result.message == "save-successful") {
+                toast.success('Add successfully');
+                navigate('/list-shark-trading')
+            }
             console.log("result", result)
             // if (result.input) {
             //     setInputData(result.input);
