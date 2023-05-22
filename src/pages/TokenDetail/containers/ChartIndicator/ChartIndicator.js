@@ -67,13 +67,11 @@ function ChartIndicator({
   const renderChart = (data) => {
     // Get the current users primary locale
     const currentLocale = window.navigator.languages[0];
-    console.log({ currentLocale, data });
     // Create a number format using Intl.NumberFormat
     const myPriceFormatter = Intl.NumberFormat(currentLocale, {
       style: 'currency',
       currency: 'USD', // Currency for data points
     }).format;
-    console.log({ myPriceFormatter });
     chartRef.current = createChart(elRef.current, {
       leftPriceScale: {
         visible: true,
@@ -91,7 +89,7 @@ function ChartIndicator({
       localization: {
         priceFormatter: myPriceFormatter,
       },
-      
+
       height: 400,
     });
     const toolTip = document.createElement('div');
@@ -101,12 +99,12 @@ function ChartIndicator({
     toolTip.style.borderColor = '#2962FF';
     elRef.current.appendChild(toolTip);
 
-    if (isCheck.includes('candlestick'))  {
+    if (isCheck.includes('candlestick')) {
 
-      candlestickSeriesRef.current = chartRef.current.addCandlestickSeries({title: 'CANDLESTICK'});
+      candlestickSeriesRef.current = chartRef.current.addCandlestickSeries({ title: 'CANDLESTICK' });
       candlestickSeriesRef.current.setData(data);
     }
-   
+
     //SMA
     if (isCheck.includes('sma')) {
       smaSeries.current = chartRef.current.addLineSeries({ color: 'red', lineWidth: 0, title: 'SMA' });
@@ -115,23 +113,23 @@ function ChartIndicator({
 
       chartRef.current.subscribeCrosshairMove(param => {
         if (
-            param.point === undefined ||
-            !param.time ||
-            param.point.x < 0 ||
-            param.point.y < 0
+          param.point === undefined ||
+          !param.time ||
+          param.point.x < 0 ||
+          param.point.y < 0
         ) {
-            toolTip.style.display = 'none';
+          toolTip.style.display = 'none';
         } else {
-            toolTip.style.display = 'block';
-            const data = param.seriesData.get(smaSeries.current);
-            const price = data.value !== undefined ? data.value : data.close;
-            toolTip.innerHTML = `<div>${price.toFixed(2)}</div>`;
-    
-            // Position tooltip according to mouse cursor position
-            toolTip.style.left = param.point.x + 'px';
-            toolTip.style.top = param.point.y + 'px';
+          toolTip.style.display = 'block';
+          const data = param.seriesData.get(smaSeries.current);
+          const price = data.value !== undefined ? data.value : data.close;
+          toolTip.innerHTML = `<div>${price.toFixed(2)}</div>`;
+
+          // Position tooltip according to mouse cursor position
+          toolTip.style.left = param.point.x + 'px';
+          toolTip.style.top = param.point.y + 'px';
         }
-    });
+      });
     }
 
     //EMA
@@ -228,11 +226,11 @@ function ChartIndicator({
       setIsCheck(isCheck.filter((item) => item !== id));
     }
   };
- 
+
   const handleToggleCandleStick = () => {
     const defaultValue = 'candlestick'
-    const isExist = isCheck.includes(defaultValue) 
-    if(isExist) {
+    const isExist = isCheck.includes(defaultValue)
+    if (isExist) {
       setIsCheck(isCheck.filter((item) => item !== defaultValue))
     }
     else {
@@ -257,7 +255,7 @@ function ChartIndicator({
           ))}
         </div>
         <div className={styles.time}>
-          <p  className={cx(isCheck.includes('candlestick') ? 'active' : '')} onClick={handleToggleCandleStick}>
+          <p className={cx(isCheck.includes('candlestick') ? 'active' : '')} onClick={handleToggleCandleStick}>
             <button>CANDLESTICK</button>
           </p>
         </div>
