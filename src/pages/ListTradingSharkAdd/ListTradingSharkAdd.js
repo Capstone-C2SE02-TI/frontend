@@ -14,12 +14,8 @@ const ListTradingSharkAdd = () => {
   useEffect(() => {
     socket.on("pair-transactions", (data) => {
       pairAutoList = data;
-      console.log(pairAutoList);
     })
-
   }, []);
-
-  console.log(pairAutoList);
 
   return (
     <div className={cx("ListTradingSharkAdd")}>
