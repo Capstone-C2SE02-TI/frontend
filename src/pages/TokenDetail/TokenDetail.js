@@ -23,7 +23,7 @@ import { useMemo } from 'react';
 const cx = classNames.bind(styles);
 const FILTERS_CHART_DATA = ['Day', 'Month', 'Year'];
 const SYMBOLS_DATA = symbols;
-
+const FILTERS_CHART_DATA_CHART = ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'];
 function TokenDetail() {
   const [filterChartByTime, setFilterChartByTime] = useState('day');
   const [filterChartBySymbol, setFilterChartBySymbol] = useState();
@@ -40,6 +40,7 @@ function TokenDetail() {
   const [candlestick, setCandlestick] = useState([]);
   const [candlestickLastUpdate, setCandlestickLastUpdate] = useState([]);
   const [prediction, setPrediction] = useState([])
+  const [predictionFilter, setPredictionFilter] = useState('2014')
   const { symbol } = useParams();
 
   const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
@@ -82,11 +83,13 @@ function TokenDetail() {
     setFilterChartByTime(time);
   };
 
+  const handleFilterChartPre = (time) => {
+    setPredictionFilter(time)
+    handleResetZoom()
+  }
 
   useEffect(() => {
-    console.log('asdasd');
     const fetchChartData = async () => {
-      console.log('runnn');
       const response = await fetch(`/prediction/${symbol.toUpperCase()}`).then((response) => response.json()).then((data) => {
         setPrediction(data.prediction)
       }
@@ -166,6 +169,11 @@ function TokenDetail() {
                       <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
                     ))}
                   </Select>
+                  <Select defaultValue={FILTERS_CHART_DATA_CHART[0]} style={{ width: 120 }} onChange={handleFilterChartPre}>
+                    {FILTERS_CHART_DATA_CHART.map((time) => (
+                      <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
+                    ))}
+                  </Select>
                   <div>
                     <Button outline onClick={handleResetZoom}>
                       Reset Zoom
@@ -183,16 +191,9 @@ function TokenDetail() {
                     //   // onResetZoom = {handleResetZoom}
                     // />
                     <ChartComponent
-
-                      time={filterChartByTime.toLowerCase()}
-                      symbol={coinDetail.symbol}
-                      data={coinDetail}
-                      typeFilter={'year'}
                       canvasRef={canvasRef}
                       prediction={prediction}
-                    // onResetZoom = {handleResetZoom}
-
-
+                      filter={predictionFilter}
                     ></ChartComponent>
 
 
