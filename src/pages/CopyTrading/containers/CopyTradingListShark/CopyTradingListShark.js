@@ -18,7 +18,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     const [address, setAddress] = useState('') //shark address
     const [contractAdd, setContractAdd] = useState([]) //total of all token address
     const [tokenInfo, settokenInfo] = useState([]) //
-    const [valuetoken, setvaluetoken] = useState('')
+    const [valuetoken, setvaluetoken] = useState({})
     const [isOpenModalAuto, setIsOpenModalAuto] = useState(false);
     const [amoutData, setAmountData] = useState('');
 
@@ -33,7 +33,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
             Object.keys(result).forEach(function (token) {
                 let tokenTmp = tokenInfo;
                 tokenTmp.push({
-                    "symbol": "WETH/" + result[token].tokenSymbol,
+                    "symbol": "WBNB/" + result[token].tokenSymbol,
                     "address": token
                 })
                 settokenInfo(tokenTmp)
@@ -41,11 +41,6 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
         }
         fetchData()
     }, []);
-
-    console.log("toToken", valuetoken)
-    console.log("sharkAddress", address)
-    console.log("userAddress", userAddress)
-    console.log("ethAmount", amoutData)
 
     const onRequestClose = () => {
         setIsOpenModalAuto(false);
@@ -57,10 +52,9 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
         setAmountData(value);
     };
     const handleGetAddress = async () => {
-        // setAddress(dataSharkFollowed.walletAddress)
         try {
-            toast.loading('Get input data loading ...');
-
+            toast.loading('Get  input data loading ...');
+            console.log(valuetoken);
             const response = await fetch(`http://localhost:4000/trading/auto`, {
                 method: 'POST',
                 headers: {
@@ -69,7 +63,9 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                 body: JSON.stringify(
                     {
                         "fromToken": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
-                        "toToken": valuetoken,
+                        "toToken": valuetoken.address,
+                        "toSymbol": valuetoken.symbol,
+                        "fromSymbol": "WBNB",
                         "sharkAddress": dataSharkFollowed.walletAddress,
                         "userAddress": userAddress,
                         "ethAmount": amoutData
@@ -112,8 +108,12 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
             <td className={cx('copy-trading--pair')}>
                 <div className={cx('pair-layout')}>
                     <Select
-                        onChange={(value) => {
-                            setvaluetoken(value)
+                        onChange={(value, label) => {
+
+                            setvaluetoken({
+                                symbol: label,
+                                address: value
+                            })
                         }}
                         showSearch
                         style={{ width: 200 }}

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import classNames from 'classnames/bind';
 import styles from './ListTradingSharkAdd.module.scss';
 import { io } from 'socket.io-client';
 import Button from '~/components/Button/Button';
 import { useSelector } from 'react-redux';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,8 @@ const ListTradingSharkAdd = () => {
   const [pairAutoList, setPairAutoList] = useState([]);
 
   const walletAddress = useSelector(getAddressMetaMask);
+  const userAddress = localStorage.getItem("eth_address");
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPairList() {
@@ -39,6 +43,36 @@ const ListTradingSharkAdd = () => {
     });
   }, [walletAddress]);
 
+  const handleDelete = async (data) => {
+    // setAddress(dataSharkFollowed.walletAddress)
+    console.log('data',data);
+    try {
+        const response = await fetch(`http://localhost:4000/trading/delete-trade`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+                {
+                    "fromToken": data.fromToken,
+                    "toToken": data.toToken,
+                    "sharkAddress": data.sharkAddress,
+                    "userAddress": userAddress,
+                    "ethAmount": data.ethAmount,
+                },
+            )
+        });
+        const result = await response.json();
+        console.log("result",result);
+        toast.dismiss();
+        if (result.message == "success") {
+            navigate('/list-shark-trading')
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
   return (
     <div className={cx('ListTradingSharkAdd')}>
       <h1>List shark auto trading</h1>
@@ -46,10 +80,11 @@ const ListTradingSharkAdd = () => {
         <thead>
           <tr className={cx('ListTradingSharkAdd-tr')}>
             <th className={cx('ListTradingSharkAdd-th')}>SHARK#</th>
-            <th className={cx('ListTradingSharkAdd-th')}>FROM TOKEN</th>
-            <th className={cx('ListTradingSharkAdd-th')}>TO TOKEN</th>
-            <th className={cx('ListTradingSharkAdd-th')}>ETH SENDED</th>
+            <th className={cx('ListTradingSharkAdd-th')}>PAIR TOKEN</th>
+            <th className={cx('ListTradingSharkAdd-th')}>TRANSACTION QUANTITY</th>
+            <th className={cx('ListTradingSharkAdd-th')}>BNB SENDED</th>
             <th className={cx('ListTradingSharkAdd-th')}>STATUS</th>
+            <th className={cx('ListTradingSharkAdd-th')}>DETAIL</th>
             <th className={cx('ListTradingSharkAdd-th')}>ACTION</th>
           </tr>
         </thead>
@@ -59,22 +94,27 @@ const ListTradingSharkAdd = () => {
               <tr className={cx('ListTradingSharkAdd-tr')}>
                 <td className={cx('ListTradingSharkAdd-td')}>
                   <p className={cx('ListTradingSharkAdd-p')}>{data.sharkId}</p>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.sharkAddess}</span>
+                  <span className={cx('ListTradingSharkAdd-span')}>{data.sharkAddress}</span>
                 </td>
                 <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.fromSymbol}</span>
+                  <span className={cx('ListTradingSharkAdd-span')}>{data.fromSymbol + "/" + data.toSymbol}</span>
                 </td>
                 <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.toSymbol}</span>
+                  <span className={cx('ListTradingSharkAdd-span')}>{data.txhash.length}</span>
                 </td>
                 <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.ethAmount}</span>
+                  <span className={cx('ListTradingSharkAdd-span')}>{data.ethAmount + " "}BNB</span>
                 </td>
                 <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.status? "True": "False"}</span>
+                  <span className={cx('ListTradingSharkAdd-span')}>{data.status ? "Success": "Fail"}</span>
                 </td>
                 <td className={cx('ListTradingSharkAdd-td')}>
-                  <Button error className={cx('btn-delete--auto')}>
+                  <Button success className={cx('btn-detail--auto')}>
+                    Detail
+                  </Button>
+                </td>
+                <td className={cx('ListTradingSharkAdd-td')}>
+                  <Button error className={cx('btn-delete--auto')} onClick={() => handleDelete(data)}>
                     Delete
                   </Button>
                 </td>
