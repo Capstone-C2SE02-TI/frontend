@@ -163,3 +163,49 @@
     //     cursor: pointer;
     // }
 }
+
+.content {
+    padding: 20px;
+
+    .title {
+        color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    }
+
+    .sub-title {
+        color: #c6c4c4;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .desc {
+        padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #ededed;
+    margin: 14px 0;
+    background: #f0f0f0;
+
+    span {
+        font-size: 14px;
+    }
+    }
+
+    .input-amount {
+        width: 100%;
+        height: 40px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+    }
+
+    .actions {
+        display: flex;
+        margin-top: 32px;
+        justify-content: center;
+    }
+}
+
+.send-fund {
+    margin-right: 20px;
+}

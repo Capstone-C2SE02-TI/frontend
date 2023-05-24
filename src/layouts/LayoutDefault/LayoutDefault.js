@@ -2,9 +2,19 @@ import classNames from 'classnames/bind';
 import styles from './LayoutDefault.module.scss';
 import SideBar from './components/SideBar';
 import { SidebarSelector } from '~/modules/HomeDashboard/selector';
+import Modal from '~/components/Modal/Modal';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { AvatarIcon, DolarIcon, MenuIcon, DiscoverIcon } from '~/components/Icons';
-
+import { InputNumber, Space } from 'antd';
+import { saveUserBuyingMetadata } from '~/modules/user/auth/authSlice';
+import { ethers } from 'ethers';
+import ModalNotify from '~/components/ModalNotify/ModalNotify';
+import { TransactionResponse } from '~/configs/api';
+import { MIDDLE_CONTRACT_ABI, MIDDLE_CONTRACT_ADDRESS } from '~/abi';
+import Button from '~/components/Button/Button';
 import HomeDashboardSlice from '~/modules/HomeDashboard/homeDashboardSlice';
 import Tippy from '@tippyjs/react';
 import { fetchGetAllUser, saveSmartContractInfo } from '~/modules/user/auth/authSlice';
@@ -20,7 +30,9 @@ import { setInformationMetaMask } from '~/modules/MetaMask/metaMaskSlice';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import ConnectWallet from './components/ConnectWallet/ConnectWallet';
 import { useCallback } from 'react';
+
 const cx = classNames.bind(styles);
+
 const userMenu = [
   // {
   //     icon: <AvatarIcon />,
@@ -45,9 +57,13 @@ const userMenu = [
 ];
 
 function LayoutDefault({ children }) {
+
   const [resize, setResize] = useState(false);
   const [expiredTime, setExpiredTime] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
+  const [isOpenSendFund, setIsOpenSendFund] = useState(false);
+  const [amountData, setAmountData] = useState(0);
+  const [openModalSucceed, setOpenModalSucceed] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -100,6 +116,68 @@ function LayoutDefault({ children }) {
     delay: [1, 200],
   };
 
+  const onRequestClose = () => {
+    setIsOpenSendFund(false);
+  };
+
+  const onChange = (value) => {
+    setAmountData(value);
+  };
+
+  const handleSendAmount = async () => {
+    const ethAmount = amountData.toString();
+
+    let params = [
+      {
+        from: walletAddress,
+        to: MIDDLE_CONTRACT_ADDRESS,
+        value: ethers.utils.parseEther(ethAmount)._hex,
+        // value: ethAmount
+      },
+    ];
+    await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
+      toast.loading('Processing send to fund...');
+
+      checkTransactionConfirm(txhash).then((result) => {
+        if (result) {
+          toast.dismiss();
+          const handleRequestStatus = async () => {
+            const approveTokenStatus = await axios.get(TransactionResponse(txhash));
+            setIsOpenSendFund(false);
+            const provider = await new ethers.providers.Web3Provider(window.ethereum);
+            const contractMiddle = await new ethers.Contract(MIDDLE_CONTRACT_ADDRESS, MIDDLE_CONTRACT_ABI, provider);
+
+            const userBuyingMetadata = await contractMiddle.userBuyingMetadata(walletAddress);
+            const userBuyingMetadataTransfer = parseInt(userBuyingMetadata.toHexString(16), 16) / 10 ** 18;
+            dispatch(saveUserBuyingMetadata(userBuyingMetadataTransfer));
+
+            if (approveTokenStatus.data.result.isError === '0') {
+              setOpenModalSucceed(true);
+            } else {
+              toast.error('Send amount failed');
+            }
+          };
+          setTimeout(handleRequestStatus, 1000);
+        }
+      });
+    });
+  };
+
+  const checkTransactionConfirm = (txhash) => {
+    let checkTransactionLop = () => {
+      return window.ethereum
+        .request({
+          method: 'eth_getTransactionReceipt',
+          params: [txhash],
+        })
+        .then((r) => {
+          if (r !== null) return 'comfirmned';
+          else return checkTransactionLop();
+        });
+    };
+    return checkTransactionLop();
+  };
+
   const handleOnChange = (menuItem) => {
     switch (menuItem.title) {
       case 'Your Profile':
@@ -137,6 +215,7 @@ function LayoutDefault({ children }) {
   }, []);
 
   return (
+
     <div className={cx('wrapper')}>
       <div className={sidebarClassName}>
         <SideBar />
@@ -153,6 +232,7 @@ function LayoutDefault({ children }) {
 
           {
             <div className={cx('user-profile__right')}>
+              <Button className={cx("send-fund")} linearGradientPrimary onClick={() => setIsOpenSendFund(true)}>Send fund</Button>
               {userIsPremium && userBuyingMetadata && <div className={cx('user-profile__box-amount')} onClick={() => navigate('/copy-overview')}>
                 <img className={cx('user-profile__right-coin')} src='https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png' alt='' />
                 <span className={cx('user-profile__right-amount')}>BNB {userBuyingMetadata.toFixed(3)}</span>
@@ -205,6 +285,54 @@ function LayoutDefault({ children }) {
         </div>
         {children}
       </div>
+      <Modal isOpen={isOpenSendFund} onRequestClose={onRequestClose}>
+        <div className={cx('content')}>
+          <div className={cx('title')}>Amount</div>
+          <h4 className={cx('sub-title')}>Send to fund</h4>
+          <p className={cx('desc')}>
+            <FontAwesomeIcon icon={faCircleExclamation} />
+            <span> Amount you want send to fund for trading</span>
+          </p>
+          <div>
+            <InputNumber
+              defaultValue={0}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+              onChange={onChange}
+              className={cx('input-amount')}
+            />
+          </div>
+          <div className={cx('actions')}>
+            <Button
+              primary
+              small
+              onClick={() => {
+                handleSendAmount();
+                setIsOpenSendFund(false);
+              }}
+            >
+              OK
+            </Button>
+            <Button outlineBrow small onClick={() => setIsOpenSendFund(false)}>
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
+      {openModalSucceed && (
+        <ModalNotify
+          typeSuccess={true}
+          icon={<FontAwesomeIcon icon={faCheck} />}
+          isOpen={openModalSucceed}
+          title={'Send successfully '}
+          description="Send fund successfully"
+          onRequestClose={() => {
+            setOpenModalSucceed(false);
+            // navigate('/setting/trading');
+          }}
+        />
+      )}
     </div>
   );
 }
