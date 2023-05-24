@@ -1,20 +1,20 @@
 import { createChart, ColorType } from 'lightweight-charts';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
+import images from '~/assets/images';
 
-export const ChartComponent = ({ data, typeFilter = 'day', time, symbol, prediction }) => {
+export const ChartComponent = ({ canvasRef, prediction, filter }) => {
+    const [dataZoom, setDataZoom] = useState([])
+
 
     const chartContainerRef = useRef();
     const getLabelsCoinsDetailSorted = useMemo(() => {
-        const startTime = '2023-01-01';
-        const endTime = '2023-05-30';
+        const startTime = `${filter}-01-01`;
+        const endTime = `${Number(filter) + 1}-01-01`;
         const chartData = [];
         prediction.forEach((prediction, index) => {
-            if (index === 3462 || index === 3461 || index === 3463) {
 
-                console.log(Object.keys(prediction)[0]);
-            }
             const date = new Date(Number(Object.keys(prediction)[0]) * 1000)
             let arr = date.toLocaleDateString().replace(/\//g, "-").split("-");
             if (arr[1].length === 1) {
@@ -31,16 +31,15 @@ export const ChartComponent = ({ data, typeFilter = 'day', time, symbol, predict
         })
 
         return chartData;
-    }, [prediction])
+    }, [prediction, filter])
+
+
     const getDataCoinsDetailSorted = useMemo(() => {
-        const startTime = '2020-01-01';
-        const endTime = '2023-05-30';
+        console.log({ filter });
+        const startTime = `${filter}-01-01`;
+        const endTime = `${Number(filter) + 1}-01-01`;
         const chartData = [];
         prediction.forEach((prediction, index) => {
-            if (index === 3462 || index === 3461 || index === 3463) {
-
-                console.log(Object.keys(prediction)[0]);
-            }
             const date = new Date(Number(Object.keys(prediction)[0]) * 1000)
             let arr = date.toLocaleDateString().replace(/\//g, "-").split("-");
             if (arr[1].length === 1) {
@@ -51,59 +50,94 @@ export const ChartComponent = ({ data, typeFilter = 'day', time, symbol, predict
             }
             const time = arr[2] + "-" + arr[0] + "-" + arr[1];
             if (time <= endTime && time >= startTime && index !== 3463) {
-                console.log('runnnnnnnnnnnnnnnnnnnnnnnnn');
-                chartData.push({ y: Object.values(prediction)[0].price, x: time, signal: Object.values(prediction)[0].signal }
-                )
+                chartData.push({ y: Object.values(prediction)[0].price, x: time, signal: Object.values(prediction)[0].signal })
+                setDataZoom(prev => [...prev, Object.values(prediction)[0].price])
             }
         })
 
         return chartData;
-    }, [prediction])
-    return (
-        <Line data={{
-            // labels: getLabelsCoinsDetailSorted,
-            datasets: [
-                {
-                    data: getDataCoinsDetailSorted,
-                    labels: 'hello',
-                    fill: true,
-                    backgroundColor: function (context) {
-                        const chart = context.chart;
-                        const { ctx, chartArea } = chart;
+    }, [prediction, filter])
 
-                        if (!chartArea) {
-                            // This case happens on initial chart load
-                            return;
-                        }
-                        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                        gradient.addColorStop(0, 'rgb(130 238 247)');
-                        gradient.addColorStop(1, 'rgb(17, 46 ,61)');
-                        return gradient;
-                    },
-                    borderColor: '#fff',
-                    pointBackgroundColor: '#275361',
-                    showLine: false,
-                    tension: 0,
-                    pointStyle: function (context) {
-                        console.log(context.raw.signal);
-                        if (context.raw.signal === 1) {
-                            console.log('star');
-                            return 'circle'
-                        }
-                        else if (context.raw.signal === 0) {
-                            console.log('cỉcrcle');
-                            return 'triangle'
-                        }
-                        return 'line';
-                    },
+    var increase = new Image(20, 20)
+    var decrease = new Image(20, 20)
+    increase.src = 'https://cdn-icons-png.flaticon.com/128/7327/7327422.png'
+    decrease.src = 'https://cdn-icons-png.flaticon.com/512/7327/7327424.png'
+
+    const zoomOptions = useMemo(() => {
+        return {
+            limits: {
+                y: {
+                    min: Math.min(...dataZoom),
+                    max: Math.max(...dataZoom),
+                    minRange:
+                        (Math.max(...dataZoom) -
+                            Math.min(...dataZoom)) /
+                        20,
                 },
-            ],
+            },
+            pan: {
+                enabled: true,
+                mode: 'xy',
+            },
+            zoom: {
+                wheel: {
+                    enabled: true,
+                },
+                pinch: {
+                    enabled: true
+                },
+                mode: 'xy',
+                onZoomComplete({ chart }) {
+                    // This update is needed to display up to date zoom level in the title.
+                    // Without this, previous zoom level is displayed.
+                    // The reason is: title uses the same beforeUpdate hook, and is evaluated before zoom.
+                    chart.update('none');
+                }
+            }
+        };
+    }, [dataZoom])
+    return (
+        <Line
+            ref={canvasRef}
+            data={{
+                labels: getLabelsCoinsDetailSorted,
+                datasets: [
+                    {
+                        data: getDataCoinsDetailSorted,
+                        lineTension: 0,
+                        fill: false,
+                        borderColor: 'rgb(56, 97, 251)',
+                        backgroundColor: 'rgba(255, 255, 255)',
+                        borderDash: [],
+                        pointBorderColor: 'rgb(56, 97, 251)',
+                        pointBackgroundColor: 'rgba(255, 255, 255)',
 
-        }}
+                        pointRadius: 1,
+                        // pointHitRadius: 0,
+                        // pointBorderWidth: 0,
+
+                        pointStyle: function (context) {
+
+                            if (context.raw.signal === 1) {
+                                return decrease
+                            }
+                            else if (context.raw.signal === 0) {
+                                return increase
+                            }
+                            return ''
+                        },
+                    },
+                ],
+
+            }}
 
             options={{
-
-
+                legend: {
+                    display: false
+                },
+                plugins: {
+                    zoom: zoomOptions
+                }
 
             }}
         />
