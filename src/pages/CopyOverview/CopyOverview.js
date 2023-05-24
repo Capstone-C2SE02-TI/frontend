@@ -28,69 +28,13 @@ const CopyOverview = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const onRequestClose = () => {
-    setIsOpenSendFund(false);
-  };
-  const onChange = (value) => {
-    setAmountData(value);
-  };
-
-  const handleSendAmount = async () => {
-    const ethAmount = amountData.toString();
-
-    let params = [
-      {
-        from: walletAddress,
-        to: MIDDLE_CONTRACT_ADDRESS,
-        value: ethers.utils.parseEther(ethAmount)._hex,
-        // value: ethAmount
-      },
-    ];
-    await window.ethereum.request({ method: 'eth_sendTransaction', params }).then((txhash) => {
-      toast.loading('Processing send to fund...');
-
-      checkTransactionConfirm(txhash).then((result) => {
-        if (result) {
-          toast.dismiss();
-          const handleRequestStatus = async () => {
-            const approveTokenStatus = await axios.get(TransactionResponse(txhash));
-            setIsOpenSendFund(false);
-            const provider = await new ethers.providers.Web3Provider(window.ethereum);
-            const contractMiddle = await new ethers.Contract(MIDDLE_CONTRACT_ADDRESS, MIDDLE_CONTRACT_ABI, provider);
-
-            const userBuyingMetadata = await contractMiddle.userBuyingMetadata(walletAddress);
-            const userBuyingMetadataTransfer = parseInt(userBuyingMetadata.toHexString(16), 16) / 10 ** 18;
-            dispatch(saveUserBuyingMetadata(userBuyingMetadataTransfer));
-
-            if (approveTokenStatus.data.result.isError === '0') {
-              setOpenModalSucceed(true);
-            } else {
-              toast.error('Send amount failed');
-            }
-          };
-          setTimeout(handleRequestStatus, 1000);
-        }
-      });
-    });
-  };
-  const checkTransactionConfirm = (txhash) => {
-    let checkTransactionLop = () => {
-      return window.ethereum
-        .request({
-          method: 'eth_getTransactionReceipt',
-          params: [txhash],
-        })
-        .then((r) => {
-          if (r !== null) return 'comfirmned';
-          else return checkTransactionLop();
-        });
-    };
-    return checkTransactionLop();
-  };
-
   const handleAuto = () => {
     navigate('/copy-trading');
   };
+
+  const handleManual = () => {
+    navigate('/setting/trading');
+  }
 
   return (
     <div className={cx('containerfluid-copy-overview')}>
@@ -104,7 +48,7 @@ const CopyOverview = () => {
             <li>Deposit to get started</li>
           </ul>
 
-          <Button className={cx('btn-start')} onClick={() => setIsOpenSendFund(true)} linearGradientPrimary>
+          <Button className={cx('btn-start')} onClick={handleManual} linearGradientPrimary>
             Start
           </Button>
         </div>
@@ -120,54 +64,6 @@ const CopyOverview = () => {
             Start
           </Button>
         </div>
-        <Modal isOpen={isOpenSendFund} onRequestClose={onRequestClose}>
-          <div className={cx('content')}>
-            <div className={cx('title')}>Amount</div>
-            <h4 className={cx('sub-title')}>Send to fund</h4>
-            <p className={cx('desc')}>
-              <FontAwesomeIcon icon={faCircleExclamation} />
-              <span> Amount you want send to fund for trading</span>
-            </p>
-            <div>
-              <InputNumber
-                defaultValue={0}
-                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                onChange={onChange}
-                className={cx('input-amount')}
-              />
-            </div>
-            <div className={cx('actions')}>
-              <Button
-                primary
-                small
-                onClick={() => {
-                  handleSendAmount();
-                  setIsOpenSendFund(false);
-                }}
-              >
-                OK
-              </Button>
-              <Button outlineBrow small onClick={() => setIsOpenSendFund(false)}>
-                Cancel
-              </Button>
-            </div>
-          </div>
-        </Modal>
-
-        {openModalSucceed && (
-          <ModalNotify
-            typeSuccess={true}
-            icon={<FontAwesomeIcon icon={faCheck} />}
-            isOpen={openModalSucceed}
-            title={'Send successfully '}
-            description="Redirect to trading"
-            onRequestClose={() => {
-              setOpenModalSucceed(false);
-              navigate('/setting/trading');
-            }}
-          />
-        )}
       </div>
     </div>
   );

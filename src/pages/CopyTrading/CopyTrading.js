@@ -3,12 +3,12 @@ import styles from './CopyTrading.module.scss';
 import classNames from 'classnames/bind';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import Image from '~/components/Image/Image';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import CopyTradingListShark from './containers/CopyTradingListShark/CopyTradingListShark';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { sharkFollowedSelector } from '~/modules/SharkFollowed/selector';
 import { fetchSharkFollowed } from '~/modules/SharkFollowed/sharkFollowedSlice';
 import { userIsPremiumSelector } from '~/modules/user/auth/selectors';
@@ -17,6 +17,7 @@ const cx = classNames.bind(styles);
 
 const CopyTrading = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const sharkFolloweds = useSelector(sharkFollowedSelector);
     const ethAddress = localStorage.getItem('eth_address');
@@ -28,12 +29,10 @@ const CopyTrading = () => {
 
     const userIsPremium = useSelector(userIsPremiumSelector);
 
-    const navigate = useNavigate();
+    const handleCheckList = () => {
+        navigate('/list-shark-trading')
+    }
 
-    // const searchTextShark = useRef();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
     return (
         <div className={cx('container-fluid')}>
             <div className={cx('bg-copy')}>
@@ -66,18 +65,7 @@ const CopyTrading = () => {
                         <h3>Copy-Trading</h3>
                         <h6>#Start growing your assets on autopilot</h6>
                     </div>
-                    <form onSubmit={handleSubmit}>
-                        <div className={cx('container__search')}>
-                            <input
-                                // ref={searchTextShark}
-                                placeholder="Search by ID shark"
-                                spellCheck="false"
-                            // value={searchText}
-                            // onChange={(e) => setSearchText(e.target.value)}
-                            />
-                            <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('search--icon')} />
-                        </div>
-                    </form>
+                    <Button primary onClick={handleCheckList}>List auto trade</Button>
                 </div>
                 <table>
                     <thead>

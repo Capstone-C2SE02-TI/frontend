@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import classNames from 'classnames/bind';
 import styles from './ListTradingSharkAdd.module.scss';
@@ -14,6 +14,8 @@ const ListTradingSharkAdd = () => {
   const socket = io('http://localhost:4001/');
 
   const [pairAutoList, setPairAutoList] = useState([]);
+  const [isDisplay, setIsDisplay] = useState(false);
+  const [dataTxHash, setDataTxHash] = useState([])
 
   const walletAddress = useSelector(getAddressMetaMask);
   const userAddress = localStorage.getItem("eth_address");
@@ -27,7 +29,7 @@ const ListTradingSharkAdd = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userAddress: walletAddress,
+          userAddress: userAddress,
         }),
       });
 
@@ -45,33 +47,41 @@ const ListTradingSharkAdd = () => {
 
   const handleDelete = async (data) => {
     // setAddress(dataSharkFollowed.walletAddress)
-    console.log('data',data);
+    console.log('data', data);
     try {
-        const response = await fetch(`http://localhost:4000/trading/delete-trade`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(
-                {
-                    "fromToken": data.fromToken,
-                    "toToken": data.toToken,
-                    "sharkAddress": data.sharkAddress,
-                    "userAddress": userAddress,
-                    "ethAmount": data.ethAmount,
-                },
-            )
-        });
-        const result = await response.json();
-        console.log("result",result);
-        toast.dismiss();
-        if (result.message == "success") {
-            navigate('/list-shark-trading')
-        }
+      const response = await fetch(`http://localhost:4000/trading/delete-trade`, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          {
+            "fromToken": data.fromToken,
+            "toToken": data.toToken,
+            "sharkAddress": data.sharkAddress,
+            "userAddress": userAddress,
+            "ethAmount": data.ethAmount,
+          },
+        )
+      });
+      const result = await response.json();
+      console.log("result", result);
+      toast.dismiss();
+      if (result.message === "success") {
+        navigate('/list-shark-trading')
+      }
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
-}
+  }
+
+  const handleDisplay = () => {
+    if (isDisplay === true) {
+      setIsDisplay(false)
+    } else {
+      setIsDisplay(true)
+    }
+  }
 
   return (
     <div className={cx('ListTradingSharkAdd')}>
@@ -91,37 +101,40 @@ const ListTradingSharkAdd = () => {
         <tbody>
           {pairAutoList.map((data) => {
             return (
-              <tr className={cx('ListTradingSharkAdd-tr')}>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <p className={cx('ListTradingSharkAdd-p')}>{data.sharkId}</p>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.sharkAddress}</span>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.fromSymbol + "/" + data.toSymbol}</span>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.txhash.length}</span>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.ethAmount + " "}BNB</span>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <span className={cx('ListTradingSharkAdd-span')}>{data.status ? "Success": "Fail"}</span>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <Button success className={cx('btn-detail--auto')}>
-                    Detail
-                  </Button>
-                </td>
-                <td className={cx('ListTradingSharkAdd-td')}>
-                  <Button error className={cx('btn-delete--auto')} onClick={() => handleDelete(data)}>
-                    Delete
-                  </Button>
-                </td>
-              </tr>
+              <Fragment>
+                <tr className={cx('ListTradingSharkAdd-tr')}>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <p className={cx('ListTradingSharkAdd-p')}>Shark #{data.sharkId}</p>
+                    <span className={cx('ListTradingSharkAdd-span')}>{data.sharkAddress}</span>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <span className={cx('ListTradingSharkAdd-span')}>{data.fromSymbol}\{data.toSymbol} </span>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <span className={cx('ListTradingSharkAdd-span')}>{data.txhash.length}</span>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <span className={cx('ListTradingSharkAdd-span')}>{data.ethAmount + " "}BNB</span>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <span className={cx('ListTradingSharkAdd-span')}>{data.status ? "Success" : "Fail"}</span>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <Button success className={cx('btn-detail--auto')} onClick={handleDisplay}>
+                      Detail
+                    </Button>
+                  </td>
+                  <td className={cx('ListTradingSharkAdd-td')}>
+                    <Button error className={cx('btn-delete--auto')} onClick={() => handleDelete(data)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              </Fragment>
             );
           })}
         </tbody>
+
       </table>
     </div>
   );

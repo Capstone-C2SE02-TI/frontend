@@ -64,11 +64,11 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                     {
                         "fromToken": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
                         "toToken": valuetoken.address,
-                        "toSymbol": valuetoken.symbol,
+                        "toSymbol": valuetoken.symbol.label.slice(5),
                         "fromSymbol": "WBNB",
                         "sharkAddress": dataSharkFollowed.walletAddress,
                         "userAddress": userAddress,
-                        "ethAmount": amoutData
+                        "ethAmount": amoutData,
                     },
                 )
             });
@@ -78,15 +78,9 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                 toast.success('Add successfully');
                 navigate('/list-shark-trading')
             }
-            console.log("result", result)
-            // if (result.input) {
-            //     setInputData(result.input);
-            // } else {
-            //     toast.warning(result.message);
-            // }
+
         } catch (err) {
-            // toast.error(err)
-            console.log(err);
+            toast.error(err)
         }
     }
 
@@ -99,7 +93,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                     precision: 3,
                     decimalSeparator: ',',
                 })}
-            </td> 
+            </td>
             {
                 dataSharkFollowed.percent24h.toFixed(3) > 0 ?
                     <td className={cx("increase")}>{dataSharkFollowed.percent24h.toFixed(3) + '%' || '0%'}</td> :
