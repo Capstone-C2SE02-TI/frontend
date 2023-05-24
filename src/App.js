@@ -29,7 +29,6 @@ import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import ChartRenderer from './pages/ChartRenderer/ChartRenderer';
 import { io } from 'socket.io-client';  
 import { useEffect } from 'react';
 import { convertUnixTime } from './helpers';
