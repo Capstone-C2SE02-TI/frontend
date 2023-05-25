@@ -1,9 +1,9 @@
 import Tippy from '@tippyjs/react';
 
 function Support() {
-    
 
-const defaultProps = {
+
+  const defaultProps = {
     animateFill: false,
     animation: 'scale',
     interactive: true,
@@ -11,43 +11,43 @@ const defaultProps = {
     theme: 'tomato',
     // trigger: 'click',
     content: 'this is popover content',
-};
+  };
 
 
-    return (
-        <div className={('container')}>
-            <div className={('loader')}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-    );
+  return (
+    <div className={('container')}>
+      <div className={('loader')}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  );
 }
 
 export default Support;
