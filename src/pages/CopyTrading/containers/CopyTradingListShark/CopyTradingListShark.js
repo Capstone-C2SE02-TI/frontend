@@ -46,8 +46,6 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
         setIsOpenModalAuto(false);
     };
 
-    // console.log(dataSharkFollowed.walletAddress)
-
     const onChange = (value) => {
         setAmountData(value);
     };
@@ -83,7 +81,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
             toast.error(err)
         }
     }
-
+    console.log(Object.values(valuetoken).length);
     return (
         <tr className={cx('copy-trading--line')}>
             <td>Shark #{dataSharkFollowed.sharkId}</td>
@@ -129,7 +127,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
                 </div>
             </td>
             <td className={cx('copy-trading--add')}>
-                <button onClick={() => setIsOpenModalAuto(true)} >Add to trade</button>
+                <button disabled={Object.values(valuetoken).length === 0} onClick={() => setIsOpenModalAuto(true)} >Add to trade</button>
             </td>
             <Modal isOpen={isOpenModalAuto} onRequestClose={onRequestClose}>
                 <div className={cx('content')}>

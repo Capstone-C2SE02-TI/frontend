@@ -45,7 +45,7 @@ function TokenDetailEachCoin({ data, community }) {
             </div>
             <div className={cx('token-price')}>
                 <h3>Price: </h3>
-                <h2 style={{ color: '#7665d8' }}> {String(data.usd.price)} $</h2>
+                <h2 style={{ color: '#7665d8' }}> {numberWithCommas(Number(data.usd.price).toFixed(2))} $</h2>
                 <span className={cx(classNamesStatusCoin7d)}>{Math.round(data.usd.percentChange7d * 100) / 100}%</span>
             </div>
             <div className={cx('token-content__inf')}>

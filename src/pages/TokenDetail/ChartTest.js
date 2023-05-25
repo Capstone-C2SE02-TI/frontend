@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import images from '~/assets/images';
 
-export const ChartComponent = ({ canvasRef, prediction, filter }) => {
+export const ChartComponent = ({ canvasRef, prediction, filter, symbol }) => {
     const [dataZoom, setDataZoom] = useState([])
 
 
@@ -50,7 +50,7 @@ export const ChartComponent = ({ canvasRef, prediction, filter }) => {
             }
             const time = arr[2] + "-" + arr[0] + "-" + arr[1];
             if (time <= endTime && time >= startTime && index !== 3463) {
-                chartData.push({ y: Object.values(prediction)[0].price, x: time, signal: Object.values(prediction)[0].signal })
+                chartData.push({ y: Object.values(prediction)[0].price, x: time, signal: Object.values(prediction)[0]?.signal })
                 setDataZoom(prev => [...prev, Object.values(prediction)[0].price])
             }
         })
@@ -111,17 +111,17 @@ export const ChartComponent = ({ canvasRef, prediction, filter }) => {
                         borderDash: [],
                         pointBorderColor: 'rgb(56, 97, 251)',
                         pointBackgroundColor: 'rgba(255, 255, 255)',
-
+                        label: `${symbol.toUpperCase()} Market Overview`,
                         pointRadius: 1,
                         // pointHitRadius: 0,
                         // pointBorderWidth: 0,
 
                         pointStyle: function (context) {
 
-                            if (context.raw.signal === 1) {
+                            if (context.raw?.signal === 1) {
                                 return decrease
                             }
-                            else if (context.raw.signal === 0) {
+                            else if (context.raw?.signal === 0) {
                                 return increase
                             }
                             return ''

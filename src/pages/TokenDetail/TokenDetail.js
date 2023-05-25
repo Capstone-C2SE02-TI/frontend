@@ -194,8 +194,9 @@ function TokenDetail() {
                       canvasRef={canvasRef}
                       prediction={prediction}
                       filter={predictionFilter}
+                      symbol={symbol}
                     ></ChartComponent>
-
+                    // <span>ádasd</span>
 
                   ) : (
                     <h2>Chart</h2>

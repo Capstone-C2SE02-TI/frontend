@@ -7,6 +7,10 @@ import Button from '~/components/Button/Button';
 import { useSelector } from 'react-redux';
 import { getAddressMetaMask } from '~/modules/MetaMask/selector';
 import { toast } from 'react-toastify';
+import ModalConfirm from '~/layouts/LayoutDefault/components/ModalConfirm/ModalConfirm';
+import Tippy from '@tippyjs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +20,9 @@ const ListTradingSharkAdd = () => {
   const [pairAutoList, setPairAutoList] = useState([]);
   const [isDisplay, setIsDisplay] = useState(false);
   const [dataTxHash, setDataTxHash] = useState([])
+  const [openModalDelete, setOpenModalDelete] = useState(false)
+  const [dataSelected, setDataSelected] = useState()
+  const [dataHover, setDataHover] = useState([])
 
   const walletAddress = useSelector(getAddressMetaMask);
   const userAddress = localStorage.getItem("eth_address");
@@ -83,6 +90,8 @@ const ListTradingSharkAdd = () => {
     }
   }
 
+  console.log({ dataHover });
+
   return (
     <div className={cx('ListTradingSharkAdd')}>
       <h1>List shark auto trading</h1>
@@ -94,18 +103,29 @@ const ListTradingSharkAdd = () => {
             <th className={cx('ListTradingSharkAdd-th')}>TRANSACTION QUANTITY</th>
             <th className={cx('ListTradingSharkAdd-th')}>BNB SENDED</th>
             <th className={cx('ListTradingSharkAdd-th')}>STATUS</th>
-            <th className={cx('ListTradingSharkAdd-th')}>DETAIL</th>
             <th className={cx('ListTradingSharkAdd-th')}>ACTION</th>
           </tr>
         </thead>
         <tbody>
-          {pairAutoList.map((data) => {
+          {pairAutoList.map((data, index) => {
             return (
               <Fragment>
-                <tr className={cx('ListTradingSharkAdd-tr')}>
+                <tr className={cx('ListTradingSharkAdd-tr')} key={index} onMouseEnter={() => setDataHover(data)}>
                   <td className={cx('ListTradingSharkAdd-td')}>
-                    <p className={cx('ListTradingSharkAdd-p')}>Shark #{data.sharkId}</p>
-                    <span className={cx('ListTradingSharkAdd-span')}>{data.sharkAddress}</span>
+                    <div className={cx('tooltip')}>
+                      {/* <Button success onClick={handleDisplay}>
+                        Detail
+                      </Button> */}
+                      <FontAwesomeIcon icon={faCircleInfo} />
+                      <span className={cx('tooltip-text')}>
+                        {dataHover.txhash?.map((tx, i) => <a href={`https://testnet.bscscan.com/tx/${tx}`} rel="noopener noreferrer" target="_blank">
+                          <p className={cx('tx-title')} key={i}>{tx}</p>
+                        </a>)}
+
+                      </span>
+                    </div>
+                    <span className={cx('ListTradingSharkAdd-p')}>Shark #{data.sharkId}</span>
+                    <p className={cx('ListTradingSharkAdd-span')}>{data.sharkAddress}</p>
                   </td>
                   <td className={cx('ListTradingSharkAdd-td')}>
                     <span className={cx('ListTradingSharkAdd-span')}>{data.fromSymbol}\{data.toSymbol} </span>
@@ -119,13 +139,12 @@ const ListTradingSharkAdd = () => {
                   <td className={cx('ListTradingSharkAdd-td')}>
                     <span className={cx('ListTradingSharkAdd-span')}>{data.status ? "Success" : "Fail"}</span>
                   </td>
+
                   <td className={cx('ListTradingSharkAdd-td')}>
-                    <Button success className={cx('btn-detail--auto')} onClick={handleDisplay}>
-                      Detail
-                    </Button>
-                  </td>
-                  <td className={cx('ListTradingSharkAdd-td')}>
-                    <Button error className={cx('btn-delete--auto')} onClick={() => handleDelete(data)}>
+                    <Button error className={cx('btn-delete--auto')} onClick={() => {
+                      setOpenModalDelete(true)
+                      setDataSelected(data)
+                    }}>
                       Delete
                     </Button>
                   </td>
@@ -136,6 +155,16 @@ const ListTradingSharkAdd = () => {
         </tbody>
 
       </table>
+
+      <ModalConfirm
+        typeSuccess={true}
+        title="Delete Transaction"
+        description="Are you sure delete this transaction ?"
+        modalIsOpen={openModalDelete}
+        closeModal={() => setOpenModalDelete(false)}
+        onHandleAction={() => handleDelete(dataSelected)}
+      />
+
     </div>
   );
 };

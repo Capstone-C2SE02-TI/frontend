@@ -58,3 +58,47 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    padding-right: 10px;
+        svg {
+            color: #ccc6c6;
+        }
+  }
+  
+  .tooltip .tooltip-text {
+    min-width:  450px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: -99px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: rgba(128, 138, 157, 0.12) 0px 1px 2px, rgba(128, 138, 157, 0.24) 0px 8px 32px;;
+  }
+  
+  .tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .tx-title {
+    color: #000;
+    font-size: 14px;
+    width: 450px;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    padding: 4px;
+  }
