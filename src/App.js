@@ -29,7 +29,7 @@ import configs from './configs';
 import LayoutDefault from './layouts/LayoutDefault';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import { io } from 'socket.io-client';  
+import { io } from 'socket.io-client';
 import { useEffect } from 'react';
 import { convertUnixTime } from './helpers';
 import { getAddressMetaMask } from './modules/MetaMask/selector';
@@ -48,7 +48,7 @@ function App() {
 
   }, [walletAddress]);
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.on('new-transactions', (data) => {
       Notification.requestPermission().then((perm) => {
         if (perm === 'granted') {
@@ -58,13 +58,13 @@ function App() {
               data: { timestamp: Date.now(), data: 'hi' },
             });
             notification.addEventListener('click', (ev) => {
-              window.open('http://localhost:3000/discover');
+              window.open('https://testnet.bscscan.com/tx/0x17284f22328d96e504968bde5bae045533f7084e5eb10d8127eec5806508171f');
             });
           }
         }
       });
     });
-  },[])
+  }, [])
 
   return (
     <div className="app">

@@ -25,9 +25,11 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
     const userAddress = localStorage.getItem("eth_address");
     const navigate = useNavigate();
 
+    console.log(dataSharkFollowed)
+
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`/shark/token_trading?address=0x72598E10eF4c7C0E651f1eA3CEEe74FCf0A76CF2`);
+            const response = await fetch(`/shark/token_trading?address=${dataSharkFollowed.walletAddress}`);
             const result = await response.json();
             setContractAdd(result)
             Object.keys(result).forEach(function (token) {
@@ -40,7 +42,7 @@ const CopyTradingListShark = ({ key, dataSharkFollowed }) => {
             });
         }
         fetchData()
-    }, []);
+    }, [dataSharkFollowed.walletAddress]);
 
     const onRequestClose = () => {
         setIsOpenModalAuto(false);

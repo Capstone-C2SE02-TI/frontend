@@ -40,7 +40,7 @@ function TokenDetail() {
   const [candlestick, setCandlestick] = useState([]);
   const [candlestickLastUpdate, setCandlestickLastUpdate] = useState([]);
   const [prediction, setPrediction] = useState([])
-  const [predictionFilter, setPredictionFilter] = useState('2014')
+  const [predictionFilter, setPredictionFilter] = useState('2023')
   const { symbol } = useParams();
 
   const statusFetchCoinDetail = useSelector(statusCoinDetailSelector);
@@ -78,7 +78,7 @@ function TokenDetail() {
           setCandlestickLastUpdate(data.data);
         });
     }
-  }, [filterIndicatorData.time, filterIndicatorData.period]);
+  }, [filterIndicatorData.time, filterIndicatorData.period, symbol]);
   const handleFilterChart = (time) => {
     setFilterChartByTime(time);
   };
@@ -164,12 +164,8 @@ function TokenDetail() {
               )}
               <div className={cx('wallet-chart')}>
                 <div className="d-flex justify-content-between" style={{ textAlign: 'right', padding: '16px' }}>
-                  <Select defaultValue={FILTERS_CHART_DATA[0]} style={{ width: 120 }} onChange={handleFilterChart}>
-                    {FILTERS_CHART_DATA.map((time) => (
-                      <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
-                    ))}
-                  </Select>
-                  <Select defaultValue={FILTERS_CHART_DATA_CHART[0]} style={{ width: 120 }} onChange={handleFilterChartPre}>
+
+                  <Select defaultValue={FILTERS_CHART_DATA_CHART[FILTERS_CHART_DATA_CHART.length - 1]} style={{ width: 120 }} onChange={handleFilterChartPre}>
                     {FILTERS_CHART_DATA_CHART.map((time) => (
                       <Select.Option key={time.toLowerCase()}>{time}</Select.Option>
                     ))}

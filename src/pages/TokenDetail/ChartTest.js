@@ -57,7 +57,51 @@ export const ChartComponent = ({ canvasRef, prediction, filter, symbol }) => {
 
         return chartData;
     }, [prediction, filter])
+    const getDataHiStorySorted = useMemo(() => {
+        console.log({ filter });
+        const startTime = `${filter}-01-01`;
+        const endTime = `${Number(filter) + 1}-01-01`;
+        const chartData = [];
+        prediction.forEach((prediction, index) => {
+            const date = new Date(Number(Object.keys(prediction)[0]) * 1000)
+            let arr = date.toLocaleDateString().replace(/\//g, "-").split("-");
+            if (arr[1].length === 1) {
+                arr[1] = '0' + arr[1];
+            }
+            if (arr[0].length === 1) {
+                arr[0] = '0' + arr[0];
+            }
+            const time = arr[2] + "-" + arr[0] + "-" + arr[1];
+            if (time <= endTime && time >= startTime && index !== 3463) {
+                chartData.push( Object.values(prediction)[0].history )
+            }
+        })
 
+        return chartData;
+    }, [prediction, filter])
+
+    const getDataRawMoneySorted = useMemo(() => {
+        console.log({ filter });
+        const startTime = `${filter}-01-01`;
+        const endTime = `${Number(filter) + 1}-01-01`;
+        const chartData = [];
+        prediction.forEach((prediction, index) => {
+            const date = new Date(Number(Object.keys(prediction)[0]) * 1000)
+            let arr = date.toLocaleDateString().replace(/\//g, "-").split("-");
+            if (arr[1].length === 1) {
+                arr[1] = '0' + arr[1];
+            }
+            if (arr[0].length === 1) {
+                arr[0] = '0' + arr[0];
+            }
+            const time = arr[2] + "-" + arr[0] + "-" + arr[1];
+            if (time <= endTime && time >= startTime && index !== 3463) {
+                chartData.push( Object.values(prediction)[0].rawMoney )
+            }
+        })
+
+        return chartData;
+    }, [prediction, filter])
     var increase = new Image(20, 20)
     var decrease = new Image(20, 20)
     increase.src = 'https://cdn-icons-png.flaticon.com/128/7327/7327422.png'
@@ -127,6 +171,40 @@ export const ChartComponent = ({ canvasRef, prediction, filter, symbol }) => {
                             return ''
                         },
                     },
+                    {
+                        data: getDataHiStorySorted,
+                        lineTension: 0,
+                        fill: false,
+                        borderColor: 'red',
+                        backgroundColor: 'pink',
+                        borderDash: [],
+                        pointBorderColor: 'red',
+                        pointBackgroundColor: 'pink',
+                        label: `History: ${symbol.toUpperCase()}`,
+                        borderWidth: 0.5,
+        
+                        pointRadius: 1,
+                      
+
+                       
+                    },
+                    {
+                        data: getDataRawMoneySorted,
+                        lineTension: 0,
+                        fill: false,
+                        borderColor: 'black',
+                        backgroundColor: 'pink',
+                        borderDash: [],
+                        pointBorderColor: 'black',
+                        pointBackgroundColor: 'pink',
+                        label: `Raw money: ${symbol.toUpperCase()}`,
+                        borderWidth: 0.5,
+        
+                        pointRadius: 1,
+                      
+
+                       
+                    }
                 ],
 
             }}

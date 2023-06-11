@@ -128,8 +128,8 @@ function SwapToken() {
                         <div className={cx('swap-body__input')}>
                             <div>
                                 <div className={cx('swap-body__logo')}>
-                                    <Image width="30" height="30" src={images.etherium} alt="logo" />
-                                    <p>ETH</p>
+                                    <Image width="30" height="30" src={"https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png"} />
+                                    <p>BNB</p>
                                     <FontAwesomeIcon icon={faCaretDown} />
                                 </div>
                                 <input

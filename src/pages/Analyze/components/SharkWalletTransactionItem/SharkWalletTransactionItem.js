@@ -22,7 +22,7 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
             return false;
         }
     }
-
+console.log(Number(data.numberOfTokens),Number(data.tokenDecimal));
     return (
         <tr className={cx('tr-crypto__item')}>
             <td>
@@ -34,7 +34,7 @@ function SharkWalletTransactionItem({ data, sharkAddress }) {
                     {handleTransactionTo()}
                 </a>
             </td>
-            <td>{handleTransferTransaction() === true ? <p style={{ color: '#34CF82 ' }}>{"+" + numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}</p> : <p style={{ color: 'red ' }}>{"-" + numberWithCommas(data.numberOfTokens) + ' ' + data.tokenSymbol}</p>}
+            <td>{handleTransferTransaction() === true ? <p style={{ color: '#34CF82 ' }}>{"+" + numberWithCommas((Number(data.numberOfTokens)).toFixed(3)) + ' ' + data.tokenSymbol}</p> : <p style={{ color: 'red ' }}>{"-" + numberWithCommas(data.numberOfTokens.toFixed(3)) + ' ' + data.tokenSymbol}</p>}
 
                 <p>@{data.pastPrice ? data.pastPrice.toFixed(3) : 0}</p>
             </td>

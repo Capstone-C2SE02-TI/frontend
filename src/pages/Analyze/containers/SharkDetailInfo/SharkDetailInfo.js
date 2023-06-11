@@ -77,13 +77,13 @@ function SharkDetailInfo({ currentTabSharkWallet }) {
                             <td className={cx('detail-info__td')}>{numberWithCommas(sharkInfoCurrent.totalAssets)} $</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Total value in ($)</td>
-                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueIn)} $</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(Number(totalValueIn).toFixed(3))} $</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Total value out ($)</td>
-                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueOut)} $</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueOut.toFixed(3))} $</td>
                         </tr><tr className={cx('detail-info__tr')}>
                             <td className={cx('detail-info__td')}>Actual growth ($)</td>
-                            <td className={cx('detail-info__td')}>{numberWithCommas(totalValueIn - totalValueOut)} $</td>
+                            <td className={cx('detail-info__td')}>{numberWithCommas((totalValueIn - totalValueOut).toFixed(3))} $</td>
                         </tr>
                     </tbody>
                 </table>
